@@ -306,7 +306,7 @@ namespace SephiriaMod
         /// Item_WoundWeapon_Effect
         /// <tag=BasicAttackDamage>を0%にする
         /// </summary>
-        public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("WoundWeapon", 6, CreateStatusGroup("ATTACK_SPEED", 4, 8, 12, 16, 20, 25, 30))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
+        public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("WoundWeapon", 5, CreateStatusGroup("DEBUFF_DAMAGE", 3, 6, 9, 12, 16, 20))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
             .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(4).SetRarity(EItemRarity.Legend);
         /// <summary>
         /// Item_MaxMPPower_Name
@@ -318,7 +318,7 @@ namespace SephiriaMod
         /// Item_MaxMPPower_Effect2
         /// <tag=WeaponAction_SpecialAttack>でダメージを与える時、最大<tag=MP>の{PERCENT}を消費して、空の<tag=MP>数値の{DAMAGE}のダメージを追加する。\n[次の追加ダメージ：およそ{MP}(空の<tag=MP>数値{DAMAGE})]
         /// </summary>
-        public static ModCharm MaxMPPower { get; } = ModCharmStatus.Create<Charm_MaxMPPower>("MaxMPPower", 4, CreateStatusGroup("MP_REGEN", 5, 10, 20, 20), CreateStatusGroup("MAX_MP", 5, 10, 20, 20))
+        public static ModCharm MaxMPPower { get; } = ModCharmStatus.Create<Charm_MaxMPPower>("MaxMPPower", 3, CreateStatusGroup("MP_REGEN", 5, 10, 20, 20), CreateStatusGroup("MAX_MP", 5, 10, 20, 20))
             .SetCategory(ItemCategories.Lake).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
         /// <summary>
         /// Item_FollowerDiedHeal_Name
@@ -475,7 +475,7 @@ namespace SephiriaMod
         /// Item_SeparateDirectAttack_Effect
         /// 元のダメージが{DAMAGE}以上の<tag=WeaponAction_DirectAttack>を2回に分割する
         /// </summary>
-        public static ModCharm SeparateDirectAttack { get; } = ModCharmStatus.Create<Charm_SeparateDirectAttack>("SeparateDirectAttack", 4, CreateStatusGroup("FINAL_WEAPONDAMAGE", 5, 8, 12, 17, 25), CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12))
+        public static ModCharm SeparateDirectAttack { get; } = ModCharmStatus.Create<Charm_SeparateDirectAttack>("SeparateDirectAttack", 4, CreateStatusGroup("FINAL_WEAPONDAMAGE", 2, 4, 6, 9, 12), CreateStatusGroup("ATTACK_SPEED", 2, 3, 4, 6, 8))
             .SetCategory(ItemCategories.Sturdy, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
         /// Item_EvasionFrost_Name
@@ -514,7 +514,7 @@ namespace SephiriaMod
         /// <tag=Magic>ダメージに空の<tag=HP>数値の{PERCENT}のダメージを追加する
         /// 戦闘中、<tag=MPRegen>を<tag=HPRegen>に変換する
         /// </summary>
-        public static ModCharm BloodMp { get; } = ModCharmStatus.Create<Charm_BloodMP>("BloodMp", 3, CreateStatusGroup("MAGIC_DAMAGE_BONUS", 8, 16, 25, 50), CreateStatusGroup("MAX_HP", 5, 10, 20, 40))
+        public static ModCharm BloodMp { get; } = ModCharmStatus.Create<Charm_BloodMP>("BloodMp", 3, CreateStatusGroup("MAGIC_DAMAGE_BONUS", 8, 12, 18, 24), CreateStatusGroup("MAX_HP", 10, 15, 20, 25))
             .SetCategory(ItemCategories.Academy, ItemCategories.Vitality).SetIsUniqueEffect().SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare);
         /// <summary>
         /// Item_InventoryPower_Name
@@ -708,7 +708,7 @@ namespace SephiriaMod
         /// Item_RandomDebuff_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率でランダムなデバフを付与する。（<tag=Luck>で確率が増加）
         /// </summary>
-        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 10, 20, 30, 45, 70, 100, 150))
+        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 5, 8, 12, 16, 20, 25, 32))
             .SetCategory(ItemCategories.Curse, ItemCategories.Fortune).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
         /// Item_DashFlameSword_Name
@@ -938,7 +938,7 @@ namespace SephiriaMod
         /// Item_SavvyCurse_Effect5
         /// <tag=Crime>を犯すたび、追加で{LEAF}<tag=Leaf>を生成し、<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("SavvyCurse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 1, 2, 2))
+        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("SavvyCurse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 2, 2, 3))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Curse).SetSimpleEffects(5).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
         /// <summary>
         /// Item_SavvyShadow_Name
@@ -1145,7 +1145,7 @@ namespace SephiriaMod
             }
             else
             {
-                Debug.Log("[AddRandomJewelry] LevelController not found");
+                Debug.Log("[MiraItemMod][AddRandomJewelry] LevelController not found");
             }
 
             var random = charm.NetworkAvatar.GetRandomJewelry();
@@ -2183,14 +2183,14 @@ namespace SephiriaMod
 
         public static void GenerateItem(this LevelController level, ModSephirite sephirite, int seed)
         {
-            Debug.Log("[LevelController] GenerateItem: " + sephirite.Name);
+            Debug.Log("[MiraItemMod][LevelController] GenerateItem: " + sephirite.Name);
             GameObject gameObject = UnityEngine.Object.Instantiate(sephirite.Prefab, new Vector3(-1000f, -1000f), Quaternion.identity);
             var identity = gameObject.AddComponent<NetworkIdentity>();
             identity.SetAssetId(sephirite.AssetId);
             Sephirite component = gameObject.GetComponent<Sephirite>();
             component.Initialize(seed);
             NetworkServer.Spawn(gameObject, level.gameObject);
-            Debug.Log("[LevelController] Spawn ModSephirite: " + gameObject.name);
+            Debug.Log("[MiraItemMod][LevelController] Spawn ModSephirite: " + gameObject.name);
             level.levelUpQueue.Add(component);
         }
 
