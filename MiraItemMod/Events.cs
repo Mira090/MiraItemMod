@@ -28,8 +28,6 @@ namespace SephiriaMod
         public static event Action<Charm_PallasCard, int> OnPallasSpawnChance;
         public static event Action<Charm_PallasAce, int> OnAceSpawnChance;
         public static event Action<string, uint, int> OnValueRecieved;
-        public static Dictionary<string, string> CustomBulletDestroyModuleName = new Dictionary<string, string>();
-        public static Dictionary<string, Action<BulletDestroyModule, uint, bool, Vector3, float, float>> CustomBulletDestroyModule = new Dictionary<string, Action<BulletDestroyModule, uint, bool, Vector3, float, float>>();
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreBasicAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
@@ -387,28 +385,7 @@ namespace SephiriaMod
         }
         #endregion
 
-        #region 音叉MKII
-        [HarmonyPatch(typeof(DungeonManager), "UserCode_RpcBulletDestroyed__UInt32__Boolean__String__Vector3__Single__Single", new Type[] { typeof(uint), typeof(bool), typeof(string), typeof(Vector3), typeof(float), typeof(float) })]
-        public static class DungeonManagerBulletDestroyPatch
-        {
-            static bool Prefix(uint ownerNetId, bool canBeTransparentOnMultiplayer, string bulletName, Vector3 position, float height, float angle, DungeonManager __instance)
-            {
-                if(CustomBulletDestroyModule.ContainsKey(bulletName))
-                {
-                    var name = CustomBulletDestroyModuleName[bulletName];
-                    Bullet prefab = Bullet.Pool.GetPrefab(name);
-                    if ((bool)prefab && (bool)prefab.DestroyModule)
-                    {
-                        CustomBulletDestroyModule[bulletName]?.Invoke(prefab.DestroyModule, ownerNetId, canBeTransparentOnMultiplayer, position, height, angle);
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        #endregion
-
-        #region 天罰・暗閃
+        #region ダメージ表示
         [HarmonyPatch(typeof(UnitAvatar), "RpcShowDamageParticle", new Type[] { typeof(Vector2), typeof(string), typeof(Color), typeof(int), typeof(bool), typeof(UnitAvatar), typeof(UnitAvatar) })]
         [Obsolete]
         public static class UnitAvatarRpcShowDamageParticlePatch
