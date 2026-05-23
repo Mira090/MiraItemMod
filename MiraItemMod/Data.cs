@@ -2413,6 +2413,13 @@ namespace SephiriaMod
                 list.Add(moditem.ItemEntity);
             }
         }
+        public static void RegisterItems()
+        {
+            foreach(var moditem in All)
+            {
+                ItemDatabase.Register(moditem.ItemEntity);
+            }
+        }
         public static void RegisterDamageIds(List<UnityEngine.Object> list)
         {
             foreach (var moditem in All)
@@ -2493,11 +2500,32 @@ namespace SephiriaMod
                 list.Add(moditem.Prefab);
             }
         }
+        public static void RegisterMiracles()
+        {
+            foreach (var moditem in Miracles)
+            {
+                MiracleDatabase.Register(moditem.Prefab);
+            }
+        }
+        public static void LoadMiracleManuallyGivenItems()
+        {
+            foreach (var miracle in Data.Miracles)
+            {
+                miracle.LoadManuallyGivenItems();
+            }
+        }
         public static void RegisterStatuses(List<UnityEngine.Object> list)
         {
             foreach (var moditem in Statuses)
             {
                 list.Add(moditem.StatusEntity);
+            }
+        }
+        public static void RegisterStatuses()
+        {
+            foreach (var moditem in Statuses)
+            {
+                StatusDatabase.Register(moditem.StatusEntity);
             }
         }
         public static void RegisterWeapons(List<UnityEngine.Object> list)
@@ -2563,6 +2591,70 @@ namespace SephiriaMod
                     moditem.WeaponEntity.standardEnhancements = enhances.Select(x => new EnhancementMetadata() { enabled = true, enhanced = x }).ToList();
             }
         }
+        public static void RegisterWeapons()
+        {
+            var weapons = WeaponDatabase.GetAll();
+
+
+            foreach (var moditem in Weapons)
+            {
+                WeaponEntity copy = null;
+                foreach (var w in weapons)
+                {
+                    if (moditem.Copy == w.id)
+                    {
+                        copy = w;
+                    }
+                }
+                if (copy == null)
+                    continue;
+                if (moditem.WeaponEntity == null)
+                    moditem.Init(copy);
+                else if (moditem.MainWeaponPrefab == null)
+                {
+                    moditem.InitPrefab(copy);
+                    moditem.WeaponEntity.mainWeaponPrefab = moditem.MainWeaponPrefab;
+                }
+                WeaponDatabase.Register(moditem.WeaponEntity);
+                weapons.Add(moditem.WeaponEntity);
+            }
+
+
+            foreach (var w in weapons)
+            {
+                foreach (var moditem in Weapons)
+                {
+                    if (moditem.Dependency == -1)
+                        continue;
+                    if (w.id == moditem.Dependency && moditem.WeaponEntity != null && !w.standardEnhancements.Select(x => x.enhanced.id).Contains(moditem.Id))
+                    {
+                        w.standardEnhancements.Add(new EnhancementMetadata() { enabled = true, enhanced = moditem.WeaponEntity });
+                    }
+                }
+            }
+
+            var newweapons = weapons.ToList();
+            foreach (var moditem in Weapons)
+            {
+                var enhances = new List<WeaponEntity>();
+                foreach (var enhancement in moditem.StandardEnhancements)
+                {
+                    WeaponEntity copy = null;
+                    foreach (var w in newweapons)
+                    {
+                        if (enhancement == w.id)
+                        {
+                            copy = w;
+                        }
+                    }
+                    if (copy == null)
+                        continue;
+                    enhances.Add(copy);
+                }
+                if (moditem.WeaponEntity != null)
+                    moditem.WeaponEntity.standardEnhancements = enhances.Select(x => new EnhancementMetadata() { enabled = true, enhanced = x }).ToList();
+            }
+        }
         public static void RegisterCostume(List<UnityEngine.Object> list)
         {
             if (list[0] is CostumeEntity entity && entity.costumePrefab.TryGetComponent<PlayerAvatarCostume>(out var costume))
@@ -2608,6 +2700,7 @@ namespace SephiriaMod
                 }
             }
         }
+
         public static void RegisterPassives(List<UnityEngine.Object> list)
         {
             foreach (var moditem in Passives)
