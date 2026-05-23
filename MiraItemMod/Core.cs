@@ -441,55 +441,6 @@ namespace SephiriaMod
                 }
             }
         }
-        [HarmonyPatch(typeof(GridInventory), nameof(GridInventory.GetItemDropWeight), new Type[] { typeof(ItemEntity) })]
-        public static class GridInventoryGetItemDropWeightPatch
-        {
-            static void Postfix(ItemEntity entity, ref int __result, ref GridInventory __instance)
-            {
-                int bonus = 0;
-                if (__instance.itemDropBonusBySemantic.TryGetValue("DUAL", out bonus) && entity.isDual)
-                {
-                    //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
-                    __result += bonus;
-                }
-                if (__instance.itemDropBonusBySemantic.TryGetValue("TABLET", out bonus) && entity.type == EItemType.StoneTablet)
-                {
-                    //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
-                    __result += bonus;
-                }
-                if (__instance.itemDropBonusBySemantic.TryGetValue("DISCONNECT", out bonus) && entity.type == EItemType.StoneTablet)
-                {
-                    if(entity.id == 2049)//断絶
-                    {
-                        //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
-                        __result += bonus;
-                    }
-                }
-                if (__instance.itemDropBonusBySemantic.TryGetValue("NO_DISCONNECT", out bonus) && entity.type == EItemType.StoneTablet)
-                {
-                    if (entity.id != 2049)//断絶
-                    {
-                        //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
-                        __result += bonus;
-                    }
-                }
-                if(__instance.UnitAvatar.GetCustomStatUnsafe("AddGrimoire".ToUpperInvariant()) > 0)
-                {
-                    if (entity.resourcePrefab != null && entity.resourcePrefab.TryGetComponent<Charm_Magic>(out var magic))
-                    {
-                        var num = __result;
-                        var value = 0;
-                        if(__instance.itemDropBonusBySemantic.TryGetValue("GRIMOIRE", out value))
-                        {
-                            num -= value;
-                        }
-                        int currentCategoryItemDropWeight2 = __instance.GetCurrentCategoryItemDropWeight(ItemCategories.Grimoire, 0, bondBonus: false, allBondCategoryAcquired: false, addDefaultWeight: true);
-                        num = Mathf.Max(num, currentCategoryItemDropWeight2);
-                        __result = num + value;
-                    }
-                }
-            }
-        }
         /// <summary>
         /// アイテムのInstantiateパッチ
         /// </summary>

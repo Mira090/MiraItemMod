@@ -213,6 +213,7 @@ namespace SephiriaMod
         }
         #endregion
 
+        #region バフ付与イベント
         [HarmonyPatch(typeof(CharacterBuff), nameof(CharacterBuff.AddStack))]
         public static class CharacterBuffAddStackPatch
         {
@@ -229,7 +230,12 @@ namespace SephiriaMod
                 OnAppliedBuff?.Invoke(__instance);
             }
         }
+        #endregion
 
+        #region 追加ステータス表示
+        /// <summary>
+        /// ステータス表示
+        /// </summary>
         [HarmonyPatch(typeof(UI_StatsPanel), nameof(UI_StatsPanel.Connect))]
         public static class UIStatsPanelPatch
         {
@@ -281,6 +287,9 @@ namespace SephiriaMod
                 return manager;
             }
         }
+        /// <summary>
+        /// ステータス表示
+        /// </summary>
         [HarmonyPatch(typeof(AvatarStatsHooker), nameof(AvatarStatsHooker.HookStat))]
         public static class AvatarStatsHookerPatch
         {
@@ -319,6 +328,7 @@ namespace SephiriaMod
                 return EStatValueSign.Positive;
             }
         }
+        #endregion
 
         #region ModChat
         [HarmonyPatch(typeof(DungeonManager), "UserCode_RpcChat__PlayerAvatar__String__String", new Type[] { typeof(PlayerAvatar), typeof(string), typeof(string) })]
@@ -490,38 +500,38 @@ namespace SephiriaMod
         [HarmonyPatch]
         public class WeaponControllerSimplePatch
         {
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwing), new Type[] { typeof(int) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwing))]
             [HarmonyPrefix]
             public static void PrefixBasic(WeaponControllerSimple __instance)
             {
                 OnPreBasicAttack?.Invoke(__instance, __instance.unitAvatar);
             }
 
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwingFullyManual), new Type[] { typeof(NewWeaponFireData), typeof(int), typeof(Vector2), typeof(int) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwingFullyManual))]
             [HarmonyPrefix]
             public static void PrefixBasicFullyManual(WeaponControllerSimple __instance)
             {
                 OnPreBasicAttack?.Invoke(__instance, __instance.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwing_ManualDirection), new Type[] { typeof(int), typeof(Vector2), typeof(string) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateBasicAttackSwing_ManualDirection))]
             [HarmonyPrefix]
             public static void PrefixBasicManualDirection(WeaponControllerSimple __instance)
             {
                 OnPreBasicAttack?.Invoke(__instance, __instance.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateDashAttackSwing), new Type[] { typeof(int) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateDashAttackSwing))]
             [HarmonyPrefix]
             public static void PrefixDash(WeaponControllerSimple __instance)
             {
                 OnPreDashAttack?.Invoke(__instance, __instance.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateSpecialAttackSwing), new Type[] { typeof(int) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateSpecialAttackSwing))]
             [HarmonyPrefix]
             public static void PrefixSpecial(WeaponControllerSimple __instance)
             {
                 OnPreSpecialAttack?.Invoke(__instance, __instance.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateSpecialAttackSwingFullyManual), new Type[] { typeof(NewWeaponFireData), typeof(Vector3), typeof(Vector3), typeof(List<CombatBehaviour>), typeof(float), typeof(int), typeof(int), typeof(int) })]
+            [HarmonyPatch(typeof(WeaponControllerSimple), nameof(WeaponControllerSimple.CreateSpecialAttackSwingFullyManual))]
             [HarmonyPrefix]
             public static void PrefixSpecialFullyManual(WeaponControllerSimple __instance)
             {
@@ -531,25 +541,77 @@ namespace SephiriaMod
         [HarmonyPatch]
         public class WeaponSimplePatch
         {
-            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateDashAttackProjectile), new Type[] { typeof(int), typeof(Vector3), typeof(Vector3), typeof(List<CombatBehaviour>), typeof(float), typeof(float), typeof(int) })]
+            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateDashAttackProjectile))]
             [HarmonyPrefix]
             public static void PrefixDash(WeaponSimple __instance)
             {
                 OnPreDashAttack?.Invoke(__instance.owner, __instance.owner.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateSpecialAttackProjectile), new Type[] { typeof(int), typeof(Vector3), typeof(Vector3), typeof(List<CombatBehaviour>), typeof(float), typeof(int), typeof(int), typeof(int) })]
+            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateSpecialAttackProjectile))]
             [HarmonyPrefix]
             public static void PrefixSpecial(WeaponSimple __instance)
             {
                 //Core.Logger("PrefixSpecial");
                 OnPreSpecialAttack?.Invoke(__instance.owner, __instance.owner.unitAvatar);
             }
-            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateSpecialAttackProjectileFullyManual), new Type[] { typeof(NewWeaponFireData), typeof(Vector3), typeof(Vector3), typeof(List<CombatBehaviour>), typeof(float), typeof(int), typeof(int), typeof(int) })]
+            [HarmonyPatch(typeof(WeaponSimple), nameof(WeaponSimple.CreateSpecialAttackProjectileFullyManual))]
             [HarmonyPrefix]
             public static void PrefixSpecialFullyManual(WeaponSimple __instance)
             {
                 //Core.Logger("PrefixSpecialFullyManual");
                 OnPreSpecialAttack?.Invoke(__instance.owner, __instance.owner.unitAvatar);
+            }
+        }
+        #endregion
+
+        #region アイテムドロップ確率
+        [HarmonyPatch(typeof(GridInventory), nameof(GridInventory.GetItemDropWeight), new Type[] { typeof(ItemEntity) })]
+        public static class GridInventoryGetItemDropWeightPatch
+        {
+            static void Postfix(ItemEntity entity, ref int __result, ref GridInventory __instance)
+            {
+                int bonus = 0;
+                if (__instance.itemDropBonusBySemantic.TryGetValue("DUAL", out bonus) && entity.isDual)
+                {
+                    //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
+                    __result += bonus;
+                }
+                if (__instance.itemDropBonusBySemantic.TryGetValue("TABLET", out bonus) && entity.type == EItemType.StoneTablet)
+                {
+                    //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
+                    __result += bonus;
+                }
+                if (__instance.itemDropBonusBySemantic.TryGetValue("DISCONNECT", out bonus) && entity.type == EItemType.StoneTablet)
+                {
+                    if (entity.id == 2049)//断絶
+                    {
+                        //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
+                        __result += bonus;
+                    }
+                }
+                if (__instance.itemDropBonusBySemantic.TryGetValue("NO_DISCONNECT", out bonus) && entity.type == EItemType.StoneTablet)
+                {
+                    if (entity.id != 2049)//断絶
+                    {
+                        //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
+                        __result += bonus;
+                    }
+                }
+                if (__instance.UnitAvatar.GetCustomStatUnsafe("AddGrimoire".ToUpperInvariant()) > 0)
+                {
+                    if (entity.resourcePrefab != null && entity.resourcePrefab.TryGetComponent<Charm_Magic>(out var magic))
+                    {
+                        var num = __result;
+                        var value = 0;
+                        if (__instance.itemDropBonusBySemantic.TryGetValue("GRIMOIRE", out value))
+                        {
+                            num -= value;
+                        }
+                        int currentCategoryItemDropWeight2 = __instance.GetCurrentCategoryItemDropWeight(ItemCategories.Grimoire, 0, bondBonus: false, allBondCategoryAcquired: false, addDefaultWeight: true);
+                        num = Mathf.Max(num, currentCategoryItemDropWeight2);
+                        __result = num + value;
+                    }
+                }
             }
         }
         #endregion
@@ -1068,17 +1130,5 @@ namespace SephiriaMod
             }
         }
         #endregion
-        /*
-
-        [HarmonyPatch(typeof(NewItemOwnInstance), nameof(NewItemOwnInstance.DoClickAction))]
-        public static class Patch
-        {
-            static void Postfix(NewItemOwnInstance __instance)
-            {
-                if (__instance.Entity == null || __instance.Entity.type != EItemType.Identifiable)
-                    return;
-                IdentifiableItem_Rarity
-            }
-        }*/
     }
 }
