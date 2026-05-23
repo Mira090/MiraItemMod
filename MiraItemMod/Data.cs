@@ -49,1073 +49,1073 @@ namespace SephiriaMod
         /// </summary>
         //public static ModStoneTablet Bitterness { get; } = ModStoneTablet.Create("Bitterness", "UP -1\nDOWN -1\nLEFT +3\nRIGHT +3", false).SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_War_Crime_Name
+        /// Item_WarCrime_Name
         /// 戦犯
         /// </summary>
-        public static ModStoneTablet WarCrime { get; } = ModStoneTablet.Create("War_Crime", "O 8\nUP -2\nDOWN -2\nLEFT -2\nRIGHT -2\nDIAUPLEFT -1\r\nDIAUPRIGHT -1\r\nDIADOWNLEFT -1\r\nDIADOWNRIGHT -1", false).SetRarity(EItemRarity.Legend);
+        public static ModStoneTablet WarCrime { get; } = ModStoneTablet.Create("WarCrime", "O 8\nUP -2\nDOWN -2\nLEFT -2\nRIGHT -2\nDIAUPLEFT -1\r\nDIAUPRIGHT -1\r\nDIADOWNLEFT -1\r\nDIADOWNRIGHT -1", false).SetRarity(EItemRarity.Legend);
         /// <summary>
         /// Item_Transcendent_Name
         /// 超絶
         /// </summary>
         //public static ModStoneTablet Transcendent { get; } = ModStoneTablet.Create("Transcendent", "UP 5\nDOWN 5\nLEFT -2\nRIGHT -2", false).SetRarity(EItemRarity.Legend).SetCannotBeReward();
         /// <summary>
-        /// Item_Reserved_MP_Evasion_Name
+        /// Item_ReservedMPEvasion_Name
         /// 鉄扇
-        /// Item_Reserved_MP_Evasion_FlavorText
+        /// Item_ReservedMPEvasion_FlavorText
         /// 影を起こす扇子。
-        /// Item_Reserved_MP_Evasion_Effect
+        /// Item_ReservedMPEvasion_Effect
         /// <tag=MP>を{MANA}<tag=ReservedMP>して以下の効果を得る
         /// </summary>
-        public static ModCharmStatus ReservedMPEvasion { get; } = ModCharmStatus.Create<Charm_ReservedMPEvasion>("Reserved_MP_Evasion", 4, CreateStatusGroup("EVASION", 200, 300, 400, 500, 700), CreateStatusGroup("PHYSICAL_DAMAGE", 0, 0, 1, 2, 3))
+        public static ModCharmStatus ReservedMPEvasion { get; } = ModCharmStatus.Create<Charm_ReservedMPEvasion>("ReservedMPEvasion", 4, CreateStatusGroup("EVASION", 200, 300, 400, 500, 700), CreateStatusGroup("PHYSICAL_DAMAGE", 0, 0, 1, 2, 3))
             .SetCategory(ItemCategories.Sturdy, ItemCategories.Shadow).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Max_HP_Name
+        /// Item_MaxHP_Name
         /// 活力のお守り
-        /// Item_Max_HP_FlavorText
+        /// Item_MaxHP_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
         public static ModCharmStatus MaxHP { get; } = ModCharmStatus.Create("Max_HP", 1, CreateStatusGroup("MAX_HP", 5, 10))
             .SetCategory(ItemCategories.Vitality).SetRarity(EItemRarity.Common);
         /// <summary>
-        /// Item_Revive_Player_Haste_Name
+        /// Item_RevivePlayerHaste_Name
         /// 紅い涙
-        /// Item_Revive_Player_Haste_FlavorText
+        /// Item_RevivePlayerHaste_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("Revive_Player_Haste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 30, 40, 50), CreateStatusGroup("MAX_HP", 10, 20, 30, 40))
+        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("RevivePlayerHaste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 30, 40, 50), CreateStatusGroup("MAX_HP", 10, 20, 30, 40))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Add_Star_Ruby_Name
+        /// Item_AddStarRuby_Name
         /// ルビーの原石
-        /// Item_Add_Star_Ruby_FlavorText
+        /// Item_AddStarRuby_FlavorText
         /// 輝く、その時を待っている
-        /// Item_Add_Star_Ruby_Effect
+        /// Item_AddStarRuby_Effect
         /// ポーションを{QUEST}回飲むと、{REWARD}に変わります\n[ポーションを飲んだ回数：{CURRENT}]
         /// </summary>
-        public static ModCharmStatus AddStarRuby { get; } = ModCharmStatus.Create<Charm_AddStarRuby>("Add_Star_Ruby", 0, CreateStatusGroup("HP_POTION_BONUS", 20))
+        public static ModCharmStatus AddStarRuby { get; } = ModCharmStatus.Create<Charm_AddStarRuby>("AddStarRuby", 0, CreateStatusGroup("HP_POTION_BONUS", 20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Create_Regen_Potion_Name
+        /// Item_CreateRegenPotion_Name
         /// 再生の水筒
-        /// Item_Create_Regen_Potion_FlavorText
+        /// Item_CreateRegenPotion_FlavorText
         /// こまめな水分補給を忘れずに。
-        /// Item_Create_Regen_Potion_Effect
+        /// Item_CreateRegenPotion_Effect
         /// {REQUIRE}回ステージを移動するごとに{ITEM}を獲得する
         /// </summary>
-        public static ModCharm CreateRegenPotion { get; } = ModCharmStatus.Create<Charm_CreateRegenPotion>("Create_Regen_Potion", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
+        public static ModCharm CreateRegenPotion { get; } = ModCharmStatus.Create<Charm_CreateRegenPotion>("CreateRegenPotion", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Max_HP_Attack_Name
+        /// Item_MaxHPAttack_Name
         /// 溢れる生命
-        /// Item_Max_HP_Attack_FlavorText
+        /// Item_MaxHPAttack_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Max_HP_Attack_Effect
+        /// Item_MaxHPAttack_Effect
         /// 敵にダメージを与える時、追加で最大<tag=HP>の{PERCENT}%のダメージを与える\n[ダメージ：{DAMAGE}]
         /// </summary>
-        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("Max_HP_Attack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
+        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend);
 
         /// <summary>
-        /// Item_Kill_Luck_Name
+        /// Item_KillLuck_Name
         /// 無音の羽ペン
-        /// Item_Kill_Luck_FlavorText
+        /// Item_KillLuck_FlavorText
         /// そのインクは風に乗って伝わる。
-        /// Item_Kill_Luck_Effect
+        /// Item_KillLuck_Effect
         /// 敵を{DIVIDE}回倒すごとに<tag=Luck>が{LUCK}増加する\n[現在の追加幸運：{CURRENT}(<tag=Luck>{LUCK}×{COUNT}回/{DIVIDE})]
         /// </summary>
-        public static ModCharmStatus KillLuck { get; } = ModCharmStatus.Create<Charm_Kill_Luck>("Kill_Luck", 3, CreateStatusGroup("ATTACK_SPEED", 0, 4, 8, 8))
+        public static ModCharmStatus KillLuck { get; } = ModCharmStatus.Create<Charm_Kill_Luck>("KillLuck", 3, CreateStatusGroup("ATTACK_SPEED", 0, 4, 8, 8))
             .SetCategory(ItemCategories.Fortune, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual();
 
         /// <summary>
-        /// Item_Legendary_Mania_Name
+        /// Item_LegendaryMania_Name
         /// 英雄の剣
-        /// Item_Legendary_Mania_FlavorText
+        /// Item_LegendaryMania_FlavorText
         /// 伝説を紡ぐ剣
-        /// Item_Legendary_Mania_Effect
+        /// Item_LegendaryMania_Effect
         /// バッグの伝説アーティファクトの数だけ以下の効果を得る\n[現在の伝説アーティファクト数：{COUNT}個]
         /// </summary>
-        public static ModCharm LegendaryMania { get; } = ModCharm.Create<Charm_LegendaryMania>("Legendary_Mania", 2, true)
+        public static ModCharm LegendaryMania { get; } = ModCharm.Create<Charm_LegendaryMania>("LegendaryMania", 2, true)
             .SetSimpleEffect().SetRarity(EItemRarity.Legend);
 
         /// <summary>
-        /// Item_Level_Distributer_Name
+        /// Item_LevelDistributer_Name
         /// 石版の欠片
-        /// Item_Level_Distributer_FlavorText
+        /// Item_LevelDistributer_FlavorText
         /// まだ熱い。
-        /// Item_Level_Distributer_Effect
+        /// Item_LevelDistributer_Effect
         /// このアーティファクトのレベルと同じだけ、上の枠を+1する。
         /// </summary>
-        public static ModCharm LevelDistributer { get; } = ModCharm.Create<Charm_LevelDistributer>("Level_Distributer", 6, false)
+        public static ModCharm LevelDistributer { get; } = ModCharm.Create<Charm_LevelDistributer>("LevelDistributer", 6, false)
             .SetCategory(ItemCategories.Stargaze).SetSimpleEffect().SetRarity(EItemRarity.Common);
         /// <summary>
-        /// Item_More_Stone_Tablet_Name
+        /// Item_MoreStoneTablet_Name
         /// 羅針盤
-        /// Item_More_Stone_Tablet_FlavorText
+        /// Item_MoreStoneTablet_FlavorText
         /// 星の向きを示す道具。
-        /// Item_More_Stone_Tablet_Effect
+        /// Item_MoreStoneTablet_Effect
         /// 報酬で{ITEM_TYPE}が出現する確率が{DROP_PERCENT}増加
         /// </summary>
-        public static ModCharm MoreStoneTablet { get; } = ModCharm.Create<Charm_MoreStoneTablet>("More_Stone_Tablet", 5, true)
+        public static ModCharm MoreStoneTablet { get; } = ModCharm.Create<Charm_MoreStoneTablet>("MoreStoneTablet", 5, true)
             .SetCategory(ItemCategories.Stargaze).SetSimpleEffect().SetRarity(EItemRarity.Common);
         /// <summary>
-        /// Item_Double_Debuff_Stack_Name
+        /// Item_ChaosDamage_Name
         /// 夜空の香水
-        /// Item_Double_Debuff_Stack_FlavorText
+        /// Item_ChaosDamage_FlavorText
         /// 景色も変わる星空の香り。
         /// </summary>
-        public static ModCharm ChaosDamage { get; } = ModCharm.Create<Charm_ChaosDamage>("Chaos_Damage", 5, true)
+        public static ModCharm ChaosDamage { get; } = ModCharm.Create<Charm_ChaosDamage>("ChaosDamage", 5, true)
             .SetCategory(ItemCategories.Stargaze).SetEffects("Charm_FrostiumRing_Effect").SetDamageId().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Double_Debuff_Stack_Name
+        /// Item_DoubleDebuffStack_Name
         /// 稲妻の彗星
-        /// Item_Double_Debuff_Stack_FlavorText
+        /// Item_DoubleDebuffStack_FlavorText
         /// 星の力が注がれたエネルギーの塊。
         /// </summary>
-        public static ModCharm DoubleDebuffStack { get; } = ModCharmStatus.Create<Charm_VariableMaxLevel>("Double_Debuff_Stack", 6,
+        public static ModCharm DoubleDebuffStack { get; } = ModCharmStatus.Create<Charm_VariableMaxLevel>("DoubleDebuffStack", 6,
             CreateStatusGroup("BURN_STACK", 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7),
             CreateStatusGroup("ELECTRIC_STACK", 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 4, 5, 6, 7))
             .SetCategory(ItemCategories.Stargaze).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Create_Stone_Tablet_Name
+        /// Item_CreateStoneTablet_Name
         /// 流れ星の結晶
-        /// Item_Create_Stone_Tablet_FlavorText
+        /// Item_CreateStoneTablet_FlavorText
         /// 隕石が形を変えていく。
-        /// Item_Create_Stone_Tablet_Effect
+        /// Item_CreateStoneTablet_Effect
         /// 敵を{QUEST}回倒すたびに、このアイテムがある枠を-1して石版{REWARD}を獲得する。\n[敵を倒した回数：{CURRENT}]
-        /// Item_Create_Stone_Tablet_Effect2
+        /// Item_CreateStoneTablet_Effect2
         /// {MAX}回発動するとこの効果は失われる。\n[現在の発動回数：{COUNT}]
         /// </summary>
-        public static ModCharm CreateStoneTablet { get; } = ModCharmStatus.Create<Charm_CreateStoneTablet>("Create_Stone_Tablet", 0, CreateStatusGroupHide("EXP_DROP", 0, 5, 10, 15, 20, 25, 30))
+        public static ModCharm CreateStoneTablet { get; } = ModCharmStatus.Create<Charm_CreateStoneTablet>("CreateStoneTablet", 0, CreateStatusGroupHide("EXP_DROP", 0, 5, 10, 15, 20, 25, 30))
             .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(2).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Triple_Attack_Debuff_Name
+        /// Item_TripleAttackDebuff_Name
         /// 魔法仕掛けの天球儀
-        /// Item_Triple_Attack_Debuff_FlavorText
+        /// Item_TripleAttackDebuff_FlavorText
         /// 夜空に染まった球体。
-        /// Item_Triple_Attack_Debuff_Effect
+        /// Item_TripleAttackDebuff_Effect
         /// 次に火属性のダメージを与えた時、<tag=Burn>デバフを付与し、次に氷属性のダメージを与えた時、<tag=Frostbite>を付与する。この次に雷属性のダメージを与えた時、<tag=Electric>を付与し、最初に戻る。[クールタイム：{INTERVAL}秒]
         /// </summary>
-        public static ModCharm TripleAttackDebuff { get; } = ModCharmStatus.Create<Charm_TripleAttackDebuff>("Triple_Attack_Debuff", 6,
+        public static ModCharm TripleAttackDebuff { get; } = ModCharmStatus.Create<Charm_TripleAttackDebuff>("TripleAttackDebuff", 6,
             CreateStatusGroup("FIRE_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20),
             CreateStatusGroup("ICE_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20),
             CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20))
             .SetCategory(ItemCategories.Stargaze).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Chaos_Attack_Name
+        /// Item_ChaosAttack_Name
         /// 三体模型
-        /// Item_Chaos_Attack_FlavorText
+        /// Item_ChaosAttack_FlavorText
         /// 三つの天体の軌道。
-        /// Item_Chaos_Attack_Effect
+        /// Item_ChaosAttack_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{CHANCE}の確率で追加の<tag=Elemental_Chaos>ダメージを与える。\n[ダメージ：{DAMAGE}(<tag=FireDamage>{PERCENT}+<tag=IceDamage>{PERCENT}+<tag=LightningDamage>{PERCENT})]
         /// </summary>
-        public static ModCharm ChaosAttack { get; } = ModCharm.Create<Charm_ChaosAttack>("Chaos_Attack", 5, true)
+        public static ModCharm ChaosAttack { get; } = ModCharm.Create<Charm_ChaosAttack>("ChaosAttack", 5, true)
             .SetCategory(ItemCategories.Stargaze).SetSimpleEffect().SetDamageId().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Stargaze_Tablet_Name
+        /// Item_StargazeTablet_Name
         /// 星見の石版
-        /// Item_Stargaze_Tablet_FlavorText
+        /// Item_StargazeTablet_FlavorText
         /// 昼でもくっきりと星が見える。
-        /// Item_Stargaze_Tablet_Effect
+        /// Item_StargazeTablet_Effect
         /// 石版を手に入れるたびに破壊し、そのレアリティに応じたポイントを得る。\n{QUEST}ポイント得るごとに{COUNT}回、周囲8マスのうちアーティファクトがないランダムな枠1つを+{REWARD}する。\n[現在の石版ポイント：{CURRENT}]
-        /// Item_Stargaze_Tablet_Effect2
+        /// Item_StargazeTablet_Effect2
         /// <tag=WeaponAction_SpecialAttack>を<tag=Elemental_Chaos>属性に変え、バッグのアーティファクトのレベル合計の{POWER_DAMAGE}のダメージを追加する。\n[追加ダメージ：{DAMAGE}(アーティファクトのレベル合計{POWER}×{POWER_DAMAGE})]
-        /// Item_Stargaze_Tablet_Notice
+        /// Item_StargazeTablet_Notice
         /// 石版が破壊されました
         /// </summary>
-        public static ModCharm StargazeTablet { get; } = ModCharmStatus.Create<Charm_StargazeTablet>("Stargaze_Tablet", 4, CreateStatusGroupHide("SPECIAL_ATTACK_DAMAGE", 0, 0, 0, 0, 0, 12, 18, 24, 32))
+        public static ModCharm StargazeTablet { get; } = ModCharmStatus.Create<Charm_StargazeTablet>("StargazeTablet", 4, CreateStatusGroupHide("SPECIAL_ATTACK_DAMAGE", 0, 0, 0, 0, 0, 12, 18, 24, 32))
             .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(1).SetIsUniqueEffect().SetRarity(EItemRarity.Legend);
 
         /// <summary>
-        /// Item_Copy_Academy_Name
+        /// Item_CopyAcademy_Name
         /// 原典
-        /// Item_Copy_Academy_FlavorText
+        /// Item_CopyAcademy_FlavorText
         /// 知識無き者の脳を蝕む
-        /// Item_Copy_Academy_Effect
+        /// Item_CopyAcademy_Effect
         /// 戦闘中に魔法を{QUEST}回使用すると、下の枠にある固有でないアカデミーアーティファクトに変わります。\n[魔法を使用した回数：{CURRENT}]
         /// </summary>
-        public static ModCharm CopyAcademy { get; } = ModCharmStatus.Create<Charm_CopyAcademy>("Copy_Academy", 1, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 20, 40))
+        public static ModCharm CopyAcademy { get; } = ModCharmStatus.Create<Charm_CopyAcademy>("CopyAcademy", 1, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 20, 40))
             .SetCategory(ItemCategories.Academy).SetIsUniqueEffect().SetEffects("Charm_MagicianCoin_Effect", "Item_Copy_Academy_Effect").SetRarity(EItemRarity.Rare);
 
         /// <summary>
-        /// Item_Auto_Buff_Name
+        /// Item_AutoBuff_Name
         /// 簡易自律魔法陣
-        /// Item_Auto_Buff_FlavorText
+        /// Item_AutoBuff_FlavorText
         /// IndexOutOfRangeException...
-        /// Item_Auto_Buff_Effect
+        /// Item_AutoBuff_Effect
         /// 下の枠にあるバフ魔法の<tag=Magic>を{COOLDOWN}秒ごとに自動発動する。
         /// </summary>
         public static ModCharm AutoBuff { get; } = ModCharm.Create<Charm_AutoBuff>("Auto_Buff", 1, false)
-            .SetCategory(ItemCategories.Academy).SetEffects("Charm_MagicianCoin_Effect", "Item_Auto_Buff_Effect").SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.Academy).SetEffects("Charm_MagicianCoin_Effect", "Item_AutoBuff_Effect").SetRarity(EItemRarity.Uncommon);
 
         /// <summary>
-        /// Item_Auto_Magic_Legend_Name
+        /// Item_AutoMagicLegend_Name
         /// 試用自律魔法陣
-        /// Item_Auto_Magic_Legend_FlavorText
+        /// Item_AutoMagicLegend_FlavorText
         /// NullReferenceException...
-        /// Item_Auto_Magic_Legend_Effect
+        /// Item_AutoMagicLegend_Effect
         /// 上の枠にある<tag=Magic>を{COOLDOWN}秒遅れて自動発動する。
         /// </summary>
-        public static ModCharm AutoMagicLegend { get; } = ModCharm.Create<Charm_AutoMagicLegend>("Auto_Magic_Legend", 5, false)
+        public static ModCharm AutoMagicLegend { get; } = ModCharm.Create<Charm_AutoMagicLegend>("AutoMagicLegend", 5, false)
             .SetCategory(ItemCategories.Academy).SetSimpleEffect().SetRarity(EItemRarity.Legend);
 
         /// <summary>
-        /// Item_Many_Grimoire_Name
+        /// Item_ManyGrimoire_Name
         /// 元素学の写本
-        /// Item_Many_Grimoire_FlavorText
+        /// Item_ManyGrimoire_FlavorText
         /// 集めた知識が役に立つ時。
-        /// Item_Many_Grimoire_Effect
+        /// Item_ManyGrimoire_Effect
         /// バッグの<tag=Magic>の数だけ<tag=FireDamage><tag=IceDamage><tag=LightningDamage>+{STATUS}
-        /// Item_Many_Grimoire_Effect2
+        /// Item_ManyGrimoire_Effect2
         /// 現在の<tag=Magic>数：{COUNT}個
         /// </summary>
-        public static ModCharm ManyGrimoire { get; } = ModCharm.Create<Charm_ManyGrimoire>("Many_Grimoire", 4, false)
-            .SetCategory(ItemCategories.Academy, ItemCategories.Elemental).SetEffects("Item_Many_Grimoire_Effect", "Item_Many_Grimoire_Effect2").SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
+        public static ModCharm ManyGrimoire { get; } = ModCharm.Create<Charm_ManyGrimoire>("ManyGrimoire", 4, false)
+            .SetCategory(ItemCategories.Academy, ItemCategories.Elemental).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
 
         /// <summary>
-        /// Item_Fire_Cooldown_Recovery_Name
+        /// Item_FireCooldownRecovery_Name
         /// 烈火の原子時計
-        /// Item_Fire_Cooldown_Recovery_FlavorText
+        /// Item_FireCooldownRecovery_FlavorText
         /// 摩擦で回りにくくなってしまった。
-        /// Item_Fire_Cooldown_Recovery_Effect
+        /// Item_FireCooldownRecovery_Effect
         /// {REQUIRE}回火属性ダメージを与えるたびにすべての<tag=Magic>のクールタイムを少しだけ加速させる。
         /// </summary>
-        public static ModCharm FireCooldownRecovery { get; } = ModCharmStatus.Create<Charm_FireCooldownRecovery>("Fire_Cooldown_Recovery", 3, CreateStatusGroup("BURN_SPEED", 5, 10, 15, 20))
+        public static ModCharm FireCooldownRecovery { get; } = ModCharmStatus.Create<Charm_FireCooldownRecovery>("FireCooldownRecovery", 3, CreateStatusGroup("BURN_SPEED", 5, 10, 15, 20))
             .SetCategory(ItemCategories.Academy, ItemCategories.Ember).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
 
         /// <summary>
-        /// Item_Bond_Maker_Name
+        /// Item_BondMaker_Name
         /// 恋結びのリボン
-        /// Item_Bond_Maker_FlavorText
+        /// Item_BondMaker_FlavorText
         /// 淡い絆を結ぶ。
-        /// Item_Bond_Maker_Effect
+        /// Item_BondMaker_Effect
         /// このアーティファクトのレベルが{LEVEL}になると、このアイテムと左右の枠にあるアーティファクトは壊れる。左右の枠にあったアーティファクトのカテゴリーに含まれるランダムな絆アーティファクト1つを獲得する。
         /// </summary>
-        public static ModCharm BondMaker { get; } = ModCharmStatus.Create<Charm_BondMaker>("Bond_Maker", 3, CreateStatusGroup("BOSS_REWARD_DICE", 1, 2), CreateStatusGroup("LUCK", 4, 8))
+        public static ModCharm BondMaker { get; } = ModCharmStatus.Create<Charm_BondMaker>("BondMaker", 3, CreateStatusGroup("BOSS_REWARD_DICE", 1, 2), CreateStatusGroup("LUCK", 4, 8))
             .SetCategory().SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Wound_Weapon_Name
+        /// Item_WoundWeapon_Name
         /// 血の入れ墨
-        /// Item_Wound_Weapon_FlavorText
+        /// Item_WoundWeapon_FlavorText
         /// 消えることのない呪われた傷跡。
-        /// Item_Wound_Weapon_Effect2
+        /// Item_WoundWeapon_Effect2
         /// 敵を<tag=WeaponAction_DirectAttack>が命中した時、<tag=Debuff_Wound>を付与する。
-        /// Item_Wound_Weapon_Effect3
+        /// Item_WoundWeapon_Effect3
         /// <tag=Debuff_Wound>スタック {STACK}
-        /// Item_Wound_Weapon_Effect4
+        /// Item_WoundWeapon_Effect4
         /// 敵にデバフを付与するたびに<tag=WeaponAction_SpecialAttack>のコスト減少 {COST}\n<tag=WeaponAction_SpecialAttack>をするとリセットされる。\n[現在のコスト減少量：{CURRENT}]
-        /// Item_Wound_Weapon_Effect
+        /// Item_WoundWeapon_Effect
         /// <tag=BasicAttackDamage>を0%にする
         /// </summary>
-        public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("Wound_Weapon", 6, CreateStatusGroup("ATTACK_SPEED", 4, 8, 12, 16, 20, 25, 30))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
+        public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("WoundWeapon", 6, CreateStatusGroup("ATTACK_SPEED", 4, 8, 12, 16, 20, 25, 30))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
             .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(4).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Max_MP_Power_Name
+        /// Item_MaxMPPower_Name
         /// 水神の目
-        /// Item_Max_MP_Power_FlavorText
+        /// Item_MaxMPPower_FlavorText
         /// 水を生み出す竜の宝石。
-        /// Item_Max_MP_Power_Effect
+        /// Item_MaxMPPower_Effect
         /// MP再生を最終MPに変換する。
-        /// Item_Max_MP_Power_Effect2
+        /// Item_MaxMPPower_Effect2
         /// <tag=WeaponAction_SpecialAttack>でダメージを与える時、最大<tag=MP>の{PERCENT}を消費して、空の<tag=MP>数値の{DAMAGE}のダメージを追加する。\n[次の追加ダメージ：およそ{MP}(空の<tag=MP>数値{DAMAGE})]
         /// </summary>
-        public static ModCharm MaxMPPower { get; } = ModCharmStatus.Create<Charm_MaxMPPower>("Max_MP_Power", 4, CreateStatusGroup("MP_REGEN", 5, 10, 20, 20), CreateStatusGroup("MAX_MP", 5, 10, 20, 20))
+        public static ModCharm MaxMPPower { get; } = ModCharmStatus.Create<Charm_MaxMPPower>("MaxMPPower", 4, CreateStatusGroup("MP_REGEN", 5, 10, 20, 20), CreateStatusGroup("MAX_MP", 5, 10, 20, 20))
             .SetCategory(ItemCategories.Lake).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Follower_Died_Heal_Name
+        /// Item_FollowerDiedHeal_Name
         /// 友情のリストバンド
-        /// Item_Follower_Died_Heal_FlavorText
+        /// Item_FollowerDiedHeal_FlavorText
         /// 契約とは程遠い小さな、それでも太い糸。
-        /// Item_Follower_Died_Heal_Effect
+        /// Item_FollowerDiedHeal_Effect
         /// HP消費以外によるダメージで<tag=Follower>が倒れた時、プレイヤーの<tag=HP>を回復する。（上限を超過して回復する）\n[HP回復量：倒れた<tag=Follower>の最大<tag=HP>{HEAL}]
         /// </summary>
-        public static ModCharm FollowerDiedHeal { get; } = ModCharmStatus.Create<Charm_CompanionDiedHeal>("Follower_Died_Heal", 4, CreateStatusGroup("FOLLOWER_REVIVE", 5, 10, 20, 35, 60))
+        public static ModCharm FollowerDiedHeal { get; } = ModCharmStatus.Create<Charm_CompanionDiedHeal>("FollowerDiedHeal", 4, CreateStatusGroup("FOLLOWER_REVIVE", 5, 10, 20, 35, 60))
             .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Pallas_Joker_Name
+        /// Item_PallasJoker_Name
         /// パラスのジョーカー
-        /// Item_Pallas_Joker_FlavorText
+        /// Item_PallasJoker_FlavorText
         /// 夢の中で失くしたカードがここにある。
-        /// Item_Pallas_Joker_Effect
+        /// Item_PallasJoker_Effect
         /// 周囲8マスにあるパラスのカードを強化（強化されたパラスのカードは発射確率とダメージが増加）
-        /// Item_Pallas_Joker_Effect2
+        /// Item_PallasJoker_Effect2
         /// パラスのカードの発射確率が100％を超えた場合、超過した分の確率が追加のカードの発射確率に変換される。\n[発射するカードの枚数：{COUNT}]
         /// </summary>
-        public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("Pallas_Joker", 4, CreateStatusGroup("LUCK", 3, 6, 9, 12, 15))
+        public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("PallasJoker", 4, CreateStatusGroup("LUCK", 3, 6, 9, 12, 15))
             .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Legend);
 
         /// <summary>
-        /// Item_Throw_Grimoire_Name
+        /// Item_ThrowGrimoire_Name
         /// 魔導書キャノン
-        /// Item_Throw_Grimoire_FlavorText
+        /// Item_ThrowGrimoire_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        //public static ModCharm ThrowGrimoire { get; } = ModCharm.Create<Charm_ThrowGrimoire>("Throw_Grimoire", 4, true)
+        //public static ModCharm ThrowGrimoire { get; } = ModCharm.Create<Charm_ThrowGrimoire>("ThrowGrimoire", 4, true)
         //.SetCategory(ItemCategories.Academy).SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Electric_Stun_Name
+        /// Item_ElectricStun_Name
         /// ビリビリクリームクロワッサン
-        /// Item_Electric_Stun_FlavorText
+        /// Item_ElectricStun_FlavorText
         /// 痺れるカスタードクリーム入りクロワッサン。
-        /// Item_Electric_Stun_Effect
+        /// Item_ElectricStun_Effect
         /// 感電を付与するたびに、感電が付与されていない敵に雷属性ダメージを与える時に、気絶させる確率が{PERCENT}増加する（気絶させると確率はリセットされる）\n[現在の気絶確率：{CURRENT}]
         /// </summary>
-        public static ModCharm ElectricStun { get; } = ModCharmStatus.Create<Charm_ElectricStun>("Electric_Stun", 3, CreateStatusGroup("ELECTRIC_STACK", 0, 1, 1, 2))
+        public static ModCharm ElectricStun { get; } = ModCharmStatus.Create<Charm_ElectricStun>("ElectricStun", 3, CreateStatusGroup("ELECTRIC_STACK", 0, 1, 1, 2))
             .SetCategory(ItemCategories.Magitech).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Transcendent_Charm_Name
+        /// Item_TranscendentCharm_Name
         /// 断絶の魔石
-        /// Item_Transcendent_Charm_FlavorText
+        /// Item_TranscendentCharm_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Transcendent_Charm_Effect
+        /// Item_TranscendentCharm_Effect
         /// 報酬で{ITEM_TYPE}が出現する確率が{DROP_PERCENT}増加
-        /// Item_Transcendent_Charm_Effect2
+        /// Item_TranscendentCharm_Effect2
         /// インベントリに横一列に断絶が並ぶと、それらを超絶に変える
-        /// Item_Transcendent_Charm_Effect3
+        /// Item_TranscendentCharm_Effect3
         /// バッグの断絶の数だけ<tag=PhysicalDamage> {DAMAGE}
-        /// Item_Transcendent_Charm_Effect4
+        /// Item_TranscendentCharm_Effect4
         /// 現在の断絶の数：{COUNT}個
-        /// Item_Transcendent_Charm_Effect5
+        /// Item_TranscendentCharm_Effect5
         /// 断絶と超絶は星見の石版に破壊されない
         /// </summary>
-        //public static ModCharm TranscendentCharm { get; } = ModCharmStatus.Create<Charm_Transcendent>("Transcendent_Charm", 5, CreateStatusGroup("LUCK", 5, 6, 7, 8))
+        //public static ModCharm TranscendentCharm { get; } = ModCharmStatus.Create<Charm_Transcendent>("TranscendentCharm", 5, CreateStatusGroup("LUCK", 5, 6, 7, 8))
         //.SetCategory(ItemCategories.Mystic).SetIsUniqueEffect().SetSimpleEffects(5).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Attack_Speed_Name
+        /// Item_AttackSpeed_Name
         /// 風のお守り
-        /// Item_Attack_Speed_FlavorText
+        /// Item_AttackSpeed_FlavorText
         /// 嵐の前の静かな風。
         /// </summary>
-        public static ModCharm AttackSpeed { get; } = ModCharmStatus.Create("Attack_Speed", 2, CreateStatusGroup("ATTACK_SPEED", 2, 4, 8))
+        public static ModCharm AttackSpeed { get; } = ModCharmStatus.Create("AttackSpeed", 2, CreateStatusGroup("ATTACK_SPEED", 2, 4, 8))
             .SetCategory(ItemCategories.WindSong).SetIsUniqueEffect().SetRarity(EItemRarity.Common);
         /// <summary>
-        /// Item_Dash_Speed_Name
+        /// Item_DashSpeed_Name
         /// 白いプロペラ
-        /// Item_Dash_Speed_FlavorText
+        /// Item_DashSpeed_FlavorText
         /// 空高く舞うフレーバーテキスト募集中
         /// </summary>
-        public static ModCharm DashSpeed { get; } = ModCharmStatus.Create("Dash_Speed", 3, CreateStatusGroup("DASH_SPEED", 10, 20, 30, 40), CreateStatusGroup("DASH_RECOVERY_SPEED", 5, 10, 20, 30))
+        public static ModCharm DashSpeed { get; } = ModCharmStatus.Create("DashSpeed", 3, CreateStatusGroup("DASH_SPEED", 10, 20, 30, 40), CreateStatusGroup("DASH_RECOVERY_SPEED", 5, 10, 20, 30))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Dash_Attack_Scale_Up_Name
+        /// Item_DashAttackScaleUp_Name
         /// 楽譜「空」
-        /// Item_Dash_Attack_Scale_Up_FlavorText
+        /// Item_DashAttackScaleUp_FlavorText
         /// 空が吹く。
-        /// Item_Dash_Attack_Scale_Up_Effect
+        /// Item_DashAttackScaleUp_Effect
         /// <tag=WeaponAction_DashAttack>の範囲{RANGE}増加
         /// </summary>
-        public static ModCharm DashAttackScaleUp { get; } = ModCharmStatus.Create<Charm_DashAttackScaleUp>("Dash_Attack_Scale_Up", 4, CreateStatusGroup("DASH_COUNT", 0, 0, 1, 1, 1))
+        public static ModCharm DashAttackScaleUp { get; } = ModCharmStatus.Create<Charm_DashAttackScaleUp>("DashAttackScaleUp", 4, CreateStatusGroup("DASH_COUNT", 0, 0, 1, 1, 1))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Dash_Attack_More_Name
+        /// Item_DashAttackMore_Name
         /// 追撃の籠手
-        /// Item_Dash_Attack_More_FlavorText
+        /// Item_DashAttackMore_FlavorText
         /// 青く透き通った空から逃れることはできない。
-        /// Item_Dash_Attack_More_Effect
+        /// Item_DashAttackMore_Effect
         /// <tag=WeaponAction_DashAttack>が命中した時、{PERCENT}の確率で<tag=DashCount>が1回復する（クールタイム{COOLDOWN}秒）
         /// </summary>
-        public static ModCharm DashAttackMore { get; } = ModCharmStatus.Create<Charm_DashAttackMore>("Dash_Attack_More", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 30, 40, 50))
+        public static ModCharm DashAttackMore { get; } = ModCharmStatus.Create<Charm_DashAttackMore>("DashAttackMore", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 30, 40, 50))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_On_Damaged_Cosume_Dash_Name
+        /// Item_OnDamagedCosumeDash_Name
         /// 翔ける羽根飾り
-        /// Item_On_Damaged_Cosume_Dash_FlavorText
+        /// Item_OnDamagedCosumeDash_FlavorText
         /// 傷を癒す不死鳥の羽根。
-        /// Item_On_Damaged_Cosume_Dash_Effect
+        /// Item_OnDamagedCosumeDash_Effect
         /// ダメージを受けた時、<tag=DashCount>を{DASH}消費することで受けたダメージの{PERCENT}を回復する（クールタイム{COOLDOWN}秒、<tag=DashRecovery>が適用されます）
         /// </summary>
-        public static ModCharm OnDamagedCosumeDash { get; } = ModCharmStatus.Create<Charm_OnDamagedCosumeDash>("On_Damaged_Cosume_Dash", 5, CreateStatusGroup("DASH_RECOVERY_SPEED", 0, 5, 5, 10, 10, 20))
+        public static ModCharm OnDamagedCosumeDash { get; } = ModCharmStatus.Create<Charm_OnDamagedCosumeDash>("OnDamagedCosumeDash", 5, CreateStatusGroup("DASH_RECOVERY_SPEED", 0, 5, 5, 10, 10, 20))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Double_Dash_Name
+        /// Item_DoubleDash_Name
         /// 晴れ雲
-        /// Item_Double_Dash_FlavorText
+        /// Item_DoubleDash_FlavorText
         /// 透き通った雲。
-        /// Item_Double_Dash_Effect
+        /// Item_DoubleDash_Effect
         /// ダッシュした時、<tag=DashCount>が1回復し、もう一度ダッシュする
         /// </summary>
-        public static ModCharm DoubleDash { get; } = ModCharmStatus.Create<Charm_DoubleDash>("Double_Dash", 2, CreateStatusGroup("PHYSICAL_DAMAGE", 2, 3, 5))
+        public static ModCharm DoubleDash { get; } = ModCharmStatus.Create<Charm_DoubleDash>("DoubleDash", 2, CreateStatusGroup("PHYSICAL_DAMAGE", 2, 3, 5))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Fixed_Move_Speed_Name
+        /// Item_FixedMoveSpeed_Name
         /// 歪んだ靴
-        /// Item_Fixed_Move_Speed_FlavorText
+        /// Item_FixedMoveSpeed_FlavorText
         /// 靴があなたを履いている。
-        /// Item_Fixed_Move_Speed_Effect
+        /// Item_FixedMoveSpeed_Effect
         /// <tag=MoveSpeed>が{PERCENT}に固定されます
         /// </summary>
-        public static ModCharm FixedMoveSpeed { get; } = ModCharmStatus.Create<Charm_FixedMoveSpeed>("Fixed_Move_Speed", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 40, 80, 200))
+        public static ModCharm FixedMoveSpeed { get; } = ModCharmStatus.Create<Charm_FixedMoveSpeed>("FixedMoveSpeed", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 40, 80, 200))
             .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Another_Execution_Name
+        /// Item_AnotherExecution_Name
         /// ウリエルの手斧
-        /// Item_Another_Execution_FlavorText
+        /// Item_AnotherExecution_FlavorText
         /// 手に持って使うには少し小さい。
-        /// Item_Another_Execution_Effect
+        /// Item_AnotherExecution_Effect
         /// 攻撃の<tag=CriticalChance>が100％を超えた場合、超過した分の確率が<tag=MagicExecution>の発生率に変換される。
-        /// Item_Another_Execution_Effect2
+        /// Item_AnotherExecution_Effect2
         /// <tag=MagicExecution>の<tag=IgnoreDefence>が{PERCENT}増加する
         /// </summary>
-        public static ModCharm AnotherExecution { get; } = ModCharmStatus.Create<Charm_AnotherExecution>("Another_Execution", 3, CreateStatusGroup("CRITICAL", 250, 500, 750, 1000))
+        public static ModCharm AnotherExecution { get; } = ModCharmStatus.Create<Charm_AnotherExecution>("AnotherExecution", 3, CreateStatusGroup("CRITICAL", 250, 500, 750, 1000))
             .SetCategory(ItemCategories.Precision).SetIsUniqueEffect().SetSimpleEffects(1).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Electric_Critical_Name
+        /// Item_ElectricCritical_Name
         /// 雷鳴の槌
-        /// Item_Electric_Critical_FlavorText
+        /// Item_ElectricCritical_FlavorText
         /// 騒音の苦情があったため今は使われていません。
-        /// Item_Electric_Critical_Effect
+        /// Item_ElectricCritical_Effect
         /// <tag=WeaponAction_DirectAttack>または雷属性攻撃<sprite=\"Keyword\" name=LightningDamage>の<tag=CriticalChance>が雷属性ダメージの{PERCENT}増加\n[増加確率：+{CRITICAL}%]
         /// </summary>
-        public static ModCharm ElectricCritical { get; } = ModCharmStatus.Create<Charm_ElectricCritical>("Electric_Critical", 5)//, CreateStatusGroup("LIGHTNING_DAMAGE", 0, 2, 4, 6, 8, 10)
+        public static ModCharm ElectricCritical { get; } = ModCharmStatus.Create<Charm_ElectricCritical>("ElectricCritical", 5)//, CreateStatusGroup("LIGHTNING_DAMAGE", 0, 2, 4, 6, 8, 10)
             .SetCategory(ItemCategories.Precision, ItemCategories.Magitech).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Separate_Direct_Attack_Name
+        /// Item_SeparateDirectAttack_Name
         /// 惜別のアレキサンドライト
-        /// Item_Separate_Direct_Attack_FlavorText
+        /// Item_SeparateDirectAttack_FlavorText
         /// 赤と青の扉。
-        /// Item_Separate_Direct_Attack_Effect
+        /// Item_SeparateDirectAttack_Effect
         /// 元のダメージが{DAMAGE}以上の<tag=WeaponAction_DirectAttack>を2回に分割する
         /// </summary>
-        public static ModCharm SeparateDirectAttack { get; } = ModCharmStatus.Create<Charm_SeparateDirectAttack>("Separate_Direct_Attack", 4, CreateStatusGroup("FINAL_WEAPONDAMAGE", 5, 8, 12, 17, 25), CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12))
+        public static ModCharm SeparateDirectAttack { get; } = ModCharmStatus.Create<Charm_SeparateDirectAttack>("SeparateDirectAttack", 4, CreateStatusGroup("FINAL_WEAPONDAMAGE", 5, 8, 12, 17, 25), CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12))
             .SetCategory(ItemCategories.Sturdy, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Evasion_Frost_Name
+        /// Item_EvasionFrost_Name
         /// 氷の簪
-        /// Item_Evasion_Frost_FlavorText
+        /// Item_EvasionFrost_FlavorText
         /// 冷たい表情を伴った簪。
-        /// Item_Evasion_Frost_Effect
+        /// Item_EvasionFrost_Effect
         /// <tag=Evasion>するたびに右の枠の<tag=FrostRelic>アーティファクトのチャージを少しだけ進める
-        /// Item_Evasion_Frost_Effect2
+        /// Item_EvasionFrost_Effect2
         /// <tag=Evasion>1につき{PERCENT}の確率で、<tag=FrostRelic>発動時に即時チャージされる（現在：{CURRENT}）
         /// </summary>
-        public static ModCharm EvasionFrost { get; } = ModCharmStatus.Create<Charm_EvasionFrost>("Evasion_Frost", 2, CreateStatusGroup("EVASION", 200, 400, 700))
+        public static ModCharm EvasionFrost { get; } = ModCharmStatus.Create<Charm_EvasionFrost>("EvasionFrost", 2, CreateStatusGroup("EVASION", 200, 400, 700))
             .SetCategory(ItemCategories.Frost, ItemCategories.Shadow).SetIsUniqueEffect().SetSimpleEffects(2).SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Super_Meteor_Name
+        /// Item_SuperMeteor_Name
         /// メテオライトの指輪
-        /// Item_Super_Meteor_FlavorText
+        /// Item_SuperMeteor_FlavorText
         /// 煌びやかな装飾がお気に入り。
-        /// Item_Super_Meteor_Effect
+        /// Item_SuperMeteor_Effect
         /// 隕石の落下速度 {SPEED}
-        /// Item_Super_Meteor_Effect2
+        /// Item_SuperMeteor_Effect2
         /// 隕石のダメージ増幅 {DAMAGE}
         /// Item_Super_Meteor_Effect3
         /// <tag=Burn>ダメージを除く<tag=FireDamage>を与えた時、{PERCENT}の確率で<tag=FireDamage>{METEOR}の隕石1個を落とす（クールタイム1秒、<tag=AttackSpeed>が適用されます）
         /// </summary>
-        public static ModCharm SuperMeteor { get; } = ModCharmStatus.Create<Charm_SuperMeteor>("Super_Meteor", 5, CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12, 16))
+        public static ModCharm SuperMeteor { get; } = ModCharmStatus.Create<Charm_SuperMeteor>("SuperMeteor", 5, CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12, 16))
             .SetCategory(ItemCategories.Ember, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffects(3).SetIsDual().SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
-        /// Item_Blood_Mp_Name
+        /// Item_BloodMp_Name
         /// 血の祭壇
-        /// Item_Blood_Mp_FlavorText
+        /// Item_BloodMp_FlavorText
         /// かつて魔力で甦りを果たそうとした者がいた。
-        /// Item_Blood_Mp_Effect
+        /// Item_BloodMp_Effect
         /// 血の魔力：<tag=MP>の代わりに<tag=HP>を消費する
-        /// Item_Blood_Mp_Effect2
+        /// Item_BloodMp_Effect2
         /// <tag=Magic>ダメージに空の<tag=HP>数値の{PERCENT}のダメージを追加する
         /// 戦闘中、<tag=MPRegen>を<tag=HPRegen>に変換する
         /// </summary>
-        public static ModCharm BloodMp { get; } = ModCharmStatus.Create<Charm_BloodMP>("Blood_Mp", 3, CreateStatusGroup("MAGIC_DAMAGE_BONUS", 8, 16, 25, 50), CreateStatusGroup("MAX_HP", 5, 10, 20, 40))
+        public static ModCharm BloodMp { get; } = ModCharmStatus.Create<Charm_BloodMP>("BloodMp", 3, CreateStatusGroup("MAGIC_DAMAGE_BONUS", 8, 16, 25, 50), CreateStatusGroup("MAX_HP", 5, 10, 20, 40))
             .SetCategory(ItemCategories.Academy, ItemCategories.Vitality).SetIsUniqueEffect().SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Inventory_Power_Name
+        /// Item_InventoryPower_Name
         /// カジノチップ
-        /// Item_Inventory_Power_FlavorText
+        /// Item_InventoryPower_FlavorText
         /// ここでは何の価値も無い。
-        /// Item_Inventory_Power_Effect
+        /// Item_InventoryPower_Effect
         /// 周囲8枠にあるカジノチップ以外のアーティファクトをカジノチップに変える
-        /// Item_Inventory_Power_Effect2
+        /// Item_InventoryPower_Effect2
         /// 他のアーティファクトをカジノチップに変えた時、元のアーティファクトのカテゴリーに基づいて以下の効果からランダムに獲得する（発動するとこの効果を失う）
         /// </summary>
-        public static ModCharm InventoryPower { get; } = ModCharmStatus.Create<Charm_InventoryPower>("Inventory_Power", 0, false)
+        public static ModCharm InventoryPower { get; } = ModCharmStatus.Create<Charm_InventoryPower>("InventoryPower", 0, false)
             .SetCategory().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Pallas_Ace_Name
+        /// Item_PallasAce_Name
         /// パラスのエース
-        /// Item_Pallas_Ace_FlavorText
+        /// Item_PallasAce_FlavorText
         /// スペードがどこかに行ってしまったんだ。
-        /// Item_Pallas_Ace_Effect
+        /// Item_PallasAce_Effect
         /// ダッシュ攻撃時に{DEFAULT}%の確率でカードを発射
-        /// Item_Pallas_Ace_Effect2
+        /// Item_PallasAce_Effect2
         /// <tag=Luck>1ごとに発射確率が{CHANCE}増加（現在：{CURRENT}）\n[ダメージ：{DAMAGE}]
         /// </summary>
-        public static ModCharm PallasAce { get; } = ModCharmStatus.Create<Charm_PallasAce>("Pallas_Ace", 4, true)
+        public static ModCharm PallasAce { get; } = ModCharmStatus.Create<Charm_PallasAce>("PallasAce", 4, true)
             .SetCategory(ItemCategories.Fortune).SetSimpleEffects(2).SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_First_Heal_Name
+        /// Item_FirstHeal_Name
         /// 酔狂のお守り
-        /// Item_First_Heal_FlavorText
+        /// Item_FirstHeal_FlavorText
         /// このお守りを見て思い出す。
-        /// Item_First_Heal_Effect
+        /// Item_FirstHeal_Effect
         /// このアーティファクトを初めて獲得した時、プレイヤーの<tag=HP>を{HEAL}回復する
         /// </summary>
-        public static ModCharm FirstHeal { get; } = ModCharmStatus.Create<Charm_FirstHeal>("First_Heal", 1, CreateStatusGroup("DEFENSE", -2, -3))
+        public static ModCharm FirstHeal { get; } = ModCharmStatus.Create<Charm_FirstHeal>("FirstHeal", 1, CreateStatusGroup("DEFENSE", -2, -3))
             .SetCategory(ItemCategories.Drunk).SetSimpleEffect().SetRarity(EItemRarity.Common);
         /// <summary>
-        /// Item_Drunk_Elemental_Name
+        /// Item_DrunkElemental_Name
         /// 虹の欠片
-        /// Item_Drunk_Elemental_FlavorText
+        /// Item_DrunkElemental_FlavorText
         /// 辛酸と共に零れた七色の欠片。
         /// </summary>
-        public static ModCharm DrunkElemental { get; } = ModCharmStatus.Create("Drunk_Elemental", 3, CreateStatusGroup("DEFENSE", -2, -3, -5, -7),
+        public static ModCharm DrunkElemental { get; } = ModCharmStatus.Create("DrunkElemental", 3, CreateStatusGroup("DEFENSE", -2, -3, -5, -7),
             CreateStatusGroup("PHYSICAL_DAMAGE", 1, 2, 3, 5),
             CreateStatusGroup("FIRE_DAMAGE", 1, 2, 3, 5),
             CreateStatusGroup("ICE_DAMAGE", 1, 2, 3, 5),
             CreateStatusGroup("LIGHTNING_DAMAGE", 1, 2, 3, 5))
             .SetCategory(ItemCategories.Drunk).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
-        /// Item_Revive_Heal_Name
+        /// Item_ReviveHeal_Name
         /// 御神酒
-        /// Item_Revive_Heal_FlavorText
+        /// Item_ReviveHeal_FlavorText
         /// 狂ったフレーバーテキスト募集中
-        /// Item_Revive_Heal_Effect
+        /// Item_ReviveHeal_Effect
         /// 他のプレイヤーによって復活した時、復活させたプレイヤーのHPをこのプレイヤーの<tag=Defence>{DEFENSE}ごとに{HEAL}回復する
         /// </summary>
-        public static ModCharm ReviveHeal { get; } = ModCharmStatus.Create<Charm_ReviveHeal>("Revive_Heal", 3, CreateStatusGroup("DEFENSE", -2, -5, -8, -12))
+        public static ModCharm ReviveHeal { get; } = ModCharmStatus.Create<Charm_ReviveHeal>("ReviveHeal", 3, CreateStatusGroup("DEFENSE", -2, -5, -8, -12))
             .SetCategory(ItemCategories.Drunk).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Other_Defense_Name
+        /// Item_OtherDefense_Name
         /// 先陣の盃
-        /// Item_Other_Defense_FlavorText
+        /// Item_OtherDefense_FlavorText
         /// 狂ったフレーバーテキスト募集中
-        /// Item_Other_Defense_Effect
+        /// Item_OtherDefense_Effect
         /// 他の全てのプレイヤーの<tag=Defense> {DEFENSE}
         /// </summary>
-        public static ModCharm OtherDefense { get; } = ModCharmStatus.Create<Charm_OtherDefense>("Other_Defense", 5, CreateStatusGroup("DEFENSE", -1, -2, -4, -8, -10, -12))
+        public static ModCharm OtherDefense { get; } = ModCharmStatus.Create<Charm_OtherDefense>("OtherDefense", 5, CreateStatusGroup("DEFENSE", -1, -2, -4, -8, -10, -12))
             .SetCategory(ItemCategories.Drunk).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Half_HP_Name
+        /// Item_HalfHP_Name
         /// 百の薬
-        /// Item_Half_HP_FlavorText
+        /// Item_HalfHP_FlavorText
         /// 狂ったフレーバーテキスト募集中
-        /// Item_Half_HP_Effect
+        /// Item_HalfHP_Effect
         /// HPが50%以上の時、<tag=FinalDamage> {DAMAGE}
-        /// Item_Half_HP_Effect2
+        /// Item_HalfHP_Effect2
         /// HPが50%未満の時、<tag=Toughness> {TOUGHNESS}
         /// </summary>
-        public static ModCharm HalfHP { get; } = ModCharmStatus.Create<Charm_HalfHP>("Half_HP", 3, CreateStatusGroup("DEFENSE", -2, -4, -6, -8))
+        public static ModCharm HalfHP { get; } = ModCharmStatus.Create<Charm_HalfHP>("HalfHP", 3, CreateStatusGroup("DEFENSE", -2, -4, -6, -8))
             .SetCategory(ItemCategories.Drunk).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_All_Ignore_Defense_Name
+        /// Item_AllIgnoreDefense_Name
         /// リシュリューの高級ワイン
-        /// Item_All_Ignore_Defense_FlavorText
+        /// Item_AllIgnoreDefense_FlavorText
         /// 何年たっても動物を惑わせる香り。
-        /// Item_All_Ignore_Defense_Effect
+        /// Item_AllIgnoreDefense_Effect
         /// <tag=Defense>{DEFENSE}ごとに次の効果を獲得
-        /// Item_All_Ignore_Defense_Effect2
+        /// Item_AllIgnoreDefense_Effect2
         /// 全てのプレイヤーの防御貫通<sprite=\"Keyword\" name=IgnoreDefense> {IGNORE}
         /// </summary>
-        public static ModCharm AllIgnoreDefense { get; } = ModCharmStatus.Create<Charm_AllIgnoreDefense>("All_Ignore_Defense", 4, CreateStatusGroup("DEFENSE", -4, -8, -12, -16, -20), CreateStatusGroup("FINAL_DAMAGE", 0, 2, 4, 8, 12))
+        public static ModCharm AllIgnoreDefense { get; } = ModCharmStatus.Create<Charm_AllIgnoreDefense>("AllIgnoreDefense", 4, CreateStatusGroup("DEFENSE", -4, -8, -12, -16, -20), CreateStatusGroup("FINAL_DAMAGE", 0, 2, 4, 8, 12))
             .SetCategory(ItemCategories.Drunk).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Companion_Sacrifice_Name
+        /// Item_CompanionSacrifice_Name
         /// 裏サイン
-        /// Item_Companion_Sacrifice_FlavorText
+        /// Item_CompanionSacrifice_FlavorText
         /// 明かしてはならない相手との契約。
-        /// Item_Companion_Sacrifice_Effect
+        /// Item_CompanionSacrifice_Effect
         /// <tag=Defense>-50以下の時、\n<tag=FollowerDamage> {FOLLOWER1}
-        /// Item_Companion_Sacrifice_Effect2
+        /// Item_CompanionSacrifice_Effect2
         /// <tag=Defense>-100以下の時、\n<tag=FollowerDamage> {FOLLOWER2}
-        /// Item_Companion_Sacrifice_Effect3
+        /// Item_CompanionSacrifice_Effect3
         /// 死亡するダメージを受けた時、左の枠にある<tag=Follower>アーティファクトが破壊されることで、HPを{HEAL}回復し、一時的に無敵になる。
         /// </summary>
-        public static ModCharm CompanionSacrifice { get; } = ModCharmStatus.Create<Charm_CompanionSacrifice>("Companion_Sacrifice", 4, CreateStatusGroup("DEFENSE", -4, -8, -12, -16, -20))
+        public static ModCharm CompanionSacrifice { get; } = ModCharmStatus.Create<Charm_CompanionSacrifice>("CompanionSacrifice", 4, CreateStatusGroup("DEFENSE", -4, -8, -12, -16, -20))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Companion).SetIsUniqueEffect().SetSimpleEffects(3).SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Drunk_Shadow_Name
+        /// Item_DrunkShadow_Name
         /// 黒い香車
-        /// Item_Drunk_Shadow_FlavorText
+        /// Item_DrunkShadow_FlavorText
         /// 黒く固まった一つの駒。
-        /// Item_Drunk_Shadow_Effect
+        /// Item_DrunkShadow_Effect
         /// 死亡するダメージを受ける時、必ず<tag=Evasion>する（クールタイム{COOLDOWN}秒、<tag=Evasion>が適用されます）
         /// </summary>
-        public static ModCharm DrunkShadow { get; } = ModCharmStatus.Create<Charm_DrunkShadow>("Drunk_Shadow", 3, CreateStatusGroup("DEFENSE", -4, -8, -12, -20), CreateStatusGroup("PHYSICAL_DAMAGE", 2, 3, 5, 8), CreateStatusGroup("EVASION", 300, 500, 900, 1300))
+        public static ModCharm DrunkShadow { get; } = ModCharmStatus.Create<Charm_DrunkShadow>("DrunkShadow", 3, CreateStatusGroup("DEFENSE", -4, -8, -12, -20), CreateStatusGroup("PHYSICAL_DAMAGE", 2, 3, 5, 8), CreateStatusGroup("EVASION", 300, 500, 900, 1300))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Shadow).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Drunk_Ember_Name
+        /// Item_DrunkEmber_Name
         /// 汽車の玩具
-        /// Item_Drunk_Ember_FlavorText
+        /// Item_DrunkEmber_FlavorText
         /// 衝突するまで止まらないブレーキの壊れた汽車。
-        /// Item_Drunk_Ember_Effect
+        /// Item_DrunkEmber_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Defense>-1につき{PERCENT}の確率で<tag=Burn>を付与する（クールタイム0.5秒）
-        /// Item_Drunk_Ember_Effect2
+        /// Item_DrunkEmber_Effect2
         /// 最大スタックまで<tag=Burn>デバフを付与した時、全ての<tag=Burn>デバフを解除して、火属性ダメージを与える（ダメージ：解除した<tag=Burn>デバフの数×負の<tag=Defense>{DAMAGE}）
         /// </summary>
-        public static ModCharm DrunkEmber { get; } = ModCharmStatus.Create<Charm_DrunkEmber>("Drunk_Ember", 6, CreateStatusGroup("DEFENSE", -2, -4, -6, -8, -12, -16, -20), CreateStatusGroup("BURN_STACK", 1, 1, 1, 2, 2, 3, 3))
+        public static ModCharm DrunkEmber { get; } = ModCharmStatus.Create<Charm_DrunkEmber>("DrunkEmber", 6, CreateStatusGroup("DEFENSE", -2, -4, -6, -8, -12, -16, -20), CreateStatusGroup("BURN_STACK", 1, 1, 1, 2, 2, 3, 3))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Ember).SetIsUniqueEffect().SetSimpleEffects(2).SetIsDual().SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
-        /// Item_Drunk_Glacier_Name
+        /// Item_DrunkGlacier_Name
         /// 雪の待ち針
-        /// Item_Drunk_Glacier_FlavorText
+        /// Item_DrunkGlacier_FlavorText
         /// その雪だけは溶けることはない。
-        /// Item_Drunk_Glacier_Effect
+        /// Item_DrunkGlacier_Effect
         /// <tag=Freeze>のスタン効果が無くなる
-        /// Item_Drunk_Glacier_Effect2
+        /// Item_DrunkGlacier_Effect2
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Frostbite>を付与する（クールタイム：{COOLDOWN}秒、<tag=Defense>-1につき1%早くなります）
         /// </summary>
-        public static ModCharm DrunkGlacier { get; } = ModCharmStatus.Create<Charm_DrunkGlacier>("Drunk_Glacier", 5, CreateStatusGroup("DEFENSE", -3, -6, -9, -12, -16, -20), CreateStatusGroup("FREEZE_THRESHOLD", 0, 0, 1, 1, 1, 2))
+        public static ModCharm DrunkGlacier { get; } = ModCharmStatus.Create<Charm_DrunkGlacier>("DrunkGlacier", 5, CreateStatusGroup("DEFENSE", -3, -6, -9, -12, -16, -20), CreateStatusGroup("FREEZE_THRESHOLD", 0, 0, 1, 1, 1, 2))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Glacier).SetIsUniqueEffect().SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Drunk_Dark_Cloud_Name
+        /// Item_DrunkDarkCloud_Name
         /// 割れた電球
-        /// Item_Drunk_Dark_Cloud_FlavorText
+        /// Item_DrunkDarkCloud_FlavorText
         /// 自ら壊れ自由になった光。
-        /// Item_Drunk_Dark_Cloud_Effect2
+        /// Item_DrunkDarkCloud_Effect2
         /// <tag=DarkCloud>の消費速度増幅 {SPEED}
-        /// Item_Drunk_Dark_Cloud_Effect
+        /// Item_DrunkDarkCloud_Effect
         /// <tag=DarkCloud>発動時に<tag=Defense>-1ごとに追加消費 {SERIES}
         /// </summary>
-        public static ModCharm DrunkDarkCloud { get; } = ModCharmStatus.Create<Charm_DrunkDarkCloud>("Drunk_Dark_Cloud", 2, CreateStatusGroup("DEFENSE", -10, -15, -20), CreateStatusGroup("DARK_CLOUD_SPEED", -500))
+        public static ModCharm DrunkDarkCloud { get; } = ModCharmStatus.Create<Charm_DrunkDarkCloud>("DrunkDarkCloud", 2, CreateStatusGroup("DEFENSE", -10, -15, -20), CreateStatusGroup("DARK_CLOUD_SPEED", -500))
             .SetCategory(ItemCategories.Drunk, ItemCategories.DarkCloud).SetIsUniqueEffect().SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_Drunk_Vitality_Name
+        /// Item_DrunkVitality_Name
         /// 経口輸血液
-        /// Item_Drunk_Vitality_FlavorText
+        /// Item_DrunkVitality_FlavorText
         /// 美味しい。
-        /// Item_Drunk_Vitality_Effect
+        /// Item_DrunkVitality_Effect
         /// {ITEM}の<tag=HP>回復量 {HEAL}
-        /// Item_Drunk_Vitality_Effect2
+        /// Item_DrunkVitality_Effect2
         /// ダメージを受けた時、攻撃者のダメージの{PERCENT}を反射する
         /// </summary>
-        public static ModCharm DrunkVitality { get; } = ModCharmStatus.Create<Charm_DrunkVitality>("Drunk_Vitality", 2, CreateStatusGroup("DEFENSE", -2, -5, -10), CreateStatusGroup("MAX_HP", 2, 5, 10))
+        public static ModCharm DrunkVitality { get; } = ModCharmStatus.Create<Charm_DrunkVitality>("DrunkVitality", 2, CreateStatusGroup("DEFENSE", -2, -5, -10), CreateStatusGroup("MAX_HP", 2, 5, 10))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Vitality).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
-        /// Item_Drunk_Guardian_Name
+        /// Item_DrunkGuardian_Name
         /// 存在の天秤
-        /// Item_Drunk_Guardian_FlavorText
+        /// Item_DrunkGuardian_FlavorText
         /// 天使と悪魔が囁く。
-        /// Item_Drunk_Guardian_Effect
+        /// Item_DrunkGuardian_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、追加の<tag=PhysicalDamage>を与える\n[ダメージ：{DAMAGE}（守護アーティファクトの数×酩酊アーティファクトの数{PERCENT} - <tag=Defense>の絶対値）]
         /// </summary>
-        public static ModCharm DrunkGuardian { get; } = ModCharmStatus.Create<Charm_DrunkGuardian>("Drunk_Guardian", 3, CreateStatusGroup("FINAL_DAMAGE", 5, 10, 15, 20))
+        public static ModCharm DrunkGuardian { get; } = ModCharmStatus.Create<Charm_DrunkGuardian>("DrunkGuardian", 3, CreateStatusGroup("FINAL_DAMAGE", 5, 10, 15, 20))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Guardian).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
-        /// Item_Evasion_Curse_Name
+        /// Item_EvasionCurse_Name
         /// 暗黙の毒針
-        /// Item_Evasion_Curse_FlavorText
+        /// Item_EvasionCurse_FlavorText
         /// 声は出ない。
-        /// Item_Evasion_Curse_Effect
+        /// Item_EvasionCurse_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{POISON}の確率で<tag=Debuff_Poison>を付与する。（クールタイム{COOLDOWN}秒）
-        /// Item_Evasion_Curse_Effect2
+        /// Item_EvasionCurse_Effect2
         /// <tag=Evasion>の発生率が<tag=Assasination>の発生率に変換される。（<tag=Assasination>発生率：{PERCENT}）
         /// </summary>
-        public static ModCharm EvasionCurse { get; } = ModCharmStatus.Create<Charm_EvasionCurse>("Evasion_Curse", 2, CreateStatusGroup("EVASION", 100, 200, 400))
+        public static ModCharm EvasionCurse { get; } = ModCharmStatus.Create<Charm_EvasionCurse>("EvasionCurse", 2, CreateStatusGroup("EVASION", 100, 200, 400))
             .SetCategory(ItemCategories.Curse, ItemCategories.Shadow).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Random_Debuff_Name
+        /// Item_RandomDebuff_Name
         /// 赤黒いルーレット
-        /// Item_Random_Debuff_FlavorText
+        /// Item_RandomDebuff_FlavorText
         /// 塔の下から流れ着いた様々な思念が詰まった板。
-        /// Item_Random_Debuff_Effect
+        /// Item_RandomDebuff_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率でランダムなデバフを付与する。（<tag=Luck>で確率が増加）
         /// </summary>
-        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("Random_Debuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 10, 20, 30, 45, 70, 100, 150))
+        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 10, 20, 30, 45, 70, 100, 150))
             .SetCategory(ItemCategories.Curse, ItemCategories.Fortune).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Dash_Flame_Sword_Name
+        /// Item_DashFlameSword_Name
         /// 過熱したエンジン
-        /// Item_Dash_Flame_Sword_FlavorText
+        /// Item_DashFlameSword_FlavorText
         /// 高い空に憧れた。
-        /// Item_Dash_Flame_Sword_Effect
+        /// Item_DashFlameSword_Effect
         /// ダッシュすると<tag=FlameSword>が発動する
         /// </summary>
-        public static ModCharm DashFlameSword { get; } = ModCharmStatus.Create<Charm_DashFlameSword>("Dash_Flame_Sword", 4, CreateStatusGroup("FIRE_DAMAGE", 3, 6, 9, 12, 15), CreateStatusGroup("FLAME_SWORD_MAX", 0, 1, 2, 3, 5))
+        public static ModCharm DashFlameSword { get; } = ModCharmStatus.Create<Charm_DashFlameSword>("DashFlameSword", 4, CreateStatusGroup("FIRE_DAMAGE", 3, 6, 9, 12, 15), CreateStatusGroup("FLAME_SWORD_MAX", 0, 1, 2, 3, 5))
             .SetCategory(ItemCategories.SkySong, ItemCategories.FlameSword).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Planet_Stargaze_Name
+        /// Item_PlanetStargaze_Name
         /// リリィの星図
-        /// Item_Planet_Stargaze_FlavorText
+        /// Item_PlanetStargaze_FlavorText
         /// 光に込められた破れかけの形。
-        /// Item_Planet_Stargaze_Effect
+        /// Item_PlanetStargaze_Effect
         /// 夜空のコンボ効果が<tag=WeaponAction_SpecialAttack>ではなく惑星の攻撃で発動する
-        /// Item_Planet_Stargaze_Effect2
+        /// Item_PlanetStargaze_Effect2
         /// 周囲8枠にある惑星の数だけこのアーティファクトの最大レベル {LEVEL}
         /// </summary>
-        public static ModCharm PlanetStargaze { get; } = ModCharmStatus.Create<Charm_PlanetStargaze>("Planet_Stargaze", 8, CreateStatusGroup("PLANET_DAMAGE", 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 100, 120, 140, 160, 180, 200, 225, 250, 275, 300))
+        public static ModCharm PlanetStargaze { get; } = ModCharmStatus.Create<Charm_PlanetStargaze>("PlanetStargaze", 8, CreateStatusGroup("PLANET_DAMAGE", 5, 10, 15, 20, 25, 30, 40, 50, 60, 70, 80, 100, 120, 140, 160, 180, 200, 225, 250, 275, 300))
             .SetCategory(ItemCategories.Planet, ItemCategories.Stargaze).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Planet_Mystic_Name
+        /// Item_PlanetMystic_Name
         /// 夕焼けの星座
-        /// Item_Planet_Mystic_FlavorText
+        /// Item_PlanetMystic_FlavorText
         /// 赤くぼんやりと見える。
-        /// Item_Planet_Mystic_Effect
+        /// Item_PlanetMystic_Effect
         /// 神秘のコンボ効果の枠に置いた惑星を巨大化
-        /// Item_Planet_Mystic_Effect2
+        /// Item_PlanetMystic_Effect2
         /// 神秘のコンボ効果の枠に置いた惑星のレベル合計1につき惑星攻撃速度 {SPEED}\n[現在：{CURRENT}]
         /// </summary>
-        public static ModCharm PlanetMystic { get; } = ModCharmStatus.Create<Charm_PlanetMystic>("Planet_Mystic", 4, CreateStatusGroup("PLANET_DAMAGE", 2, 4, 6, 8, 10))
+        public static ModCharm PlanetMystic { get; } = ModCharmStatus.Create<Charm_PlanetMystic>("PlanetMystic", 4, CreateStatusGroup("PLANET_DAMAGE", 2, 4, 6, 8, 10))
             .SetCategory(ItemCategories.Planet, ItemCategories.Mystic).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Guardian_Dark_Cloud_Name
+        /// Item_GuardianDarkCloud_Name
         /// オーロラのヴェール
-        /// Item_Guardian_Dark_Cloud_FlavorText
+        /// Item_GuardianDarkCloud_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Guardian_Dark_Cloud_Effect
+        /// Item_GuardianDarkCloud_Effect
         /// 攻撃を受けた時の無敵時間の<tag=DarkCloud>の消費速度 {PERCENT}
         /// </summary>
-        public static ModCharm GuardianDarkCloud { get; } = ModCharmStatus.Create<Charm_GuardianDarkCloud>("Guardian_Dark_Cloud", 4, CreateStatusGroup("DARK_CLOUD_DAMAGE", 10, 25, 40, 60, 90), CreateStatusGroup("DEFENSE", 2, 3, 4, 6, 9))
+        public static ModCharm GuardianDarkCloud { get; } = ModCharmStatus.Create<Charm_GuardianDarkCloud>("GuardianDarkCloud", 4, CreateStatusGroup("DARK_CLOUD_DAMAGE", 10, 25, 40, 60, 90), CreateStatusGroup("DEFENSE", 2, 3, 4, 6, 9))
             .SetCategory(ItemCategories.Guardian, ItemCategories.DarkCloud).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Reddew_Magic_Execution_Name
+        /// Item_ReddewMagicExecution_Name
         /// 赤い山頂
-        /// Item_Reddew_Magic_Execution_FlavorText
+        /// Item_ReddewMagicExecution_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Reddew_Magic_Execution_Effect
+        /// Item_ReddewMagicExecution_Effect
         /// <tag=MagicExecution>によって{ITEM}が発動した時、最も高い属性値の{PERCENT}の追加ダメージを{COUNT}回与える
         /// </summary>
-        public static ModCharm ReddewMagicExecution { get; } = ModCharmStatus.Create<Charm_ReddewMagicExecution>("Reddew_Magic_Execution", 2, CreateStatusGroup("CRITICAL", 300, 600, 1000), CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 3, 5))
+        public static ModCharm ReddewMagicExecution { get; } = ModCharmStatus.Create<Charm_ReddewMagicExecution>("ReddewMagicExecution", 2, CreateStatusGroup("CRITICAL", 300, 600, 1000), CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 3, 5))
             .SetCategory(ItemCategories.Precision, ItemCategories.Elemental).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetDamageId();
         /// <summary>
-        /// Item_Magitech_Flame_Sword_Name
+        /// Item_MagitechFlameSword_Name
         /// 燃える日時計
-        /// Item_Magitech_Flame_Sword_FlavorText
+        /// Item_MagitechFlameSword_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Magitech_Flame_Sword_Effect
+        /// Item_MagitechFlameSword_Effect
         /// <tag=WeaponAction_DirectAttack>や<tag=Magic>によって<tag=FlameSword>が発動しなくなる。かわりに、<tag=Electric>ダメージを与えると<tag=FlameSword>を最大<tag=Electric>スタックの分だけ投げる
         /// </summary>
-        public static ModCharm MagitechFlameSword { get; } = ModCharmStatus.Create<Charm_MagitechFlameSword>("Magitech_Flame_Sword", 5, CreateStatusGroup("ELECTRIC_DAMAGE", 25, 30, 40, 55, 75, 100), CreateStatusGroup("FIRE_DAMAGE", 2, 3, 5, 7, 10, 13))
+        public static ModCharm MagitechFlameSword { get; } = ModCharmStatus.Create<Charm_MagitechFlameSword>("MagitechFlameSword", 5, CreateStatusGroup("ELECTRIC_DAMAGE", 25, 30, 40, 55, 75, 100), CreateStatusGroup("FIRE_DAMAGE", 2, 3, 5, 7, 10, 13))
             .SetCategory(ItemCategories.Magitech, ItemCategories.FlameSword).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Magitech_Frost_Relic_Name
+        /// Item_MagitechFrostRelic_Name
         /// 凍える氷磁石
-        /// Item_Magitech_Frost_Relic_FlavorText
+        /// Item_MagitechFrostRelic_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Magitech_Frost_Relic_Effect
+        /// Item_MagitechFrostRelic_Effect
         /// <tag=FrostRelic>が命中した時、{PERCENT}の確率で<tag=Electric>のショックを即座に発動させる。<tag=Electric>のショックが発動した時、「雹の手」バフを獲得
-        /// Item_Magitech_Frost_Relic_Effect2
+        /// Item_MagitechFrostRelic_Effect2
         /// 雹の手：{BUFF}秒の間、<tag=IceDamage>が2増加（最大20スタック）
         /// </summary>
-        public static ModCharm MagitechFrostRelic { get; } = ModCharmStatus.Create<Charm_MagitechFrostRelic>("Magitech_Frost_Relic", 5, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 5, 7, 10, 13))
+        public static ModCharm MagitechFrostRelic { get; } = ModCharmStatus.Create<Charm_MagitechFrostRelic>("MagitechFrostRelic", 5, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 5, 7, 10, 13))
             .SetCategory(ItemCategories.Magitech, ItemCategories.Frost).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Auto_Magic_Dark_Cloud_Name
+        /// Item_Auto_MagicDarkCloud_Name
         /// 巨大実験台
-        /// Item_Auto_Magic_Dark_Cloud_FlavorText
+        /// Item_Auto_MagicDarkCloud_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Auto_Magic_Dark_Cloud_Effect
+        /// Item_Auto_MagicDarkCloud_Effect
         /// <tag=MP>を消費するかわりに<tag=DarkCloud>を{CLOUD}消費して、上の枠にある<tag=Magic>を{COOLDOWN}秒遅れて自動発動する
         /// </summary>
-        public static ModCharm AutoMagicDarkCloud { get; } = ModCharmStatus.Create<Charm_AutoMagicDarkCloud>("Auto_Magic_Dark_Cloud", 5, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 10, 20, 30, 40, 60, 80))
+        public static ModCharm AutoMagicDarkCloud { get; } = ModCharmStatus.Create<Charm_AutoMagicDarkCloud>("AutoMagicDarkCloud", 5, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 10, 20, 30, 40, 60, 80))
             .SetCategory(ItemCategories.Academy, ItemCategories.DarkCloud).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
-        /// Item_More_Shop_Name
+        /// Item_MoreShop_Name
         /// 行商人の手形
-        /// Item_More_Shop_FlavorText
+        /// Item_MoreShop_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm SavvyUncommon { get; } = ModCharmStatus.Create("More_Shop", 2, CreateStatusGroup("AdditionalShop".ToSephiriaId(), 1, 1, 2), CreateStatusGroup("AdditionalMoney".ToSephiriaId(), 500, 1000, 2000))
+        public static ModCharm SavvyUncommon { get; } = ModCharmStatus.Create("MoreShop", 2, CreateStatusGroup("AdditionalShop".ToSephiriaId(), 1, 1, 2), CreateStatusGroup("AdditionalMoney".ToSephiriaId(), 500, 1000, 2000))
             .SetCategory(ItemCategories.Savvy).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect();
         /// <summary>
-        /// Item_More_Replenishment_Name
+        /// Item_MoreReplenishment_Name
         /// 勇者優待券
-        /// Item_More_Replenishment_FlavorText
+        /// Item_MoreReplenishment_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm SavvyRare { get; } = ModCharmStatus.Create("More_Replenishment", 3, CreateStatusGroup("NEGOTIATION", 2, 5, 12, 20), CreateStatusGroup("ReplenishmentCharm".ToSephiriaId(), 0, 1, 1, 2), CreateStatusGroup("ReplenishmentTablet".ToSephiriaId(), 0, 0, 1, 1))
+        public static ModCharm SavvyRare { get; } = ModCharmStatus.Create("MoreReplenishment", 3, CreateStatusGroup("NEGOTIATION", 2, 5, 12, 20), CreateStatusGroup("ReplenishmentCharm".ToSephiriaId(), 0, 1, 1, 2), CreateStatusGroup("ReplenishmentTablet".ToSephiriaId(), 0, 0, 1, 1))
             .SetCategory(ItemCategories.Savvy).SetSimpleEffects(0).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_More_Shop_Legendary_Name
+        /// Item_MoreShopLegendary_Name
         /// 名だたる鑑定書
-        /// Item_More_Shop_Legendary_FlavorText
+        /// Item_MoreShopLegendary_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm SavvyLegendary { get; } = ModCharmStatus.Create("More_Shop_Legendary", 5, CreateStatusGroup("AdditionalShopLegendary".ToSephiriaId(), 1), CreateStatusGroup("AdditionalShopInventory".ToSephiriaId(), 20, 30, 40, 60, 80, 100))
+        public static ModCharm SavvyLegendary { get; } = ModCharmStatus.Create("MoreShopLegendary", 5, CreateStatusGroup("AdditionalShopLegendary".ToSephiriaId(), 1), CreateStatusGroup("AdditionalShopInventory".ToSephiriaId(), 20, 30, 40, 60, 80, 100))
             .SetCategory(ItemCategories.Savvy).SetSimpleEffects(0).SetRarity(EItemRarity.Legend).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Add_Inventory_Name
+        /// Item_AddInventory_Name
         /// バッグの拡張キット
-        /// Item_Add_Inventory_FlavorText
+        /// Item_AddInventory_FlavorText
         /// 希少な魔法の布を使用した高級品。
-        /// Item_Add_Inventory_Effect
+        /// Item_AddInventory_Effect
         /// このアーティファクトを消費して、バッグの枠を{COUNT}拡張します
         /// </summary>
-        public static ModCharm AddInventory { get; } = ModCharm.Create<Charm_AddInventory>("Add_Inventory", 0, true).SetActiveType(EItemActiveType.Hidden)
+        public static ModCharm AddInventory { get; } = ModCharm.Create<Charm_AddInventory>("AddInventory", 0, true).SetActiveType(EItemActiveType.Hidden)
             .SetCategory().SetSimpleEffect().SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Shadow_Frostbite_Name
+        /// Item_ShadowFrostbite_Name
         /// 闇色の雪結晶
-        /// Item_Shadow_Frostbite_FlavorText
+        /// Item_ShadowFrostbite_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Shadow_Frostbite_Effect
+        /// Item_ShadowFrostbite_Effect
         /// <tag=Frostbite>を<tag=BlackFrostbite>に変える
         /// </summary>
-        public static ModCharm ShadowFrostbite { get; } = ModCharmStatus.Create<Charm_ShadowFrostbite>("Shadow_Frostbite", 4, CreateStatusGroup("ICE_DAMAGE", 2, 4, 6, 9, 13), CreateStatusGroup("EVASION", 200, 400, 600, 900, 1300))
+        public static ModCharm ShadowFrostbite { get; } = ModCharmStatus.Create<Charm_ShadowFrostbite>("ShadowFrostbite", 4, CreateStatusGroup("ICE_DAMAGE", 2, 4, 6, 9, 13), CreateStatusGroup("EVASION", 200, 400, 600, 900, 1300))
             .SetCategory(ItemCategories.Glacier, ItemCategories.Shadow).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetDamageIdDebuff("BlackFreeze", "Status_BlackFreeze_Name");
         /// <summary>
-        /// Item_Guard_Frostbite_Name
+        /// Item_GuardFrostbite_Name
         /// 精霊の盾
-        /// Item_Guard_Frostbite_FlavorText
+        /// Item_GuardFrostbite_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Guard_Frostbite_Effect
+        /// Item_GuardFrostbite_Effect
         /// <tag=WeaponAction_Guard>に成功した時、攻撃者に<tag=Frostbite>を付与する\n<tag=WeaponAction_PerfectGuard>なら、<tag=Frostbite>ではなく<tag=Freeze>を付与する
         /// </summary>
-        public static ModCharm GuardFrostbite { get; } = ModCharmStatus.Create<Charm_GuardFrostbite>("Guard_Frostbite", 2, CreateStatusGroup("ICE_DAMAGE", 3, 5, 8), CreateStatusGroup("MP_STEAL", 2, 3, 5))
+        public static ModCharm GuardFrostbite { get; } = ModCharmStatus.Create<Charm_GuardFrostbite>("GuardFrostbite", 2, CreateStatusGroup("ICE_DAMAGE", 3, 5, 8), CreateStatusGroup("MP_STEAL", 2, 3, 5))
             .SetCategory(ItemCategories.Glacier).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetRelatedWeapon(EWeaponType.SwordAndShield).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Over_Flame_Sword_Name
+        /// Item_OverFlameSword_Name
         /// ソリス・クリスタ
-        /// Item_Over_Flame_Sword_FlavorText
+        /// Item_OverFlameSword_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Over_Flame_Sword_Effect
+        /// Item_OverFlameSword_Effect
         /// 余分に拾った<tag=FlameSword>を地面に投げる
         /// </summary>
-        public static ModCharm OverFlameSword { get; } = ModCharmStatus.Create<Charm_OverFlameSword>("Over_Flame_Sword", 3, CreateStatusGroup("FLAME_SWORD_DAMAGE", 5, 5, 10, 15), CreateStatusGroup("FLAME_SWORD_CRITICAL", 5, 8, 11, 15))
+        public static ModCharm OverFlameSword { get; } = ModCharmStatus.Create<Charm_OverFlameSword>("OverFlameSword", 3, CreateStatusGroup("FLAME_SWORD_DAMAGE", 5, 5, 10, 15), CreateStatusGroup("FLAME_SWORD_CRITICAL", 5, 8, 11, 15))
             .SetCategory(ItemCategories.FlameSword).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Add_Max_Miracle_Name
+        /// Item_AddMaxMiracle_Name
         /// 輝く樹の枝
-        /// Item_Add_Max_Miracle_FlavorText
+        /// Item_AddMaxMiracle_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm AddMaxMiracle { get; } = ModCharmOrphanedStatus.Create("Add_Max_Miracle", CreateStatusGroup("MaxMiracleCount".ToSephiriaId(), 1)).SetActiveType(EItemActiveType.Hidden)
+        public static ModCharm AddMaxMiracle { get; } = ModCharmOrphanedStatus.Create("AddMaxMiracle", CreateStatusGroup("MaxMiracleCount".ToSephiriaId(), 1)).SetActiveType(EItemActiveType.Hidden)
             .SetCategory().SetSimpleEffects(0).SetRarity(EItemRarity.Legend);
         /// <summary>
-        /// Item_Self_Explosion_Name
+        /// Item_SelfExplosion_Name
         /// 自爆スイッチ
-        /// Item_Self_Explosion_FlavorText
+        /// Item_SelfExplosion_FlavorText
         /// 厳重なセキュリティの下で管理されています。
-        /// Item_Self_Explosion_Effect
+        /// Item_SelfExplosion_Effect
         /// <tag=Follower>がダメージを{TIME}回与えるたびにチャージ
-        /// Item_Self_Explosion_Effect2
+        /// Item_SelfExplosion_Effect2
         /// <tag=Follower>{COUNT}体が自爆して<tag=FireDamage>を与える（<tag=FollowerDamage>と見なされる）\n[ダメージ：{DAMAGE}（{BASE}+<tag=FireDamage>{PERCENT}）]
         /// </summary>
-        public static ModCharm SelfExplosion { get; } = ModCharmStatus.Create<Charm_SelfExplosion>("Self_Explosion", 5)
+        public static ModCharm SelfExplosion { get; } = ModCharmStatus.Create<Charm_SelfExplosion>("SelfExplosion", 5)
             .SetCategory(ItemCategories.Companion, ItemCategories.Ember).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetIsDual().SetDamageId();
         /// <summary>
         /// Item_Active_Meteor_Name
         /// 赤い蛇の牙
-        /// Item_Active_Meteor_FlavorText
+        /// Item_ActiveMeteor_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Active_Meteor_Effect
+        /// Item_ActiveMeteor_Effect
         /// プレイヤーの周りに火属性ダメージの{DAMAGE}%の隕石を{COUNT}個落とす
-        /// Item_Active_Meteor_Effect2
+        /// Item_ActiveMeteor_Effect2
         /// 隕石に命中した敵に<tag=Burn>デバフを付与
         /// </summary>
-        public static ModCharm ActiveMeteor { get; } = ModCharmStatus.Create<Charm_ActiveMeteor>("Active_Meteor", 6)
+        public static ModCharm ActiveMeteor { get; } = ModCharmStatus.Create<Charm_ActiveMeteor>("ActiveMeteor", 6)
             .SetCategory(ItemCategories.Ember).SetEffects("Charm_FlameGround_Meteor_Effect", "Charm_FlameGround_Meteor_Effect2").SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetDamageId();
         /// <summary>
-        /// Item_Companion_Chaos_More_Name
+        /// Item_CompanionChaosMore_Name
         /// 忠誠の記章
-        /// Item_Companion_Chaos_More_FlavorText
+        /// Item_CompanionChaosMore_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Companion_Chaos_More_Effect
+        /// Item_CompanionChaosMore_Effect
         /// インベントリ内の同じ列または行に配置された仲間が<tag=Elemental_Chaos>ダメージを与える
         /// </summary>
-        public static ModCharm CompanionChaosMore { get; } = ModCharmStatus.Create<Charm_CompanionChaosMore>("Companion_Chaos_More", 3, CreateStatusGroup("FOLLOWER_ATTACK_SPEED", 10, 15, 20, 30), CreateStatusGroup("FOLLOWER_CRITICAL", 300, 500, 800, 1200))
+        public static ModCharm CompanionChaosMore { get; } = ModCharmStatus.Create<Charm_CompanionChaosMore>("CompanionChaosMore", 3, CreateStatusGroup("FOLLOWER_ATTACK_SPEED", 10, 15, 20, 30), CreateStatusGroup("FOLLOWER_CRITICAL", 300, 500, 800, 1200))
             .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Bond_Coin_Name
+        /// Item_BondCoin_Name
         /// 結束のコイン
-        /// Item_Bond_Coin_FlavorText
+        /// Item_BondCoin_FlavorText
         /// 堅い絆の証。
         /// </summary>
-        public static ModCharm BondCoin { get; } = ModCharmStatus.Create<Charm_BondCoin>("Bond_Coin", 2, CreateStatusGroup("NEGOTIATION", 2, 3, 5))
+        public static ModCharm BondCoin { get; } = ModCharmStatus.Create<Charm_BondCoin>("BondCoin", 2, CreateStatusGroup("NEGOTIATION", 2, 3, 5))
             .SetCategory(ItemCategories.Savvy).SetEffects("Charm_MagicianCoin_Effect").SetRarity(EItemRarity.Common).SetIsUniqueEffect();
         /// <summary>
-        /// Item_Savvy_Precision_Name
+        /// Item_SavvyPrecision_Name
         /// ギロックの鶴嘴
-        /// Item_Savvy_Precision_FlavorText
+        /// Item_SavvyPrecision_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Savvy_Precision_Effect
+        /// Item_SavvyPrecision_Effect
         /// <tag=Critical>発生時に{LEAF}<tag=Leaf>を生成
-        /// Item_Savvy_Precision_Effect2
+        /// Item_SavvyPrecision_Effect2
         /// 攻撃の<tag=CriticalChance>が100％を超えた場合、超過した分の確率が<tag=Excavation>の発生率に変換される\n[<tag=Excavation>の成功確率：{PERCENT}]
         /// </summary>
-        public static ModCharm SavvyPrecision { get; } = ModCharmStatus.Create<Charm_SavvyPrecision>("Savvy_Precision", 3, CreateStatusGroup("CRITICAL", 250, 500, 750, 1000))
+        public static ModCharm SavvyPrecision { get; } = ModCharmStatus.Create<Charm_SavvyPrecision>("SavvyPrecision", 3, CreateStatusGroup("CRITICAL", 250, 500, 750, 1000))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Precision).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
         /// <summary>
-        /// Item_Savvy_Curse_Name
+        /// Item_SavvyCurse_Name
         /// 錆びた銅貨
-        /// Item_Savvy_Curse_FlavorText
+        /// Item_SavvyCurse_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Savvy_Curse_Effect
+        /// Item_SavvyCurse_Effect
         /// <tag=Crime>スタック1つごとに次の効果を獲得
-        /// Item_Savvy_Curse_Effect2
+        /// Item_SavvyCurse_Effect2
         /// <tag=DebuffDamage> {DAMAGE}
-        /// Item_Savvy_Curse_Effect3
+        /// Item_SavvyCurse_Effect3
         /// <tag=DebuffDuration> {DURATION}
-        /// Item_Savvy_Curse_Effect4
+        /// Item_SavvyCurse_Effect4
         /// デバフスタック {STACK}
-        /// Item_Savvy_Curse_Effect5
+        /// Item_SavvyCurse_Effect5
         /// <tag=Crime>を犯すたび、追加で{LEAF}<tag=Leaf>を生成し、<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("Savvy_Curse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 1, 2, 2))
+        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("SavvyCurse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 1, 2, 2))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Curse).SetSimpleEffects(5).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
         /// <summary>
-        /// Item_Savvy_Shadow_Name
+        /// Item_SavvyShadow_Name
         /// 黒の貨幣
-        /// Item_Savvy_Shadow_FlavorText
+        /// Item_SavvyShadow_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Savvy_Shadow_Effect
+        /// Item_SavvyShadow_Effect
         /// <tag=Evasion>成功時、<tag=Looting>が発生する
-        /// Item_Savvy_Shadow_Effect2
+        /// Item_SavvyShadow_Effect2
         /// {COUNT}回<tag=Looting>するたび<tag=Leaf>ではなく<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyShadow { get; } = ModCharmStatus.Create<Charm_SavvyShadow>("Savvy_Shadow", 5, CreateStatusGroup("EVASION", 200, 300, 500, 700, 1000, 1400))
+        public static ModCharm SavvyShadow { get; } = ModCharmStatus.Create<Charm_SavvyShadow>("SavvyShadow", 5, CreateStatusGroup("EVASION", 200, 300, 500, 700, 1000, 1400))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Shadow).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
         /// <summary>
-        /// Item_Savvy_Academy_Name
+        /// Item_SavvyAcademy_Name
         /// 財宝地図
-        /// Item_Savvy_Academy_FlavorText
+        /// Item_SavvyAcademy_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Savvy_Academy_Effect
+        /// Item_SavvyAcademy_Effect
         /// <tag=MP>を<color=red>永久に{MP}</color><color=red><tag=ReservedMP></color>して、{COIN}を1つ手に入れる
-        /// Item_Savvy_Academy_Effect2
+        /// Item_SavvyAcademy_Effect2
         /// 呪印：{COIN}を捨てると、このアーティファクトは発動時効果を失い、他の{COIN}はすべて壊れる。そして、<tag=ReservedMP>されている<tag=MP>{PER}ごとに<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyAcademy { get; } = ModCharmStatus.Create<Charm_SavvyAcademy>("Savvy_Academy", 2, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 5, 10, 20))
+        public static ModCharm SavvyAcademy { get; } = ModCharmStatus.Create<Charm_SavvyAcademy>("SavvyAcademy", 2, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 5, 10, 20))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Academy).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect();
 
         #region Jewelries
         /// <summary>
-        /// Item_Jewelry_Coin_Name
+        /// Item_JewelryCoin_Name
         /// 魔法の金貨
-        /// Item_Jewelry_Coin_FlavorText
+        /// Item_JewelryCoin_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Coin_Effect
+        /// Item_JewelryCoin_Effect
         /// <tag=ItemRarity_Jewelry>アーティファクト：所持する<tag=Leaf>を最大400まで消費して、消費した<tag=Leaf>200ごとに最大レベルが1増加する
-        /// Item_Jewelry_Coin_Effect2
+        /// Item_JewelryCoin_Effect2
         /// 所持する<tag=Leaf>{LEAF}ごとに<tag=MagicDamageBonus> {DAMAGE}
         /// </summary>
-        public static ModCharm JewelryCoin { get; } = ModCharmStatus.Create<Charm_JewelryCoin>("Jewelry_Coin", 0,
+        public static ModCharm JewelryCoin { get; } = ModCharmStatus.Create<Charm_JewelryCoin>("JewelryCoin", 0,
             CreateStatusGroup("LeafDrop".ToSephiriaId(), 40))
             .SetCategory(ItemCategories.Academy).SetSimpleEffects(2).SetIsExcludedJewelry(EItemRarity.Uncommon);
 
         /// <summary>
-        /// Item_Jewelry_Study_Name
+        /// Item_JewelryStudy_Name
         /// 輝くダイヤモンド
-        /// Item_Jewelry_Study_FlavorText
+        /// Item_JewelryStudy_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Study_Effect
+        /// Item_JewelryStudy_Effect
         /// <tag=WeaponAction_DirectAttack>時、<tag=Leaf>を{LEAF}消費して3秒間<tag=FinalWeaponDamage>{DAMAGE}
         /// </summary>
-        public static ModCharm JewelryStudy { get; } = ModCharmStatus.Create<Charm_JewelrySturdy>("Jewelry_Study", 0,
+        public static ModCharm JewelryStudy { get; } = ModCharmStatus.Create<Charm_JewelrySturdy>("JewelryStudy", 0,
             CreateStatusGroupBy("PhysicalDamage".ToSephiriaId(), 3),
             CreateStatusGroupBy("WeaponRange".ToSephiriaId(), 3, 20))
             .SetCategory(ItemCategories.Sturdy).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Wind_Name
+        /// Item_JewelryWind_Name
         /// 靡くエメラルド
-        /// Item_Jewelry_Wind_FlavorText
+        /// Item_JewelryWind_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Wind_Effect
+        /// Item_JewelryWind_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して{DAMAGE}の追加<tag=PhysicalDamage>を与える
         /// </summary>
-        public static ModCharm JewelryWind { get; } = ModCharmStatus.Create<Charm_JewelryDamage>("Jewelry_Wind", 0,
+        public static ModCharm JewelryWind { get; } = ModCharmStatus.Create<Charm_JewelryDamage>("JewelryWind", 0,
             CreateStatusGroupBy("AttackSpeed".ToSephiriaId(), 5),
             CreateStatusGroupBy("TrueDamage".ToSephiriaId(), 3, 3))
             .SetCategory(ItemCategories.WindSong).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare).SetDamageId();
         /// <summary>
-        /// Item_Jewelry_Precision_Name
+        /// Item_JewelryPrecision_Name
         /// 煌めくシトリン
-        /// Item_Jewelry_Precision_FlavorText
+        /// Item_JewelryPrecision_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Precision_Effect
+        /// Item_JewelryPrecision_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=CriticalChance>が{CRITICAL}増加する
         /// </summary>
-        public static ModCharm JewelryPrecision { get; } = ModCharmStatus.Create<Charm_JewelryCritical>("Jewelry_Precision", 0,
+        public static ModCharm JewelryPrecision { get; } = ModCharmStatus.Create<Charm_JewelryCritical>("JewelryPrecision", 0,
             CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 20))
             .SetCategory(ItemCategories.Precision).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Excavation_Name
+        /// Item_JewelryExcavation_Name
         /// 震えるトパーズ
-        /// Item_Jewelry_Excavation_FlavorText
+        /// Item_JewelryExcavation_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm JewelryExcavation { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("Jewelry_Excavation", 0,
+        public static ModCharm JewelryExcavation { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryExcavation", 0,
             CreateStatusGroupBy("ExcavationDamage".ToSephiriaId(), 3, 40),
             CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 20))
             .SetCategory(ItemCategories.Precision).SetSimpleEffects(0).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Ember_Name
+        /// Item_JewelryEmber_Name
         /// 燃えるルビー
-        /// Item_Jewelry_Ember_FlavorText
+        /// Item_JewelryEmber_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Ember_Effect
+        /// Item_JewelryEmber_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=Burn>デバフを付与する
         /// </summary>
-        public static ModCharm JewelryEmber { get; } = ModCharmStatus.Create<Charm_JewelryBurn>("Jewelry_Ember", 0,
+        public static ModCharm JewelryEmber { get; } = ModCharmStatus.Create<Charm_JewelryBurn>("JewelryEmber", 0,
             CreateStatusGroupBy("FireDamage".ToSephiriaId(), 3),
             CreateStatusGroup("BurnStack".ToSephiriaId(), 0, 0, 0, 1, 2, 4))
             .SetCategory(ItemCategories.Ember).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Flame_Name
+        /// Item_JewelryFlame_Name
         /// 焼き尽くすガーネット
-        /// Item_Jewelry_Flame_FlavorText
+        /// Item_JewelryFlame_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Flame_Effect
+        /// Item_JewelryFlame_Effect
         /// <tag=FlameSword>が発動した時、<tag=Leaf>を{LEAF}消費して1回追加発動する
         /// </summary>
-        public static ModCharm JewelryFlame { get; } = ModCharmStatus.Create<Charm_JewelryFlameSword>("Jewelry_Flame", 0,
+        public static ModCharm JewelryFlame { get; } = ModCharmStatus.Create<Charm_JewelryFlameSword>("JewelryFlame", 0,
             CreateStatusGroupBy("FireDamage".ToSephiriaId(), 3),
             CreateStatusGroupBy("FlameSwordFastFall".ToSephiriaId(), 3, 20))
             .SetCategory(ItemCategories.FlameSword).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Glacier_Name
+        /// Item_JewelryGlacier_Name
         /// 冷たいサファイア
-        /// Item_Jewelry_Glacier_FlavorText
+        /// Item_JewelryGlacier_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Glacier_Effect
+        /// Item_JewelryGlacier_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=Frostbite>デバフを付与する
         /// </summary>
-        public static ModCharm JewelryGlacier { get; } = ModCharmStatus.Create<Charm_JewelryFrostbite>("Jewelry_Glacier", 0,
+        public static ModCharm JewelryGlacier { get; } = ModCharmStatus.Create<Charm_JewelryFrostbite>("JewelryGlacier", 0,
             CreateStatusGroupBy("IceDamage".ToSephiriaId(), 3),
             CreateStatusGroupBy("FreezeDamage".ToSephiriaId(), 3, 40))
             .SetCategory(ItemCategories.Glacier).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Frost_Name
+        /// Item_JewelryFrost_Name
         /// 凍て尽くすアクアマリン
-        /// Item_Jewelry_Frost_FlavorText
+        /// Item_JewelryFrost_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Frost_Effect
+        /// Item_JewelryFrost_Effect
         /// <tag=FrostRelic>が発動した時、<tag=Leaf>を{LEAF}消費して1回追加発動する
         /// </summary>
-        public static ModCharm JewelryFrost { get; } = ModCharmStatus.Create<Charm_JewelryFrostRelic>("Jewelry_Frost", 0,
+        public static ModCharm JewelryFrost { get; } = ModCharmStatus.Create<Charm_JewelryFrostRelic>("JewelryFrost", 0,
             CreateStatusGroupBy("IceDamage".ToSephiriaId(), 3),
             CreateStatusGroupBy("ChargingCharmBonus".ToSephiriaId(), 3, 30))
             .SetCategory(ItemCategories.Frost).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Electric_Name
+        /// Item_JewelryElectric_Name
         /// 弾けるターコイズ
-        /// Item_Jewelry_Electric_FlavorText
+        /// Item_JewelryElectric_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Electric_Effect
+        /// Item_JewelryElectric_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=Electric>デバフを付与する
         /// </summary>
-        public static ModCharm JewelryElectric { get; } = ModCharmStatus.Create<Charm_JewelryElectric>("Jewelry_Electric", 0,
+        public static ModCharm JewelryElectric { get; } = ModCharmStatus.Create<Charm_JewelryElectric>("JewelryElectric", 0,
             CreateStatusGroupBy("LightningDamage".ToSephiriaId(), 3),
             CreateStatusGroup("ElectricStack".ToSephiriaId(), 0, 0, 0, 1, 2, 4))
             .SetCategory(ItemCategories.Magitech).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Cloud_Name
+        /// Item_JewelryCloud_Name
         /// 貫くマラカイト
-        /// Item_Jewelry_Cloud_FlavorText
+        /// Item_JewelryCloud_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Cloud_Effect
+        /// Item_JewelryCloud_Effect
         /// <tag=DarkCloud>が発動した時、<tag=Leaf>を{LEAF}消費して点射数が1増加する
         /// </summary>
-        public static ModCharm JewelryCloud { get; } = ModCharmStatus.Create<Charm_JewelryDarkCloud>("Jewelry_Cloud", 0,
+        public static ModCharm JewelryCloud { get; } = ModCharmStatus.Create<Charm_JewelryDarkCloud>("JewelryCloud", 0,
             CreateStatusGroupBy("LightningDamage".ToSephiriaId(), 3),
             CreateStatusGroupBy("DarkCloudSpeed".ToSephiriaId(), 3, 30))
             .SetCategory(ItemCategories.DarkCloud).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_Curse_Name
+        /// Item_JewelryCurse_Name
         /// 蠢くオパール
-        /// Item_Jewelry_Curse_FlavorText
+        /// Item_JewelryCurse_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_Jewelry_Curse_Effect
+        /// Item_JewelryCurse_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=Debuff_Poison>デバフを付与する
         /// </summary>
-        public static ModCharm JewelryCurse { get; } = ModCharmStatus.Create<Charm_JewelryDebuff>("Jewelry_Curse", 0,
+        public static ModCharm JewelryCurse { get; } = ModCharmStatus.Create<Charm_JewelryDebuff>("JewelryCurse", 0,
             CreateStatusGroupBy("DebuffDamage".ToSephiriaId(), 8),
             CreateStatusGroupBy("DebuffDuration".ToSephiriaId(), 3, 30))
             .SetCategory(ItemCategories.Curse).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
-        /// Item_Jewelry_All_Name
+        /// Item_JewelryAll_Name
         /// 鮮やかなアイリスクォーツ
-        /// Item_Jewelry_All_FlavorText
+        /// Item_JewelryAll_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm JewelryAll { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("Jewelry_All", 0,
+        public static ModCharm JewelryAll { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryAll", 0,
             CreateStatusGroupBy("FINAL_DAMAGE", 4))
             .SetCategory(ItemCategories.Mystic).SetSimpleEffects(0).SetIsExcludedJewelry(EItemRarity.Legend);
 
@@ -1174,61 +1174,61 @@ namespace SephiriaMod
 
         #region Sacrifices
         /// <summary>
-        /// Item_Sacrifice_Fire_Name
+        /// Item_SacrificeFire_Name
         /// 炎の儀式
-        /// Item_Sacrifice_Fire_FlavorText
+        /// Item_SacrificeFire_FlavorText
         /// 神に捧げる儀式。
-        /// Item_Sacrifice_Fire_Effect
+        /// Item_SacrificeFire_Effect
         /// 儀式：<tag=FireDamage>を合計{DAMAGE}以上与えると、{REWARD}を1つ獲得する（現在：{CURRENT}）
-        public static ModCharm SacrificeFire { get; } = ModCharmSacrificeDamage.Create("Sacrifice_Fire", () => SacrificeFireReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("DEFENSE", -20))
+        public static ModCharm SacrificeFire { get; } = ModCharmSacrificeDamage.Create("SacrificeFire", () => SacrificeFireReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("DEFENSE", -20))
             .SetCategory(ItemCategories.Ember, ItemCategories.FlameSword).SetSimpleEffect().SetElementalType(EDamageElementalType.Fire);
         /// <summary>
-        /// Item_Sacrifice_Fire_Reward_Name
+        /// Item_SacrificeFire_Reward_Name
         /// 熾天使の聖剣
-        /// Item_Sacrifice_Fire_Reward_FlavorText
+        /// Item_SacrificeFire_Reward_FlavorText
         /// 燃え尽きた剣。
-        /// Item_Sacrifice_Fire_Reward_Effect
+        /// Item_SacrificeFire_Reward_Effect
         /// <tag=FlameSword>が<tag=Burn>スタックの数だけ追加発動する
         /// </summary>
-        public static ModCharm SacrificeFireReward { get; } = ModCharmStatus.Create<Charm_EmberFlameSword>("Sacrifice_Fire_Reward", 5, CreateStatusGroup("FIRE_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("FLAME_SWORD_MAX", 1, 2, 3, 4, 5, 6))
+        public static ModCharm SacrificeFireReward { get; } = ModCharmStatus.Create<Charm_EmberFlameSword>("SacrificeFire_Reward", 5, CreateStatusGroup("FIRE_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("FLAME_SWORD_MAX", 1, 2, 3, 4, 5, 6))
             .SetCategory(ItemCategories.Ember, ItemCategories.FlameSword).SetIsDual().SetRarity(EItemRarity.Eternal).SetIsUniqueEffect().SetSimpleEffect();
         /// <summary>
-        /// Item_Sacrifice_Ice_Name
+        /// Item_SacrificeIce_Name
         /// 氷の儀式
-        /// Item_Sacrifice_Ice_FlavorText
+        /// Item_SacrificeIce_FlavorText
         /// 神に捧げる儀式。
-        /// Item_Sacrifice_Ice_Effect
+        /// Item_SacrificeIce_Effect
         /// 儀式：<tag=IceDamage>を合計{DAMAGE}以上与えると、{REWARD}を1つ獲得する（現在：{CURRENT}）
-        public static ModCharm SacrificeIce { get; } = ModCharmSacrificeDamage.Create("Sacrifice_Ice", () => SacrificeIceReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("ATTACK_SPEED", -20))
+        public static ModCharm SacrificeIce { get; } = ModCharmSacrificeDamage.Create("SacrificeIce", () => SacrificeIceReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("ATTACK_SPEED", -20))
             .SetCategory(ItemCategories.Glacier, ItemCategories.Frost).SetSimpleEffect().SetElementalType(EDamageElementalType.Ice);
         /// <summary>
-        /// Item_Sacrifice_Ice_Reward_Name
+        /// Item_SacrificeIce_Reward_Name
         /// 極氷の曲剣
-        /// Item_Sacrifice_Ice_Reward_FlavorText
+        /// Item_SacrificeIce_Reward_FlavorText
         /// 凍てついた剣。
-        /// Item_Sacrifice_Ice_Reward_Effect
+        /// Item_SacrificeIce_Reward_Effect
         /// <tag=Freeze>発動時に<tag=FrostRelic>のチャージを加速させる
         /// </summary>
-        public static ModCharm SacrificeIceReward { get; } = ModCharmStatus.Create<Charm_GlacierFrost>("Sacrifice_Ice_Reward", 5, CreateStatusGroup("ICE_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("CHARGING_CHARM_BONUS", 15, 30, 45, 60, 75, 90))
+        public static ModCharm SacrificeIceReward { get; } = ModCharmStatus.Create<Charm_GlacierFrost>("SacrificeIce_Reward", 5, CreateStatusGroup("ICE_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("CHARGING_CHARM_BONUS", 15, 30, 45, 60, 75, 90))
             .SetCategory(ItemCategories.Glacier, ItemCategories.Frost).SetIsDual().SetRarity(EItemRarity.Eternal).SetIsUniqueEffect().SetSimpleEffect();
         /// <summary>
-        /// Item_Sacrifice_Lightning_Name
+        /// Item_SacrificeLightning_Name
         /// 雷の儀式
-        /// Item_Sacrifice_Lightning_FlavorText
+        /// Item_SacrificeLightning_FlavorText
         /// 神に捧げる儀式。
-        /// Item_Sacrifice_Lightning_Effect
+        /// Item_SacrificeLightning_Effect
         /// 儀式：<tag=LightningDamage>を合計{DAMAGE}以上与えると、{REWARD}を1つ獲得する（現在：{CURRENT}）
-        public static ModCharm SacrificeLightning { get; } = ModCharmSacrificeDamage.Create("Sacrifice_Lightning", () => SacrificeLightningReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("CRITICAL", -2000))
+        public static ModCharm SacrificeLightning { get; } = ModCharmSacrificeDamage.Create("SacrificeLightning", () => SacrificeLightningReward.ItemEntity, 333333, CreateStatusGroup("PHYSICAL_DAMAGE", -10), CreateStatusGroup("CRITICAL", -2000))
             .SetCategory(ItemCategories.Magitech, ItemCategories.DarkCloud).SetSimpleEffect().SetElementalType(EDamageElementalType.Lightning);
         /// <summary>
-        /// Item_Sacrifice_Lightning_Reward_Name
+        /// Item_SacrificeLightning_Reward_Name
         /// 迅雷の直剣
-        /// Item_Sacrifice_Lightning_Reward_FlavorText
+        /// Item_SacrificeLightning_Reward_FlavorText
         /// いなずまの剣。
-        /// Item_Sacrifice_Lightning_Reward_Effect
+        /// Item_SacrificeLightning_Reward_Effect
         /// <tag=DarkCloud>の稲妻が命中した敵に<tag=Electric>デバフを付与する
         /// </summary>
-        public static ModCharm SacrificeLightningReward { get; } = ModCharmStatus.Create<Charm_MagitechDarkCloud>("Sacrifice_Lightning_Reward", 5, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("ELECTRIC_STACK", 1, 1, 2, 2, 3, 3))
+        public static ModCharm SacrificeLightningReward { get; } = ModCharmStatus.Create<Charm_MagitechDarkCloud>("SacrificeLightning_Reward", 5, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 5, 7, 10, 15), CreateStatusGroup("ELECTRIC_STACK", 1, 1, 2, 2, 3, 3))
             .SetCategory(ItemCategories.Magitech, ItemCategories.DarkCloud).SetIsDual().SetRarity(EItemRarity.Eternal).SetIsUniqueEffect().SetSimpleEffect();
         #endregion
 
@@ -1283,84 +1283,84 @@ namespace SephiriaMod
 
         #region EffectHUDs
         /// <summary>
-        /// EffectHUD_Physical_Damage_Buff_Name
+        /// EffectHUD_PhysicalDamageBuff_Name
         /// 暗影の凶刃
-        /// EffectHUD_Physical_Damage_Buff_FlavorText
+        /// EffectHUD_PhysicalDamageBuff_FlavorText
         /// 物理ダメージ増加（最大4スタック）
         /// </summary>
-        public static ModEffectHUD EffectPhysicalDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("Physical_Damage_Buff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectPhysicalDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PhysicalDamageBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance PhysicalDamageBuff { get; } = CreateBuff("PhysicalDamageBuff", "PhysicalDamageBuff", 4, CreateBuffStatus("PHYSICAL_DAMAGE", 5))
             .SetDefaultDuration(8f);
         /// <summary>
-        /// EffectHUD_Magitech_Frost_Relic_Buff_Name
+        /// EffectHUD_MagitechFrostRelicBuff_Name
         /// 雹の手
-        /// EffectHUD_Magitech_Frost_Relic_Buff_FlavorText
+        /// EffectHUD_MagitechFrostRelicBuff_FlavorText
         /// 氷属性ダメージ増加（最大20スタック）
         /// </summary>
-        public static ModEffectHUD EffectMagitechFrostRelicBuff { get; } = ModEffectHUD.CreateStackEffectHUD("Magitech_Frost_Relic_Buff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectMagitechFrostRelicBuff { get; } = ModEffectHUD.CreateStackEffectHUD("MagitechFrostRelicBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance MagitechFrostRelicBuff { get; } = CreateBuff("MagitechFrostRelicBuff", "MagitechFrostRelicBuff", 20, CreateBuffStatus("ICE_DAMAGE", 2))
             .SetDefaultDuration(Charm_MagitechFrostRelic.BuffDuration);
         /// <summary>
-        /// EffectHUD_Soul_Steal_Buff_Name
+        /// EffectHUD_SoulStealBuff_Name
         /// 吸魂
-        /// EffectHUD_Soul_Steal_Buff_FlavorText
+        /// EffectHUD_SoulStealBuff_FlavorText
         /// 近接攻撃範囲増加（最大50スタック）
         /// </summary>
-        public static ModEffectHUD EffectSoulStealBuff { get; } = ModEffectHUD.CreateStackEffectHUD("Soul_Steal_Buff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectSoulStealBuff { get; } = ModEffectHUD.CreateStackEffectHUD("SoulStealBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance SoulStealBuff { get; } = CreateBuff("SoulStealBuff", "SoulStealBuff", 50, CreateBuffStatus("WEAPON_RANGE", 2))
             .SetDefaultDuration(30f);
         /// <summary>
-        /// EffectHUD_Weapon_Damage_Buff_Name
+        /// EffectHUD_WeaponDamageBuff_Name
         /// ダイヤモンド
-        /// EffectHUD_Weapon_Damage_Buff_FlavorText
+        /// EffectHUD_WeaponDamageBuff_FlavorText
         /// <tag=FinalWeaponDamage>が増加します。
         /// </summary>
-        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("Weapon_Damage_Buff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("WeaponDamageBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", 8))
             .SetDefaultDuration(3f);
 
         /// <summary>
-        /// EffectHUD_Stargaze_Tablet_Name
+        /// EffectHUD_StargazeTablet_Name
         /// 星見の石版
-        /// EffectHUD_Stargaze_Tablet_FlavorText
+        /// EffectHUD_StargazeTablet_FlavorText
         /// 破壊された石版の欠片。
         /// </summary>
-        public static ModEffectHUD EffectStargazeTablet { get; } = ModEffectHUD.CreateStackEffectHUD("Stargaze_Tablet", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectStargazeTablet { get; } = ModEffectHUD.CreateStackEffectHUD("StargazeTablet", UI_EffectHUD_Basic.EEffectType.Boon);
         /// <summary>
-        /// EffectHUD_Create_Stone_Tablet_Name
+        /// EffectHUD_CreateStoneTablet_Name
         /// 流れ星の結晶
-        /// EffectHUD_Create_Stone_Tablet_FlavorText
+        /// EffectHUD_CreateStoneTablet_FlavorText
         /// 倒した敵の数。
         /// </summary>
-        public static ModEffectHUD EffectCreateStoneTablet { get; } = ModEffectHUD.CreateStackEffectHUD("Create_Stone_Tablet", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectCreateStoneTablet { get; } = ModEffectHUD.CreateStackEffectHUD("CreateStoneTablet", UI_EffectHUD_Basic.EEffectType.Boon);
         /// <summary>
-        /// EffectHUD_Copy_Academy_Name
+        /// EffectHUD_CopyAcademy_Name
         /// 原典
-        /// EffectHUD_Copy_Academy_FlavorText
+        /// EffectHUD_CopyAcademy_FlavorText
         /// <tag=Grimoire>を一定回数使用するとアカデミーアーティファクトを複製する
         /// </summary>
-        public static ModEffectHUD EffectCopyAcademy { get; } = ModEffectHUD.CreateStackEffectHUD("Copy_Academy", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectCopyAcademy { get; } = ModEffectHUD.CreateStackEffectHUD("CopyAcademy", UI_EffectHUD_Basic.EEffectType.Boon);
         /// <summary>
-        /// EffectHUD_Electric_Stun_Name
+        /// EffectHUD_ElectricStun_Name
         /// ビリビリクリームクロワッサン
-        /// EffectHUD_Electric_Stun_FlavorText
+        /// EffectHUD_ElectricStun_FlavorText
         /// <tag=Electric>が付与されていない敵に<tag=LightningDamage>を与えた時の気絶確率
         /// </summary>
-        public static ModEffectHUD EffectElectricStun { get; } = ModEffectHUD.CreateStackEffectHUD("Electric_Stun", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectElectricStun { get; } = ModEffectHUD.CreateStackEffectHUD("ElectricStun", UI_EffectHUD_Basic.EEffectType.Boon);
         /// <summary>
-        /// EffectHUD_Immersion_Ice_Name
+        /// EffectHUD_ImmersionIce_Name
         /// 冷静
-        /// EffectHUD_Immersion_Ice_FlavorText
+        /// EffectHUD_ImmersionIce_FlavorText
         /// <tag=FrostRelic>が1回追加発動します。
         /// </summary>
-        public static ModEffectHUD EffectIceTrance { get; } = ModEffectHUD.CreateStackEffectHUD("Immersion_Ice", UI_EffectHUD_Basic.EEffectType.Boon).SetHasStackText();
+        public static ModEffectHUD EffectIceTrance { get; } = ModEffectHUD.CreateStackEffectHUD("ImmersionIce", UI_EffectHUD_Basic.EEffectType.Boon).SetHasStackText();
         /// <summary>
-        /// EffectHUD_Savvy_Shadow_Name
+        /// EffectHUD_SavvyShadow_Name
         /// 黒の貨幣
-        /// EffectHUD_Savvy_Shadow_FlavorText
+        /// EffectHUD_SavvyShadow_FlavorText
         /// <tag=Looting>した回数
         /// </summary>
-        public static ModEffectHUD EffectSavvyShadow { get; } = ModEffectHUD.CreateStackEffectHUD("Savvy_Shadow", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectSavvyShadow { get; } = ModEffectHUD.CreateStackEffectHUD("SavvyShadow", UI_EffectHUD_Basic.EEffectType.Boon);
         #endregion
 
         #region Keywords and Stats
