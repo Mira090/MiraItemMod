@@ -114,95 +114,12 @@ namespace SephiriaMod.Utilities
                 pallas.throwIntervalTimer.time = 0.1f;
             }
         }
-        public static AnimationSet Copy(this AnimationSet instance)
-        {
-            var set = ScriptableObject.CreateInstance<AnimationSet>();
-            set.name = instance.name + "_Copied";
-            set.sprites = instance.sprites.Select(sprite => (AnimationSet.StateInfo)sprite.Clone()).ToList();
-            return set;
-        }
-        public static T Spawn<T>(this ProjectileSpawner<T> spawner, Action<T> modify, uint assetId, GameObject key, Vector3 pos, bool canBeTransparentOnMultiplayer, EDamageFromType fromType, string damageId, float damage, int staggeringLevel, float externalForcePower, UnitAvatar owner, long targetTeam, float height, Vector2 motionDataBegin, Vector2 motionDataEnd, List<CombatBehaviour> sharedTarget, Action<CombatBehaviour, DamageInstance, ProjectileBase> onAttack, float rangeBonus = 0f, EDamageElementalType elementalType = EDamageElementalType.Physical, bool showSwingFx = true) where T : ProjectileBase
-        {
-            if (key == null)
-            {
-                Debug.LogError("키는 Null이 될 수 없습니다.");
-                return null;
-            }
-
-            GameObject gameObject = UnityEngine.Object.Instantiate(key, pos, Quaternion.identity);
-            gameObject.GetComponent<NetworkIdentity>().SetAssetId(assetId);
-            T component = gameObject.GetComponent<T>();
-            //Core.Logger("Msg1: " + gameObject.GetComponentCount());
-            modify.Invoke(component);
-            component.OnSpawn();
-            component.Initialize(canBeTransparentOnMultiplayer, fromType, damageId, damage, staggeringLevel, externalForcePower, owner, targetTeam, height, motionDataBegin, motionDataEnd, sharedTarget, onAttack, rangeBonus, elementalType);
-            component.showSwingFx = showSwingFx;
-            //Core.Logger("Msg2: " + gameObject.GetComponentCount());
-            NetworkServer.Spawn(gameObject);
-            component.OnSpawnFinalized();
-            //component.spawnedPrefabName = key.name;
-            return component;
-        }
         public static GameDataLoader GetGameDataLoader()
         {
             var instance = typeof(GameDataLoader);
             return (GameDataLoader)instance.GetField("instance", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic).GetValue(instance);
         }
 
-        public static void CreateDestroyVisualOnClient(this BulletDestroyModule instance, Action<SpriteFx> consumer, uint ownerNetId, bool canBeTransparentOnMultiplayer, Vector3 position, float height, float angle)
-        {
-            if (!instance.destroySound.IsNull)
-            {
-                RuntimeManager.PlayOneShot(instance.destroySound, position);
-            }
-
-            if ((bool)instance.destroyFxPrefab)
-            {
-                for (int i = 0; i < instance.destroyFxCount; i++)
-                {
-                    GameObject key = instance.destroyFxPrefab;
-                    if (instance.destroyFxPrefabList.Count > 0)
-                    {
-                        key = instance.destroyFxPrefabList[Random.Range(0, instance.destroyFxPrefabList.Count)];
-                    }
-
-                    Vector2 vector = Random.insideUnitCircle * instance.destroyFxErrorRadius;
-                    SpriteFx spriteFx = SpriteFx.Pool.Spawn(key, position + (Vector3)vector);
-                    spriteFx.SetBodyYPos(height);
-                    float num = Random.Range((0f - instance.randomFxAngleError) * 0.5f, instance.randomFxAngleError * 0.5f);
-                    if (instance.lookAtBulletDirection)
-                    {
-                        spriteFx.SetRotation(new Vector3(0f, 0f, angle + num));
-                    }
-                    else
-                    {
-                        spriteFx.SetRotation(new Vector3(0f, 0f, num));
-                    }
-
-                    if (instance.randomFxScaleX)
-                    {
-                        spriteFx.transform.localScale = new Vector3(Mathf.Sign(Random.Range(-1, 1)), 1f, 1f);
-                    }
-
-                    if (canBeTransparentOnMultiplayer && (bool)GameCamera.Instance && (bool)GameCamera.Instance.Observer)
-                    {
-                        int ownerIndex = GameCamera.Instance.Observer.netId == ownerNetId ? 1 : 0;
-                        spriteFx.SetTransparentOnMultiplayer(isTransparent: true, ownerIndex);
-                    }
-                    consumer?.Invoke(spriteFx);
-                }
-            }
-
-            if (instance.breakFxFragments.Count <= 0)
-            {
-                return;
-            }
-
-            foreach (Unit_LibraryLivingStatue_Fragment breakFxFragment in instance.breakFxFragments)
-            {
-                UnityEngine.Object.Instantiate(breakFxFragment.gameObject, position + breakFxFragment.transform.localPosition, Quaternion.identity).SetActive(value: true);
-            }
-        }
         public static ushort ToFunctionHashCode(this string function)
         {
             return (ushort)((uint)function.GetStableHashCode() & 0xFFFFu);
