@@ -118,9 +118,9 @@ namespace SephiriaMod
         public bool IsInitialized = false;
         protected override void OnModLoaded()
         {
+            base.OnModLoaded();
             ModPatches = new Harmony("com.Mira.MiraItemMod");
             ModPatches.PatchAll();
-            base.OnModLoaded();
             if (!IsInitialized)
             {
                 IsInitialized = true;
@@ -130,142 +130,130 @@ namespace SephiriaMod
             }
 
             CustomSpriteAsset.InitSpriteAsset();
+
+            HorayModAPI.OnLoadItemDatabase += OnLoadItemDatabase;
+            HorayModAPI.OnLoadMiracleDatabase += OnLoadMiracleDatabase;
+            HorayModAPI.OnLoadStatusDatabase += OnLoadStatusDatabase;
+            HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
+            HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
         }
+
         protected override void OnModUnloaded()
         {
-            if(ModPatches != null)
+            HorayModAPI.OnLoadItemDatabase -= OnLoadItemDatabase;
+            HorayModAPI.OnLoadMiracleDatabase -= OnLoadMiracleDatabase;
+            HorayModAPI.OnLoadStatusDatabase -= OnLoadStatusDatabase;
+            HorayModAPI.OnLoadKeywordDatabase -= OnLoadKeywordDatabase;
+            HorayModAPI.OnAllDatabasesReady -= OnAllDatabasesReady;
+
+            if (ModPatches != null)
             {
                 ModPatches.UnpatchSelf();
             }
             base.OnModUnloaded();
         }
+
+        private void OnLoadItemDatabase()
+        {
+            ItemDatabase.Modify(3022, item =>//メテオシャワー
+            {
+                var prefab = item.resourcePrefab;
+                if (prefab.TryGetComponent<Charm_Magic>(out var charm))
+                {
+                    if (charm.skill.magicPrefab.TryGetComponent<ActiveSkill_MeteorShower>(out var skill))
+                    {
+                        //skill.meteorFireTimer = new Timer(0.25f);
+                        //skill.numberOfMeteorsByLevel = new int[3] { 24, 30, 36 };
+                        skill.meteorFireTimer = new Timer(0.05f);
+                        skill.numberOfMeteorsByLevel = new int[9] { 20, 25, 30, 35, 40, 45, 50, 60, 100 };//3 Level => DPS 1750（number100, Fire 51）
+                        skill.damagePercentByLevel = new float[6] { 80f, 90f, 100f, 110f, 120f, 130f };
+                        charm.skill.cooldownTime = 31f;//26 => ??
+                        charm.skill.mpCostsByLevel = new int[9] { 23, 33, 37, 46, 51, 57, 66, 82, 102 };//35, 38, 41, 44
+                        charm.maxLevel = 8;
+                    }
+                }
+            });
+            ItemDatabase.Modify(1123, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スタールビー
+            ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
+            ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Vitality));//生命の手
+            ItemDatabase.Modify(1158, SetItemCategories(ItemCategories.Vitality));//強化ポーションキャップ
+            ItemDatabase.Modify(1005, SetItemCategories(ItemCategories.Vitality));//ハート形のニンジン
+            ItemDatabase.Modify(1017, SetItemCategories(ItemCategories.Vitality));//盾のイヤリング
+            ItemDatabase.Modify(1165, SetIsNotUniqueEffect());//ライリーの懐中時計
+            ItemDatabase.Modify(1166, SetIsNotUniqueEffect());//宝石の鎧
+            ItemDatabase.Modify(1169, SetIsNotUniqueEffect());//戦闘魔法使いの手袋
+            ItemDatabase.Modify(1075, SetIsNotUniqueEffect());//空の剣の握り
+            ItemDatabase.Modify(1235, SetItemCategories(ItemCategories.Sturdy, ItemCategories.SkySong));//突き指南書
+            ItemDatabase.Modify(1149, SetItemCategories(ItemCategories.WindSong, ItemCategories.SkySong));//金色のマント
+            ItemDatabase.Modify(1082, SetItemCategories(ItemCategories.SkySong));//圧迫マント
+            ItemDatabase.Modify(1011, SetItemCategories(ItemCategories.SkySong));//風草のスカーフ
+            ItemDatabase.Modify(1093, SetItemCategories(ItemCategories.SkySong));//いばらの茂み
+            ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
+            ItemDatabase.Modify(1188, item =>//血石のイヤリング
+            {
+                item.categories = new List<string> { ItemCategories.Drunk, ItemCategories.Vitality };
+                item.SetEntityRarity(EItemRarity.Rare);
+                item.isDual = true;
+
+                if (item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var status) && status.stats.Length >= 2 && status.stats[1].statusID == "DEFENSE")
+                {
+                    status.stats[1].valuesByLevel = new int[] { -10, -15, -20, -30 };
+                }
+            });
+            ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
+        }
+        private void OnLoadMiracleDatabase()
+        {
+            MiracleDatabase.Modify("Scholar", SetMiracleCategories(ItemCategories.Lake));
+            MiracleDatabase.Modify("IntelligenceAgent", SetMiracleCategories(ItemCategories.SkySong));
+            MiracleDatabase.Modify("Guard", SetMiracleCategories(ItemCategories.Vitality));
+            MiracleDatabase.Modify("Berserker", SetMiracleCategories(ItemCategories.Drunk));
+            MiracleDatabase.Modify("Elementalist", SetMiracleCategories(ItemCategories.Elemental));
+        }
+        private void OnLoadStatusDatabase()
+        {
+            StatusDatabase.Modify("HP_POTION_BONUS", status =>
+            {
+                status.divideForDisplay = 1;
+            });
+        }
+        private void OnLoadKeywordDatabase()
+        {
+            KeywordDatabase.Modify("Toughness", keyword =>
+            {
+                keyword.displayDetails = true;
+            });
+        }
+        private void OnAllDatabasesReady()
+        {
+            Data.LoadMiracleManuallyGivenItems();
+        }
+
+        private static Action<ItemEntity> SetItemCategories(params string[] categories)
+        {
+            return item => item.categories = categories.ToList();
+        }
+        private static Action<Miracle> SetMiracleCategories(params string[] categories)
+        {
+            return item => item.categories = categories;
+        }
+        private static Action<ItemEntity> SetIsNotUniqueEffect()
+        {
+            return item =>
+            {
+                var prefab = item.resourcePrefab;
+                if (prefab != null && prefab.TryGetComponent<Charm_Basic>(out var charm))
+                {
+                    charm.isUniqueEffect = false;
+                }
+            };
+        }
+
         [HarmonyPatch(typeof(Resources), nameof(Resources.LoadAll), new Type[] { typeof(string), typeof(Type) })]
         class ResourcesLoadAllPatch
         {
             private static void ModifyItemEntity(ItemEntity item)
             {
-                if (item.id == 3022)//メテオシャワー
-                {
-                    var prefab = item.resourcePrefab;
-                    if (prefab.TryGetComponent<Charm_Magic>(out var charm))
-                    {
-                        if(charm.skill.magicPrefab.TryGetComponent<ActiveSkill_MeteorShower>(out var skill))
-                        {
-                            //skill.meteorFireTimer = new Timer(0.25f);
-                            //skill.numberOfMeteorsByLevel = new int[3] { 24, 30, 36 };
-                            skill.meteorFireTimer = new Timer(0.05f);
-                            skill.numberOfMeteorsByLevel = new int[9] { 20, 25, 30, 35, 40, 45, 50, 60, 100 };//3 Level => DPS 1750（number100, Fire 51）
-                            skill.damagePercentByLevel = new float[6] { 80f, 90f, 100f, 110f, 120f, 130f};
-                            charm.skill.cooldownTime = 31f;//26 => ??
-                            charm.skill.mpCostsByLevel = new int[9] { 23, 33, 37, 46, 51, 57, 66, 82, 102 };//35, 38, 41, 44
-                            charm.maxLevel = 8;
-                        }
-                    }
-                }
-                if (item.id == 1039)//AutoMagic
-                {
-                    //item.activeType = EItemActiveType.Default;
-                }
-                if (item.id == 1123 || item.id == 1124)//スタールビー・スターアクアマリン
-                {
-                    item.categories = new List<string> { ItemCategories.Lake, ItemCategories.Vitality };
-                }
-                if (item.id == 1196 || item.id == 1158 || item.id == 1005)//生命の手、強化ポーションキャップ、ハート形のニンジン
-                {
-                    item.categories = new List<string> { ItemCategories.Vitality };
-                }
-                if (item.id == 1017)//盾のイヤリング
-                {
-                    item.categories = new List<string> { ItemCategories.Vitality };
-                }
-                //if (item.isDual)
-                    //Core.Logger(item.aName.ToString() + "(" + item.name + ")");
-                if(item.id == 1255 || item.id == 1256 || item.id == 1257)//惑星属性絆
-                {
-                    //item.name == "1254_PlanetComet"
-                    //item.activeType = EItemActiveType.Default;
-                }
-                //宝石の鎧、戦闘魔法使いの手袋、空の剣の握り、ライリーの懐中時計
-                if (item.id == 1166 || item.id == 1169 || item.id == 1075 || item.id == 1165)
-                {
-                    var prefab = item.resourcePrefab;
-                    if (prefab != null && prefab.TryGetComponent<Charm_Basic>(out var charm))
-                    {
-                        charm.isUniqueEffect = false;
-                    }
-                }
-                if(item.id == 1117)//音叉
-                {
-                    /*
-                    if(item.resourcePrefab.TryGetComponent<Charm_TuningForks>(out var charm))
-                    {
-                        charm.effectsString = [new LocalizedString("Charm_TuningForksMkII_Effect"), new LocalizedString("Charm_TuningForksMkII_Effect2")];
-                        var component = item.resourcePrefab.AddComponent<Charm_TuningForksMkII>();
-                        component.effectsString = charm.effectsString;
-                        component.damageColor = charm.damageColor;
-                        component.valueHUD_ID = charm.valueHUD_ID;
-                        component.maxLevel = charm.maxLevel;
-                        component.isUniqueEffect = charm.isUniqueEffect;
-                        component.relatedWeapon = charm.relatedWeapon;
-                        UnityEngine.Object.Destroy(charm);
-                    }*/
-                    //item.isDual = false;
-                }
-                if (item.id == 1076)//魔法の定法
-                {
-                    /*
-                    if (item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var charm))
-                    {
-                        charm.stats[2] = Data.CreateStatusGroup("FIRE_DAMAGE", 1, 2, 4, 7, 10);
-                    }*/
-                }
-                if (item.id == 1235)//突き指南書
-                {
-                    item.categories = new List<string> { ItemCategories.Sturdy, ItemCategories.SkySong };
-                }
-                if (item.id == 1252)//常緑のマント
-                {
-                    item.categories = new List<string> { ItemCategories.Shadow, ItemCategories.SkySong };
-                }
-                if (item.id == 1149)//金色のマント
-                {
-                    item.categories = new List<string> { ItemCategories.WindSong, ItemCategories.SkySong };
-                }
-                if (item.id == 1082 || item.id == 1011 || item.id == 1093)//圧迫マント 風草のスカーフ いばらの茂み
-                {
-                    item.categories = new List<string> { ItemCategories.SkySong };
-                }
-                if (item.id == 1172)//パラスのカード
-                {
-                    item.categories = new List<string> { ItemCategories.Fortune };
-                }
-                if(item.id == 1262)//神秘の振り子
-                {
-                    //item.activeType = EItemActiveType.Default;
-                }
-                if(item.id == 1265 || item.id == 1266 || item.id == 1274 || item.id == 1275 || item.id == 1276)//MPShield、MagicMP、フォールトファインダーニードル、さすらいの人の首飾り、獣の心臓
-                {
-                    //item.activeType = EItemActiveType.Default;
-                }
-                if (item.id == 1188)//血石のイヤリング
-                {
-                    item.categories = new List<string> { ItemCategories.Drunk, ItemCategories.Vitality };
-                    item.SetEntityRarity(EItemRarity.Rare);
-                    item.isDual = true;
-
-                    if(item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var status) && status.stats.Length >= 2 && status.stats[1].statusID == "DEFENSE")
-                    {
-                        status.stats[1].valuesByLevel = new int[] { -10, -15, -20, -30 };
-                    }
-                }
-                if (item.id == 1260)//雷の足跡
-                {
-                    //item.activeType = EItemActiveType.Default;
-                }
-                if (item.id == 1120)//血石の指輪
-                {
-                    item.categories = new List<string> { ItemCategories.Vitality };
-                }
                 var bond = "(" + new LocalizedString("ItemRarity_Dual").ToString() + ")";
                 if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_Basic>(out var c))
                 {
@@ -313,41 +301,15 @@ namespace SephiriaMod
             }
             private static void ModifyStatusEntity(StatusEntity status)
             {
-                if(status.id == "HP_POTION_BONUS")
-                {
-                    status.divideForDisplay = 1;
-                }
                 StatusIdDic[status.id] = status;
             }
             private static void ModifyMiracle(Miracle miracle)
             {
-                if(miracle.id == "Scholar")
-                {
-                    miracle.categories = new string[] { ItemCategories.Lake };
-                }
-                if(miracle.id == "IntelligenceAgent")
-                {
-                    miracle.categories = new string[] { ItemCategories.SkySong };
-                }
-                if(miracle.id == "Guard")
-                {
-                    miracle.categories = new string[] { ItemCategories.Vitality };
-                }
-                if (miracle.id == "Berserker")
-                {
-                    miracle.categories = new string[] { ItemCategories.Drunk };
-                }
-                if (miracle.id == "Elementalist")
-                {
-                    miracle.categories = new string[] { ItemCategories.Elemental };
-                }
+
             }
             private static void ModifyKeywordEntity(KeywordEntity keyword)
             {
-                if(keyword.keyword == "Toughness")
-                {
-                    keyword.displayDetails = true;
-                }
+
             }
             static void Postfix(string path, Type systemTypeInstance, ref UnityEngine.Object[] __result)
             {
@@ -706,6 +668,9 @@ namespace SephiriaMod
                 return UnityEngine.Object.Instantiate(original);
             }
         }
+        /// <summary>
+        /// 武器のInstantiateパッチ
+        /// </summary>
         [HarmonyPatch(typeof(WeaponControllerSimple), "LocalEquipWeapon")]
         public static class InstantiateWeaponPatch
         {
@@ -759,6 +724,9 @@ namespace SephiriaMod
                 return UnityEngine.Object.Instantiate(original);
             }
         }
+        /// <summary>
+        /// 才能のInstantiateパッチ
+        /// </summary>
         [HarmonyPatch(typeof(PlayerAvatar), "AddPassiveStatOnServer")]
         public static class InstantiatePassivePatch
         {
@@ -1110,33 +1078,9 @@ namespace SephiriaMod
                 return NetworkClient.GetPrefab(assetId, out prefab);
             }
         }
-        [HarmonyPatch(typeof(GameDataLoader), "Awake")]
-        public static class GameDataLoaderAwakePatch
-        {
-            static void Postfix(GameDataLoader __instance)
-            {
-                if (__instance == null || __instance != ModUtil.GetGameDataLoader())
-                    return;
-                if (Core.LogFew)
-                    Core.Logger("Mod GameData Loading...");
-                foreach(var miracle in Data.Miracles)
-                {
-                    miracle.LoadManuallyGivenItems();
-                }
-                //CustomCostumeDatabase.LoadAllStartingItems(CostumeDatabase.GetAll());
-            }
-        }
-        [HarmonyPatch(typeof(GameDataLoader), "OnDestroy")]
-        public static class GameDataLoaderOnDestroyPatch
-        {
-            static void Prefix(GameDataLoader __instance)
-            {
-                if (__instance == null || __instance != ModUtil.GetGameDataLoader())
-                    return;
-                if (Core.LogFew)
-                    Core.Logger("Mod GameData Destroying...");
-            }
-        }
+        /// <summary>
+        /// SpriteFxの登録パッチ
+        /// </summary>
 
         [HarmonyPatch(typeof(ObjectPoolingFactory<SpriteFx>), nameof(ObjectPoolingFactory<SpriteFx>.Initialize))]
         public static class ObjectPoolingFactoryInitializePatch
@@ -1147,46 +1091,9 @@ namespace SephiriaMod
                     return;
                 if (!__instance.GetType().IsGenericType || __instance.GetType().GenericTypeArguments.FirstOrDefault() != typeof(SpriteFx))
                     return;
-                    //Core.Logger($"ObjectPoolingFactory<SpriteFx>.Initialize Postfix: {__instance.GetType().GenericTypeArguments.FirstOrDefault()}");
 
-                //var path = "IceDagger\\";
                 foreach (var original in poolablePrefabs)
                 {
-                    /*
-                    if (original.name == "DaggerDashFx")
-                    {
-                        if (DashFx == null)
-                        {
-                            DashFx = UnityEngine.Object.Instantiate(original);
-                            DashFx.name = "DaggerDashFx_Ice";
-                            if (DashFx.TryGetComponent<SpriteFx>(out var fx))
-                            {
-                                var set = ScriptableObject.CreateInstance<AnimationSet>();
-                                set.name = "DaggerDashFx_Ice";
-                                set.sprites = [];
-                                foreach (var state in fx.animator2D.currentSet.sprites)
-                                {
-                                    var newState = new AnimationSet.StateInfo();
-                                    newState.fps = state.fps;
-                                    newState.state = state.state;
-                                    newState.repeat = state.repeat;
-                                    newState.frameEvents = state.frameEvents;
-                                    newState.soundEvents = state.soundEvents;
-                                    newState.transformAttributes = state.transformAttributes;
-
-                                    newState.timeline = [
-                                        new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = SpriteLoader.LoadSprite(ModUtil.WeaponPath + path + "Weapon_Dagger_DashAttack_0") },
-                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 1, sprite = SpriteLoader.LoadSprite(ModUtil.WeaponPath + path + "Weapon_Dagger_DashAttack_1") }
-                                        ];
-                                    set.sprites.Add(newState);
-                                }
-
-                                fx.animator2D.currentSet = set;
-                                fx.animator2D.ChangeSet(set);
-                            }
-                        }
-                    }*/
-
                     foreach(var moditem in Data.SpriteFxs)
                     {
                         if(moditem.ResourcePrefab == null && original.name == moditem.OriginalName && original.TryGetComponent<SpriteFx>(out var fx))
