@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
 
-namespace SephiriaMod.Entities
+namespace MiraItemMod.Entities
 {
     public class ItemEntity_Jewelry : ItemEntity
     {

@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using BuffStatus = CharacterBuff_StatusInstance.Status;
 
-namespace SephiriaMod.Buffs
+namespace MiraItemMod.Buffs
 {
     public class CharacterBuffMod_StatusInstance : CharacterBuffMod, IKeywordValueConvertible
     {

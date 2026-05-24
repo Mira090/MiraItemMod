@@ -1,4 +1,4 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Miracle;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public class ModEffectHUD
     {

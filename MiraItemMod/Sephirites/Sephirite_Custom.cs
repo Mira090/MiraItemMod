@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Sephirites
+namespace MiraItemMod.Sephirites
 {
     public class Sephirite_Custom : Sephirite
     {

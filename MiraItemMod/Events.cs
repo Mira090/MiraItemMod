@@ -3,9 +3,9 @@ using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
 using Mirror;
-using SephiriaMod.Items;
-using SephiriaMod.UI;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items;
+using MiraItemMod.UI;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ using UnityEngine.UI;
 using static AvatarStatsHooker;
 using static GridInventory;
 
-namespace SephiriaMod
+namespace MiraItemMod
 {
     public static class Events
     {

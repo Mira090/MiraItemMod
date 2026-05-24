@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SephiriaMod.Sephirites
+namespace MiraItemMod.Sephirites
 {
     public class Sephirite_Jewelry : Sephirite_Custom
     {

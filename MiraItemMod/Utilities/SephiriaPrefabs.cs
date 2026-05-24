@@ -6,7 +6,7 @@ using UnityEngine;
 using static UnityEngine.UI.Image;
 using Random = UnityEngine.Random;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public class SephiriaPrefabs
     {

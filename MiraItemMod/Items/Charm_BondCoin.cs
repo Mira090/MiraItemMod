@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_BondCoin : Charm_StatusInstance
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Combos
+namespace MiraItemMod.Combos
 {
     public class ComboEffect_Drunk : ComboEffectBase
     {

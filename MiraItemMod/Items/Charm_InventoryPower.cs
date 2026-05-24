@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using Mirror;
-using SephiriaMod.Registries;
-using SephiriaMod.Utilities;
+using MiraItemMod.Registries;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using UnityEngine;
 using static Charm_StatusInstance;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_InventoryPower : Charm_VariableMaxLevelWhitePaper
     {

@@ -1,13 +1,13 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-using static SephiriaMod.Items.Charm_EvasionFrost.ChargingCharmPatch;
+using static MiraItemMod.Items.Charm_EvasionFrost.ChargingCharmPatch;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_EvasionFrost : Charm_StatusInstance
     {

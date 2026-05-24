@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_ReviveHeal : Charm_StatusInstance
     {

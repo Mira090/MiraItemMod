@@ -1,18 +1,18 @@
 ﻿using FMODUnity;
 using Mirror;
-using SephiriaMod.Buffs;
-using SephiriaMod.Combos;
-using SephiriaMod.Items;
-using SephiriaMod.Items.Eternal;
-using SephiriaMod.Items.Jewelry;
-using SephiriaMod.Items.Savvy;
-using SephiriaMod.Miracles;
-using SephiriaMod.Passives;
-using SephiriaMod.Registries;
-using SephiriaMod.Sephirites;
-using SephiriaMod.StatusInstances;
-using SephiriaMod.Utilities;
-using SephiriaMod.Weapons;
+using MiraItemMod.Buffs;
+using MiraItemMod.Combos;
+using MiraItemMod.Items;
+using MiraItemMod.Items.Eternal;
+using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Items.Savvy;
+using MiraItemMod.Miracles;
+using MiraItemMod.Passives;
+using MiraItemMod.Registries;
+using MiraItemMod.Sephirites;
+using MiraItemMod.StatusInstances;
+using MiraItemMod.Utilities;
+using MiraItemMod.Weapons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ using System.Text;
 using UnityEngine;
 using BuffStatus = CharacterBuff_StatusInstance.Status;
 
-namespace SephiriaMod
+namespace MiraItemMod
 {
     public static class Data
     {

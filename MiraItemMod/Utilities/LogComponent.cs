@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public class LogComponent : MonoBehaviour
     {

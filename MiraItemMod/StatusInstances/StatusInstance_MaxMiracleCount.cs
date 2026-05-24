@@ -1,13 +1,13 @@
 ﻿using Mirror;
 using Mirror.RemoteCalls;
-using SephiriaMod.Items;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.StatusInstances
+namespace MiraItemMod.StatusInstances
 {
     public class StatusInstance_MaxMiracleCount : StatusInstance
     {

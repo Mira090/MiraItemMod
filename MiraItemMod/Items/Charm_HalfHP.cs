@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_HalfHP : Charm_StatusInstance
     {

@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_ReddewMagicExecution : Charm_StatusInstance
     {

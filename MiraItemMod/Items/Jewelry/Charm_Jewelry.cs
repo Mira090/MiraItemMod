@@ -1,11 +1,11 @@
 ﻿using Mirror;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items.Jewelry
+namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_Jewelry : Charm_VariableMaxLevel
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public enum EPassivePerkLv
     {

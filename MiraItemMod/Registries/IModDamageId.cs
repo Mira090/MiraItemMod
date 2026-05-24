@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public interface IModDamageId
     {

@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine;
 using static LibraryFloorGenerator;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public static class ReflectionExtensions
     {

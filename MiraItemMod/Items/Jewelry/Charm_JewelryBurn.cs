@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Jewelry
+namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_JewelryBurn : Charm_JewelryDebuff
     {

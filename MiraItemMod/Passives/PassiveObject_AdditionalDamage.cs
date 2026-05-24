@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Passives
+namespace MiraItemMod.Passives
 {
     public class PassiveObject_AdditionalDamage : PassiveObject
     {

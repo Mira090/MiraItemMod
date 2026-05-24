@@ -1,11 +1,11 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_AnotherExecution : Charm_StatusInstance
     {

@@ -1,7 +1,7 @@
 ﻿using Mirror;
 using Mirror.RemoteCalls;
-using SephiriaMod.Items.Jewelry;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace SephiriaMod.Items.Savvy
+namespace MiraItemMod.Items.Savvy
 {
     public class Charm_SavvyAcademy : Charm_FireBulletInRange
     {

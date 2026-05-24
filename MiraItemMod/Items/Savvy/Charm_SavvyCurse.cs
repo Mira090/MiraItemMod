@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Savvy
+namespace MiraItemMod.Items.Savvy
 {
     public class Charm_SavvyCurse : Charm_StatusInstance
     {

@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Items.Jewelry;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items.Eternal
+namespace MiraItemMod.Items.Eternal
 {
     public class Charm_EmberFlameSword : Charm_StatusInstance
     {

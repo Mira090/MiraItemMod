@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Weapons
+namespace MiraItemMod.Weapons
 {
     public class WeaponAddonCommon_DirectFirePlanet : WeaponAddon
     {

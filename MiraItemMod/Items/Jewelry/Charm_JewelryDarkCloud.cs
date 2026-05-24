@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items.Jewelry
+namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_JewelryDarkCloud : Charm_Jewelry
     {

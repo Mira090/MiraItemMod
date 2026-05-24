@@ -1,5 +1,5 @@
 ﻿using FMODUnity;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +7,7 @@ using UnityEngine;
 using static ItemEntity;
 using static Miracle;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public class ModComboEffect : IModDamageId
     {

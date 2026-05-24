@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Miracles
+namespace MiraItemMod.Miracles
 {
     public class Miracle_GiveJewelry : Miracle_StatusInstance, IMiracleCustomGiveItems
     {

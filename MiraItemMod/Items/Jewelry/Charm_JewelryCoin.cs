@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Items.Savvy;
+﻿using MiraItemMod.Items.Savvy;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Jewelry
+namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_JewelryCoin : Charm_Jewelry
     {

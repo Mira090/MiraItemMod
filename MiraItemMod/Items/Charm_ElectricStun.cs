@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_ElectricStun : Charm_StatusInstance
     {

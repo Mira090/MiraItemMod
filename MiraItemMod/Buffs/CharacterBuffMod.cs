@@ -1,10 +1,10 @@
 ﻿using Mirror;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Buffs
+namespace MiraItemMod.Buffs
 {
     public abstract class CharacterBuffMod : CharacterBuff
     {

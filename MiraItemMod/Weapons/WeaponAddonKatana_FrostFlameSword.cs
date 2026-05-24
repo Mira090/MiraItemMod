@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Weapons
+namespace MiraItemMod.Weapons
 {
     public class WeaponAddonKatana_FrostFlameSword : WeaponAddonCommon_AdditionalElementalDamage
     {

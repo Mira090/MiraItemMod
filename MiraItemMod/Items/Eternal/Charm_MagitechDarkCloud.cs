@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Eternal
+namespace MiraItemMod.Items.Eternal
 {
     public class Charm_MagitechDarkCloud : Charm_StatusInstance
     {

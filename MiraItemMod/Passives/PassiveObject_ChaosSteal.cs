@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Passives
+namespace MiraItemMod.Passives
 {
     public class PassiveObject_ChaosSteal : PassiveObject
     {

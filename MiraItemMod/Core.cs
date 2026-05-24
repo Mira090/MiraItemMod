@@ -2,9 +2,9 @@
 using HarmonyLib;
 using Mirror;
 using Newtonsoft.Json;
-using SephiriaMod.Items;
-using SephiriaMod.Registries;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items;
+using MiraItemMod.Registries;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ using Debug = UnityEngine.Debug;
 using Type = System.Type;
 
 
-namespace SephiriaMod
+namespace MiraItemMod
 {
     public class Core : HorayModBase
     {

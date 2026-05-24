@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Miracles
+namespace MiraItemMod.Miracles
 {
     public interface IMiracleCustomGiveItems
     {

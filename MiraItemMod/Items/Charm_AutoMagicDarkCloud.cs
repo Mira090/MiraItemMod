@@ -1,12 +1,12 @@
 ﻿using Mirror;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using static Charm_Basic;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_AutoMagicDarkCloud : Charm_StatusInstance
     {

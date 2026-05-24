@@ -1,12 +1,12 @@
 ﻿using Mirror;
 using Mirror.RemoteCalls;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_SelfExplosion : Charm_FireBulletInRange, IAttackableCharm
     {

@@ -1,15 +1,15 @@
 ﻿using HarmonyLib;
 using Mirror;
 using Mirror.RemoteCalls;
-using SephiriaMod.Items.Jewelry;
-using SephiriaMod.Items.Savvy;
-using SephiriaMod.Utilities;
+using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Items.Savvy;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_VariableMaxLevel : Charm_StatusInstance
     {

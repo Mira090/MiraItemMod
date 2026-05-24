@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Jewelry
+namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_JewelryCritical : Charm_Jewelry
     {

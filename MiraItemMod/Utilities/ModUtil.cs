@@ -1,9 +1,9 @@
 ﻿using FMODUnity;
 using Mirror;
 using Mirror.RemoteCalls;
-using SephiriaMod.Entities;
-using SephiriaMod.Items;
-using SephiriaMod.Registries;
+using MiraItemMod.Entities;
+using MiraItemMod.Items;
+using MiraItemMod.Registries;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Text;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public static class ModUtil
     {

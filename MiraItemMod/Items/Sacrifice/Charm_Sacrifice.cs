@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items.Sacrifice
+namespace MiraItemMod.Items.Sacrifice
 {
     public class Charm_Sacrifice : Charm_StatusInstance
     {

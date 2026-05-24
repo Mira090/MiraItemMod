@@ -1,5 +1,5 @@
-﻿using SephiriaMod.Buffs;
-using SephiriaMod.Utilities;
+﻿using MiraItemMod.Buffs;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using UnityEngine;
 using static Miracle;
 using static StoneTablet;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public static class ModItemExtensions
     {

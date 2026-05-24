@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Weapons
+namespace MiraItemMod.Weapons
 {
     public class WeaponAddonDagger_FuryMP : WeaponAddonCommon_StatusUnsafe
     {

@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_SuperMeteor : Charm_StatusInstance, IAttackableCharm
     {

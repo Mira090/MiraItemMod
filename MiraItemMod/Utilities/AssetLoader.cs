@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Utilities
+namespace MiraItemMod.Utilities
 {
     public class AssetLoader
     {

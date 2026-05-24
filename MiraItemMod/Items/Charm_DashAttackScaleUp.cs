@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_DashAttackScaleUp : Charm_StatusInstance
     {

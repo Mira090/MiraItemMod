@@ -1,10 +1,10 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.UI
+namespace MiraItemMod.UI
 {
     public class UI_StatusTooltipOpenerManager : MonoBehaviour
     {

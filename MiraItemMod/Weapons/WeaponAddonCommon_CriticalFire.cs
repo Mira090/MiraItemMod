@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Weapons
+namespace MiraItemMod.Weapons
 {
     public class WeaponAddonCommon_CriticalFire : WeaponAddonCommon_StatusUnsafe
     {

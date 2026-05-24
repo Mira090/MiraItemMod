@@ -1,6 +1,6 @@
 ﻿using FMODUnity;
 using Newtonsoft.Json;
-using SephiriaMod.Utilities;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using UnityEngine;
 using static AnimationSet.StateInfo;
 using Event = AnimationSet.StateInfo.Event;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public static class CustomCostumeDatabase
     {

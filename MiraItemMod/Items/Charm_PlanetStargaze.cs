@@ -1,9 +1,9 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_PlanetStargaze : Charm_VariableMaxLevel
     {

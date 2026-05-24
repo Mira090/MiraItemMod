@@ -1,10 +1,10 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Registries
+namespace MiraItemMod.Registries
 {
     public class ModStoneTablet : ModItem
     {

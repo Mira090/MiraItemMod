@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_Transcendent : Charm_StatusInstance
     {

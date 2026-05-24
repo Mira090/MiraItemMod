@@ -1,10 +1,10 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using static WeaponSimple_Crossbow;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_WoundWeapon : Charm_StatusInstance
     {

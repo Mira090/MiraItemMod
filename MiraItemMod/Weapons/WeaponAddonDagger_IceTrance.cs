@@ -1,11 +1,11 @@
 ﻿using HarmonyLib;
-using SephiriaMod.Items;
+using MiraItemMod.Items;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Weapons
+namespace MiraItemMod.Weapons
 {
     public class WeaponAddonDagger_IceTrance : WeaponAddon
     {

@@ -1,11 +1,11 @@
-﻿using SephiriaMod.Utilities;
+﻿using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace SephiriaMod.Items
+namespace MiraItemMod.Items
 {
     public class Charm_PlanetMystic : Charm_StatusInstance
     {
