@@ -10,12 +10,12 @@ namespace MiraItemMod.Items
     {
         public static LocalizedString Notice = new LocalizedString("Item_Companion_Sacrifice_Notice");
         public Sprite iconSprite;
-        public int[] healPercent = new int[] { 10, 20, 30, 40, 50 };
+        public int[] healPercent = new int[] { 60, 80, 100 };
         public bool ability = false;
         private int defense = 0;
 
-        public int[] followerDamage = new int[] { 20, 40, 60, 80, 120 };
-        public int[] followerDamage2 = new int[] { 50, 75, 100, 120, 160 };
+        public int[] followerDamage = new int[] { 25, 30, 40 };
+        public int[] followerDamage2 = new int[] { 35, 45, 60 };
         private void Awake()
         {
             showStatsEffectStringFirst = true;

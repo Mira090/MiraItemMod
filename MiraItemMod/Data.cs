@@ -618,7 +618,7 @@ namespace MiraItemMod
         /// Item_CompanionSacrifice_Effect3
         /// 死亡するダメージを受けた時、左の枠にある<tag=Follower>アーティファクトが破壊されることで、HPを{HEAL}回復し、一時的に無敵になる。
         /// </summary>
-        public static ModCharm CompanionSacrifice { get; } = ModCharmStatus.Create<Charm_CompanionSacrifice>("CompanionSacrifice", 4, CreateStatusGroup("DEFENSE", -4, -8, -12, -16, -20))
+        public static ModCharm CompanionSacrifice { get; } = ModCharmStatus.Create<Charm_CompanionSacrifice>("CompanionSacrifice", 2, CreateStatusGroup("DEFENSE", -8, -15, -20))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Companion).SetIsUniqueEffect().SetSimpleEffects(3).SetIsDual().SetRarity(EItemRarity.Rare);
         /// <summary>
         /// Item_DrunkShadow_Name
