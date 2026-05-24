@@ -215,6 +215,9 @@ namespace MiraItemMod
                     mod.healByLevel = charm.healByLevel;
                     mod.healFxPrefab = charm.healFxPrefab;
                     mod.healSound = charm.healSound;
+                    mod.effectsString = charm.effectsString;
+                    mod.maxLevel = charm.maxLevel;
+                    mod.isUniqueEffect = charm.isUniqueEffect;
                     UnityEngine.Object.Destroy(charm);
                 }
             });
