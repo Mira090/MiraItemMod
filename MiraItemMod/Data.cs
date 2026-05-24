@@ -74,7 +74,7 @@ namespace MiraItemMod
         /// Item_MaxHP_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharmStatus MaxHP { get; } = ModCharmStatus.Create("Max_HP", 1, CreateStatusGroup("MAX_HP", 5, 10))
+        public static ModCharmStatus MaxHP { get; } = ModCharmStatus.Create("MaxHP", 1, CreateStatusGroup("MAX_HP", 5, 10))
             .SetCategory(ItemCategories.Vitality).SetRarity(EItemRarity.Common);
         /// <summary>
         /// Item_RevivePlayerHaste_Name
@@ -244,7 +244,7 @@ namespace MiraItemMod
         /// Item_AutoBuff_Effect
         /// 下の枠にあるバフ魔法の<tag=Magic>を{COOLDOWN}秒ごとに自動発動する。
         /// </summary>
-        public static ModCharm AutoBuff { get; } = ModCharm.Create<Charm_AutoBuff>("Auto_Buff", 1, false)
+        public static ModCharm AutoBuff { get; } = ModCharm.Create<Charm_AutoBuff>("AutoBuff", 1, false)
             .SetCategory(ItemCategories.Academy).SetEffects("Charm_MagicianCoin_Effect", "Item_AutoBuff_Effect").SetRarity(EItemRarity.Uncommon);
 
         /// <summary>
