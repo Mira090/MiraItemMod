@@ -221,6 +221,16 @@ namespace MiraItemMod
                     UnityEngine.Object.Destroy(charm);
                 }
             });
+            ItemDatabase.Modify(1148, item =>
+            {
+                item.categories = new List<string> { ItemCategories.Vitality };
+                item.activeType = EItemActiveType.Default;
+                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_FairyJar>(out var charm))
+                {
+                    charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
+                    charm.maxLevel = 5;
+        }
+            });
         }
         private void OnLoadMiracleDatabase()
         {
