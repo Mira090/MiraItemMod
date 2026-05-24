@@ -29,7 +29,7 @@ namespace SephiriaMod.Items
         }
         public void Start()
         {
-            magicCharmIconSprite = SpriteLoader.LoadSprite(ModUtil.MiscPath + "Academy_Charm");
+            magicCharmIconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Academy_Charm");
             Events.OnValueRecieved += OnValueRecieved;
         }
         public void OnDestroy()

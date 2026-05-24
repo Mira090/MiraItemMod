@@ -56,11 +56,11 @@ namespace SephiriaMod.Registries
                     if (CopyPivot)
                     {
                         var s = state.timeline.SafeRandomAccess(q).sprite;
-                        list.Add(new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = q, sprite = SpriteLoader.LoadSprite(SpritePath + q, new Vector2(s.pivot.x / s.rect.width, s.pivot.y / s.rect.height)) });
+                        list.Add(new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = q, sprite = AssetLoader.LoadSprite(SpritePath + q, new Vector2(s.pivot.x / s.rect.width, s.pivot.y / s.rect.height)) });
                     }
                     else
                     {
-                        list.Add(new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = q, sprite = SpriteLoader.LoadSprite(SpritePath + q) });
+                        list.Add(new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = q, sprite = AssetLoader.LoadSprite(SpritePath + q) });
                     }
                 }
                 newState.timeline = list;

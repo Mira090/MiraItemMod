@@ -27,8 +27,9 @@ namespace SephiriaMod.Utilities
         public static readonly string UIPath = "UI\\";
         public static readonly string WeaponPath = "Weapon\\";
         public static readonly string PassivePath = "Passive\\";
-
         public static readonly string KeywordPath = "Keyword\\";
+        public static readonly string LocalizationPath = "Localization\\";
+
         /// <summary>
         /// 「ToFileName」を「to_file_name」に変換する
         /// </summary>

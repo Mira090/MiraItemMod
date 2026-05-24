@@ -28,7 +28,7 @@ namespace SephiriaMod.Items
         public Sprite bulletSprite;
         private void Start()
         {
-            bulletSprite = SpriteLoader.LoadSprite(ModUtil.MiscPath + "GrimoireBullet");
+            bulletSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "GrimoireBullet");
         }
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)

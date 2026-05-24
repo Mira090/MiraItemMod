@@ -70,7 +70,7 @@ namespace SephiriaMod.Registries
         }
         protected virtual Sprite LoadSprite(string fileName)
         {
-            var sprite = SpriteLoader.LoadSprite(fileName);
+            var sprite = AssetLoader.LoadSprite(fileName);
             return sprite;
         }
         public void InitPrefab(WeaponEntity copy)
@@ -161,7 +161,7 @@ namespace SephiriaMod.Registries
             entity.id = Id;
             entity.aName = LocalizedName;
             entity.mainWeaponPrefab = MainWeaponPrefab;
-            entity.icon = Icon ?? SpriteLoader.LoadSprite(IconFileName);
+            entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
             entity.wieldEntity = WeaponWieldEntity;
             if(EnhanceFromId.HasValue)
                 entity.enhanceFromId = EnhanceFromId.Value;

@@ -2265,9 +2265,9 @@ namespace SephiriaMod
 
         public static void Init()
         {
-            IconInWorldCharm = SpriteLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_Charm");
-            IconInWorldTablet = SpriteLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_TabletStone");
-            IconInWorldPotion = SpriteLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_All");
+            IconInWorldCharm = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_Charm");
+            IconInWorldTablet = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_TabletStone");
+            IconInWorldPotion = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_All");
 
             var type = typeof(Data);
             var pros = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType.IsSubclassOf(typeof(ModItem)));

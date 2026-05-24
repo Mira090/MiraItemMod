@@ -98,7 +98,7 @@ namespace SephiriaMod
             {
                 if(SacrificeBGSprite == null)
                 {
-                    SacrificeBGSprite = SpriteLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
+                    SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
                 }
 
                 ItemEntity itemEntity = ItemDatabase.FindItemById(__instance.Item.entityID);
@@ -119,7 +119,7 @@ namespace SephiriaMod
             {
                 if (UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite == null)
                 {
-                    UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite = SpriteLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
+                    UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
                 }
 
                 NewItemOwnInstance newItemOwnInstance = __instance.Inventory.FindItem(__instance.X, __instance.Y);
@@ -147,11 +147,11 @@ namespace SephiriaMod
             {
                 if (SacrificeBGSprite == null)
                 {
-                    SacrificeBGSprite = SpriteLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0_Sacrifice");
+                    SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0_Sacrifice");
                 }
                 if (SacrificeBGSpriteSelected == null)
                 {
-                    SacrificeBGSpriteSelected = SpriteLoader.LoadSprite(ModUtil.UIPath + "InventorySlot1_Sacrifice");
+                    SacrificeBGSpriteSelected = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot1_Sacrifice");
                 }
                 if (DefaultBGSprite == null && __instance.bgImage != SacrificeBGSprite)
                 {

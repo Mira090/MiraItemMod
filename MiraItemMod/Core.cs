@@ -1,11 +1,13 @@
 ﻿using FMOD;
 using HarmonyLib;
 using Mirror;
+using Newtonsoft.Json;
 using SephiriaMod.Items;
 using SephiriaMod.Registries;
 using SephiriaMod.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -136,6 +138,7 @@ namespace SephiriaMod
             HorayModAPI.OnLoadStatusDatabase += OnLoadStatusDatabase;
             HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
             HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
+            HorayModAPI.OnLocalizationReady += OnLocalizationReady;
         }
 
         protected override void OnModUnloaded()
@@ -145,6 +148,7 @@ namespace SephiriaMod
             HorayModAPI.OnLoadStatusDatabase -= OnLoadStatusDatabase;
             HorayModAPI.OnLoadKeywordDatabase -= OnLoadKeywordDatabase;
             HorayModAPI.OnAllDatabasesReady -= OnAllDatabasesReady;
+            HorayModAPI.OnLocalizationReady -= OnLocalizationReady;
 
             if (ModPatches != null)
             {
@@ -227,6 +231,10 @@ namespace SephiriaMod
         private void OnAllDatabasesReady()
         {
             Data.LoadMiracleManuallyGivenItems();
+        }
+        private void OnLocalizationReady(HorayModLocalizationContext context)
+        {
+            AssetLoader.LoadLocalization(context);
         }
 
         private static Action<ItemEntity> SetItemCategories(params string[] categories)

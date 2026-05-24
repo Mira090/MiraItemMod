@@ -83,13 +83,13 @@ namespace SephiriaMod.Registries
             entity.name = Name;
             entity.categoryName = CategoryName;
             entity.id = Id;
-            entity.categoryIcon = Icon ?? SpriteLoader.LoadSprite(IconFileName);
+            entity.categoryIcon = Icon ?? AssetLoader.LoadSprite(IconFileName);
             entity.comboEffectPrefab = ResourcePrefab;
             entity.requireStartUpItem = RequireStartUpItem;
             entity.enableSound = EnableSound.IsNull ? Data.DefaultEnableSound : EnableSound;
             entity.categoryFruitName = FruitName;
-            entity.categoryFruitIcon = IconFruit ?? SpriteLoader.LoadSprite(IconFruitFileName);
-            entity.categoryIceFruitIcon = IconFruitIce ?? SpriteLoader.LoadSprite(IconFruitIceFileName);
+            entity.categoryFruitIcon = IconFruit ?? AssetLoader.LoadSprite(IconFruitFileName);
+            entity.categoryIceFruitIcon = IconFruitIce ?? AssetLoader.LoadSprite(IconFruitIceFileName);
             return entity;
         }
         public GameObject CreateResourcePrefab()

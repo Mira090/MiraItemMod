@@ -22,7 +22,7 @@ namespace SephiriaMod.Registries
         {
             if (Border.HasValue)
             {
-                return SpriteLoader.LoadSpriteWithBorder(fileName, Border.Value);
+                return AssetLoader.LoadSpriteWithBorder(fileName, Border.Value);
             }
             else
             {

@@ -34,7 +34,7 @@ namespace SephiriaMod.Registries
             miracle.aName = LocalizedName;
             miracle.giveItem = GiveItem;
             miracle.categories = Categories;
-            miracle.miracleImage = MiracleImage ?? SpriteLoader.LoadSprite(MiracleImageFileName);
+            miracle.miracleImage = MiracleImage ?? AssetLoader.LoadSprite(MiracleImageFileName);
             miracle.tier = Tier;
             miracle.effects = Effects;
             miracle.statInfo = Stats;

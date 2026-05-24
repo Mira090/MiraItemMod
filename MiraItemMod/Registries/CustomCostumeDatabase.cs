@@ -183,7 +183,7 @@ namespace SephiriaMod.Registries
                 {
                     var timeline = new SpriteKeyFrame();
                     timeline.frameIdx = time.frameIdx;
-                    timeline.sprite = SpriteLoader.LoadSpritePath(Path.Combine(dir, time.sprite));
+                    timeline.sprite = AssetLoader.LoadSpriteForCostume(Path.Combine(dir, time.sprite));
                     info.timeline.Add(timeline);
                 }
 

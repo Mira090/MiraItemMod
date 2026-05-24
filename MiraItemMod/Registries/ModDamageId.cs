@@ -73,7 +73,7 @@ namespace SephiriaMod.Registries
             var entity = ScriptableObject.CreateInstance<DamageIdEntity>();
             entity.aName = Name;
             entity.category = Category;
-            entity.icon = Icon ?? SpriteLoader.LoadSprite(IconFileName);
+            entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
             entity.name = Id;
             entity.id = Id;
             return entity;

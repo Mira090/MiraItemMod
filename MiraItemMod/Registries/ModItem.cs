@@ -92,7 +92,7 @@ namespace SephiriaMod.Registries
             entity.type = ItemType;
             entity.sapphirePrice = SapphirePrice;
             entity.resourcePrefab = ResourcePrefab;
-            entity.icon = Icon ?? SpriteLoader.LoadSprite(IconFileName);
+            entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
             entity.iconInWorld = IconInWorld ?? ItemType switch
             {
                 EItemType.Charm => Data.IconInWorldCharm,

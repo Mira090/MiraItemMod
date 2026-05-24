@@ -18,7 +18,7 @@ namespace SephiriaMod.Items
         public Sprite iconSprite;
         public void Start()
         {
-            iconSprite = SpriteLoader.LoadSprite(ModUtil.MiscPath + "Frost_Charm");
+            iconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Frost_Charm");
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

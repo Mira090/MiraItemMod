@@ -45,7 +45,7 @@ namespace SephiriaMod.Registries
             }
             var rect = prefab.transform as RectTransform;
             var icon = rect.GetChild(1).GetComponent<Image>();//Icon
-            icon.sprite = (Icon ?? SpriteLoader.LoadSprite(IconFileName)) ?? SpriteLoader.LoadSprite(ModUtil.EffectHUDPath + "Empty");
+            icon.sprite = (Icon ?? AssetLoader.LoadSprite(IconFileName)) ?? AssetLoader.LoadSprite(ModUtil.EffectHUDPath + "Empty");
             ResourcePrefab = prefab;
         }
         public EffectHUDEntity CreateEntity()

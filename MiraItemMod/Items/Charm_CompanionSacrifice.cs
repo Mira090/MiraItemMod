@@ -22,7 +22,7 @@ namespace SephiriaMod.Items
         }
         public void Start()
         {
-            iconSprite = SpriteLoader.LoadSprite(ModUtil.MiscPath + "Companion_Charm");
+            iconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Companion_Charm");
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

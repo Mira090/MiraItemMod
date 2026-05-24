@@ -137,7 +137,7 @@ namespace SephiriaMod.Items
         private void Start()
         {
             TopdownActor = NetworkAvatar.GetComponent<TopdownActorRenderingMetadata>();
-            magicCharmIconSprite = SpriteLoader.LoadSprite(ModUtil.MiscPath + "MagicBookEmpty");
+            magicCharmIconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "MagicBookEmpty");
         }
         protected override void Update()
         {

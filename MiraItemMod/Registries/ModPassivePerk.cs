@@ -46,7 +46,7 @@ namespace SephiriaMod.Registries
             var o = new GameObject($"{Parent.Id}_{PerkLv.ToUpperString()}_{Name}");
             var meta = o.AddComponent<PassiveObjectMetadata>();
             meta.effectString = EffectString;
-            meta.icon = SpriteLoader.LoadSprite(IconPath);
+            meta.icon = AssetLoader.LoadSprite(IconPath);
             o.AddComponent<LogComponent>();
             //Core.Logger($"CreatePassivePerk");
             o.hideFlags = HideFlags.HideAndDontSave;

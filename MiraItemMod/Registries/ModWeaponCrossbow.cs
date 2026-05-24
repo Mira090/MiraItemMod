@@ -31,8 +31,8 @@ namespace SephiriaMod.Registries
             {
                 if (simple.mainWeaponBody != null)
                 {
-                    simple.mainWeaponBody.weaponSpriteRenderer.sprite = SpriteLoader.LoadSprite(MainSpriteFileName);
-                    simple.mainWeaponBody.weaponStencilRenderer.sprite = SpriteLoader.LoadSprite(MainSpriteFileName);
+                    simple.mainWeaponBody.weaponSpriteRenderer.sprite = AssetLoader.LoadSprite(MainSpriteFileName);
+                    simple.mainWeaponBody.weaponStencilRenderer.sprite = AssetLoader.LoadSprite(MainSpriteFileName);
 
                     if (simple.mainWeaponBody.weaponSpriteRenderer.gameObject.TryGetComponent<Animator2D_SpriteRenderer>(out var animator))
                     {
@@ -50,14 +50,14 @@ namespace SephiriaMod.Registries
                             newState.transformAttributes = state.transformAttributes;
                             if(state.state != "FIRE")
                             {
-                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = SpriteLoader.LoadSprite(MainSpriteFileName) } };
+                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(MainSpriteFileName) } };
                             }
                             else
                             {
                                 newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame>() {
-                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = SpriteLoader.LoadSprite(MainSpriteFileName + "_01") },
-                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 1, sprite = SpriteLoader.LoadSprite(MainSpriteFileName + "_02") },
-                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 2, sprite = SpriteLoader.LoadSprite(MainSpriteFileName + "_03") }
+                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(MainSpriteFileName + "_01") },
+                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 1, sprite = AssetLoader.LoadSprite(MainSpriteFileName + "_02") },
+                                    new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 2, sprite = AssetLoader.LoadSprite(MainSpriteFileName + "_03") }
                                     };
                             }
                             set.sprites.Add(newState);
@@ -67,7 +67,7 @@ namespace SephiriaMod.Registries
 
                     if (HasBladeSprite && simple.mainWeaponBody.bladeAddOnRenderer != null)
                     {
-                        simple.mainWeaponBody.bladeAddOnRenderer.sprite = SpriteLoader.LoadSprite(BladeSpriteFileName);
+                        simple.mainWeaponBody.bladeAddOnRenderer.sprite = AssetLoader.LoadSprite(BladeSpriteFileName);
                         if (BladeSpritePosition.HasValue)
                             simple.mainWeaponBody.bladeAddOnRenderer.transform.localPosition = BladeSpritePosition.Value;
                     }
@@ -76,7 +76,7 @@ namespace SephiriaMod.Registries
                         var unlit = simple.mainWeaponBody.transform.Find("BladeUnlit");
                         if (unlit != null && unlit.gameObject.TryGetComponent<SpriteRenderer>(out var unlitSprite))
                         {
-                            unlitSprite.sprite = SpriteLoader.LoadSprite(BladeSpriteFileName);
+                            unlitSprite.sprite = AssetLoader.LoadSprite(BladeSpriteFileName);
                             if (BladeUnlitSpritePosition.HasValue)
                                 unlit.localPosition = BladeUnlitSpritePosition.Value;
                         }
@@ -86,7 +86,7 @@ namespace SephiriaMod.Registries
                         var head = simple.mainWeaponBody.weaponSpriteRenderer.transform.Find("Head");
                         if (head != null && head.gameObject.TryGetComponent<SpriteRenderer>(out var headSprite))
                         {
-                            headSprite.sprite = SpriteLoader.LoadSprite(HeadSpriteFileName);
+                            headSprite.sprite = AssetLoader.LoadSprite(HeadSpriteFileName);
                             if (HeadSpritePosition.HasValue)
                                 head.localPosition = HeadSpritePosition.Value;
                         }
@@ -94,13 +94,13 @@ namespace SephiriaMod.Registries
                 }
                 if (simple.subWeaponBody != null)
                 {
-                    simple.subWeaponBody.weaponSpriteRenderer.sprite = SpriteLoader.LoadSprite(SubSpriteFileName);
-                    simple.subWeaponBody.weaponStencilRenderer.sprite = SpriteLoader.LoadSprite(SubSpriteFileName);
+                    simple.subWeaponBody.weaponSpriteRenderer.sprite = AssetLoader.LoadSprite(SubSpriteFileName);
+                    simple.subWeaponBody.weaponStencilRenderer.sprite = AssetLoader.LoadSprite(SubSpriteFileName);
                 }
                 if (simple.subWeapon != null && simple.subWeapon.gameObject.TryGetComponent<SubWeapon>(out var shield))
                 {
-                    shield.weaponSpriteRenderer.sprite = SpriteLoader.LoadSprite(SubSpriteFileName);
-                    shield.weaponStencilRenderer.sprite = SpriteLoader.LoadSprite(SubSpriteFileName);
+                    shield.weaponSpriteRenderer.sprite = AssetLoader.LoadSprite(SubSpriteFileName);
+                    shield.weaponStencilRenderer.sprite = AssetLoader.LoadSprite(SubSpriteFileName);
                 }
                 MainPrefabModifier?.Invoke(simple);
             }

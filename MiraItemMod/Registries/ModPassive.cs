@@ -62,11 +62,11 @@ namespace SephiriaMod.Registries
             entity.aName = aName;
             entity.aDescription = aDescription;
             entity.isDefault = isDefault;
-            entity.iconImage = SpriteLoader.LoadSprite(IconImagePath);
-            entity.add1ButtonImage = SpriteLoader.LoadSprite(Add1ButtonImagePath);
-            entity.add5ButtonImage = SpriteLoader.LoadSprite(Add5ButtonImagePath);
-            entity.addMinus1ButtonImage = SpriteLoader.LoadSprite(AddMinus1ButtonImagePath);
-            entity.addMinus5ButtonImage = SpriteLoader.LoadSprite(AddMinus5ButtonImagePath);
+            entity.iconImage = AssetLoader.LoadSprite(IconImagePath);
+            entity.add1ButtonImage = AssetLoader.LoadSprite(Add1ButtonImagePath);
+            entity.add5ButtonImage = AssetLoader.LoadSprite(Add5ButtonImagePath);
+            entity.addMinus1ButtonImage = AssetLoader.LoadSprite(AddMinus1ButtonImagePath);
+            entity.addMinus5ButtonImage = AssetLoader.LoadSprite(AddMinus5ButtonImagePath);
             entity.mainColor = MainColor;
             entity.addStats = AddStats;
             entity.lv5PerkPrefab = Lv5Perk?.PerkPrefab;

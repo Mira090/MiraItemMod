@@ -31,12 +31,12 @@ namespace SephiriaMod.Registries
         public static Sprite NoneCategoryIcon;
         public static void InitSprites()
         {
-            NoneCategoryIcon = SpriteLoader.LoadSprite(ModUtil.ItemCategoryPath + "None");
+            NoneCategoryIcon = AssetLoader.LoadSprite(ModUtil.ItemCategoryPath + "None");
 
-            NewKeywordSprite = SpriteLoader.LoadSprite(ModUtil.UIPath + "Keyword");
+            NewKeywordSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "Keyword");
             if(NewKeywordSprite == null)
             {
-                Core.LoggerWarning("Failed to load Keyword sprite sheet!\nPlease place the keyword image in path " + SpriteLoader.GetAssetsPath(ModUtil.UIPath + "Keyword"));
+                Core.LoggerWarning("Failed to load Keyword sprite sheet!\nPlease place the keyword image in path " + AssetLoader.GetAssetsPath(ModUtil.UIPath + "Keyword"));
                 return;
             }
             NewKeywordSprite.texture.wrapMode = TextureWrapMode.Clamp;
@@ -46,18 +46,18 @@ namespace SephiriaMod.Registries
             NewKeywordSprite.texture.name = "ModKeyword";
             int max = 100 - height;
 
-            Planet = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "Planet", new Rect(0, max, width, height));
-            BinaryPlanet = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "BinaryPlanet", new Rect(0, height * 1, width, height));
-            IceExecution = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "IceExecution", new Rect(0, height * 2, width, height));
-            FireExecution = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "FireExecution", new Rect(0, height * 3, width, height));
-            LightningExecution = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "LightningExecution", new Rect(0, height * 4, width, height));
-            Assasination = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "Assasination", new Rect(0, height * 5, width, height));
-            MerchantLeaf = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "MerchantLeaf", new Rect(0, height * 6, width, height));
-            BlackFrostbite = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "BlackFrostbite", new Rect(0, height * 7, width, height));
-            Excavation = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "Excavation", new Rect(0, height * 8, width, height));
-            ExcavationJewelry = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "ExcavationJewelry", new Rect(0, height * 9, width, height));
-            Crime = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "Crime", new Rect(width, height * 0, width, height));
-            Looting = SpriteLoader.CreateSprite(NewKeywordSprite.texture, "Looting", new Rect(width, height * 1, width, height));
+            Planet = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Planet", new Rect(0, max, width, height));
+            BinaryPlanet = AssetLoader.CreateSprite(NewKeywordSprite.texture, "BinaryPlanet", new Rect(0, height * 1, width, height));
+            IceExecution = AssetLoader.CreateSprite(NewKeywordSprite.texture, "IceExecution", new Rect(0, height * 2, width, height));
+            FireExecution = AssetLoader.CreateSprite(NewKeywordSprite.texture, "FireExecution", new Rect(0, height * 3, width, height));
+            LightningExecution = AssetLoader.CreateSprite(NewKeywordSprite.texture, "LightningExecution", new Rect(0, height * 4, width, height));
+            Assasination = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Assasination", new Rect(0, height * 5, width, height));
+            MerchantLeaf = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MerchantLeaf", new Rect(0, height * 6, width, height));
+            BlackFrostbite = AssetLoader.CreateSprite(NewKeywordSprite.texture, "BlackFrostbite", new Rect(0, height * 7, width, height));
+            Excavation = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Excavation", new Rect(0, height * 8, width, height));
+            ExcavationJewelry = AssetLoader.CreateSprite(NewKeywordSprite.texture, "ExcavationJewelry", new Rect(0, height * 9, width, height));
+            Crime = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Crime", new Rect(width, height * 0, width, height));
+            Looting = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Looting", new Rect(width, height * 1, width, height));
         }
         public static void InitSpriteAsset()
         {
