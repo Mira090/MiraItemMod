@@ -54,7 +54,7 @@ namespace MiraItemMod.Registries
                 return;
             if (ConnectedDetailEntities.Contains(original.keyword) && !KeywordEntity.connectedDetailEntities.Contains(original))
             {
-                KeywordEntity.connectedDetailEntities.AddItem(original);
+                KeywordEntity.connectedDetailEntities = KeywordEntity.connectedDetailEntities.AddItem(original).ToArray();
             }
             if (UseCopyTextColor && TextColorOriginal == original.keyword)
             {

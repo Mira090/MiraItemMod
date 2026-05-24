@@ -41,6 +41,8 @@ namespace MiraItemMod
             {
                 //Core.Logger($"Mod Chat({command}): {netId} To {value}");
             };
+            //GameCamera.Instance.radialDistortion.Play(player.transform.position, RadialDistortion.Type.Weak);
+            ///GameCamera.Instance.glitch.Play(0);
         }
 
         #region Chat
@@ -283,7 +285,7 @@ namespace MiraItemMod
                 var ob = UnityEngine.Object.Instantiate(example, content);
                 var manager = ob.gameObject.AddComponent<UI_StatusTooltipOpenerManager>();
                 manager.Init();
-                panel.statElements.AddRangeToArray(manager.Stats.ToArray());
+                panel.statElements = panel.statElements.AddRangeToArray(manager.Stats.ToArray());
                 return manager;
             }
         }
@@ -626,7 +628,7 @@ namespace MiraItemMod
                 {
                     if (magic.NetworkAvatar != null && magic.NetworkAvatar.GetCustomStatUnsafe("AddGrimoire".ToUpperInvariant()) > 0 && !__result.Contains(ItemCategories.Grimoire))
                     {
-                        __result.AddItem(ItemCategories.Grimoire);
+                        __result = __result.AddItem(ItemCategories.Grimoire);
                     }
                 }
             }
