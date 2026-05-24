@@ -252,6 +252,10 @@ namespace MiraItemMod.Utilities
         {
             typeof(UI_StatusTooltipOpener).GetField("keyword", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
         }
+        public static void SetCommandDescriptions(this UI_DevCommandlinePanel instance, Dictionary<string, string> value)
+        {
+            instance.GetType().GetField("commandDescriptions", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
 
 
 
