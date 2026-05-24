@@ -1,5 +1,5 @@
 ﻿using FMODUnity;
-using Mirror;
+using HarmonyLib;
 using MiraItemMod.Buffs;
 using MiraItemMod.Combos;
 using MiraItemMod.Items;
@@ -13,6 +13,7 @@ using MiraItemMod.Sephirites;
 using MiraItemMod.StatusInstances;
 using MiraItemMod.Utilities;
 using MiraItemMod.Weapons;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace MiraItemMod
         /// Item_Malice_Name
         /// 利敵
         /// </summary>
-        public static ModStoneTablet Malice { get; } = ModStoneTablet.Create("Malice", "O 4\nUP -1\nDOWN -1\nLEFT -1\nRIGHT -1", false).SetRarity(EItemRarity.Common);
+        public static ModStoneTablet Malice { get; } = ModStoneTablet.Create("Malice", "O 4\nUP -1\nDOWN -1\nLEFT -1\nRIGHT -1", false)
+            .SetRarity(EItemRarity.Common).SetTreeShopItemEntity(TreeShopItems.BossAskard);
         /// <summary>
         /// Item_Bitterness_Name
         /// 辛辣
@@ -52,7 +54,8 @@ namespace MiraItemMod
         /// Item_WarCrime_Name
         /// 戦犯
         /// </summary>
-        public static ModStoneTablet WarCrime { get; } = ModStoneTablet.Create("WarCrime", "O 8\nUP -2\nDOWN -2\nLEFT -2\nRIGHT -2\nDIAUPLEFT -1\r\nDIAUPRIGHT -1\r\nDIADOWNLEFT -1\r\nDIADOWNRIGHT -1", false).SetRarity(EItemRarity.Legend);
+        public static ModStoneTablet WarCrime { get; } = ModStoneTablet.Create("WarCrime", "O 8\nUP -2\nDOWN -2\nLEFT -2\nRIGHT -2\nDIAUPLEFT -1\r\nDIAUPRIGHT -1\r\nDIADOWNLEFT -1\r\nDIADOWNRIGHT -1", false)
+            .SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossAskard);
         /// <summary>
         /// Item_Transcendent_Name
         /// 超絶
@@ -67,7 +70,7 @@ namespace MiraItemMod
         /// <tag=MP>を{MANA}<tag=ReservedMP>して以下の効果を得る
         /// </summary>
         public static ModCharmStatus ReservedMPEvasion { get; } = ModCharmStatus.Create<Charm_ReservedMPEvasion>("ReservedMPEvasion", 4, CreateStatusGroup("EVASION", 200, 300, 400, 500, 700), CreateStatusGroup("PHYSICAL_DAMAGE", 0, 0, 1, 2, 3))
-            .SetCategory(ItemCategories.Sturdy, ItemCategories.Shadow).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.Sturdy, ItemCategories.Shadow).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.NewCharmRight1);
         /// <summary>
         /// Item_MaxHP_Name
         /// 活力のお守り
@@ -93,7 +96,7 @@ namespace MiraItemMod
         /// ポーションを{QUEST}回飲むと、{REWARD}に変わります\n[ポーションを飲んだ回数：{CURRENT}]
         /// </summary>
         public static ModCharmStatus AddStarRuby { get; } = ModCharmStatus.Create<Charm_AddStarRuby>("AddStarRuby", 0, CreateStatusGroup("HP_POTION_BONUS", 20))
-            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink);
         /// <summary>
         /// Item_CreateRegenPotion_Name
         /// 再生の水筒
@@ -103,7 +106,7 @@ namespace MiraItemMod
         /// {REQUIRE}回ステージを移動するごとに{ITEM}を獲得する
         /// </summary>
         public static ModCharm CreateRegenPotion { get; } = ModCharmStatus.Create<Charm_CreateRegenPotion>("CreateRegenPotion", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
-            .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink);
         /// <summary>
         /// Item_MaxHPAttack_Name
         /// 溢れる生命
@@ -113,7 +116,7 @@ namespace MiraItemMod
         /// 敵にダメージを与える時、追加で最大<tag=HP>の{PERCENT}%のダメージを与える\n[ダメージ：{DAMAGE}]
         /// </summary>
         public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
-            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink);
 
         /// <summary>
         /// Item_KillLuck_Name
@@ -135,7 +138,7 @@ namespace MiraItemMod
         /// バッグの伝説アーティファクトの数だけ以下の効果を得る\n[現在の伝説アーティファクト数：{COUNT}個]
         /// </summary>
         public static ModCharm LegendaryMania { get; } = ModCharm.Create<Charm_LegendaryMania>("LegendaryMania", 2, true)
-            .SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.NewCharmRight3);
 
         /// <summary>
         /// Item_LevelDistributer_Name
@@ -186,7 +189,7 @@ namespace MiraItemMod
         /// {MAX}回発動するとこの効果は失われる。\n[現在の発動回数：{COUNT}]
         /// </summary>
         public static ModCharm CreateStoneTablet { get; } = ModCharmStatus.Create<Charm_CreateStoneTablet>("CreateStoneTablet", 0, CreateStatusGroupHide("EXP_DROP", 0, 5, 10, 15, 20, 25, 30))
-            .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(2).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(2).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.NewCharmRight1);
         /// <summary>
         /// Item_TripleAttackDebuff_Name
         /// 魔法仕掛けの天球儀
@@ -199,7 +202,7 @@ namespace MiraItemMod
             CreateStatusGroup("FIRE_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20),
             CreateStatusGroup("ICE_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20),
             CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 17, 20))
-            .SetCategory(ItemCategories.Stargaze).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Stargaze).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.NewCharmRight1);
         /// <summary>
         /// Item_ChaosAttack_Name
         /// 三体模型
@@ -209,7 +212,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_DirectAttack>が命中した時、{CHANCE}の確率で追加の<tag=Elemental_Chaos>ダメージを与える。\n[ダメージ：{DAMAGE}(<tag=FireDamage>{PERCENT}+<tag=IceDamage>{PERCENT}+<tag=LightningDamage>{PERCENT})]
         /// </summary>
         public static ModCharm ChaosAttack { get; } = ModCharm.Create<Charm_ChaosAttack>("ChaosAttack", 5, true)
-            .SetCategory(ItemCategories.Stargaze).SetSimpleEffect().SetDamageId().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Stargaze).SetSimpleEffect().SetDamageId().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.NewCharmRight1);
         /// <summary>
         /// Item_StargazeTablet_Name
         /// 星見の石版
@@ -223,7 +226,7 @@ namespace MiraItemMod
         /// 石版が破壊されました
         /// </summary>
         public static ModCharm StargazeTablet { get; } = ModCharmStatus.Create<Charm_StargazeTablet>("StargazeTablet", 4, CreateStatusGroupHide("SPECIAL_ATTACK_DAMAGE", 0, 0, 0, 0, 0, 12, 18, 24, 32))
-            .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(1).SetIsUniqueEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Stargaze).SetSimpleEffects(1).SetIsUniqueEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.NewCharmRight1);
 
         /// <summary>
         /// Item_CopyAcademy_Name
@@ -234,7 +237,8 @@ namespace MiraItemMod
         /// 戦闘中に魔法を{QUEST}回使用すると、下の枠にある固有でないアカデミーアーティファクトに変わります。\n[魔法を使用した回数：{CURRENT}]
         /// </summary>
         public static ModCharm CopyAcademy { get; } = ModCharmStatus.Create<Charm_CopyAcademy>("CopyAcademy", 1, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 20, 40))
-            .SetCategory(ItemCategories.Academy).SetIsUniqueEffect().SetEffects("Charm_MagicianCoin_Effect", "Item_Copy_Academy_Effect").SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Academy).SetIsUniqueEffect().SetEffects("Charm_MagicianCoin_Effect", "Item_Copy_Academy_Effect").SetRarity(EItemRarity.Rare)
+            .SetTreeShopItemEntity(TreeShopItems.NewCharmMagic2);
 
         /// <summary>
         /// Item_AutoBuff_Name
@@ -245,7 +249,8 @@ namespace MiraItemMod
         /// 下の枠にあるバフ魔法の<tag=Magic>を{COOLDOWN}秒ごとに自動発動する。
         /// </summary>
         public static ModCharm AutoBuff { get; } = ModCharm.Create<Charm_AutoBuff>("AutoBuff", 1, false)
-            .SetCategory(ItemCategories.Academy).SetEffects("Charm_MagicianCoin_Effect", "Item_AutoBuff_Effect").SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.Academy).SetEffects("Charm_MagicianCoin_Effect", "Item_AutoBuff_Effect").SetRarity(EItemRarity.Uncommon)
+            .SetTreeShopItemEntity(TreeShopItems.NewCharmMagic2);
 
         /// <summary>
         /// Item_AutoMagicLegend_Name
@@ -256,7 +261,8 @@ namespace MiraItemMod
         /// 上の枠にある<tag=Magic>を{COOLDOWN}秒遅れて自動発動する。
         /// </summary>
         public static ModCharm AutoMagicLegend { get; } = ModCharm.Create<Charm_AutoMagicLegend>("AutoMagicLegend", 5, false)
-            .SetCategory(ItemCategories.Academy).SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Academy).SetSimpleEffect().SetRarity(EItemRarity.Legend)
+            .SetTreeShopItemEntity(TreeShopItems.NewCharmMagic2);
 
         /// <summary>
         /// Item_ManyGrimoire_Name
@@ -291,7 +297,7 @@ namespace MiraItemMod
         /// このアーティファクトのレベルが{LEVEL}になると、このアイテムと左右の枠にあるアーティファクトは壊れる。左右の枠にあったアーティファクトのカテゴリーに含まれるランダムな絆アーティファクト1つを獲得する。
         /// </summary>
         public static ModCharm BondMaker { get; } = ModCharmStatus.Create<Charm_BondMaker>("BondMaker", 3, CreateStatusGroup("BOSS_REWARD_DICE", 1, 2), CreateStatusGroup("LUCK", 4, 8))
-            .SetCategory().SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory().SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossLizardDemon);
         /// <summary>
         /// Item_WoundWeapon_Name
         /// 血の入れ墨
@@ -307,7 +313,7 @@ namespace MiraItemMod
         /// <tag=BasicAttackDamage>を0%にする
         /// </summary>
         public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("WoundWeapon", 5, CreateStatusGroup("DEBUFF_DAMAGE", 3, 6, 9, 12, 16, 20))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
-            .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(4).SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(4).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossArmadillo);
         /// <summary>
         /// Item_MaxMPPower_Name
         /// 水神の目
@@ -319,7 +325,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_SpecialAttack>でダメージを与える時、最大<tag=MP>の{PERCENT}を消費して、空の<tag=MP>数値の{DAMAGE}のダメージを追加する。\n[次の追加ダメージ：およそ{MP}(空の<tag=MP>数値{DAMAGE})]
         /// </summary>
         public static ModCharm MaxMPPower { get; } = ModCharmStatus.Create<Charm_MaxMPPower>("MaxMPPower", 3, CreateStatusGroup("MP_REGEN", 5, 10, 20, 20), CreateStatusGroup("MAX_MP", 5, 10, 20, 20))
-            .SetCategory(ItemCategories.Lake).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Lake).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.NewCharmLeft2);
         /// <summary>
         /// Item_FollowerDiedHeal_Name
         /// 友情のリストバンド
@@ -329,7 +335,7 @@ namespace MiraItemMod
         /// HP消費以外によるダメージで<tag=Follower>が倒れた時、プレイヤーの<tag=HP>を回復する。（上限を超過して回復する）\n[HP回復量：倒れた<tag=Follower>の最大<tag=HP>{HEAL}]
         /// </summary>
         public static ModCharm FollowerDiedHeal { get; } = ModCharmStatus.Create<Charm_CompanionDiedHeal>("FollowerDiedHeal", 4, CreateStatusGroup("FOLLOWER_REVIVE", 5, 10, 20, 35, 60))
-            .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect();
+            .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmRight3);
         /// <summary>
         /// Item_PallasJoker_Name
         /// パラスのジョーカー
@@ -341,7 +347,7 @@ namespace MiraItemMod
         /// パラスのカードの発射確率が100％を超えた場合、超過した分の確率が追加のカードの発射確率に変換される。\n[発射するカードの枚数：{COUNT}]
         /// </summary>
         public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("PallasJoker", 4, CreateStatusGroup("LUCK", 3, 6, 9, 12, 15))
-            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
 
         /// <summary>
         /// Item_ThrowGrimoire_Name
@@ -360,7 +366,7 @@ namespace MiraItemMod
         /// 感電を付与するたびに、感電が付与されていない敵に雷属性ダメージを与える時に、気絶させる確率が{PERCENT}増加する（気絶させると確率はリセットされる）\n[現在の気絶確率：{CURRENT}]
         /// </summary>
         public static ModCharm ElectricStun { get; } = ModCharmStatus.Create<Charm_ElectricStun>("ElectricStun", 3, CreateStatusGroup("ELECTRIC_STACK", 0, 1, 1, 2))
-            .SetCategory(ItemCategories.Magitech).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Magitech).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.NewCharmLeft1);
         /// <summary>
         /// Item_TranscendentCharm_Name
         /// 断絶の魔石
@@ -394,7 +400,7 @@ namespace MiraItemMod
         /// 空高く舞うフレーバーテキスト募集中
         /// </summary>
         public static ModCharm DashSpeed { get; } = ModCharmStatus.Create("DashSpeed", 3, CreateStatusGroup("DASH_SPEED", 10, 20, 30, 40), CreateStatusGroup("DASH_RECOVERY_SPEED", 5, 10, 20, 30))
-            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.BossPanther);
         /// <summary>
         /// Item_DashAttackScaleUp_Name
         /// 楽譜「空」
@@ -424,7 +430,7 @@ namespace MiraItemMod
         /// ダメージを受けた時、<tag=DashCount>を{DASH}消費することで受けたダメージの{PERCENT}を回復する（クールタイム{COOLDOWN}秒、<tag=DashRecovery>が適用されます）
         /// </summary>
         public static ModCharm OnDamagedCosumeDash { get; } = ModCharmStatus.Create<Charm_OnDamagedCosumeDash>("OnDamagedCosumeDash", 5, CreateStatusGroup("DASH_RECOVERY_SPEED", 0, 5, 5, 10, 10, 20))
-            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossPanther);
         /// <summary>
         /// Item_DoubleDash_Name
         /// 晴れ雲
@@ -444,7 +450,7 @@ namespace MiraItemMod
         /// <tag=MoveSpeed>が{PERCENT}に固定されます
         /// </summary>
         public static ModCharm FixedMoveSpeed { get; } = ModCharmStatus.Create<Charm_FixedMoveSpeed>("FixedMoveSpeed", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 40, 80, 200))
-            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossPanther);
         /// <summary>
         /// Item_AnotherExecution_Name
         /// ウリエルの手斧
@@ -456,7 +462,7 @@ namespace MiraItemMod
         /// <tag=MagicExecution>の<tag=IgnoreDefence>が{PERCENT}増加する
         /// </summary>
         public static ModCharm AnotherExecution { get; } = ModCharmStatus.Create<Charm_AnotherExecution>("AnotherExecution", 3, CreateStatusGroup("CRITICAL", 250, 500, 750, 1000))
-            .SetCategory(ItemCategories.Precision).SetIsUniqueEffect().SetSimpleEffects(1).SetRarity(EItemRarity.Legend);
+            .SetCategory(ItemCategories.Precision).SetIsUniqueEffect().SetSimpleEffects(1).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossAskard);
         /// <summary>
         /// Item_ElectricCritical_Name
         /// 雷鳴の槌
@@ -488,7 +494,7 @@ namespace MiraItemMod
         /// <tag=Evasion>1につき{PERCENT}の確率で、<tag=FrostRelic>発動時に即時チャージされる（現在：{CURRENT}）
         /// </summary>
         public static ModCharm EvasionFrost { get; } = ModCharmStatus.Create<Charm_EvasionFrost>("EvasionFrost", 2, CreateStatusGroup("EVASION", 200, 400, 700))
-            .SetCategory(ItemCategories.Frost, ItemCategories.Shadow).SetIsUniqueEffect().SetSimpleEffects(2).SetIsDual().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Frost, ItemCategories.Shadow).SetIsUniqueEffect().SetSimpleEffects(2).SetIsDual().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.NewCharmBond1);
         /// <summary>
         /// Item_SuperMeteor_Name
         /// メテオライトの指輪
@@ -527,7 +533,7 @@ namespace MiraItemMod
         /// 他のアーティファクトをカジノチップに変えた時、元のアーティファクトのカテゴリーに基づいて以下の効果からランダムに獲得する（発動するとこの効果を失う）
         /// </summary>
         public static ModCharm InventoryPower { get; } = ModCharmStatus.Create<Charm_InventoryPower>("InventoryPower", 0, false)
-            .SetCategory().SetSimpleEffects(2).SetRarity(EItemRarity.Legend);
+            .SetCategory().SetSimpleEffects(2).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossBirdDemon);
         /// <summary>
         /// Item_PallasAce_Name
         /// パラスのエース
@@ -539,7 +545,7 @@ namespace MiraItemMod
         /// <tag=Luck>1ごとに発射確率が{CHANCE}増加（現在：{CURRENT}）\n[ダメージ：{DAMAGE}]
         /// </summary>
         public static ModCharm PallasAce { get; } = ModCharmStatus.Create<Charm_PallasAce>("PallasAce", 4, true)
-            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(2).SetRarity(EItemRarity.Uncommon);
+            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(2).SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
         /// <summary>
         /// Item_FirstHeal_Name
         /// 酔狂のお守り
@@ -773,7 +779,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_DirectAttack>や<tag=Magic>によって<tag=FlameSword>が発動しなくなる。かわりに、<tag=Electric>ダメージを与えると<tag=FlameSword>を最大<tag=Electric>スタックの分だけ投げる
         /// </summary>
         public static ModCharm MagitechFlameSword { get; } = ModCharmStatus.Create<Charm_MagitechFlameSword>("MagitechFlameSword", 5, CreateStatusGroup("ELECTRIC_DAMAGE", 25, 30, 40, 55, 75, 100), CreateStatusGroup("FIRE_DAMAGE", 2, 3, 5, 7, 10, 13))
-            .SetCategory(ItemCategories.Magitech, ItemCategories.FlameSword).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
+            .SetCategory(ItemCategories.Magitech, ItemCategories.FlameSword).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmBond1);
         /// <summary>
         /// Item_MagitechFrostRelic_Name
         /// 凍える氷磁石
@@ -785,7 +791,7 @@ namespace MiraItemMod
         /// 雹の手：{BUFF}秒の間、<tag=IceDamage>が2増加（最大20スタック）
         /// </summary>
         public static ModCharm MagitechFrostRelic { get; } = ModCharmStatus.Create<Charm_MagitechFrostRelic>("MagitechFrostRelic", 5, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 3, 5, 7, 10, 13))
-            .SetCategory(ItemCategories.Magitech, ItemCategories.Frost).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
+            .SetCategory(ItemCategories.Magitech, ItemCategories.Frost).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmBond1);
         /// <summary>
         /// Item_Auto_MagicDarkCloud_Name
         /// 巨大実験台
@@ -839,7 +845,8 @@ namespace MiraItemMod
         /// <tag=Frostbite>を<tag=BlackFrostbite>に変える
         /// </summary>
         public static ModCharm ShadowFrostbite { get; } = ModCharmStatus.Create<Charm_ShadowFrostbite>("ShadowFrostbite", 4, CreateStatusGroup("ICE_DAMAGE", 2, 4, 6, 9, 13), CreateStatusGroup("EVASION", 200, 400, 600, 900, 1300))
-            .SetCategory(ItemCategories.Glacier, ItemCategories.Shadow).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetDamageIdDebuff("BlackFreeze", "Status_BlackFreeze_Name");
+            .SetCategory(ItemCategories.Glacier, ItemCategories.Shadow).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().
+            SetDamageIdDebuff("BlackFreeze", "Status_BlackFreeze_Name").SetTreeShopItemEntity(TreeShopItems.NewCharmBond1);
         /// <summary>
         /// Item_GuardFrostbite_Name
         /// 精霊の盾
@@ -849,7 +856,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_Guard>に成功した時、攻撃者に<tag=Frostbite>を付与する\n<tag=WeaponAction_PerfectGuard>なら、<tag=Frostbite>ではなく<tag=Freeze>を付与する
         /// </summary>
         public static ModCharm GuardFrostbite { get; } = ModCharmStatus.Create<Charm_GuardFrostbite>("GuardFrostbite", 2, CreateStatusGroup("ICE_DAMAGE", 3, 5, 8), CreateStatusGroup("MP_STEAL", 2, 3, 5))
-            .SetCategory(ItemCategories.Glacier).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetRelatedWeapon(EWeaponType.SwordAndShield).SetIsUniqueEffect();
+            .SetCategory(ItemCategories.Glacier).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetRelatedWeapon(EWeaponType.SwordAndShield).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmRight2);
         /// <summary>
         /// Item_OverFlameSword_Name
         /// ソリス・クリスタ
@@ -901,7 +908,7 @@ namespace MiraItemMod
         /// インベントリ内の同じ列または行に配置された仲間が<tag=Elemental_Chaos>ダメージを与える
         /// </summary>
         public static ModCharm CompanionChaosMore { get; } = ModCharmStatus.Create<Charm_CompanionChaosMore>("CompanionChaosMore", 3, CreateStatusGroup("FOLLOWER_ATTACK_SPEED", 10, 15, 20, 30), CreateStatusGroup("FOLLOWER_CRITICAL", 300, 500, 800, 1200))
-            .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
+            .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmRight3);
         /// <summary>
         /// Item_BondCoin_Name
         /// 結束のコイン
