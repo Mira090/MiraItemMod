@@ -86,7 +86,7 @@ namespace MiraItemMod.Items.Eternal
                 int burn = 0;
                 foreach (var debuff in ComboEffect_FlameSwordHandleAttackUnitPatch.RecentTarget.Debuffs)
                 {
-                    if (debuff.ID == "BURN")
+                    if (debuff.ID == SephiriaPrefabs.Burn.ID)
                     {
                         burn += debuff.CurrentStack;
                     }

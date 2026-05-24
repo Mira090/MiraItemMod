@@ -112,7 +112,7 @@ namespace MiraItemMod.Items
         }
         private void OnAddedDebuffOnTarget(CharacterDebuff debuff, string id)
         {
-            if (debuff.ID != "BURN" || isInCooldown)
+            if (debuff.ID != SephiriaPrefabs.Burn.ID || isInCooldown)
                 return;
             if (SephiriaPrefabs.MeteorBullet == null)
                 return;

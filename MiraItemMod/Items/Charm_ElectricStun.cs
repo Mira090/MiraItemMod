@@ -55,7 +55,7 @@ namespace MiraItemMod.Items
         }
         private void OnAddedDebuffOnTarget(CharacterDebuff debuff, string id)
         {
-            if(id == "ELECTRIC")
+            if(id == SephiriaPrefabs.Electric.ID || id == SephiriaPrefabs.Plasma.ID)
             {
                 count++;
                 countView = count;
@@ -71,7 +71,7 @@ namespace MiraItemMod.Items
                 return;
             foreach(var debuff in avatar.Debuffs)
             {
-                if (debuff.ID == "ELECTRIC")
+                if (debuff.ID == SephiriaPrefabs.Electric.ID)
                     return;
             }
             float num = percentByLevel[CurrentLevelToIdx()] * count;

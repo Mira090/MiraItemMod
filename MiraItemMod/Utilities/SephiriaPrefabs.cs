@@ -33,6 +33,17 @@ namespace MiraItemMod.Utilities
             }
         }
         private static CharacterDebuff _poison;
+        public static CharacterDebuff Plasma
+        {
+            get
+            {
+                if (_plasma == null)
+                    _plasma = UnitDatabase.GetDebuff("PLASMA");
+                return _plasma;
+            }
+        }
+        private static CharacterDebuff _plasma;
+
         private static GameObject _pallasBigBullet;
         public static GameObject PallasBigBullet
         {

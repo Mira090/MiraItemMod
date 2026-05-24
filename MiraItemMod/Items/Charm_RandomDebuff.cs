@@ -62,7 +62,8 @@ namespace MiraItemMod.Items
                 SephiriaPrefabs.Frostbite,
                 SephiriaPrefabs.Electric,
                 SephiriaPrefabs.Wound,
-                SephiriaPrefabs.Poison
+                SephiriaPrefabs.Poison,
+                SephiriaPrefabs.Plasma
             };
             foreach (var debuff in target.Debuffs)
             {
