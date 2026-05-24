@@ -205,6 +205,19 @@ namespace MiraItemMod
                 }
             });
             ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
+            ItemDatabase.Modify(1174, item =>
+            {
+                item.categories = new List<string> { ItemCategories.Vitality };
+                item.activeType = EItemActiveType.Default;
+                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_ElruNaptimePillow>(out var charm))
+                {
+                    var mod = item.resourcePrefab.AddComponent<Charm_ElruNaptimePillowMkII>();
+                    mod.healByLevel = charm.healByLevel;
+                    mod.healFxPrefab = charm.healFxPrefab;
+                    mod.healSound = charm.healSound;
+                    UnityEngine.Object.Destroy(charm);
+                }
+            });
         }
         private void OnLoadMiracleDatabase()
         {
