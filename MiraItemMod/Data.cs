@@ -2514,6 +2514,65 @@ namespace MiraItemMod
                 miracle.LoadManuallyGivenItems();
             }
         }
+        public static void ModifyTreeShopItems()
+        {
+            foreach(var entity in TreeShopItemDatabase.GetAll())
+            {
+                var list = new List<ItemEntity>(entity.items);
+                /*
+                if (entity.id == 14000)//絆解放2
+                {
+                    var locked = Data.All.Where(x => x.IsDual && x.Rarity == EItemRarity.Rare).Select(x => x.ItemEntity).ToArray();
+                    locked.Do(entity => entity.activeType = EItemActiveType.Locked);
+                    entity.items = entity.items.AddRangeToArray(locked);
+                    //entity.items = entity.items.AddItem(ItemDatabase.FindItemById(1188)).ToArray();
+                }
+                if (entity.id == 1005)
+                {
+                    var locked = new ModItem[] { Data.CopyAcademy, Data.AutoBuff, Data.AutoMagicLegend };
+                    locked.Do(entity => entity.ItemEntity.activeType = EItemActiveType.Locked);
+                    entity.items = entity.items.AddRange(locked);
+                }*/
+                foreach (var item in Data.All)
+                {
+                    if(!item.HasTreeShopItemEntity && entity.id == 14001 && item.Categories.Contains(ItemCategories.Drunk))
+                    {
+                        item.ItemEntity.activeType = EItemActiveType.Locked;
+                        list.Add(item.ItemEntity);
+                    }
+                    if (!item.HasTreeShopItemEntity && entity.id == 14000 && item.IsDual && item.Rarity == EItemRarity.Rare && !item.Categories.Contains(ItemCategories.Drunk))
+                    {
+                        item.ItemEntity.activeType = EItemActiveType.Locked;
+                        list.Add(item.ItemEntity);
+                    }
+                    if(item.HasTreeShopItemEntity && entity.id == item.TreeShopItemEntity.Value)
+                    {
+                        item.ItemEntity.activeType = EItemActiveType.Locked;
+                        list.Add(item.ItemEntity);
+                    }
+                }
+                entity.items = list.ToArray();
+            }
+            //3001 Chapter5Complete 例：北向きの針の時計
+            //2009 RootDemon 例：衝撃増幅器、石版
+            //2008 LizardDemon 例：神秘の振り子、平和
+            //2007 BirdDemon 例：虹の羽
+            //2006 LibraryGuard 例：霜焼けクラゲ、瞑想の書
+            //2005 Boss Panther 例：白い紙
+            //2004 Boss BigBomb 例：多目的ベルト、青い輪、仲間モグディ
+            //2003 Boss Askard 例：石版（Daydream、Spike）
+            //2002 Boss Armadillo 例：六つ葉のクローバー、ガラスハンマー、ベルート、アグマ
+            //2001 Boss Oink 例：クナイ、緑色の造服、呪いデバフ延長
+            //2000 Boss Mole 例：ヘルメット、ポーション強化キャップ、蛍
+            //1007 例：フォールトファインダーニードル
+            //1006 絆 例：
+            //1005 魔法2 例：ライトニングアーマー
+            //1004 例：キリンの角、オブラスの血
+            //1003 例：スタールビー、翼
+            //1002 例：割れた鏡、スターアクアマリン、黒い鱗
+            //1001 例：盾のイヤリング
+            //1000 魔法1　例：ファイアボルト
+        }
         public static void RegisterStatuses(List<UnityEngine.Object> list)
         {
             foreach (var moditem in Statuses)
@@ -2707,6 +2766,18 @@ namespace MiraItemMod
             {
                 list.Add(moditem.PassiveEntity);
             }
+        }
+
+        public static void RegisterBuffs(List<UnityEngine.Object> list)
+        {
+            foreach(var moditem in Buffs)
+            {
+                list.Add(moditem);
+            }
+        }
+        public static void RegisterDebuffs(List<UnityEngine.Object> list)
+        {
+
         }
         #endregion
 

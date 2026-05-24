@@ -443,5 +443,68 @@ namespace MiraItemMod.Utilities
 
         public static T[] Array<T>(params T[] array)
             => array;
+        public static string ToAllString(this object obj)
+        {
+            var type = obj.GetType();
+            var sb = new StringBuilder();
+            var props = type.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            sb.AppendLine(type.Name);
+            sb.AppendLine("Properties:");
+            foreach (var prop in props)
+            {
+                try
+                {
+                    var value = prop.GetValue(obj);
+                    if(value is IEnumerable enumerable && !(value is string))
+                    {
+                        var items = new List<string>();
+                        foreach(var item in enumerable)
+                        {
+                            if (item == null)
+                                items.Add("null");
+                            else
+                                items.Add(item.ToString());
+                        }
+                        value = "[" + string.Join(", ", items) + "]";
+                    }
+                    sb.AppendLine($"  {prop.Name}: {value}");
+                }
+                catch
+                {
+                    sb.AppendLine($"  {prop.Name}: <Unable to retrieve>");
+                }
+            }
+            sb.AppendLine("Fields:");
+            var fields = type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            foreach (var field in fields)
+            {
+                try
+                {
+                    var value = field.GetValue(obj);
+                    if (value is IEnumerable enumerable && !(value is string))
+                    {
+                        var items = new List<string>();
+                        foreach (var item in enumerable)
+                        {
+                            if (item == null)
+                                items.Add("null");
+                            else
+                                items.Add(item.ToString());
+                        }
+                        value = "[" + string.Join(", ", items) + "]";
+                    }
+                    sb.AppendLine($"  {field.Name}: {value}");
+                }
+                catch
+                {
+                    sb.AppendLine($"  {field.Name}: <Unable to retrieve>");
+                }
+            }
+            return sb.ToString();
+        }
+        public static ItemEntity[] AddRange<T>(this ItemEntity[] sequence, params T[] items) where T : ModItem
+        {
+            return HarmonyLib.CollectionExtensions.AddRangeToArray<ItemEntity>(sequence, items.Select(x => x.ItemEntity).ToArray());
+        }
     }
 }

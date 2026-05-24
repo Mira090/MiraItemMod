@@ -118,6 +118,11 @@ namespace MiraItemMod.Registries
             item.ActiveType = EItemActiveType.Hidden;
             return item;
         }
+        public static T SetTreeShopItemEntity<T>(this T item, int id) where T : ModItem
+        {
+            item.TreeShopItemEntity = id;
+            return item;
+        }
         public static T SetSimpleEffect<T>(this T item) where T : ModCharm
         {
             item.Effects = new LocalizedString[] { new LocalizedString("Item_" + item.Name + "_Effect") };

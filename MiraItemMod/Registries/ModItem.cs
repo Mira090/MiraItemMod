@@ -43,6 +43,8 @@ namespace MiraItemMod.Registries
         public bool IsDual { get; internal set; } = false;
         public bool IsJewelry { get; internal set; } = false;
         public bool IsExcludedJewelry { get; internal set; } = false;
+        public int? TreeShopItemEntity { get; internal set; } = null;
+        public bool HasTreeShopItemEntity => TreeShopItemEntity.HasValue;
         public GameObject ResourcePrefab
         {
             get

@@ -229,7 +229,7 @@ namespace MiraItemMod
                 {
                     charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
                     charm.maxLevel = 5;
-        }
+                }
             });
         }
         private void OnLoadMiracleDatabase()
@@ -257,6 +257,7 @@ namespace MiraItemMod
         private void OnAllDatabasesReady()
         {
             Data.LoadMiracleManuallyGivenItems();
+            Data.ModifyTreeShopItems();
         }
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
@@ -342,6 +343,10 @@ namespace MiraItemMod
 
             }
             private static void ModifyKeywordEntity(KeywordEntity keyword)
+            {
+
+            }
+            private static void ModifyTreeShopItemEntity(TreeShopItemEntity entity)
             {
 
             }
@@ -473,6 +478,87 @@ namespace MiraItemMod
 
                     __result = list.ToArray();
                 }
+                if (systemTypeInstance == typeof(CharacterBuff) && path == "Buff")
+                {
+                    var list = __result.ToList();
+
+                    Data.RegisterBuffs(list);
+
+                    __result = list.ToArray();
+                }
+                if (systemTypeInstance == typeof(CharacterDebuff) && path == "Debuff")
+                {
+                    var list = __result.ToList();
+
+                    Data.RegisterDebuffs(list);
+
+                    __result = list.ToArray();
+                }
+                if (systemTypeInstance == typeof(TreeShopItemEntity) && path == "TreeShopItem")
+                {
+                    var list = __result.ToList();
+
+                    //Data.RegisterDebuffs(list);
+                    Core.Logger("TreeShopItems: " + list.Count);
+                    foreach(var item in list)
+                    {
+                        Core.Logger(item.ToAllString());
+                    }
+
+                    var addTreeShop = new List<UnityEngine.Object>();
+                    foreach (var item in list)
+                        if (item is TreeShopItemEntity entity)
+                        {
+                            ModifyTreeShopItemEntity(entity);
+                            if(entity.id == TreeShopItems.NewCharmBond1)
+                            {
+                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
+                                bond2.name = TreeShopItems.NewCharmBond2 + "_NewCharm_Bond2";
+                                bond2.id = TreeShopItems.NewCharmBond2;
+                                bond2.maxQuantity = 1;
+                                bond2.bg = entity.bg;
+                                bond2.icon = entity.icon;
+                                bond2.aName = entity.aName;
+                                bond2.aDescription = entity.aDescription;
+                                bond2.anUnlockDescription = entity.anUnlockDescription;
+                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
+                                bond2.autoSwitchName = string.Empty;
+                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
+                                bond2.priceByQuantity = new int[] { 8 };
+                                bond2.showStatus = true;
+                                bond2.hasTutorial = false;
+                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
+
+                                addTreeShop.Add(bond2);
+                            }
+                            if (entity.id == TreeShopItems.NewCharmBond1)
+                            {
+                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
+                                bond2.name = TreeShopItems.NewCharmDrunk + "_NewCharm_Drunk";
+                                bond2.id = TreeShopItems.NewCharmDrunk;
+                                bond2.maxQuantity = 1;
+                                bond2.bg = entity.bg;
+                                bond2.icon = entity.icon;
+                                bond2.aName = entity.aName;
+                                bond2.aDescription = entity.aDescription;
+                                bond2.anUnlockDescription = entity.anUnlockDescription;
+                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
+                                bond2.autoSwitchName = string.Empty;
+                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
+                                bond2.priceByQuantity = new int[] { 7 };
+                                bond2.showStatus = true;
+                                bond2.hasTutorial = false;
+                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
+
+                                addTreeShop.Add(bond2);
+                            }
+                        }
+
+
+                    list.AddRange(addTreeShop);
+                    __result = list.ToArray();
+                }
+
             }
         }
         /// <summary>
