@@ -151,6 +151,8 @@ namespace MiraItemMod.Items
             {
                 return;
             }
+            if (magicCharm == null)
+                return;
             if(NetworkAvatar is PlayerAvatar player)
             {
                 //float num6 = (100f + magicCharm.AdditionalcooldownRecoverySpeed) / 100f;

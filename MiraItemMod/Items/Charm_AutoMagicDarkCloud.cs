@@ -156,7 +156,9 @@ namespace MiraItemMod.Items
 
             if (NetworkAvatar == null || NetworkAvatar.IsDead || !NetworkAvatar.IsInBattle)
                 return;
-            if(NetworkAvatar is PlayerAvatar player)
+            if (magicCharm == null)
+                return;
+            if (NetworkAvatar is PlayerAvatar player)
             {
                 var combo = NetworkAvatar.Inventory.FindComboEffect(ItemCategories.DarkCloud);
                 if (combo == null)

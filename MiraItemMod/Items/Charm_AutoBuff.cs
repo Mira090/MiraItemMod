@@ -159,6 +159,8 @@ namespace MiraItemMod.Items
             {
                 return;
             }
+            if (magicCharm == null)
+                return;
             if (isInCooldown && cooldownTimer.Update(Time.deltaTime))
             {
                 isInCooldown = false;
