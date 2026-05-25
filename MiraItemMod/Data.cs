@@ -287,7 +287,7 @@ namespace MiraItemMod
         /// {REQUIRE}回火属性ダメージを与えるたびにすべての<tag=Magic>のクールタイムを少しだけ加速させる。
         /// </summary>
         public static ModCharm FireCooldownRecovery { get; } = ModCharmStatus.Create<Charm_FireCooldownRecovery>("FireCooldownRecovery", 3, CreateStatusGroup("BURN_SPEED", 5, 10, 15, 20))
-            .SetCategory(ItemCategories.Academy, ItemCategories.Ember).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare);
+            .SetCategory(ItemCategories.Academy, ItemCategories.Ember).SetIsUniqueEffect().SetSimpleEffect().SetIsDual().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.NewCharmBond1);
 
         /// <summary>
         /// Item_BondMaker_Name
