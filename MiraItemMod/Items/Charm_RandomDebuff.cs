@@ -71,6 +71,10 @@ namespace MiraItemMod.Items
                 {
                     list.Remove(debuff);
                 }
+                if (debuff.ID == SephiriaPrefabs.Freeze.ID)
+                {
+                    list.Remove(SephiriaPrefabs.Frostbite);
+                }
             }
 
             return list.GetRandom();

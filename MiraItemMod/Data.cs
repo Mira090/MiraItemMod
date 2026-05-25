@@ -713,7 +713,7 @@ namespace MiraItemMod
         /// Item_RandomDebuff_FlavorText
         /// 塔の下から流れ着いた様々な思念が詰まった板。
         /// Item_RandomDebuff_Effect
-        /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率でランダムなデバフを付与する。（<tag=Luck>で確率が増加）
+        /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率でランダムな<tag=Debuff>を付与する。（<tag=Luck>で確率が増加）
         /// </summary>
         public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 5, 8, 12, 16, 20, 25, 32))
             .SetCategory(ItemCategories.Curse, ItemCategories.Fortune).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
