@@ -11,6 +11,24 @@ namespace MiraItemMod.Items.Pallas
         public static event Action<Charm_PallasCard, int> OnPallasCardSpawn;
         public static event Action<Charm_PallasAce, int> OnPallasAceSpawn;
 
+        public static void SetEnhancement(this Charm_PallasCard pallas, bool enhance)
+        {
+            if (enhance)
+            {
+                pallas.bulletDamage = 30;
+                pallas.defaultChance = 100;
+                pallas.throwChanceByLevel = new float[] { 0f, 5f, 10f, 15f, 20f };
+                //pallas.throwChanceByLevel = new float[] {0f, 4f, 8f, 12f, 16f};
+                pallas.throwIntervalTimer.time = 0.05f;
+            }
+            else
+            {
+                pallas.bulletDamage = 24;
+                pallas.defaultChance = 50;
+                pallas.throwChanceByLevel = new float[] { 0f, 2.5f, 5f, 7.5f, 10f };
+                pallas.throwIntervalTimer.time = 0.1f;
+            }
+        }
         #region パラスのジョーカー
         [HarmonyPatch(typeof(Charm_PallasCard), "OnBeginAttackAnimation")]
         public static class Charm_PallasCardOnBeginAttackAnimationPatch
@@ -44,55 +62,135 @@ namespace MiraItemMod.Items.Pallas
                 {
                     num = component.currentWeapon.AttackWeightPerSwing;
                 }
-                //
+                
                 var hasJoker = HasJoker(avatar, __instance);
-                if (!hasJoker)
-                    return;
+                var hasDiamond = HasDiamond(avatar, __instance);
+                var hasSpade = HasSpade(avatar, __instance);
 
-                float[] throwChance = new float[] { 0f, 5f, 10f, 15f, 20f };
-                float defaultChance = 100f;
-                string value = showAllLevel ? (throwChance.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (throwChance.SafeRandomAccess(__instance.maxLevel) * num).ToString("0.#") + "%" : (throwChance.SafeRandomAccess(__instance.LevelToIdx(level)) * num).ToString("0.#") + "%";
-                float num2 = defaultChance * num;
+                var parameters = CustomPallasController.GetCardParameters(hasDiamond, hasSpade, hasJoker);
+                string value = showAllLevel ? (parameters.throwChanceByLevel.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (parameters.throwChanceByLevel.SafeRandomAccess(__instance.maxLevel) * num).ToString("0.#") + "%" : (parameters.throwChanceByLevel.SafeRandomAccess(__instance.LevelToIdx(level)) * num).ToString("0.#") + "%";
+                float num2 = parameters.defaultChance * num;
 
                 if (!ignoreAvatarStatus)
                 {
-                    float num3 = num2 + throwChance.SafeRandomAccess(__instance.LevelToIdx(level)) * Mathf.Clamp(avatar.GetCustomStat(ECustomStat.Luck), 0, 9999) * num;
-                    __result = new Loc.KeywordValue[4]
+                    float num3 = num2 + parameters.throwChanceByLevel.SafeRandomAccess(__instance.LevelToIdx(level)) * Mathf.Clamp(avatar.GetCustomStat(ECustomStat.Luck), 0, 9999) * num;
+                    __result = new Loc.KeywordValue[]
                         {
-                                        new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
-                                    new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
-                                    new Loc.KeywordValue("DAMAGE", "30"),
-                                    new Loc.KeywordValue("CURRENT", num3.ToString("0.#") + "%")
+                            new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
+                            new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
+                            new Loc.KeywordValue("DAMAGE", parameters.bulletDamage.ToString()),
+                            new Loc.KeywordValue("CURRENT", num3.ToString("0.#") + "%")
                         };
                 }
                 else
                 {
-                    __result = new Loc.KeywordValue[3]
+                    __result = new Loc.KeywordValue[]
                         {
-                                        new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
-                                    new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
-                                    new Loc.KeywordValue("DAMAGE", "30")
+                            new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
+                            new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
+                            new Loc.KeywordValue("DAMAGE", parameters.bulletDamage.ToString()),
+                            new Loc.KeywordValue("CURRENT", "-")
                         };
                 }
                 return;
             }
-            static bool HasJoker(UnitAvatar avatar, Charm_Basic __instance)
+        }
+
+
+        public static bool HasJoker(UnitAvatar avatar, Charm_Basic __instance)
+        {
+            if (avatar == null || avatar.Inventory == null)
+                return false;
+            ItemPosition[] array = Charm_PallasJoker.Directions;
+            foreach (ItemPosition itemPosition in array)
             {
-                ItemPosition[] array = Charm_PallasJoker.Directions;
-                foreach (ItemPosition itemPosition in array)
+                NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
+                if (newItemOwnInstance != null)
                 {
-                    NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
-                    if (newItemOwnInstance != null)
+                    Charm_Basic charm = newItemOwnInstance.Charm;
+                    if ((bool)charm && charm is Charm_PallasJoker)
                     {
-                        Charm_Basic charm = newItemOwnInstance.Charm;
-                        if ((bool)charm && charm is Charm_PallasJoker)
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
-                return false;
             }
+            return false;
+        }
+        public static bool HasSpade(UnitAvatar avatar, Charm_Basic __instance)
+        {
+            if (avatar == null || avatar.Inventory == null)
+                return false;
+            ItemPosition[] array = Charm_PallasSpade.Directions;
+            foreach (ItemPosition itemPosition in array)
+            {
+                NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
+                if (newItemOwnInstance != null)
+                {
+                    Charm_Basic charm = newItemOwnInstance.Charm;
+                    if ((bool)charm && charm is Charm_PallasSpade)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public static bool HasDiamond(UnitAvatar avatar, Charm_Basic __instance)
+        {
+            if (avatar == null || avatar.Inventory == null)
+                return false;
+            ItemPosition[] array = Charm_PallasDiamond.Directions;
+            foreach (ItemPosition itemPosition in array)
+            {
+                NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
+                if (newItemOwnInstance != null)
+                {
+                    Charm_Basic charm = newItemOwnInstance.Charm;
+                    if ((bool)charm && charm is Charm_PallasDiamond)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public static bool HasClub(UnitAvatar avatar, Charm_Basic __instance)
+        {
+            if (avatar == null || avatar.Inventory == null)
+                return false;
+            ItemPosition[] array = Charm_PallasClub.Directions;
+            foreach (ItemPosition itemPosition in array)
+            {
+                NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
+                if (newItemOwnInstance != null)
+                {
+                    Charm_Basic charm = newItemOwnInstance.Charm;
+                    if ((bool)charm && charm is Charm_PallasClub)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        public static bool HasHeart(UnitAvatar avatar, Charm_Basic __instance)
+        {
+            if (avatar == null || avatar.Inventory == null)
+                return false;
+            ItemPosition[] array = Charm_PallasHeart.Directions;
+            foreach (ItemPosition itemPosition in array)
+            {
+                NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
+                if (newItemOwnInstance != null)
+                {
+                    Charm_Basic charm = newItemOwnInstance.Charm;
+                    if ((bool)charm && charm is Charm_PallasHeart)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

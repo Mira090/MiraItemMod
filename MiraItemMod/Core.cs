@@ -3,6 +3,7 @@ using HarmonyLib;
 using Mirror;
 using Newtonsoft.Json;
 using MiraItemMod.Items;
+using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
 using MiraItemMod.Utilities;
 using System;
@@ -230,6 +231,20 @@ namespace MiraItemMod
                     charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
                     charm.maxLevel = 5;
                 }
+            });
+            ItemDatabase.Modify(1172, item =>//パラスのカード
+            {
+                if (item.resourcePrefab == null)
+                    return;
+                if(item.resourcePrefab.TryGetComponent<Charm_PallasCard>(out var charm))
+                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
+            });
+            ItemDatabase.Modify(Data.PallasAce.Id, item =>//パラスのエース
+            {
+                if (item.resourcePrefab == null)
+                    return;
+                if (item.resourcePrefab.TryGetComponent<Charm_PallasAce>(out var charm))
+                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
             });
         }
         private void OnLoadMiracleDatabase()

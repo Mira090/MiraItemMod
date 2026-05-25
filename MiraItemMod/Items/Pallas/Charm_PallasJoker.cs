@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Items.Pallas
 {
-    public class Charm_PallasJoker : Charm_StatusInstance
+    public class Charm_PallasJoker : Charm_PallasEnhancer
     {
         public string damageId = "Charm_PallasJoker";
         public int[] countByLevels = new int[] { 2, 3, 4, 5, 6 };
@@ -22,9 +22,8 @@ namespace MiraItemMod.Items.Pallas
         new ItemPosition(-1, 1),
         new ItemPosition(1, 1)
         };
-
-        private List<Charm_PallasCard> cards = new List<Charm_PallasCard>();
-        private List<Charm_PallasAce> aces = new List<Charm_PallasAce>();
+        protected override ItemPosition[] GetDirections()
+            => Directions;
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
@@ -39,8 +38,6 @@ namespace MiraItemMod.Items.Pallas
             base.OnEnabledEffect();
             PallasEvents.OnPallasCardSpawn += OnPallasSpawnChance;
             PallasEvents.OnPallasAceSpawn += OnAceSpawnChance;
-            ClearCard();
-            SearchCard();
         }
 
         protected override void OnDisabledEffect()
@@ -48,7 +45,6 @@ namespace MiraItemMod.Items.Pallas
             base.OnDisabledEffect();
             PallasEvents.OnPallasCardSpawn -= OnPallasSpawnChance;
             PallasEvents.OnPallasAceSpawn -= OnAceSpawnChance;
-            ClearCard();
         }
 
         private void OnPallasSpawnChance(Charm_PallasCard instance, int idx)
@@ -112,52 +108,13 @@ namespace MiraItemMod.Items.Pallas
             }
         }
 
-        public override void OnCharmEffectRefreshed()
+        protected override void ClearStats(CustomPallasController card)
         {
-            base.OnCharmEffectRefreshed();
-            ClearCard();
-            if (IsEffectEnabled)
-            {
-                SearchCard();
-            }
+            card.HasJoker = false;
         }
-
-        private void ClearCard()
+        protected override void SetStats(CustomPallasController card)
         {
-            foreach (Charm_PallasCard card in cards)
-            {
-                card.SetEnhancement(false);
-            }
-            foreach (Charm_PallasAce ace in aces)
-            {
-                ace.SetEnhancement(false);
-            }
-
-            cards.Clear();
-            aces.Clear();
-        }
-
-        private void SearchCard()
-        {
-            ItemPosition[] array = Directions;
-            foreach (ItemPosition itemPosition in array)
-            {
-                NewItemOwnInstance newItemOwnInstance = NetworkAvatar.Inventory.FindItem(new ItemPosition(Item.XIdx, Item.YIdx) + itemPosition);
-                if (newItemOwnInstance != null)
-                {
-                    Charm_Basic charm = newItemOwnInstance.Charm;
-                    if ((bool)charm && charm is Charm_PallasCard card)
-                    {
-                        card.SetEnhancement(true);
-                        cards.Add(card);
-                    }
-                    else if ((bool)charm && charm is Charm_PallasAce ace)
-                    {
-                        ace.SetEnhancement(true);
-                        aces.Add(ace);
-                    }
-                }
-            }
+            card.HasJoker = true;
         }
 
         public override bool Weaved()

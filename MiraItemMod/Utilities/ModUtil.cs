@@ -97,24 +97,6 @@ namespace MiraItemMod.Utilities
         {
             return property.ToUpperInvariant().Replace("_", "");
         }
-        public static void SetEnhancement(this Charm_PallasCard pallas, bool enhance)
-        {
-            if (enhance)
-            {
-                pallas.bulletDamage = 30;
-                pallas.defaultChance = 100;
-                pallas.throwChanceByLevel = new float[] { 0f, 5f, 10f, 15f, 20f};
-                //pallas.throwChanceByLevel = new float[] {0f, 4f, 8f, 12f, 16f};
-                pallas.throwIntervalTimer.time = 0.05f;
-            }
-            else
-            {
-                pallas.bulletDamage = 24;
-                pallas.defaultChance = 50;
-                pallas.throwChanceByLevel = new float[] { 0f, 2.5f, 5f, 7.5f, 10f };
-                pallas.throwIntervalTimer.time = 0.1f;
-            }
-        }
         public static GameDataLoader GetGameDataLoader()
         {
             var instance = typeof(GameDataLoader);

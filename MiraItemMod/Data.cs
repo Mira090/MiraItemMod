@@ -347,6 +347,58 @@ namespace MiraItemMod
         public static ModCharm FollowerDiedHeal { get; } = ModCharmStatus.Create<Charm_CompanionDiedHeal>("FollowerDiedHeal", 4, CreateStatusGroup("FOLLOWER_REVIVE", 5, 10, 20, 35, 60))
             .SetCategory(ItemCategories.Companion).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect().SetTreeShopItemEntity(TreeShopItems.NewCharmRight3);
         /// <summary>
+        /// Item_PallasHeart_Name
+        /// ハートのカード
+        /// Item_PallasHeart_FlavorText
+        /// 赤いハートが描かれたトランプのカード。
+        /// Item_PallasHeart_Effect
+        /// 左右2マスにあるパラスのカードを強化\n強化されたパラスのカードは命中時に<tag=HP>を{HEAL}回復する（クールダウン{COOLDOWN}秒）
+        /// </summary>
+        public static ModCharm PallasHeart { get; } = ModCharmStatus.Create<Charm_PallasHeart>("PallasHeart", 2, CreateStatusGroup("LUCK", 1, 2, 3))
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Common).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
+        /// Item_PallasDiamond_Name
+        /// ダイヤのカード
+        /// Item_PallasDiamond_FlavorText
+        /// 赤いダイヤが描かれたトランプのカード。
+        /// Item_PallasDiamond_Effect
+        /// 上下2マスにあるパラスのカードを強化\n強化されたパラスのカードは発射確率が増加する
+        /// </summary>
+        public static ModCharm PallasDiamond { get; } = ModCharmStatus.Create<Charm_PallasDiamond>("PallasDiamond", 2, CreateStatusGroup("LUCK", 1, 2, 3))
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Common).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
+        /// Item_PallasClub_Name
+        /// クラブのカード
+        /// Item_PallasClub_FlavorText
+        /// 黒いクラブが描かれたトランプのカード。
+        /// Item_PallasClub_Effect
+        /// 右下または左上のマスにあるパラスのカードを強化\n強化されたパラスのカードは命中時に5秒間<tag=TrueDamage>が{BUFF}増加する（クールダウン{COOLDOWN}秒）
+        /// </summary>
+        public static ModCharm PallasClub { get; } = ModCharmStatus.Create<Charm_PallasClub>("PallasClub", 2, CreateStatusGroup("LUCK", 1, 2, 3))
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Common).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
+        /// Item_PallasSpade_Name
+        /// スペードのカード
+        /// Item_PallasSpade_FlavorText
+        /// 黒いスペードが描かれたトランプのカード。
+        /// Item_PallasSpade_Effect
+        /// 右上または左下のマスにあるパラスのカードを強化\n強化されたパラスのカードはダメージが増加する
+        /// </summary>
+        public static ModCharm PallasSpade { get; } = ModCharmStatus.Create<Charm_PallasSpade>("PallasSpade", 2, CreateStatusGroup("LUCK", 1, 2, 3))
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Common).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
+        /// Item_PallasAce_Name
+        /// パラスのエース
+        /// Item_PallasAce_FlavorText
+        /// スペードがどこかに行ってしまったんだ。
+        /// Item_PallasAce_Effect
+        /// ダッシュ攻撃時に{DEFAULT}%の確率でカードを発射
+        /// Item_PallasAce_Effect2
+        /// <tag=Luck>1ごとに発射確率が{CHANCE}増加（現在：{CURRENT}）\n[ダメージ：{DAMAGE}]
+        /// </summary>
+        public static ModCharm PallasAce { get; } = ModCharmStatus.Create<Charm_PallasAce>("PallasAce", 4, true)
+            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(2).SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
         /// Item_PallasJoker_Name
         /// パラスのジョーカー
         /// Item_PallasJoker_FlavorText
@@ -356,7 +408,7 @@ namespace MiraItemMod
         /// Item_PallasJoker_Effect2
         /// パラスのカードの発射確率が100％を超えた場合、超過した分の確率が追加のカードの発射確率に変換される。\n[発射するカードの枚数：{COUNT}]
         /// </summary>
-        public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("PallasJoker", 4, CreateStatusGroup("LUCK", 3, 6, 9, 12, 15))
+        public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("PallasJoker", 4, CreateStatusGroup("LUCK", 1, 2, 4, 7, 10))
             .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
 
         /// <summary>
@@ -544,18 +596,6 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm InventoryPower { get; } = ModCharmStatus.Create<Charm_InventoryPower>("InventoryPower", 0, false)
             .SetCategory().SetSimpleEffects(2).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossBirdDemon);
-        /// <summary>
-        /// Item_PallasAce_Name
-        /// パラスのエース
-        /// Item_PallasAce_FlavorText
-        /// スペードがどこかに行ってしまったんだ。
-        /// Item_PallasAce_Effect
-        /// ダッシュ攻撃時に{DEFAULT}%の確率でカードを発射
-        /// Item_PallasAce_Effect2
-        /// <tag=Luck>1ごとに発射確率が{CHANCE}増加（現在：{CURRENT}）\n[ダメージ：{DAMAGE}]
-        /// </summary>
-        public static ModCharm PallasAce { get; } = ModCharmStatus.Create<Charm_PallasAce>("PallasAce", 4, true)
-            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(2).SetRarity(EItemRarity.Uncommon).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
         /// <summary>
         /// Item_FirstHeal_Name
         /// 酔狂のお守り
@@ -1347,6 +1387,15 @@ namespace MiraItemMod
         public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("WeaponDamageBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", 8))
             .SetDefaultDuration(3f);
+        /// <summary>
+        /// EffectHUD_PallasBuff_Name
+        /// クラブのカード
+        /// EffectHUD_PallasBuff_FlavorText
+        /// <tag=TrueDamage>増加（最大5スタック）
+        /// </summary>
+        public static ModEffectHUD EffectPallasBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PallasBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static CharacterBuffMod_StatusInstance PallasBuff { get; } = CreateBuff("PallasBuff", "PallasBuff", 5, CreateBuffStatus("TRUE_DAMAGE", 1))
+            .SetDefaultDuration(5f);
 
         /// <summary>
         /// EffectHUD_StargazeTablet_Name

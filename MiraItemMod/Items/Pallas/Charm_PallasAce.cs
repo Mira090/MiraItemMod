@@ -28,44 +28,6 @@ namespace MiraItemMod.Items.Pallas
 
         public Timer throwIntervalTimer = new Timer(0.1f, resetOnTime: false);
 
-        private void Awake()
-        {
-            SetEnhancement(false);
-        }
-        public bool GetEnhancement(GridInventory inventory)
-        {
-
-            ItemPosition[] array = Charm_PallasJoker.Directions;
-            foreach (ItemPosition itemPosition in array)
-            {
-                NewItemOwnInstance newItemOwnInstance = inventory.FindItem(new ItemPosition(xIdx, yIdx) + itemPosition);
-                if (newItemOwnInstance != null)
-                {
-                    Charm_Basic charm = newItemOwnInstance.Charm;
-                    if ((bool)charm && charm is Charm_PallasJoker)
-                        return true;
-                }
-            }
-            return false;
-        }
-        public void SetEnhancement(bool enhance)
-        {
-            if (enhance)
-            {
-                bulletDamage = 64;
-                defaultChance = 100;
-                throwChanceByLevel = new float[] { 0f, 5f, 10f, 15f, 20f };
-                //pallas.throwChanceByLevel = new float[]{0f, 4f, 8f, 12f, 16f};
-                throwIntervalTimer.time = 0.05f;
-            }
-            else
-            {
-                bulletDamage = 32;
-                defaultChance = 50;
-                throwChanceByLevel = new float[] { 0f, 2.5f, 5f, 7.5f, 10f };
-                throwIntervalTimer.time = 0.1f;
-            }
-        }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             float num = 1f;
@@ -74,35 +36,35 @@ namespace MiraItemMod.Items.Pallas
                 num = component.currentWeapon.AttackWeightPerSwing;
             }
 
-            if ((bool)avatar && !ignoreAvatarStatus)
+            var hasJoker = PallasEvents.HasJoker(avatar, this);
+            var hasDiamond = PallasEvents.HasDiamond(avatar, this);
+            var hasSpade = PallasEvents.HasSpade(avatar, this);
+
+            var parameters = CustomPallasController.GetCardParameters(hasDiamond, hasSpade, hasJoker);
+            string value = showAllLevel ? (parameters.throwChanceByLevel.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (parameters.throwChanceByLevel.SafeRandomAccess(maxLevel) * num).ToString("0.#") + "%" : (parameters.throwChanceByLevel.SafeRandomAccess(LevelToIdx(level)) * num).ToString("0.#") + "%";
+            float num2 = parameters.defaultChance * num;
+
+            if (!ignoreAvatarStatus)
             {
-                if (!NetworkServer.active)
-                {
-                    SetEnhancement(GetEnhancement(NetworkAvatar.Inventory));
-                }
-                string value = showAllLevel ? (throwChanceByLevel.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (throwChanceByLevel.SafeRandomAccess(maxLevel) * num).ToString("0.#") + "%" : (throwChanceByLevel.SafeRandomAccess(LevelToIdx(level)) * num).ToString("0.#") + "%";
-                float num2 = defaultChance * num;
-                float num3 = num2 + throwChanceByLevel.SafeRandomAccess(LevelToIdx(level)) * Mathf.Clamp(avatar.GetCustomStat(ECustomStat.Luck), 0, 9999) * num;
-                return new Loc.KeywordValue[4]
-                {
-                new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
-                new Loc.KeywordValue("CHANCE", value, GetPositiveColor(virtualLevelOffset)),
-                new Loc.KeywordValue("DAMAGE", bulletDamage.ToString()),
-                new Loc.KeywordValue("CURRENT", num3.ToString("0.#") + "%")
-                };
+                float num3 = num2 + parameters.throwChanceByLevel.SafeRandomAccess(LevelToIdx(level)) * Mathf.Clamp(avatar.GetCustomStat(ECustomStat.Luck), 0, 9999) * num;
+                return new Loc.KeywordValue[]
+                    {
+                            new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
+                            new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
+                            new Loc.KeywordValue("DAMAGE", parameters.bulletDamage.ToString()),
+                            new Loc.KeywordValue("CURRENT", num3.ToString("0.#") + "%")
+                    };
             }
             else
             {
-                string value = showAllLevel ? (throwChanceByLevel.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (throwChanceByLevel.SafeRandomAccess(maxLevel) * num).ToString("0.#") + "%" : (throwChanceByLevel.SafeRandomAccess(LevelToIdx(level)) * num).ToString("0.#") + "%";
-                return new Loc.KeywordValue[4]
-                {
-            new Loc.KeywordValue("DEFAULT", defaultChance.ToString()),
-            new Loc.KeywordValue("CHANCE", value, GetPositiveColor(virtualLevelOffset)),
-            new Loc.KeywordValue("DAMAGE", bulletDamage.ToString()),
-            new Loc.KeywordValue("CURRENT", "-%")
-                };
+                return new Loc.KeywordValue[]
+                    {
+                            new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
+                            new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset)),
+                            new Loc.KeywordValue("DAMAGE", parameters.bulletDamage.ToString()),
+                            new Loc.KeywordValue("CURRENT", "-")
+                    };
             }
-
         }
         protected override void OnEnabledEffect()
         {
