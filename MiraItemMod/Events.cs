@@ -32,6 +32,7 @@ namespace MiraItemMod
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
         public static event Action<CharacterBuff> OnAppliedBuff;
+        public static event Action<int> OnMiniBossKillCountChanged;
 
         public static EventReference HealSound { get; } = RuntimeManager.PathToEventReference("event:/Scene/healPotion_Small01");
         public static EventReference PerkSound { get; } = RuntimeManager.PathToEventReference("event:/System/talentPerk");
@@ -1326,6 +1327,20 @@ namespace MiraItemMod
                 else
                 {
                     __instance.SetCommandDescriptions(commandDescriptions);
+                }
+            }
+        }
+        #endregion
+
+        #region HandleDungeonEnvironmentChanged
+        [HarmonyPatch(typeof(DungeonManager), "HandleDungeonEnvironmentChanged")]
+        public static class DungeonManagerHandleDungeonEnvironmentChangedPatch
+        {
+            static void Postfix(DungeonManager __instance, SyncIDictionary<string, int>.Operation op, string key, int item)
+            {
+                if (key == "MiniBossKillCount")
+                {
+                    OnMiniBossKillCountChanged?.Invoke(item);
                 }
             }
         }
