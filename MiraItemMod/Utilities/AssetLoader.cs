@@ -194,5 +194,38 @@ namespace MiraItemMod.Utilities
         {
             return string.Equals(fileNameWithoutExtension, "glossary", StringComparison.OrdinalIgnoreCase);
         }
+
+        public static void SaveSprite(Sprite sprite, string name)
+        {
+            if (sprite == null)
+                return;
+            string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            System.IO.DirectoryInfo directoryInfo = Directory.GetParent(dllPath);
+            string dllDirectory = directoryInfo.FullName;
+            var path = dllDirectory + @"\Outputs\" + name + ".png";
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
+            try
+            {
+                Texture2D texture = sprite.texture;
+                RenderTexture temp = RenderTexture.GetTemporary(texture.width, texture.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
+                Graphics.Blit(texture, temp);
+                RenderTexture active = RenderTexture.active;
+                RenderTexture.active = temp;
+                Texture2D texture2D = new Texture2D(texture.width, texture.height);
+                texture2D.ReadPixels(new Rect(0f, 0f, temp.width, temp.height), 0, 0);
+                texture2D.Apply();
+                RenderTexture.active = active;
+                RenderTexture.ReleaseTemporary(temp);
+                File.WriteAllBytes(path, texture2D.EncodeToPNG());
+                UnityEngine.Object.DestroyImmediate(texture2D);
+            }
+            catch(Exception e)
+            {
+                Core.LoggerWarning(e);
+            }
+        }
     }
 }

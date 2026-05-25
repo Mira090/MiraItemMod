@@ -37,6 +37,7 @@ namespace MiraItemMod
         public static List<ModPassive> Passives { get; private set; } = new List<ModPassive>();
         public static List<ModSpriteFx> SpriteFxs { get; private set; } = new List<ModSpriteFx>();
         public static List<ModSephirite> Sephirites { get; private set; } = new List<ModSephirite>();
+        public static List<ModTreeShopItem> TreeShops { get; private set; } = new List<ModTreeShopItem>();
         public static List<string> AllResourcePrefabNames { get; private set; }
         public static Dictionary<string, List<ModCharm>> Jewelries { get; private set; } = new Dictionary<string, List<ModCharm>>();
         /// <summary>
@@ -2181,6 +2182,13 @@ namespace MiraItemMod
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);
 
+        public static ModTreeShopItem NewCharmBond2 { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Bond2", string.Empty,
+            TreeShopItems.NewCharmBond2, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Right, 8);
+        public static ModTreeShopItem NewCharmDrunk { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Drunk", string.Empty,
+            TreeShopItems.NewCharmDrunk, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Center, 7).SetIcon(() => CustomSpriteAsset.TreeIconArtifact);
+        public static ModTreeShopItem NewCharmSacrifice { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Sacrifice", "NewCharm_Sacrifice",
+            TreeShopItems.NewCharmSacrifice, TreeShopItems.RewardDiceRightUp, ModTreeShopItem.ELinePos.Right, 5).SetIcon(() => CustomSpriteAsset.TreeIconArtifactSacrifice);
+        
         public static Sprite IconInWorldPotion { get; internal set; }
         public static Sprite IconInWorldCharm { get; internal set; }
         public static Sprite IconInWorldTablet { get; internal set; }
@@ -2410,6 +2418,14 @@ namespace MiraItemMod
                 assetId = GetNextAssetId(assetId);
                 Sephirites.Add(moditem);
             }
+            var pros12 = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType == typeof(ModTreeShopItem) || p.PropertyType.IsSubclassOf(typeof(ModTreeShopItem)));
+            foreach (var pro in pros12)
+            {
+                var moditem = pro.GetValue(type) as ModTreeShopItem;
+                if (Core.LogFew)
+                    Core.Logger("New TreeShop: " + pro.Name);
+                TreeShops.Add(moditem);
+            }
             //CustomCostumeDatabase.Initialize();
         }
         #region Registers
@@ -2521,7 +2537,7 @@ namespace MiraItemMod
                 miracle.LoadManuallyGivenItems();
             }
         }
-        public static void ModifyTreeShopItems()
+        public static void RegisterTreeShopItems()
         {
             foreach(var entity in TreeShopItemDatabase.GetAll())
             {
@@ -2542,17 +2558,22 @@ namespace MiraItemMod
                 }*/
                 foreach (var item in Data.All)
                 {
-                    if(!item.HasTreeShopItemEntity && entity.id == 14001 && item.Categories.Contains(ItemCategories.Drunk))
+                    if (!item.HasTreeShopItemEntity && entity.id == TreeShopItems.NewCharmDrunk && item.Categories.Contains(ItemCategories.Drunk))
                     {
                         item.ItemEntity.activeType = EItemActiveType.Locked;
                         list.Add(item.ItemEntity);
                     }
-                    if (!item.HasTreeShopItemEntity && entity.id == 14000 && item.IsDual && item.Rarity == EItemRarity.Rare && !item.Categories.Contains(ItemCategories.Drunk))
+                    if (!item.HasTreeShopItemEntity && entity.id == TreeShopItems.NewCharmSacrifice && item.Rarity == ECustomItemRarity.Sacrifice.ToSephiria())
                     {
                         item.ItemEntity.activeType = EItemActiveType.Locked;
                         list.Add(item.ItemEntity);
                     }
-                    if(item.HasTreeShopItemEntity && entity.id == item.TreeShopItemEntity.Value)
+                    if (!item.HasTreeShopItemEntity && entity.id == TreeShopItems.NewCharmBond2 && item.IsDual && item.Rarity == EItemRarity.Rare && !item.Categories.Contains(ItemCategories.Drunk))
+                    {
+                        item.ItemEntity.activeType = EItemActiveType.Locked;
+                        list.Add(item.ItemEntity);
+                    }
+                    if (item.HasTreeShopItemEntity && entity.id == item.TreeShopItemEntity.Value)
                     {
                         item.ItemEntity.activeType = EItemActiveType.Locked;
                         list.Add(item.ItemEntity);
@@ -2783,6 +2804,44 @@ namespace MiraItemMod
             }
         }
         public static void RegisterDebuffs(List<UnityEngine.Object> list)
+        {
+
+        }
+        public static void RegisterTreeShops(List<UnityEngine.Object> list)
+        {
+            foreach(var item in list)
+            {
+                if (item is TreeShopItemEntity entity)
+                {
+                    foreach (var moditem in TreeShops)
+                    {
+                        if(moditem.Copy == entity.id)
+                        {
+                            moditem.Init(entity);
+                        }
+                    }
+                }
+            }
+            foreach (var moditem in TreeShops)
+            {
+                list.Add(moditem.Entity);
+            }
+            foreach (var item in list)
+            {
+                if (item is TreeShopItemEntity entity)
+                {
+                    foreach (var moditem in TreeShops)
+                    {
+                        if (moditem.Dependency == entity.id)
+                        {
+                            moditem.SetDependency(entity);
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Dispose()
         {
 
         }

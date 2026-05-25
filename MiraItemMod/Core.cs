@@ -257,7 +257,7 @@ namespace MiraItemMod
         private void OnAllDatabasesReady()
         {
             Data.LoadMiracleManuallyGivenItems();
-            Data.ModifyTreeShopItems();
+            Data.RegisterTreeShopItems();
         }
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
@@ -505,6 +505,7 @@ namespace MiraItemMod
                         Core.Logger(item.ToAllString());
                     }
 
+                    /*
                     var addTreeShop = new List<UnityEngine.Object>();
                     foreach (var item in list)
                         if (item is TreeShopItemEntity entity)
@@ -538,7 +539,7 @@ namespace MiraItemMod
                                 bond2.id = TreeShopItems.NewCharmDrunk;
                                 bond2.maxQuantity = 1;
                                 bond2.bg = entity.bg;
-                                bond2.icon = entity.icon;
+                                bond2.icon = CustomSpriteAsset.TreeIconArtifact;
                                 bond2.aName = entity.aName;
                                 bond2.aDescription = entity.aDescription;
                                 bond2.anUnlockDescription = entity.anUnlockDescription;
@@ -552,10 +553,32 @@ namespace MiraItemMod
 
                                 addTreeShop.Add(bond2);
                             }
-                        }
+                            if (entity.id == 313)//RewardDice
+                            {
+                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
+                                bond2.name = TreeShopItems.NewCharmSacrifice + "_NewCharm_Sacrifice";
+                                bond2.id = TreeShopItems.NewCharmSacrifice;
+                                bond2.maxQuantity = 1;
+                                bond2.bg = entity.bg;
+                                bond2.icon = CustomSpriteAsset.TreeIconArtifactSacrifice;
+                                bond2.aName = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_Name");
+                                bond2.aDescription = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_Description");
+                                bond2.anUnlockDescription = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_UnlockDescription");
+                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
+                                bond2.autoSwitchName = string.Empty;
+                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
+                                bond2.priceByQuantity = new int[] { 5 };
+                                bond2.showStatus = true;
+                                bond2.hasTutorial = false;
+                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
 
+                                addTreeShop.Add(bond2);
+                            }
+                        }*/
 
-                    list.AddRange(addTreeShop);
+                    Data.RegisterTreeShops(list);
+
+                    //list.AddRange(addTreeShop);
                     __result = list.ToArray();
                 }
 

@@ -927,6 +927,12 @@ namespace MiraItemMod.Registries
             item.AppearLimit = appearLimit;
             return item;
         }
+        public static T SetIcon<T>(this T item, Func<Sprite> icon) where T : ModTreeShopItem
+        {
+            item.Icon = icon;
+            return item;
+        }
+
 
 
         public static Charm_StatusInstance.StatusGroup CreateStatusGroup(string id, params int[] values)

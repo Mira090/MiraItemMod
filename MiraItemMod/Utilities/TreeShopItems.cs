@@ -100,5 +100,7 @@ namespace MiraItemMod.Utilities
         public static int NewCharmBond1 { get; } = 1006;
         public static int NewCharmBond2 { get; } = 14000;
         public static int NewCharmDrunk { get; } = 14001;
+        public static int NewCharmSacrifice { get; } = 14002;
+        public static int RewardDiceRightUp { get; } = 313;
     }
 }

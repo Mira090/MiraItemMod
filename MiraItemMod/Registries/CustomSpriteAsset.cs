@@ -29,9 +29,15 @@ namespace MiraItemMod.Registries
         public static int height = 10;
 
         public static Sprite NoneCategoryIcon;
+        public static Sprite TreeIconArtifact;
+        public static Sprite TreeIconArtifactBond;
+        public static Sprite TreeIconArtifactSacrifice;
         public static void InitSprites()
         {
             NoneCategoryIcon = AssetLoader.LoadSprite(ModUtil.ItemCategoryPath + "None");
+            TreeIconArtifact = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_Artifact");
+            TreeIconArtifactBond = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_DuoArtifact");
+            TreeIconArtifactSacrifice = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_SacrificeArtifact");
 
             NewKeywordSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "Keyword");
             if(NewKeywordSprite == null)
