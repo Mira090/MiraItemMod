@@ -256,6 +256,12 @@ namespace MiraItemMod.Utilities
         {
             instance.GetType().GetField("commandDescriptions", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
         }
+        public static CharacterDebuff InvokeGetDebuff(CharacterDebuff debuff, UnitAvatar caster)
+        {
+            var type = typeof(HorayModAPI);
+            var method = type.GetMethod("GetDebuff", BindingFlags.Static);
+            return method.Invoke(type, new object[] { debuff, caster }) as CharacterDebuff;
+        }
 
 
 
