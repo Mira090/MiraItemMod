@@ -304,17 +304,25 @@ namespace MiraItemMod
         /// 血の入れ墨
         /// Item_WoundWeapon_FlavorText
         /// 消えることのない呪われた傷跡。
+        /// Item_WoundWeapon_Effect
+        /// <tag=BasicAttackDamage>を0%にする
         /// Item_WoundWeapon_Effect2
         /// 敵を<tag=WeaponAction_DirectAttack>が命中した時、<tag=Debuff_Wound>を付与する。
         /// Item_WoundWeapon_Effect3
         /// <tag=Debuff_Wound>スタック {STACK}
         /// Item_WoundWeapon_Effect4
         /// 敵にデバフを付与するたびに<tag=WeaponAction_SpecialAttack>のコスト減少 {COST}\n<tag=WeaponAction_SpecialAttack>をするとリセットされる。\n[現在のコスト減少量：{CURRENT}]
-        /// Item_WoundWeapon_Effect
-        /// <tag=BasicAttackDamage>を0%にする
         /// </summary>
         public static ModCharm WoundWeapon { get; } = ModCharmStatus.Create<Charm_WoundWeapon>("WoundWeapon", 5, CreateStatusGroup("DEBUFF_DAMAGE", 3, 6, 9, 12, 16, 20))//, CreateStatusGroup("BASIC_ATTACK_DAMAGE", -100, -125, -150, -175, -200), CreateStatusGroup("DASH_ATTACK_DAMAGE", -200)
             .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(4).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossArmadillo);
+        /// <summary>
+        /// Item_AddDebuffStack_Name
+        /// 枯死虫
+        /// Item_AddDebuffStack_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm AddDebuffStack { get; } = ModCharmStatus.Create("AddDebuffStack", 3, CreateStatusGroup("ALL_DEBUFF_STACK", 1, 2, 3, 4))
+            .SetCategory(ItemCategories.Curse).SetIsUniqueEffect().SetSimpleEffects(0).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossArmadillo);
         /// <summary>
         /// Item_MaxMPPower_Name
         /// 水神の目
@@ -717,6 +725,18 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 5, 8, 12, 16, 20, 25, 32))
             .SetCategory(ItemCategories.Curse, ItemCategories.Fortune).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
+        /// <summary>
+        /// Item_DebuffToFrostbite_Name
+        /// 停電灯
+        /// Item_DebuffToFrostbite_FlavorText
+        /// 安全な道を示す灯。
+        /// Item_DebuffToFrostbite_Effect
+        /// 付与する<tag=Debuff>をすべて<tag=Frostbite>に変える（このアーティファクトによる効果の場合を除く）
+        /// Item_DebuffToFrostbite_Effect2
+        /// <tag=Freeze>発動時、ランダムな<tag=Debuff>を{COUNT}スタック付与する
+        /// </summary>
+        public static ModCharm DebuffToFrostbite { get; } = ModCharmStatus.Create<Charm_DebuffToFrostbite>("DebuffToFrostbite", 4, CreateStatusGroup("FREEZE_THRESHOLD", -5))
+            .SetCategory(ItemCategories.Curse, ItemCategories.Glacier).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
         /// Item_DashFlameSword_Name
         /// 過熱したエンジン
@@ -1445,6 +1465,13 @@ namespace MiraItemMod
         /// 奇跡の最大数が増加します
         /// </summary>
         public static ModCustomStatus MaxMiracleCount { get; } = ModCustomStatus.CreateStatus<StatusInstance_MaxMiracleCount>("MaxMiracleCount").DoKeyword(keyword => keyword.SetNotDisplayDetails());
+        /// <summary>
+        /// Status_AllDebuffStack_Name
+        /// すべての<tag=Debuff>スタック
+        /// Status_AllDebuffStack_Description
+        /// すべての<tag=Debuff>スタック数が増加します
+        /// </summary>
+        public static ModCustomStatus AllDebuffStack { get; } = ModCustomStatus.CreateStatus<StatusInstance_AllDebuffStack>("AllDebuffStack").DoKeyword(keyword => keyword.SetNotDisplayDetails());
         /// <summary>
         /// Status_JewelryCount_Name
         /// <tag=ItemRarity_Jewelry>アーティファクトの獲得回数

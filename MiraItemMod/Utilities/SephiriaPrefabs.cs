@@ -13,6 +13,7 @@ namespace MiraItemMod.Utilities
         public static CharacterDebuff Burn => CombatManager.Instance.burnDebuffPrefab;
         public static CharacterDebuff Electric => CombatManager.Instance.electricDebuffPrefab;
         public static CharacterDebuff Frostbite => CombatManager.Instance.frostbiteDebuffPrefab;
+        public static CharacterDebuff Freeze => (Frostbite as CharacterDebuff_Frostbite).freezeDebuffPrefab;
         public static CharacterDebuff Wound
         {
             get
