@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Pallas
 {
     public class Charm_PallasJoker : Charm_StatusInstance
     {
@@ -37,10 +37,18 @@ namespace MiraItemMod.Items
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
-            Events.OnPallasSpawnChance += OnPallasSpawnChance;
-            Events.OnAceSpawnChance += OnAceSpawnChance;
+            PallasEvents.OnPallasCardSpawn += OnPallasSpawnChance;
+            PallasEvents.OnPallasAceSpawn += OnAceSpawnChance;
             ClearCard();
             SearchCard();
+        }
+
+        protected override void OnDisabledEffect()
+        {
+            base.OnDisabledEffect();
+            PallasEvents.OnPallasCardSpawn -= OnPallasSpawnChance;
+            PallasEvents.OnPallasAceSpawn -= OnAceSpawnChance;
+            ClearCard();
         }
 
         private void OnPallasSpawnChance(Charm_PallasCard instance, int idx)
@@ -65,7 +73,7 @@ namespace MiraItemMod.Items
                 Vector3 motionDataBegin = NetworkAvatar.transform.position + vector3FromAngle * 0.2f;
                 Vector3 motionDataEnd = NetworkAvatar.transform.position + vector3FromAngle * 8f;
                 bool flag = UnityEngine.Random.Range(0f, 1f) < 0.2f;
-                var d = Charm_Basic.CalculateDamage(instance);
+                var d = CalculateDamage(instance);
                 Bullet bullet = Bullet.Pool.Spawn(instance.bulletBigPrefab.GetRandom(), NetworkAvatar.transform.position, canBeTransparentOnMultiplayer: true, EDamageFromType.None, damageId, d, instance.staggeringLevel, instance.externalForcePower, NetworkAvatar, NetworkAvatar.GetHostileFactionLayers(EDamageFromType.None), NetworkAvatar.TopdownActor.CenterYPos, motionDataBegin, motionDataEnd, null, null);
                 bullet.pierceCreatureCount = 2;
                 Vector3 pos = NetworkAvatar.transform.position + (Vector3)(UnityEngine.Random.insideUnitCircle * 3f);
@@ -95,21 +103,13 @@ namespace MiraItemMod.Items
                 Vector3 motionDataBegin = NetworkAvatar.transform.position + vector3FromAngle * 0.2f;
                 Vector3 motionDataEnd = NetworkAvatar.transform.position + vector3FromAngle * 8f;
                 bool flag = UnityEngine.Random.Range(0f, 1f) < 0.2f;
-                var d = Charm_Basic.CalculateDamage(instance);
+                var d = CalculateDamage(instance);
                 Bullet bullet = Bullet.Pool.Spawn(instance.bulletBigPrefab.GetRandom(), NetworkAvatar.transform.position, canBeTransparentOnMultiplayer: true, EDamageFromType.None, damageId, d, instance.staggeringLevel, instance.externalForcePower, NetworkAvatar, NetworkAvatar.GetHostileFactionLayers(EDamageFromType.None), NetworkAvatar.TopdownActor.CenterYPos, motionDataBegin, motionDataEnd, null, null);
                 bullet.pierceCreatureCount = 2;
                 Vector3 pos = NetworkAvatar.transform.position + (Vector3)(UnityEngine.Random.insideUnitCircle * 3f);
                 bullet.SetSpeedScale(2);
 
             }
-        }
-
-        protected override void OnDisabledEffect()
-        {
-            base.OnDisabledEffect();
-            Events.OnPallasSpawnChance -= OnPallasSpawnChance;
-            Events.OnAceSpawnChance -= OnAceSpawnChance;
-            ClearCard();
         }
 
         public override void OnCharmEffectRefreshed()
@@ -163,60 +163,6 @@ namespace MiraItemMod.Items
         public override bool Weaved()
         {
             return true;
-        }
-
-        [HarmonyPatch(typeof(Charm_PallasCard), nameof(Charm_PallasCard.BuildKeywords), new Type[] { typeof(UnitAvatar), typeof(int), typeof(int), typeof(bool), typeof(bool) })]
-        public static class KeywordsPatch
-        {
-            static void Postfix(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus, Charm_PallasCard __instance, ref Loc.KeywordValue[] __result)
-            {
-                if (avatar == null)
-                    return;
-
-                float num = 1f;
-                if ((bool)avatar && avatar.TryGetComponent<WeaponControllerSimple>(out var component) && (bool)component.currentWeapon)
-                {
-                    num = component.currentWeapon.AttackWeightPerSwing;
-                }
-                ItemPosition[] array = Directions;
-                foreach (ItemPosition itemPosition in array)
-                {
-                    NewItemOwnInstance newItemOwnInstance = avatar.Inventory.FindItem(new ItemPosition(__instance.xIdx, __instance.yIdx) + itemPosition);
-                    if (newItemOwnInstance != null)
-                    {
-                        Charm_Basic charm = newItemOwnInstance.Charm;
-                        if ((bool)charm && charm is Charm_PallasJoker card)
-                        {
-                            float[] throwChance = new float[] { 0f, 5f, 10f, 15f, 20f };
-                            float defaultChance = 100f;
-                            string value = showAllLevel ? (throwChance.SafeRandomAccess(0) * num).ToString("0.#") + "→" + (throwChance.SafeRandomAccess(__instance.maxLevel) * num).ToString("0.#") + "%" : (throwChance.SafeRandomAccess(__instance.LevelToIdx(level)) * num).ToString("0.#") + "%";
-                            float num2 = defaultChance * num;
-
-                            if (!ignoreAvatarStatus)
-                            {
-                                float num3 = num2 + throwChance.SafeRandomAccess(__instance.LevelToIdx(level)) * Mathf.Clamp(avatar.GetCustomStat(ECustomStat.Luck), 0, 9999) * num;
-                                __result = new Loc.KeywordValue[4]
-                                    {
-                                        new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
-                                    new Loc.KeywordValue("CHANCE", value, GetPositiveColor(virtualLevelOffset)),
-                                    new Loc.KeywordValue("DAMAGE", "30"),
-                                    new Loc.KeywordValue("CURRENT", num3.ToString("0.#") + "%")
-                                    };
-                            }
-                            else
-                            {
-                                __result = new Loc.KeywordValue[3]
-                                    {
-                                        new Loc.KeywordValue("DEFAULT", num2.ToString("0.#")),
-                                    new Loc.KeywordValue("CHANCE", value, GetPositiveColor(virtualLevelOffset)),
-                                    new Loc.KeywordValue("DAMAGE", "30")
-                                    };
-                            }
-                            return;
-                        }
-                    }
-                }
-            }
         }
     }
 }

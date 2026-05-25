@@ -5,6 +5,7 @@ using MiraItemMod.Combos;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Eternal;
 using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Items.Pallas;
 using MiraItemMod.Items.Savvy;
 using MiraItemMod.Miracles;
 using MiraItemMod.Passives;

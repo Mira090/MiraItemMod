@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Pallas
 {
     public class Charm_PallasAce : Charm_Basic
     {
@@ -111,11 +111,11 @@ namespace MiraItemMod.Items
         }
         private void OnDashAttack(ProjectileBase projectile)
         {
-            Events.InvokeOnAceSpawnChance(0, this);
             if (!WeaponController || !WeaponController.currentWeapon || !throwIntervalTimer.Check())
             {
                 return;
             }
+            PallasEvents.InvokeOnPallasAceSpawn(0, this);
 
             float num = defaultChance + throwChanceByLevel.SafeRandomAccess(CurrentLevelToIdx()) * Mathf.Clamp(NetworkAvatar.GetCustomStat(ECustomStat.Luck), 0, 9999);
             num *= WeaponController.currentWeapon.AttackWeightPerSwing;

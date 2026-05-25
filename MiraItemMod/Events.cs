@@ -4,6 +4,7 @@ using FMODUnity;
 using HarmonyLib;
 using Mirror;
 using MiraItemMod.Items;
+using MiraItemMod.Items.Pallas;
 using MiraItemMod.UI;
 using MiraItemMod.Utilities;
 using System;
@@ -25,8 +26,6 @@ namespace MiraItemMod
         public static event Action<WeaponSimple_Crossbow> OnSubAttackCrossbow;
         public static event Action<WeaponSimple_Katana> OnSubAttackKatana;
         public static event Action<WeaponSimple_GreatSword> OnSubAttackGreatSword;
-        public static event Action<Charm_PallasCard, int> OnPallasSpawnChance;
-        public static event Action<Charm_PallasAce, int> OnAceSpawnChance;
         public static event Action<string, uint, int> OnValueRecieved;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreBasicAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
@@ -194,25 +193,6 @@ namespace MiraItemMod
                     __result = temp.ToArray();
                 }
             }
-        }
-        #endregion
-
-        #region パラスのジョーカー
-        [HarmonyPatch(typeof(Charm_PallasCard), "OnBeginAttackAnimation", new Type[] { typeof(int) })]
-        public static class Charm_PallasCardOnBeginAttackAnimationPatch
-        {
-            static void Prefix(int idx, Charm_PallasCard __instance)
-            {
-                if (!__instance.WeaponController || !__instance.WeaponController.currentWeapon || !__instance.throwIntervalTimer.Check())
-                {
-                    return;
-                }
-                OnPallasSpawnChance?.Invoke(__instance, idx);
-            }
-        }
-        public static void InvokeOnAceSpawnChance(int idx, Charm_PallasAce __instance)
-        {
-            OnAceSpawnChance?.Invoke(__instance, idx);
         }
         #endregion
 
