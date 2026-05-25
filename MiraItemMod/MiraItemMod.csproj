@@ -60,4 +60,8 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Sephiria\AddOns\MiraItemMod&quot;" />
+  </Target>
+
 </Project>
