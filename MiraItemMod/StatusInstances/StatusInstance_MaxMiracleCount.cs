@@ -19,6 +19,8 @@ namespace MiraItemMod.StatusInstances
         protected override void ApplyStatusInner(bool runtime)
         {
             base.ApplyStatusInner(runtime);
+            if (CurrentTarget == null)
+                return;
             if (CurrentTarget.gameObject.TryGetComponent<MiracleController>(out var miracle))
             {
                 miracle.maxMiracleCount += Value;
@@ -29,6 +31,8 @@ namespace MiraItemMod.StatusInstances
         protected override void RemoveStatusInner()
         {
             base.RemoveStatusInner();
+            if (CurrentTarget == null)
+                return;
             if (CurrentTarget.gameObject.TryGetComponent<MiracleController>(out var miracle))
             {
                 miracle.maxMiracleCount -= Value;
