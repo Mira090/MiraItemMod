@@ -334,7 +334,7 @@ namespace MiraItemMod.Registries
             item.UseLocalizedSymbol = true;
             return item;
         }
-        public static T SetIncludePositiveNegativeSign<T>(this T item, bool includePositiveNegativeSign = false) where T : ModCustomStatus
+        public static T SetNotIncludePositiveNegativeSign<T>(this T item, bool includePositiveNegativeSign = false) where T : ModCustomStatus
         {
             item.IncludePositiveNegativeSign = includePositiveNegativeSign;
             return item;

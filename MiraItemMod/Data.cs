@@ -410,6 +410,14 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm PallasJoker { get; } = ModCharmStatus.Create<Charm_PallasJoker>("PallasJoker", 4, CreateStatusGroup("LUCK", 1, 2, 4, 7, 10))
             .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(2).SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossLibraryGuard);
+        /// <summary>
+        /// Item_MiniBossDice_Name
+        /// 黄金ダイス
+        /// Item_MiniBossDice_FlavorText
+        /// 黄金に輝くそのサイコロには運命を変える力が宿っている。
+        /// </summary>
+        public static ModCharm MiniBossDice { get; } = ModCharmStatus.Create("MiniBossDice", 4, CreateStatusGroup("FINAL_DAMAGE", 2, 3, 4, 6, 8), CreateStatusGroup("MINI_BOSS_REWARD_DICE", 1, 1, 2, 2, 3), CreateStatusGroup("LUCK", 0, 0, 2, 2, 4))
+            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(0).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossRootDemon);
 
         /// <summary>
         /// Item_ThrowGrimoire_Name
@@ -764,7 +772,7 @@ namespace MiraItemMod
         /// Item_RandomDebuff_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率でランダムな<tag=Debuff>を付与する。（<tag=Luck>で確率が増加）
         /// </summary>
-        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 5, 8, 12, 16, 20, 25, 32))
+        public static ModCharm RandomDebuff { get; } = ModCharmStatus.Create<Charm_RandomDebuff>("RandomDebuff", 6, CreateStatusGroup("DEBUFF_DAMAGE", 5, 8, 12, 16, 20, 25, 32), CreateStatusGroup("LUCK", 1, 1, 2, 3, 4, 6, 8))
             .SetCategory(ItemCategories.Curse, ItemCategories.Fortune).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
         /// <summary>
         /// Item_DebuffToFrostbite_Name
@@ -1469,7 +1477,7 @@ namespace MiraItemMod
         /// Status_AdditionalShop_Description
         /// 商人が持つアイテムの数が増加します。
         /// </summary>
-        public static ModCustomStatus AdditionalShop { get; } = ModCustomStatus.CreateStatus("AdditionalShop").SetIncludePositiveNegativeSign()
+        public static ModCustomStatus AdditionalShop { get; } = ModCustomStatus.CreateStatus("AdditionalShop").SetNotIncludePositiveNegativeSign()
             .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetNeedParseValueOnVisualText());
         /// <summary>
         /// Status_AdditionalShopLegendary_Name
@@ -1477,7 +1485,7 @@ namespace MiraItemMod
         /// Status_AdditionalShopLegendary_Description
         /// 商人が持つ伝説アーティファクトの数が増加します
         /// </summary>
-        public static ModCustomStatus AdditionalShopLegendary { get; } = ModCustomStatus.CreateStatus("AdditionalShopLegendary").SetIncludePositiveNegativeSign()
+        public static ModCustomStatus AdditionalShopLegendary { get; } = ModCustomStatus.CreateStatus("AdditionalShopLegendary").SetNotIncludePositiveNegativeSign()
             .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetNeedParseValueOnVisualText());
         /// <summary>
         /// Status_AdditionalShopInventory_Name
@@ -1492,7 +1500,7 @@ namespace MiraItemMod
         /// Status_AdditionalMoney_Description
         /// 商人が持つ<tag=Leaf>が増加します。
         /// </summary>
-        public static ModCustomStatus AdditionalMoney { get; } = ModCustomStatus.CreateStatus("AdditionalMoney").SetIncludePositiveNegativeSign()
+        public static ModCustomStatus AdditionalMoney { get; } = ModCustomStatus.CreateStatus("AdditionalMoney").SetNotIncludePositiveNegativeSign()
             .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetNeedParseValueOnVisualText());
         /// <summary>
         /// Status_ReplenishmentCharm_Name
@@ -1536,6 +1544,14 @@ namespace MiraItemMod
         /// <tag=Excavation>時のダメージが増加します
         /// </summary>
         public static ModCustomStatus ExcavationDamage { get; } = ModCustomStatus.CreateStatus("ExcavationDamage").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.Excavation));
+        /// <summary>
+        /// Status_MiniBossRewardDice_Name
+        /// ミニボスを倒した時、サイコロを{VALUE}個獲得
+        /// Status_MiniBossRewardDice_Description
+        /// ミニボスを倒した時、サイコロを{VALUE}個獲得します
+        /// </summary>
+        public static ModCustomStatus MiniBossRewardDice { get; } = ModCustomStatus.CreateStatus("MiniBossRewardDice").SetNotIncludePositiveNegativeSign()
+            .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetNeedParseValueOnVisualText());
         /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰

@@ -31,7 +31,7 @@ namespace MiraItemMod
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
         public static event Action<CharacterBuff> OnAppliedBuff;
-        public static event Action<int> OnMiniBossKillCountChanged;
+        public static event Action<int, int> OnMiniBossKillCountChanged;
 
         public static EventReference HealSound { get; } = RuntimeManager.PathToEventReference("event:/Scene/healPotion_Small01");
         public static EventReference PerkSound { get; } = RuntimeManager.PathToEventReference("event:/System/talentPerk");
@@ -1316,11 +1316,33 @@ namespace MiraItemMod
         [HarmonyPatch(typeof(DungeonManager), "HandleDungeonEnvironmentChanged")]
         public static class DungeonManagerHandleDungeonEnvironmentChangedPatch
         {
+            public static int MiniBossKillCount { get; private set; } = 0;
+            public static readonly string MiniBossRewardDice = "MINIBOSSREWARDDICE";
             static void Postfix(DungeonManager __instance, SyncIDictionary<string, int>.Operation op, string key, int item)
             {
                 if (key == "MiniBossKillCount")
                 {
-                    OnMiniBossKillCountChanged?.Invoke(item);
+                    var old = MiniBossKillCount;
+                    MiniBossKillCount = item;
+                    if(old < item)
+                    {
+                        GiveDice();
+                    }
+                    OnMiniBossKillCountChanged?.Invoke(old, item);
+                }
+            }
+            static void GiveDice()
+            {
+                foreach(var player in PlayerSpawner.MultiplayerList)
+                {
+                    if (!player)
+                        continue;
+                    if (player.PlayerAvatar == null)
+                        return;
+                    var dice = player.PlayerAvatar.GetCustomStatUnsafe(MiniBossRewardDice);
+                    if (dice <= 0)
+                        return;
+                    player.PlayerAvatar.AddDice(dice);
                 }
             }
         }
