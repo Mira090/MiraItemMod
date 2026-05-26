@@ -2274,6 +2274,7 @@ namespace MiraItemMod
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);
+        public static ModSephirite SephiriteBond { get; } = ModSephirite.Create<Sephirite_Bond>("Bond").SetAppearLimit(3);
 
         public static ModTreeShopItem NewCharmBond2 { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Bond2", string.Empty,
             TreeShopItems.NewCharmBond2, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Right, 8);
