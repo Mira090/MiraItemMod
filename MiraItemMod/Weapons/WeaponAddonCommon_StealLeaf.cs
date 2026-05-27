@@ -16,7 +16,7 @@ namespace MiraItemMod.Weapons
             return new Loc.KeywordValue[]
             {
                 new Loc.KeywordValue("LEAF", MoneySteal.ToString()),
-                new Loc.KeywordValue("THORNS", thorns.ToString())
+                new Loc.KeywordValue("THORNS", thorns + "%")
             };
         }
         protected override void OnEnableAddon()
