@@ -191,6 +191,18 @@ namespace MiraItemMod.Utilities
                 return _sephiriteLvUp;
             }
         }
+        private static GameObject _cheerFlag;
+        public static GameObject CheerFlag
+        {
+            get
+            {
+                if (_cheerFlag == null)
+                {
+                    _cheerFlag = ItemDatabase.FindItemById(1140).resourcePrefab.GetComponent<Charm_TheFlagOfCheer>().flagPrefab;
+                }
+                return _cheerFlag;
+            }
+        }
         private static GameObject _dice;
         public static GameObject Dice
         {

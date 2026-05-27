@@ -1633,6 +1633,13 @@ namespace MiraItemMod
         /// 対象の<tag=Leaf>を盗み取ります。<tag=Evasion>と同様の確率で盗み取る<tag=Leaf>が増加します。
         /// </summary>
         public static ModKeyword Looting { get; } = ModKeyword.CreateKeyword("Looting").SetTextColor(new Color32(200, 100, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.Looting);
+        /// <summary>
+        /// Status_LeafSteal_Name
+        /// リーフ吸収
+        /// Status_LeafSteal_Description
+        /// 自分が与えたダメージの割合に応じて<tag=Leaf>を獲得します。(数値ごとに0.1%)
+        /// </summary>
+        public static ModKeyword LeafSteal { get; } = ModKeyword.CreateKeyword("LeafSteal").SetTextColor(new Color32(200, 120, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.LeafSteal);
         #endregion
 
 
@@ -2203,6 +2210,73 @@ namespace MiraItemMod
             .SetSecondFireDataOverrideSpriteFx(500, true, () => new ModSpriteFx[] { StaffSickleAttack5Fx, StaffSickleAttack5Fx })
             .AddFireDataModifiers(x => x.SetRelatedStatFormulaAndChaos(new Color32(200, 50, 100, 255), "HIGHEST"))
             .AddFireDataModifiers(x => x.SetDamageMultiplier(1.75f * 0.8f));
+        /// <summary>
+        /// Weapon_Staff_Flag_T2_Name
+        /// 黄色い旗
+        /// WeaponAddon_Staff_Flag_T2_Effect
+        /// <tag=Negotiation>が10増加し、<tag=Leaf>の獲得量が50%増加します。
+        public static ModWeapon QuarterstaffFlag { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T2", 500).SetEnhanceFromId(500).SetMainPrefabModifier(main =>
+        {
+            var status = main.gameObject.AddComponent<WeaponAddonCommon_StatusUnsafe>();
+            status.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T2_Effect");
+            status.status = new WeaponAddonCommon_StatusUnsafe.Stat[] { CreateWeaponStat("STAFFEXTEND", 4), CreateWeaponStat("WEAPONRANGE", 30), CreateWeaponStat("MONEYDROP", 50), CreateWeaponStat("NEGOTIATION", 10) };
+            status.parent = main;
+
+            main.addons = new WeaponAddon[] { status };
+
+            if (main is WeaponSimple_QuartterStaff staff)
+            {
+                staff.currentStaffExtend = 4 * staff.extendPixelPerUnit;
+            }
+        }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 17, 0, 20)).SetSizeFromTextureRect();
+        /// <summary>
+        /// Weapon_Staff_Flag_T3_Cheer_Name
+        /// 先陣の旗
+        /// WeaponAddon_Staff_Flag_T3_Cheer_Effect
+        /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率で<tag=Leaf>を{LEAF}消費して、攻撃速度を{SPEED}増加させる励ましの旗を置きます。
+        public static ModWeapon QuarterstaffFlagCheer { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T3_Cheer", 500).SetEnhanceFromId(500).SetEnhanceFromId(14019).SetMainPrefabModifier(main =>
+        {
+            var status = main.gameObject.AddComponent<WeaponAddonCommon_StatusUnsafe>();
+            status.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T2_Effect");
+            status.status = new WeaponAddonCommon_StatusUnsafe.Stat[] { CreateWeaponStat("STAFFEXTEND", 4), CreateWeaponStat("WEAPONRANGE", 30), CreateWeaponStat("MONEYDROP", 50), CreateWeaponStat("NEGOTIATION", 10) };
+            status.parent = main;
+
+            var @unsafe = main.gameObject.AddComponent<WeaponAddonCommon_CheerFlag>();
+            @unsafe.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T3_Cheer_Effect");
+            @unsafe.parent = status.parent;
+
+            main.addons = new WeaponAddon[] { status, @unsafe };
+
+            if (main is WeaponSimple_QuartterStaff staff)
+            {
+                staff.currentStaffExtend = 4 * staff.extendPixelPerUnit;
+            }
+        }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 16, 0, 21)).SetSizeFromTextureRect();
+        /// <summary>
+        /// Weapon_Staff_Flag_T3_Roger_Name
+        /// ドレッドノート
+        /// WeaponAddon_Staff_Flag_T3_Roger_Effect
+        /// <tag=Negotiation>1ごとに<tag=Thorns>が{THORNS}増加します。\n<tag=WeaponAction_BasicAttack>の最後の連撃のダメージが<tag=Thorns>ダメージの80%に変更されます。
+        public static ModWeapon QuarterstaffFlagRoger { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T3_Roger", 500).SetEnhanceFromId(500).SetEnhanceFromId(14019).SetMainPrefabModifier(main =>
+        {
+            var status = main.gameObject.AddComponent<WeaponAddonCommon_StatusUnsafe>();
+            status.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T2_Effect");
+            status.status = new WeaponAddonCommon_StatusUnsafe.Stat[] { CreateWeaponStat("STAFFEXTEND", 4), CreateWeaponStat("WEAPONRANGE", 30), CreateWeaponStat("MONEYDROP", 50), CreateWeaponStat("NEGOTIATION", 10) };
+            status.parent = main;
+
+            var @unsafe = main.gameObject.AddComponent<WeaponAddonCommon_StealLeaf>();
+            @unsafe.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T3_Roger_Effect");
+            @unsafe.parent = status.parent;
+
+            main.addons = new WeaponAddon[] { status, @unsafe };
+
+            if (main is WeaponSimple_QuartterStaff staff)
+            {
+                staff.currentStaffExtend = 4 * staff.extendPixelPerUnit;
+            }
+        }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 16, 0, 21)).SetSizeFromTextureRect()
+            .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Basic, 500, () => new ModSpriteFx[] { null, null, null, null, null, StaffFlagCannonAttackFx })
+            .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetRelatedStatFormula(Events.DefenseRelatedStatFormula));
         #endregion
 
         #region Passives
@@ -2271,6 +2345,7 @@ namespace MiraItemMod
         public static ModSpriteFx StaffSickleAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx3_Sickle", "StaffSwingFx_Attack2", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack3_", 7).SetFps(20);
         public static ModSpriteFx StaffSickleAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx4_Sickle", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack4_", 5).SetFps(20);
         public static ModSpriteFx StaffSickleAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx5_Sickle", "StaffSwingFx_Attack1", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack5_", 8).SetFps(20);
+        public static ModSpriteFx StaffFlagCannonAttackFx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx_FlagCannon", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Cannon\\Weapon_Staff_Attack4_", 7).SetFps(30);
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);

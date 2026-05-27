@@ -24,6 +24,7 @@ namespace MiraItemMod.Registries
         public static Sprite ExcavationJewelry;
         public static Sprite Crime;
         public static Sprite Looting;
+        public static Sprite LeafSteal;
 
         public static int width = 10;
         public static int height = 10;
@@ -64,6 +65,7 @@ namespace MiraItemMod.Registries
             ExcavationJewelry = AssetLoader.CreateSprite(NewKeywordSprite.texture, "ExcavationJewelry", new Rect(0, height * 9, width, height));
             Crime = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Crime", new Rect(width, height * 0, width, height));
             Looting = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Looting", new Rect(width, height * 1, width, height));
+            LeafSteal = AssetLoader.CreateSprite(NewKeywordSprite.texture, "LeafSteal", new Rect(width, height * 2, width, height));
         }
         public static void InitSpriteAsset()
         {
@@ -95,6 +97,7 @@ namespace MiraItemMod.Registries
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = 0, y = max - height * 9, name = "ExcavationJewelry", sprite = ExcavationJewelry });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 0, name = "Crime", sprite = Crime });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 1, name = "Looting", sprite = Looting });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 2, name = "LeafSteal", sprite = LeafSteal });
             foreach (var sprite in SpriteAsset.spriteInfoList)
             {
                 sprite.id = id++;

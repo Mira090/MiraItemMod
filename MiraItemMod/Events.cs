@@ -1325,7 +1325,7 @@ namespace MiraItemMod
                     Core.Logger("OnMiniBossKilled");
                 GiveDice(__instance);
                 OnMiniBossKilled?.Invoke();
-                    }
+            }
             static void GiveDice(UnitAvatar avatar)
             {
                 foreach(var player in PlayerSpawner.MultiplayerList)
@@ -1344,6 +1344,29 @@ namespace MiraItemMod
                     //player.PlayerAvatar.AddDice(dice);
                     //player.PlayerAvatar.RequestCreateDice(0, 0.75f);
                     player.PlayerAvatar.SpawnDice(avatar.transform.position, dice);
+                }
+            }
+        }
+        #endregion
+
+        #region RelatedStatFormula
+        public static readonly string DefenseRelatedStatFormula = "DEFENSE";
+
+        [HarmonyPatch(typeof(WeaponSimple), "GetRelatedStatMultiplier")]
+        public static class RelatedStatFormulaPatch
+        {
+            static void Postfix(WeaponSimple __instance, ref float __result, UnitAvatar owner, EDamageElementalType elementalType, string relatedStatFormula, ref EDamageElementalType result)
+            {
+                //if (Core.LogMany)
+                    Core.Logger("RelatedStatFormulaPatch: " + relatedStatFormula);
+                if (relatedStatFormula == DefenseRelatedStatFormula)
+                {
+                    var thorns = owner.GetCustomStat(ECustomStat.Thorns);
+                    var defense = owner.GetCustomStat(ECustomStat.DamageReduction);
+                    __result = (defense * thorns) / 100f * 0.8f;
+                    //if (Core.LogMany)
+                        Core.Logger("DefenseRelatedStatFormula: " + __result);
+                    result = EDamageElementalType.Physical;
                 }
             }
         }

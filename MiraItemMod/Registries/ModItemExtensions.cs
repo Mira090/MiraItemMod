@@ -820,6 +820,43 @@ namespace MiraItemMod.Registries
             }
             return item;
         }
+        public static T AddLastFireDataModifiers<T>(this T item, ModWeapon.EAttackType type, Action<NewWeaponFireData> action) where T : ModWeapon
+        {
+            //Core.Logger($"SetFireDataChangeSpriteFx: " + item.Name);
+            if(type == ModWeapon.EAttackType.Basic)
+            {
+                item.BasicAttacksModifier += attacks =>
+                {
+                    if (item.NewBasicAttacks.Count > 0)
+                        action?.Invoke(item.NewBasicAttacks[^1]);
+                };
+            }
+            else if(type == ModWeapon.EAttackType.Dash)
+            {
+                item.DashAttacksModifier += attacks =>
+                {
+                    if (item.NewDashAttacks.Count > 0)
+                        action?.Invoke(item.NewDashAttacks[^1]);
+                };
+            }
+            else if(type == ModWeapon.EAttackType.Special)
+            {
+                item.SpecialAttacksModifier += attacks =>
+                {
+                    if (item.NewSpecialAttacks.Count > 0)
+                        action?.Invoke(item.NewSpecialAttacks[^1]);
+                };
+                if (item is ModWeaponStaff staff)
+                {
+                    staff.SecondSpecialAttacksModifier += attacks =>
+                    {
+                        if (staff.NewSecondSpecialAttacks.Count > 0)
+                            action?.Invoke(staff.NewSecondSpecialAttacks[^1]);
+                    };
+                }
+            }
+            return item;
+        }
         public static T AddSecondFireDataModifier<T>(this T item, Action<NewWeaponFireData> action) where T : ModWeaponStaff
         {
             //Core.Logger($"SetFireDataChangeSpriteFx: " + item.Name);
