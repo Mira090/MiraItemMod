@@ -31,7 +31,7 @@ namespace MiraItemMod
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
         public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
         public static event Action<CharacterBuff> OnAppliedBuff;
-        public static event Action<int, int> OnMiniBossKillCountChanged;
+        public static event Action OnMiniBossKilled;
 
         public static EventReference HealSound { get; } = RuntimeManager.PathToEventReference("event:/Scene/healPotion_Small01");
         public static EventReference PerkSound { get; } = RuntimeManager.PathToEventReference("event:/System/talentPerk");
@@ -1313,36 +1313,37 @@ namespace MiraItemMod
         #endregion
 
         #region HandleDungeonEnvironmentChanged
-        [HarmonyPatch(typeof(DungeonManager), "HandleDungeonEnvironmentChanged")]
+        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.Die))]
         public static class DungeonManagerHandleDungeonEnvironmentChangedPatch
         {
-            public static int MiniBossKillCount { get; private set; } = 0;
             public static readonly string MiniBossRewardDice = "MINIBOSSREWARDDICE";
-            static void Postfix(DungeonManager __instance, SyncIDictionary<string, int>.Operation op, string key, int item)
+            static void Prefix(UnitAvatar __instance, int hitLevel, DamageInstance diedFrom)
             {
-                if (key == "MiniBossKillCount")
-                {
-                    var old = MiniBossKillCount;
-                    MiniBossKillCount = item;
-                    if(old < item)
-                    {
-                        GiveDice();
+                if (__instance.monsterType != EMonsterType.Miniboss)
+                    return;
+                if (Core.LogMany)
+                    Core.Logger("OnMiniBossKilled");
+                GiveDice(__instance);
+                OnMiniBossKilled?.Invoke();
                     }
-                    OnMiniBossKillCountChanged?.Invoke(old, item);
-                }
-            }
-            static void GiveDice()
+            static void GiveDice(UnitAvatar avatar)
             {
                 foreach(var player in PlayerSpawner.MultiplayerList)
                 {
+                    if (Core.LogMany)
+                        Core.Logger("Giving dice to " + player);
                     if (!player)
                         continue;
                     if (player.PlayerAvatar == null)
                         return;
                     var dice = player.PlayerAvatar.GetCustomStatUnsafe(MiniBossRewardDice);
+                    if (Core.LogMany)
+                        Core.Logger("Give: " + dice);
                     if (dice <= 0)
                         return;
-                    player.PlayerAvatar.AddDice(dice);
+                    //player.PlayerAvatar.AddDice(dice);
+                    //player.PlayerAvatar.RequestCreateDice(0, 0.75f);
+                    player.PlayerAvatar.SpawnDice(avatar.transform.position, dice);
                 }
             }
         }

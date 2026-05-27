@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace MiraItemMod.Utilities
 {
-    public class SephiriaPrefabs
+    public static class SephiriaPrefabs
     {
         public static CharacterDebuff Burn => CombatManager.Instance.burnDebuffPrefab;
         public static CharacterDebuff Electric => CombatManager.Instance.electricDebuffPrefab;
@@ -18,7 +18,7 @@ namespace MiraItemMod.Utilities
         {
             get
             {
-                if(_wound == null)
+                if (_wound == null)
                     _wound = WeaponDatabase.FindWeaponById(1107).mainWeaponPrefab.GetComponent<WeaponAddonCommon_DebuffAttack>().debuffPrefab;
                 return _wound;
             }
@@ -50,7 +50,7 @@ namespace MiraItemMod.Utilities
         {
             get
             {
-                if(_pallasBigBullet == null)
+                if (_pallasBigBullet == null)
                 {
                     _pallasBigBullet = ItemDatabase.FindItemById(1172).resourcePrefab.GetComponent<Charm_PallasCard>().bulletBigPrefab[0];
                 }
@@ -123,7 +123,7 @@ namespace MiraItemMod.Utilities
         {
             get
             {
-                if(_money == null)
+                if (_money == null)
                 {
                     _money = Resources.Load<GameObject>("Money");
                 }
@@ -189,6 +189,32 @@ namespace MiraItemMod.Utilities
                     _sephiriteLvUp = Resources.Load<GameObject>("Sephirite/Sephirite_LVUP");
                 }
                 return _sephiriteLvUp;
+            }
+        }
+        private static GameObject _dice;
+        public static GameObject Dice
+        {
+            get
+            {
+                if (_dice == null)
+                {
+                    _dice = Resources.Load<GameObject>("Dice");
+                }
+                return _dice;
+            }
+        }
+        public static void SpawnDice(this PlayerAvatar player, Vector3 pos, int count)
+        {
+            for (int j = 0; j < count; j++)
+            {
+                GameObject dice = UnityEngine.Object.Instantiate(Dice, pos + (Vector3)Random.insideUnitCircle * 2f + new Vector3(0f, 0.125f), Quaternion.identity);
+                if(dice.TryGetComponent<Dice>(out var component))
+                {
+                    component.target = player;
+                    component.amount = 1;
+                    component.AddPhysicalForce(Random.insideUnitCircle * 5.4f, Random.Range(6f, 11f));
+                }
+                NetworkServer.Spawn(dice, player.connectionToClient);
             }
         }
     }
