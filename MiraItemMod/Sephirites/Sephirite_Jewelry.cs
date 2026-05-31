@@ -8,26 +8,22 @@ namespace MiraItemMod.Sephirites
 {
     public class Sephirite_Jewelry : Sephirite_Custom
     {
-        public static Dictionary<NetworkConnectionToClient, int> SephiriteJewelryCount = new Dictionary<NetworkConnectionToClient, int>();
+        public static int SephiriteJewelryCount = 0;
         public static bool HasSephirite(NetworkConnectionToClient client)
         {
-            if (!SephiriteJewelryCount.ContainsKey(client))
-                return false;
-            return SephiriteJewelryCount[client] > 0;
+            return SephiriteJewelryCount > 0;
         }
         protected override void OnConnected(NetworkConnectionToClient client)
         {
-            if (!SephiriteJewelryCount.ContainsKey(client))
-            {
-                SephiriteJewelryCount[client] = 0;
-            }
-            SephiriteJewelryCount[client]++;
+            if (!base.isOwned)
+                return;
+            SephiriteJewelryCount++;
         }
         protected override void OnDisconnected(NetworkConnectionToClient client)
         {
-            if (!SephiriteJewelryCount.ContainsKey(client))
+            if (!base.isOwned)
                 return;
-            SephiriteJewelryCount[client]--;
+            SephiriteJewelryCount--;
         }
         protected override int ModifyChoiceCount(int stat)
         {
