@@ -475,32 +475,37 @@ namespace MiraItemMod.Registries
             {
                 item.BasicAttacksModifier = attacks =>
                 {
-                    //Core.Logger($"BasicAttacksModifier");
+                    Core.LoggerMany($"BasicAttacksModifier");
                     if (item.NewBasicAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewBasicAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
-                    //Core.Logger($"weapon {weapon}");
+                    Core.LoggerMany($"weapon {weapon}");
                     if (weapon == null || weapon.mainWeaponPrefab == null || !weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
                         return;
 
                     var fxs = fxsFunc.Invoke();
 
-                    //Core.Logger($"BasicAttacksModifier] {fxs}");
+                    Core.LoggerMany($"BasicAttacksModifier] {fxs}");
                     for (int q = 0; q < fxs.Length; q++)
                     {
-                        //Core.Logger($"BasicAttacksModifier] {simple.basicComboAttacks}");
+                        Core.LoggerMany($"BasicAttacksModifier] {simple.basicComboAttacks}");
                         if (simple.basicComboAttacks.Length <= q)
                             break;
                         if (simple.basicComboAttacks[q] is NewWeaponFireData_MeleeAttack melee)
                         {
                             var fire = ModWeapon.CopyNewWeaponFireData(melee);
                             if (fxs[q] != null)
+                            {
                                 fire.swingFxPrefab = fxs[q].ResourcePrefab;
+                                Core.LoggerMany($"SetFireDataChangeSpriteFx: {item.Name} - Set sprite fx for basic attack {q}: {fxs[q]}");
+                            }
                             item.NewBasicAttacks.Add(fire);
                         }
                     }
-                    //Core.Logger($"BasicAttacksModifier] end");
+                    Core.LoggerMany($"BasicAttacksModifier] end");
                 };
             }
             else if (type == ModWeapon.EAttackType.Dash)
@@ -612,7 +617,9 @@ namespace MiraItemMod.Registries
                 item.DashAttacksModifier = attacks =>
                 {
                     if (item.NewDashAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewDashAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
                     if (weapon == null || weapon.mainWeaponPrefab == null || !weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
@@ -646,7 +653,9 @@ namespace MiraItemMod.Registries
                 item.SpecialAttacksModifier = attacks =>
                 {
                     if (item.NewSpecialAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewSpecialAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
                     if (weapon == null || weapon.mainWeaponPrefab == null || !weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
@@ -720,7 +729,9 @@ namespace MiraItemMod.Registries
             {
                 //Core.Logger($"BasicAttacksModifier");
                 if (item.NewSecondSpecialAttacks.Count > 0)
-                    return;
+                {
+                    item.NewSecondSpecialAttacks.Clear();
+                }
 
                 var weapon = WeaponDatabase.FindWeaponById(original);
                 //Core.Logger($"weapon {weapon}");
