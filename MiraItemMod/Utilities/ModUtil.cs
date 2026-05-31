@@ -152,8 +152,7 @@ namespace MiraItemMod.Utilities
             if (avatar.gameObject.TryGetComponent<MiracleController>(out var miracle))
             {
                 miracle.maxMiracleCount = count;
-                if(Core.LogMedium)
-                Core.Logger($"Set {avatar.Name}'s maxMiracleCount: {count}");
+                Core.LoggerMedium($"Set {avatar.Name}'s maxMiracleCount: {count}");
             }
         }
 

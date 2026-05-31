@@ -94,14 +94,12 @@ namespace MiraItemMod.Items
                 if(value == -1)
                 {
                     indexesClient.Clear();
-                    if (Core.LogMany)
-                        Core.Logger("OnValueRecieved: Clear");
+                    Core.LoggerMany("OnValueRecieved: Clear");
                 }
                 else
                 {
                     indexesClient.Add(value);
-                    if (Core.LogMany)
-                        Core.Logger("OnValueRecieved: Add " + list[value].statusID);
+                    Core.LoggerMany("OnValueRecieved: Add " + list[value].statusID);
                 }
             }
         }

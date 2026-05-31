@@ -60,13 +60,11 @@ namespace MiraItemMod.Items.Jewelry
 
         private void OnCreateMagicServerside(ActiveSkill skill)
         {
-            if (Core.LogMany)
-                Core.Logger("OnCreateMagicServerside: " + skill.name);
+            Core.LoggerMany("OnCreateMagicServerside: " + skill.name);
         }
         private void OnBeginAttackAnimation(int idx)
         {
-            if (Core.LogMany)
-                Core.Logger("OnBeginAttackAnimation");
+            Core.LoggerMany("OnBeginAttackAnimation");
         }
 
         protected override void OnDisabledEffect()

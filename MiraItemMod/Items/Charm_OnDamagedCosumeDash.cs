@@ -94,8 +94,7 @@ namespace MiraItemMod.Items
                 Debug.LogWarning("[Server] function 'System.Void Charm_OnDamagedCosumeDash::OnDashConsumed()' called when server was not active");
                 return;
             }
-            if (Core.LogMedium)
-                Core.Logger("OnDashConsumed: " + NetworkAvatar);
+            Core.LoggerMedium("OnDashConsumed: " + NetworkAvatar);
             if (NetworkAvatar == null)
                 return;
             NetworkAvatar.OnDashServerside?.Invoke(NetworkAvatar.transform.position, true);

@@ -90,12 +90,10 @@ namespace MiraItemMod.Items
             {
                 foreach (var stat in stats)
                 {
-                    if (Core.LogMany)
-                        Core.Logger("stat: " + stat.statusID);
+                    Core.LoggerMany("stat: " + stat.statusID);
                     var instance = StatusDatabase.CreateStatusEntity(stat.statusID, stat.valuesByLevel.SafeRandomAccess(0));
                     NetworkAvatar.AddOrphanedStatusInstance(instance);
-                    if (Core.LogMedium)
-                        Core.Logger("Add Status: " + instance.ToString(false, false, false));
+                    Core.LoggerMedium("Add Status: " + instance.ToString(false, false, false));
                 }
                 using (new GridInventory.Permission(NetworkAvatar.Inventory))
                 {

@@ -42,8 +42,7 @@ namespace MiraItemMod.Items.Savvy
 
         private void OnAppliedBuff(CharacterBuff buff)
         {
-            if (Core.LogMany)
-                Core.Logger("[Charm_SavvyCurse] OnAppliedBuff: " + buff.ID);
+            Core.LoggerMany("[Charm_SavvyCurse] OnAppliedBuff: " + buff.ID);
             if (buff.NetworkTarget != NetworkAvatar)
                 return;
             if (buff.ID != Crime)
@@ -89,8 +88,7 @@ namespace MiraItemMod.Items.Savvy
 
         private void OnAddedBuff(CharacterBuff buff)
         {
-            if (Core.LogMedium)
-                Core.Logger("[Charm_SavvyCurse] OnAddedBuff: " + buff.ID);
+            Core.LoggerMedium("[Charm_SavvyCurse] OnAddedBuff: " + buff.ID);
             if (buff.ID != Crime)
                 return;
             UpdateCrime();

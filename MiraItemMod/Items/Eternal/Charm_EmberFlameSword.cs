@@ -33,8 +33,7 @@ namespace MiraItemMod.Items.Eternal
 
                     if (magitech > 0)
                     {
-                        if (Core.LogMany)
-                            Core.Logger($"DamageId: {damage.id}");
+                        Core.LoggerMany($"DamageId: {damage.id}");
                         if(damage.id == "Debuff_Electric" || damage.id == "Debuff_Plasma")
                         {
                             __instance.SetIsCooldown(true);

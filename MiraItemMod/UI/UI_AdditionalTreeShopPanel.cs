@@ -97,9 +97,9 @@ namespace MiraItemMod.UI
             var item = Instantiate(original, treeShopPanel.treeShopContents);
             var transform = item.transform as RectTransform;
             transform.anchoredPosition = new Vector2(x, y);//1x = x 60, y 31
-            Core.Logger("item: " + transform.anchoredPosition);
+            Core.LoggerMedium("item: " + transform.anchoredPosition);
             item.connected = TreeShopItemDatabase.FindById(id);
-            Core.Logger("item: " + item.connected);
+            Core.LoggerMedium("item: " + item.connected);
             var lines = item.prevLines.Select(x => Instantiate(x, x.transform.parent)).ToArray();
             item.prevLines = lines;
             foreach (var line in item.prevLines)

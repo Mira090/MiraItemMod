@@ -321,8 +321,7 @@ namespace MiraItemMod
             {
                 if (name == "Mod" && message.StartsWith("/"))
                 {
-                    if (Core.LogMany)
-                        Core.Logger($"Mod Chat({avatar.Name}): {message}");
+                    Core.LoggerMany($"Mod Chat({avatar.Name}): {message}");
                     if (message.StartsWith("/sound"))
                     {
                         PlaySound(avatar, message);
@@ -1321,8 +1320,7 @@ namespace MiraItemMod
             {
                 if (__instance.monsterType != EMonsterType.Miniboss)
                     return;
-                if (Core.LogMany)
-                    Core.Logger("OnMiniBossKilled");
+                Core.LoggerMany("OnMiniBossKilled");
                 GiveDice(__instance);
                 OnMiniBossKilled?.Invoke();
             }
@@ -1330,15 +1328,13 @@ namespace MiraItemMod
             {
                 foreach(var player in PlayerSpawner.MultiplayerList)
                 {
-                    if (Core.LogMany)
-                        Core.Logger("Giving dice to " + player);
+                    Core.LoggerMany("Giving dice to " + player);
                     if (!player)
                         continue;
                     if (player.PlayerAvatar == null)
                         return;
                     var dice = player.PlayerAvatar.GetCustomStatUnsafe(MiniBossRewardDice);
-                    if (Core.LogMany)
-                        Core.Logger("Give: " + dice);
+                    Core.LoggerMany("Give: " + dice);
                     if (dice <= 0)
                         return;
                     //player.PlayerAvatar.AddDice(dice);
@@ -1357,15 +1353,13 @@ namespace MiraItemMod
         {
             static void Postfix(WeaponSimple __instance, ref float __result, UnitAvatar owner, EDamageElementalType elementalType, string relatedStatFormula, ref EDamageElementalType result)
             {
-                //if (Core.LogMany)
-                    Core.Logger("RelatedStatFormulaPatch: " + relatedStatFormula);
+                //Core.LoggerMany("RelatedStatFormulaPatch: " + relatedStatFormula);
                 if (relatedStatFormula == DefenseRelatedStatFormula)
                 {
                     var thorns = owner.GetCustomStat(ECustomStat.Thorns);
                     var defense = owner.GetCustomStat(ECustomStat.DamageReduction);
                     __result = (defense * thorns) / 100f * 0.8f;
-                    //if (Core.LogMany)
-                        Core.Logger("DefenseRelatedStatFormula: " + __result);
+                    Core.LoggerMany("DefenseRelatedStatFormula: " + __result);
                     result = EDamageElementalType.Physical;
                 }
             }

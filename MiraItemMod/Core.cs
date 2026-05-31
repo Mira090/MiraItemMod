@@ -698,8 +698,7 @@ namespace MiraItemMod
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiateStoneTabletPatch Transpiler");
+                Core.LoggerFew($"InstantiateStoneTabletPatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -760,8 +759,7 @@ namespace MiraItemMod
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiateItemCategoryPatch Transpiler");
+                Core.LoggerFew($"InstantiateItemCategoryPatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -793,8 +791,7 @@ namespace MiraItemMod
                     //Core.Logger($"A: {modItem.ResourcePrefab.name}");
                     if (original.name == modItem.ResourcePrefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for Combo: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for Combo: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.AddComponent<NetworkIdentity>();
@@ -820,8 +817,7 @@ namespace MiraItemMod
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiateMiraclePatch Transpiler");
+                Core.LoggerFew($"InstantiateMiraclePatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -853,8 +849,7 @@ namespace MiraItemMod
                     //Core.Logger($"A: {modItem.ResourcePrefab.name}");
                     if (original.gameObject.name == modItem.Prefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for Miracle: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for Miracle: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.gameObject.AddComponent<NetworkIdentity>();
@@ -876,8 +871,7 @@ namespace MiraItemMod
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiateWeaponPatch Transpiler");
+                Core.LoggerFew($"InstantiateWeaponPatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -909,8 +903,7 @@ namespace MiraItemMod
                     //Core.Logger($"A: {modItem.ResourcePrefab.name}");
                     if (original.name == modItem.MainWeaponPrefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for Weapon: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for Weapon: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.gameObject.AddComponent<NetworkIdentity>();
@@ -932,8 +925,7 @@ namespace MiraItemMod
         {
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiatePassivePatch Transpiler");
+                Core.LoggerFew($"InstantiatePassivePatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -965,8 +957,7 @@ namespace MiraItemMod
                     //Core.Logger($"A: {modItem.ResourcePrefab.name}");
                     if (original.name == modItem.Lv5Perk.PerkPrefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for lv5: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for lv5: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.gameObject.AddComponent<NetworkIdentity>();
@@ -980,8 +971,7 @@ namespace MiraItemMod
                     }
                     else if (original.name == modItem.Lv10Perk.PerkPrefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for lv5: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for lv5: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.gameObject.AddComponent<NetworkIdentity>();
@@ -995,8 +985,7 @@ namespace MiraItemMod
                     }
                     else if (original.name == modItem.Lv20Perk.PerkPrefab.name)
                     {
-                        if (Core.LogMedium)
-                            Core.Logger($"Bypassing Instantiate for lv5: {original.name}");
+                        Core.LoggerMedium($"Bypassing Instantiate for lv5: {original.name}");
 
                         var ob = UnityEngine.Object.Instantiate(original);
                         var identity = ob.gameObject.AddComponent<NetworkIdentity>();
@@ -1021,8 +1010,7 @@ namespace MiraItemMod
             public static event Func<GameObject, Vector3, Quaternion, GameObject> OnInstantiate;
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
-                if (Core.LogFew)
-                    Core.Logger($"InstantiateNetworkClientPatch Transpiler");
+                Core.LoggerFew($"InstantiateNetworkClientPatch Transpiler");
                 var target = AccessTools.Method(
                     typeof(UnityEngine.Object),
                     nameof(UnityEngine.Object.Instantiate),
@@ -1037,15 +1025,13 @@ namespace MiraItemMod
                     if (code.opcode == OpCodes.Call && code.operand is MethodInfo mi && mi.Name == nameof(UnityEngine.Object.Instantiate))
                     {
                         // Instantiate(GameObject) 呼び出しを CustomInstantiate に差し替える
-                        if (Core.LogFew)
-                            Core.Logger($"Transpiler SpawnPrefab Instantiate");
+                        Core.LoggerFew($"Transpiler SpawnPrefab Instantiate");
                         code.operand = replacement;
                     }
                     if (code.opcode == OpCodes.Call && code.operand is MethodInfo mi2 && mi2.Name == nameof(NetworkClient.GetPrefab))
                     {
                         // Instantiate(GameObject) 呼び出しを CustomInstantiate に差し替える
-                        if (Core.LogFew)
-                            Core.Logger($"Transpiler SpawnPrefab GetPrefab");
+                        Core.LoggerFew($"Transpiler SpawnPrefab GetPrefab");
                         code.operand = replacement2;
                     }
                     yield return code;

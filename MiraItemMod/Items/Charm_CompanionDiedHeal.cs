@@ -47,8 +47,7 @@ namespace MiraItemMod.Items
         {
             if (instance.NetworkAvatar == NetworkAvatar)
             {
-                if (Core.LogMedium)
-                    Core.Logger("Heal: " + healByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+                Core.LoggerMedium("Heal: " + healByLevel.SafeRandomAccess(CurrentLevelToIdx()));
                 NetworkAvatar.Heal(healByLevel.SafeRandomAccess(CurrentLevelToIdx()), true);
             }
         }

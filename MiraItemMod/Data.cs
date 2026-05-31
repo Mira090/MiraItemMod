@@ -2459,8 +2459,7 @@ namespace MiraItemMod
             uint assetId = GetFirstAssetId();
             foreach (var pro in pros)
             {
-                if (Core.LogFew)
-                    Core.Logger("New Item: " + pro.Name);
+                Core.LoggerFew("New Item: " + pro.Name);
                 var moditem = pro.GetValue(type) as ModItem;
                 moditem.Init(id++, assetId);
                 assetId = GetNextAssetId(assetId);
@@ -2486,8 +2485,7 @@ namespace MiraItemMod
             var pros2 = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType == typeof(ModComboEffect) || p.PropertyType.IsSubclassOf(typeof(ModComboEffect)));
             foreach (var pro in pros2)
             {
-                if (Core.LogFew)
-                    Core.Logger("New Category: " + pro.Name);
+                Core.LoggerFew("New Category: " + pro.Name);
                 var moditem = pro.GetValue(type) as ModComboEffect;
                 moditem.Init(assetId);
                 assetId = GetNextAssetId(assetId);
@@ -2498,8 +2496,7 @@ namespace MiraItemMod
             foreach (var pro in pros3)
             {
                 var moditem = pro.GetValue(type) as ModEffectHUD;
-                if (Core.LogFew)
-                    Core.Logger("New EffectHUD: " + pro.Name);
+                Core.LoggerFew("New EffectHUD: " + pro.Name);
                 EffectHUDs.Add(moditem);
             }
 
@@ -2507,8 +2504,7 @@ namespace MiraItemMod
             foreach (var pro in pros4)
             {
                 var moditem = pro.GetValue(type) as ModMiracle;
-                if (Core.LogFew)
-                    Core.Logger("New Miracle: " + pro.Name);
+                Core.LoggerFew("New Miracle: " + pro.Name);
                 moditem.Init(assetId);
                 assetId = GetNextAssetId(assetId);
                 Miracles.Add(moditem);
@@ -2517,8 +2513,7 @@ namespace MiraItemMod
             foreach (var pro in pros5)
             {
                 var moditem = pro.GetValue(type) as ModCustomStatus;
-                if (Core.LogFew)
-                    Core.Logger("New Status: " + pro.Name);
+                Core.LoggerFew("New Status: " + pro.Name);
                 moditem.Init();
                 Statuses.Add(moditem);
             }
@@ -2527,8 +2522,7 @@ namespace MiraItemMod
             foreach (var pro in pros6)
             {
                 var moditem = pro.GetValue(type) as ModWeapon;
-                if (Core.LogFew)
-                    Core.Logger("New Weapon: " + pro.Name);
+                Core.LoggerFew("New Weapon: " + pro.Name);
                 moditem.Init(id++, assetId);
                 assetId = GetNextAssetId(assetId);
                 Weapons.Add(moditem);
@@ -2537,8 +2531,7 @@ namespace MiraItemMod
             foreach (var pro in pros7)
             {
                 var moditem = pro.GetValue(type) as CharacterBuffMod;
-                if (Core.LogFew)
-                    Core.Logger("New Buff: " + pro.Name);
+                Core.LoggerFew("New Buff: " + pro.Name);
                 moditem.AssetId = assetId;
                 assetId = GetNextAssetId(assetId);
                 Buffs.Add(moditem);
@@ -2547,8 +2540,7 @@ namespace MiraItemMod
             foreach (var pro in pros8)
             {
                 var moditem = pro.GetValue(type) as ModKeyword;
-                if (Core.LogFew)
-                    Core.Logger("New Keyword: " + pro.Name);
+                Core.LoggerFew("New Keyword: " + pro.Name);
                 moditem.Init();
                 Keywords.Add(moditem);
             }
@@ -2557,8 +2549,7 @@ namespace MiraItemMod
             foreach (var pro in pros9)
             {
                 var moditem = pro.GetValue(type) as ModPassive;
-                if (Core.LogFew)
-                    Core.Logger("New Passive: " + pro.Name);
+                Core.LoggerFew("New Passive: " + pro.Name);
                 var a = assetId;
                 assetId = GetNextAssetId(assetId);
                 var b = assetId;
@@ -2572,8 +2563,7 @@ namespace MiraItemMod
             foreach (var pro in pros10)
             {
                 var moditem = pro.GetValue(type) as ModSpriteFx;
-                if (Core.LogFew)
-                    Core.Logger("New SpriteFx: " + pro.Name);
+                Core.LoggerFew("New SpriteFx: " + pro.Name);
                 //moditem.Init(passiveId++, assetId++, assetId++, assetId++);
                 SpriteFxs.Add(moditem);
             }
@@ -2581,8 +2571,7 @@ namespace MiraItemMod
             foreach (var pro in pros11)
             {
                 var moditem = pro.GetValue(type) as ModSephirite;
-                if (Core.LogFew)
-                    Core.Logger("New Sephirite: " + pro.Name);
+                Core.LoggerFew("New Sephirite: " + pro.Name);
                 moditem.Init(assetId);
                 assetId = GetNextAssetId(assetId);
                 Sephirites.Add(moditem);
@@ -2591,8 +2580,7 @@ namespace MiraItemMod
             foreach (var pro in pros12)
             {
                 var moditem = pro.GetValue(type) as ModTreeShopItem;
-                if (Core.LogFew)
-                    Core.Logger("New TreeShop: " + pro.Name);
+                Core.LoggerFew("New TreeShop: " + pro.Name);
                 TreeShops.Add(moditem);
             }
             //CustomCostumeDatabase.Initialize();
@@ -2618,8 +2606,7 @@ namespace MiraItemMod
             {
                 if (moditem is IModDamageId charm && charm.HasDamageId)
                 {
-                    if (Core.LogFew)
-                        Core.Logger("New DamageId: " + charm.DamageIdEntity.name);
+                    Core.LoggerFew("New DamageId: " + charm.DamageIdEntity.name);
                     list.Add(charm.DamageIdEntity);
                 }
             }
@@ -2627,8 +2614,7 @@ namespace MiraItemMod
             {
                 if (moditem is IModDamageId charm && charm.HasDamageId)
                 {
-                    if (Core.LogFew)
-                        Core.Logger("New DamageId: " + charm.DamageIdEntity.name);
+                    Core.LoggerFew("New DamageId: " + charm.DamageIdEntity.name);
                     list.Add(charm.DamageIdEntity);
                 }
             }
@@ -2636,20 +2622,17 @@ namespace MiraItemMod
             {
                 if (moditem.Lv5Perk != null && moditem.Lv5Perk is IModDamageId perk5 && perk5.HasDamageId)
                 {
-                    if (Core.LogFew)
-                        Core.Logger("New DamageId: " + perk5.DamageIdEntity.name);
+                    Core.LoggerFew("New DamageId: " + perk5.DamageIdEntity.name);
                     list.Add(perk5.DamageIdEntity);
                 }
                 if (moditem.Lv10Perk != null && moditem.Lv10Perk is IModDamageId perk10 && perk10.HasDamageId)
                 {
-                    if (Core.LogFew)
-                        Core.Logger("New DamageId: " + perk10.DamageIdEntity.name);
+                    Core.LoggerFew("New DamageId: " + perk10.DamageIdEntity.name);
                     list.Add(perk10.DamageIdEntity);
                 }
                 if (moditem.Lv20Perk != null && moditem.Lv20Perk is IModDamageId perk20 && perk20.HasDamageId)
                 {
-                    if (Core.LogFew)
-                        Core.Logger("New DamageId: " + perk20.DamageIdEntity.name);
+                    Core.LoggerFew("New DamageId: " + perk20.DamageIdEntity.name);
                     list.Add(perk20.DamageIdEntity);
                 }
             }
@@ -2795,7 +2778,7 @@ namespace MiraItemMod
                     stats.Add(entity.id);
                 }
             }
-            Core.Logger(stats.ToAllString());
+            //Core.LoggerMany(stats.ToAllString());
             foreach (var moditem in Statuses)
             {
                 if(moditem.StatusEntity != null && !stats.Contains(moditem.StatusEntity.id))

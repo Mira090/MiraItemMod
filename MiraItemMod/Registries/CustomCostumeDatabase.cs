@@ -67,7 +67,7 @@ namespace MiraItemMod.Registries
         }
         public static void LoadAllStartingItems(IEnumerable<CostumeEntity> entities)
         {
-            Core.Logger("Loading... CustomeCostume StartingItems");
+            Core.LoggerFew("Loading... CustomeCostume StartingItems");
             foreach(var entity in entities)
             {
                 if (metadataDictionary.ContainsKey(entity.id) && metadataDictionary[entity.id].startingItems != null)
@@ -107,7 +107,7 @@ namespace MiraItemMod.Registries
         public static readonly string Metadata = "Metadata.json";
         public static CustomCostumeEntity[] LoadAll(string path)
         {
-            Core.Logger("LoadAll: " + path);
+            Core.LoggerFew("LoadAll: " + path);
             var paths = Directory.GetDirectories(path);
             var list = new List<CustomCostumeEntity>();
             foreach(var p in paths)
@@ -120,11 +120,11 @@ namespace MiraItemMod.Registries
         }
         public static CustomCostumeEntity Load(string path)
         {
-            Core.Logger("Load: " + path);
+            Core.LoggerFew("Load: " + path);
             var metadataPath = Path.Combine(path, Metadata);
             if (!File.Exists(metadataPath))
             {
-                Core.Logger("Metadata.json is not exist: " + metadataPath);
+                Core.LoggerWarning("Metadata.json is not exist: " + metadataPath);
                 return null;
             }
             var metadata = LoadMetadata(metadataPath);
@@ -137,7 +137,7 @@ namespace MiraItemMod.Registries
         }
         public static CustomCostumeMetadata LoadMetadata(string path)
         {
-            Core.Logger("LoadMetadata: " + path);
+            Core.LoggerFew("LoadMetadata: " + path);
             using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             using var streamReader = new StreamReader(fileStream);
             return JsonConvert.DeserializeObject<CustomCostumeMetadata>(streamReader.ReadToEnd());

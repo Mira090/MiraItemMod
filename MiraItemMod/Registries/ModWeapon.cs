@@ -75,8 +75,7 @@ namespace MiraItemMod.Registries
         }
         public void InitPrefab(WeaponEntity copy)
         {
-            if (Core.LogMedium)
-                Core.Logger("CreateWeaponEntity from " + copy.name);
+            Core.LoggerMedium("CreateWeaponEntity from " + copy.name);
             WeaponWieldEntity = copy.wieldEntity;
             var main = UnityEngine.Object.Instantiate(copy.mainWeaponPrefab);
             main.name = "Weapon_" + Name;
@@ -182,8 +181,7 @@ namespace MiraItemMod.Registries
                 return;
             if (!MainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
                 return;
-            if (Core.LogMany)
-                Core.Logger($"OnSpriteFxRegistered: {simple}");
+            Core.LoggerMany($"OnSpriteFxRegistered: {simple}");
 
             BasicAttacksModifier?.Invoke(simple.basicComboAttacks);
             //Core.Logger($"OnSpriteFxRegistered2: {BasicAttacksModifier}");

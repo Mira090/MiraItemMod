@@ -74,8 +74,7 @@ namespace MiraItemMod.Weapons
 
                 Vector2 vector2FromAngle = HorayUtility.GetVector2FromAngle((avatar.transform.position - parent.Networkowner.unitAvatar.transform.position).GetAngle() + UnityEngine.Random.Range(-20f, 20f));
                 Vector2 vector = (Vector2)avatar.transform.position + UnityEngine.Random.insideUnitCircle * 0.2f;
-                if (Core.LogMany)
-                    Core.Logger($"Applying additional frostbite damage with {additionalDamagePercent}% bonus, spawning effect at {vector} with angle {vector2FromAngle.GetAngle()}");
+                Core.LoggerMany($"Applying additional frostbite damage with {additionalDamagePercent}% bonus, spawning effect at {vector} with angle {vector2FromAngle.GetAngle()}");
                 RpcCreateFx(vector, vector2FromAngle.GetAngle(), 0);
             }
         }
@@ -125,8 +124,7 @@ namespace MiraItemMod.Weapons
         {
             if (!(SephiriaPrefabs.FreezeNormalSlash == null))
             {
-                if (Core.LogMedium)
-                    Core.Logger($"Creating frostbite slash effect at {position} with angle {angle} and range bonus {rangeBonus}");
+                Core.LoggerMedium($"Creating frostbite slash effect at {position} with angle {angle} and range bonus {rangeBonus}");
                 SpriteFx spriteFx = SpriteFx.Pool.Spawn(SephiriaPrefabs.FreezeNormalSlash, position);
                 spriteFx.SetRotation(new Vector3(0f, 0f, angle + 70f + ((HorayUtility.GetRandomSign() == 1) ? 180f : 0f)));
                 spriteFx.SetScale(Vector3.one * (1f + rangeBonus));
@@ -147,8 +145,7 @@ namespace MiraItemMod.Weapons
 
         static WeaponAddonDagger_FuryFrostbite()
         {
-            if (Core.LogMany)
-                Core.Logger("Registering RPCs for WeaponAddonDagger_FuryFrostbite...");
+            Core.LoggerMany("Registering RPCs for WeaponAddonDagger_FuryFrostbite...");
             RemoteProcedureCalls.RegisterRpc(typeof(WeaponAddonDagger_FuryFrostbite), "System.Void WeaponAddonDagger_FuryFrostbite::RpcCreateFx(UnityEngine.Vector3,System.Single,System.Single)", InvokeUserCode_RpcCreateFx__Vector3__Single__Single);
         }
     }

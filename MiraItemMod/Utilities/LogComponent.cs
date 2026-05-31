@@ -9,20 +9,16 @@ namespace MiraItemMod.Utilities
     {
         private void Awake()
         {
-            if (Core.LogFew)
-                Core.Logger("Awake: " + name);
+            Core.LoggerFew("Awake: " + name);
         }
         private void Start()
         {
-            //if (Core.LogMany)
-                //Core.Logger("Start: " + name);
+            //Core.LoggerMany("Start: " + name);
         }
         private void OnDestroy()
         {
-            if (Core.LogFew)
-                Core.Logger("OnDestroy: " + name);
-            //if (Core.LogMany)
-                //Core.Logger($"[OnDestroy] {gameObject.name} destroyed!\n{Environment.StackTrace}");
+            Core.LoggerFew("OnDestroy: " + name);
+            //Core.LoggerMany($"[OnDestroy] {gameObject.name} destroyed!\n{Environment.StackTrace}");
         }
     }
 }

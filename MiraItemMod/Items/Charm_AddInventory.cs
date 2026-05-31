@@ -34,8 +34,7 @@ namespace MiraItemMod.Items
 
                 var instance = StatusDatabase.CreateStatusEntity("InventorySlot".ToSephiriaId(), inventory);
                 NetworkAvatar.AddOrphanedStatusInstance(instance);
-                if (Core.LogMedium)
-                    Core.Logger("Add Status: " + instance.ToString(false, false, false));
+                Core.LoggerMedium("Add Status: " + instance.ToString(false, false, false));
 
                 using (new GridInventory.Permission(NetworkAvatar.Inventory))
                 {

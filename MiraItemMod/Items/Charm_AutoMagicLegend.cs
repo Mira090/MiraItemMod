@@ -194,8 +194,7 @@ namespace MiraItemMod.Items
                         //Core.Logger("casting..." + (castingPosition));
                         SpriteFx spriteFx = string.IsNullOrEmpty(magicCharm.ContainedMagic.castingCircleOverride) ? SpriteFx.Pool.Spawn(ActiveSkillDatabase.FindCastingCircleByClass(magicCharm.ContainedMagic.GetMajorClass()), NetworkAvatar.transform.position + new Vector3(0f, 0.001f)) : SpriteFx.Pool.Spawn(magicCharm.ContainedMagic.castingCircleOverride, NetworkAvatar.transform.position + new Vector3(0f, 0.001f));
 
-                        if (Core.LogMedium)
-                            Core.Logger("casting..." + (spriteFx == null));
+                        Core.LoggerMedium("casting..." + (spriteFx == null));
                         spriteFx.SetParent(NetworkAvatar.transform);
                         spriteFx.SetBodyYPos(TopdownActor.CenterYPos);
                         if ((bool)spriteFx.overrideAnimationTransition)
