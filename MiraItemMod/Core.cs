@@ -1,11 +1,12 @@
 ﻿using FMOD;
 using HarmonyLib;
-using Mirror;
-using Newtonsoft.Json;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
 using MiraItemMod.Utilities;
+using Mirror;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -341,8 +342,54 @@ namespace MiraItemMod
             };
         }
 
+        [HarmonyPatch(typeof(PlayerSpawner), nameof(PlayerSpawner.OnStartServer))]
+        public static class PlayerSpawnerOnStartServerPatch
+        {
+            static void Postfix(PlayerSpawner __instance)
+            {
+                foreach (ModItem item in Data.All)
+                {
+                    ItemEntity itemEntity = item.ItemEntity;
+                    if(itemEntity == null)
+                    {
+                        Core.LoggerError($"ItemEntity is null for item: {item.Name} (ID: {item.Id})");
+                        continue;
+                    }
+                    if (itemEntity.activeType == EItemActiveType.Default)
+                    {
+                        if (itemEntity.type == EItemType.Charm)
+                        {
+                            __instance.unlockedCharms.Add(itemEntity.id);
+                        }
+                        else if (itemEntity.type == EItemType.StoneTablet)
+                        {
+                            __instance.unlockedStoneTablets.Add(itemEntity.id);
+                        }
+                        else if (itemEntity.type == EItemType.Potion)
+                        {
+                            __instance.unlockedPotions.Add(itemEntity.id);
+                        }
+                    }
+                    else if (itemEntity.activeType == EItemActiveType.TestOnly && (bool)ScreenFader.Instance && ScreenFader.Instance.IsTestMode)
+                    {
+                        if (itemEntity.type == EItemType.Charm)
+                        {
+                            __instance.unlockedCharms.Add(itemEntity.id);
+                        }
+                        else if (itemEntity.type == EItemType.StoneTablet)
+                        {
+                            __instance.unlockedStoneTablets.Add(itemEntity.id);
+                        }
+                        else if (itemEntity.type == EItemType.Potion)
+                        {
+                            __instance.unlockedPotions.Add(itemEntity.id);
+                        }
+                    }
+                }
+            }
+        }
         [HarmonyPatch(typeof(Resources), nameof(Resources.LoadAll), new Type[] { typeof(string), typeof(Type) })]
-        class ResourcesLoadAllPatch
+        public static class ResourcesLoadAllPatch
         {
             private static void ModifyItemEntity(ItemEntity item)
             {

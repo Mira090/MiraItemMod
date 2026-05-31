@@ -2779,6 +2779,11 @@ namespace MiraItemMod
             //1002 例：割れた鏡、スターアクアマリン、黒い鱗
             //1001 例：盾のイヤリング
             //1000 魔法1　例：ファイアボルト
+            /*
+            foreach (var item in Data.All)
+            {
+                Core.Logger("Item: " + item.Name + " ActiveType: " + (item.ItemEntity != null ? item.ItemEntity.activeType.ToJapanese() : "None"));
+            }*/
         }
         public static void RegisterStatuses(List<UnityEngine.Object> list)
         {
