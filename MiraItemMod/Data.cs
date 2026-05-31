@@ -1099,7 +1099,7 @@ namespace MiraItemMod
         /// フレーバーテキスト募集中
         /// </summary>
         public static ModCharm JewelryExcavation { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryExcavation", 0,
-            CreateStatusGroupBy("ExcavationDamage".ToSephiriaId(), 3, 40),
+            CreateStatusGroupBy("ExcavationDamage".ToSephiriaId(), 3, 30),
             CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 20))
             .SetCategory(ItemCategories.Precision).SetSimpleEffects(0).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
