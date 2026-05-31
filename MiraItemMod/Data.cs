@@ -2675,8 +2675,18 @@ namespace MiraItemMod
                     }
                 }
             }
-            foreach(var moditem in EffectHUDs)
+            var names = new List<string>();
+            foreach(var item in list)
             {
+                if(item is EffectHUDEntity entity)
+                {
+                    names.Add(entity.id);
+                }
+            }
+            foreach (var moditem in EffectHUDs)
+            {
+                if (names.Contains(moditem.Id))
+                    continue;
                 if(moditem.Type == ModEffectHUD.EffectHUDType.Stack && stack != null)
                 {
                     var prefab = UnityEngine.Object.Instantiate(stack);
@@ -2772,9 +2782,21 @@ namespace MiraItemMod
         }
         public static void RegisterStatuses(List<UnityEngine.Object> list)
         {
+            var stats = new List<string>();
+            foreach(var item in list)
+            {
+                if(item != null && item is StatusEntity entity)
+                {
+                    stats.Add(entity.id);
+                }
+            }
+            Core.Logger(stats.ToAllString());
             foreach (var moditem in Statuses)
             {
-                list.Add(moditem.StatusEntity);
+                if(moditem.StatusEntity != null && !stats.Contains(moditem.StatusEntity.id))
+                {
+                    list.Add(moditem.StatusEntity);
+                }
             }
         }
         public static void RegisterStatuses()
@@ -2991,9 +3013,11 @@ namespace MiraItemMod
                     }
                 }
             }
+            var treeShopIds = list.Where(x => x is TreeShopItemEntity).Select(x => (x as TreeShopItemEntity).id).ToList();
             foreach (var moditem in TreeShops)
             {
-                list.Add(moditem.Entity);
+                if (!treeShopIds.Contains(moditem.Id))
+                    list.Add(moditem.Entity);
             }
             foreach (var item in list)
             {

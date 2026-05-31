@@ -27,17 +27,17 @@ namespace MiraItemMod
         public static void LoggerFew(string message)
         {
             if (Core.LogFew)
-            Debug.Log("[MiraItemMod] " + message);
+                Debug.Log("[MiraItemMod] " + message);
         }
         public static void LoggerMedium(string message)
         {
             if (Core.LogMedium)
-            Debug.Log("[MiraItemMod] " + message);
+                Debug.Log("[MiraItemMod] " + message);
         }
         public static void LoggerMany(string message)
         {
             if (Core.LogMany)
-            Debug.Log("[MiraItemMod] " + message);
+                Debug.Log("[MiraItemMod] " + message);
         }
         public static void Logger(string message)
         {
@@ -126,7 +126,7 @@ namespace MiraItemMod
             Core.Logger("Loaded: " + ModOptions[index][value]);
         }
         public Harmony ModPatches;
-        public bool IsInitialized = false;
+        public static bool IsInitialized = false;
         protected override void OnModLoaded()
         {
             base.OnModLoaded();
@@ -148,10 +148,13 @@ namespace MiraItemMod
             HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
             HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
             HorayModAPI.OnLocalizationReady += OnLocalizationReady;
+
+            HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
+
             if (ModSingletonObject != null)
             {
                 UnityEngine.Object.Destroy(ModSingletonObject);
-        }
+            }
             if (ScreenFader.Instance.IsTestMode)
             {
                 ModSingletonObject = new GameObject();
@@ -173,6 +176,12 @@ namespace MiraItemMod
             HorayModAPI.OnAllDatabasesReady -= OnAllDatabasesReady;
             HorayModAPI.OnLocalizationReady -= OnLocalizationReady;
 
+            HorayModAPI.OnLoadWeaponDatabase -= OnLoadWeaponDatabase;
+
+            //Data.Dispose();
+
+            //IsInitialized = false;
+
             if (ModPatches != null)
             {
                 ModPatches.UnpatchSelf();
@@ -180,8 +189,14 @@ namespace MiraItemMod
             base.OnModUnloaded();
         }
 
+        private void OnLoadWeaponDatabase()
+        {
+            Data.RegisterWeapons();
+        }
+
         private void OnLoadItemDatabase()
         {
+            Data.RegisterItems();
             ItemDatabase.Modify(3022, item =>//メテオシャワー
             {
                 var prefab = item.resourcePrefab;
@@ -299,6 +314,11 @@ namespace MiraItemMod
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
             AssetLoader.LoadLocalization(context);
+
+            foreach (var moditem in Data.Weapons)
+            {
+                moditem.OnSpriteFxRegistered();
+            }
         }
 
         private static Action<ItemEntity> SetItemCategories(params string[] categories)
@@ -1205,6 +1225,33 @@ namespace MiraItemMod
                         prefab = modItem.gameObject;
                         return true;
                     }
+                    foreach (var modItem in Data.Passives)
+                    {
+                        if (modItem.Lv5Perk.AssetId == assetId)
+                        {
+                            prefab = modItem.Lv5Perk.PerkPrefab;
+                            return true;
+                        }
+                        if (modItem.Lv10Perk.AssetId == assetId)
+                        {
+                            prefab = modItem.Lv10Perk.PerkPrefab;
+                            return true;
+                        }
+                        if (modItem.Lv20Perk.AssetId == assetId)
+                        {
+                            prefab = modItem.Lv20Perk.PerkPrefab;
+                            return true;
+                        }
+                        //Core.Logger($"CustomGetPrefab: {modItem.Name}");
+                    }
+                    foreach (var modItem in Data.Sephirites)
+                    {
+                        if (modItem.AssetId != assetId)
+                            continue;
+                        //Core.Logger($"CustomGetPrefab: {modItem.Name}");
+                        prefab = modItem.Prefab;
+                        return true;
+                    }
                 }
 
                     // 通常の GetPrefab
@@ -1231,6 +1278,7 @@ namespace MiraItemMod
                     {
                         if(moditem.ResourcePrefab == null && original.name == moditem.OriginalName && original.TryGetComponent<SpriteFx>(out var fx))
                         {
+                            Core.LoggerMany($"Init {moditem.Name}. (OriginalName): {moditem.OriginalName}");
                             moditem.InitPrefab(fx);
                         }
                     }
@@ -1238,13 +1286,41 @@ namespace MiraItemMod
                 foreach (var moditem in Data.SpriteFxs)
                 {
                     if (moditem.ResourcePrefab == null)
+                    {
+                        Core.LoggerError($"Failed to initialize SpriteFx prefab for {moditem.Name}. ResourcePrefab is null (OriginalName): {moditem.OriginalName}");
                         continue;
-                    __instance.InvokeMakePool(parent, moditem.ResourcePrefab);
+                    }
+                    MakePool(__instance, parent, moditem.ResourcePrefab);
                 }
-
+                /*
                 foreach(var moditem in Data.Weapons)
                 {
                     moditem.OnSpriteFxRegistered();
+                }*/
+            }
+            static void MakePool<T>(ObjectPoolingFactory<T> __instance, Transform parent, GameObject prefab) where T : ObjectPoolable
+            {
+                if (__instance.pooledGameObjects.ContainsKey(prefab))
+                {
+                    Core.LoggerWarning($"이미 같은 오브젝트가 풀에 등록되어 있습니다. {prefab.name}");
+                    //return;
+                }
+
+                __instance.GetPrefabsByName()[prefab.name] = prefab;
+                T component = prefab.GetComponent<T>();
+                __instance.pooledGameObjects[prefab] = new List<T>();
+                __instance.poolCountByObject[prefab] = 0;
+                for (int i = 0; i < component.poolSize; i++)
+                {
+                    GameObject gameObject = UnityEngine.Object.Instantiate(prefab, Vector2.zero, Quaternion.identity, parent);
+                    if (!gameObject.activeSelf)
+                    {
+                        Debug.LogError("풀 오브젝트 프리팹은 activeSelf 켜주세요.");
+                    }
+
+                    gameObject.SetActive(value: false);
+                    T component2 = gameObject.GetComponent<T>();
+                    __instance.pooledGameObjects[prefab].Add(component2);
                 }
             }
         }
