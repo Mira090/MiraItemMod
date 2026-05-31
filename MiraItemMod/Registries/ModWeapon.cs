@@ -10,6 +10,7 @@ namespace MiraItemMod.Registries
 {
     public class ModWeapon : IDisposable
     {
+        public static UI_KatanaBar KatanaBar { get; internal set; }
         public static ModWeapon CreateWeapon(string name, int copy, int dependency = -1)
         {
             return new ModWeapon().SetWeapon(name, copy, dependency);

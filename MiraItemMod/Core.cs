@@ -4,6 +4,7 @@ using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
 using MiraItemMod.Utilities;
+using MiraItemMod.Weapons;
 using Mirror;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -184,6 +185,7 @@ namespace MiraItemMod
             HorayModAPI.OnLoadWeaponDatabase -= OnLoadWeaponDatabase;
 
             //Data.Dispose();
+            WeaponAddonKatana_Plasma.PlasmaAttacks.Clear();
 
             //IsInitialized = false;
 

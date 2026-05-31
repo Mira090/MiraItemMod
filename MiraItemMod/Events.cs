@@ -2,11 +2,12 @@
 using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
-using Mirror;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
+using MiraItemMod.Registries;
 using MiraItemMod.UI;
 using MiraItemMod.Utilities;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1347,6 +1348,7 @@ namespace MiraItemMod
 
         #region RelatedStatFormula
         public static readonly string DefenseRelatedStatFormula = "DEFENSE";
+        public static readonly string PlasmaRelatedStatFormula = "PLASMA";
 
         [HarmonyPatch(typeof(WeaponSimple), "GetRelatedStatMultiplier")]
         public static class RelatedStatFormulaPatch
@@ -1362,8 +1364,31 @@ namespace MiraItemMod
                     Core.LoggerMany("DefenseRelatedStatFormula: " + __result);
                     result = EDamageElementalType.Physical;
                 }
+                else if(relatedStatFormula == PlasmaRelatedStatFormula)
+                {
+                    var fire = owner.GetCustomStat(ECustomStat.FireDamage);
+                    var lightning = owner.GetCustomStat(ECustomStat.LightningDamage);
+                    __result = (fire + lightning) * 0.6f;
+                    result = EDamageElementalType.FireAndLightning;
+                }
             }
         }
         #endregion
+        [HarmonyPatch(typeof(WeaponSimple_Katana), "Update")]
+        public static class WeaponSimple_KatanaUpdatePatch
+        {
+            static bool Prefix(WeaponSimple_Katana __instance)
+            {
+                if(__instance.hasKatanaGauge && __instance.GetKatanaBar() == null)
+                {
+                    Core.LoggerError("Katana bar is null for " + __instance);
+                    var bar = UnityEngine.Object.Instantiate(ModWeapon.KatanaBar, __instance.transform);
+                    bar.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                    __instance.SetKatanaBar(bar);
+                    return true;
+                }
+                return true;
+            }
+        }
     }
 }

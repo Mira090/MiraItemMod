@@ -1404,6 +1404,15 @@ namespace MiraItemMod
         public static ModEffectHUD EffectPallasBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PallasBuff", UI_EffectHUD_Basic.EEffectType.Boon);
         public static CharacterBuffMod_StatusInstance PallasBuff { get; } = CreateBuff("PallasBuff", "PallasBuff", 5, CreateBuffStatus("TRUE_DAMAGE", 1))
             .SetDefaultDuration(5f);
+        /// <summary>
+        /// EffectHUD_PlasmaKatanaBuff_Name
+        /// 溶融
+        /// EffectHUD_PlasmaKatanaBuff_FlavorText
+        /// 刀身が<tag=Plasma>に変化しています。
+        /// </summary>
+        public static ModEffectHUD EffectPlasmaKatanaBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PlasmaKatanaBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static CharacterBuffMod_StatusInstance PlasmaKatanaBuff { get; } = CreateBuff("PlasmaKatanaBuff", "PlasmaKatanaBuff", 1, CreateBuffStatus("PlasmaKatana".ToSephiriaId(), 1))
+            .SetDefaultDuration(18f);
 
         /// <summary>
         /// EffectHUD_StargazeTablet_Name
@@ -1552,6 +1561,13 @@ namespace MiraItemMod
         /// </summary>
         public static ModCustomStatus MiniBossRewardDice { get; } = ModCustomStatus.CreateStatus("MiniBossRewardDice").SetNotIncludePositiveNegativeSign()
             .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetNeedParseValueOnVisualText());
+        /// <summary>
+        /// Status_PlasmaKatana_Name
+        /// 
+        /// Status_PlasmaKatana_Description
+        /// 
+        /// </summary>
+        public static ModCustomStatus PlasmaKatana { get; } = ModCustomStatus.CreateStatus("PlasmaKatana").DoKeyword(keyword => keyword.SetNotDisplayDetails());
         /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
@@ -2278,6 +2294,46 @@ namespace MiraItemMod
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Basic, 500, () => new ModSpriteFx[] { null, null, null, null, null, StaffFlagCannonAttackFx })
             .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetRelatedStatFormula(Events.DefenseRelatedStatFormula))
             .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetSwingSoundEvent("event:/Scene/Crossbow_Shotgun"));
+        /// <summary>
+        /// Weapon_Katana_Lightning_T3_Plasma_Name
+        /// ブレードブラスター
+        /// WeaponAddon_Katana_Lightning_T3_Plasma_Effect
+        /// <tag=WeaponAction_SpecialAttack>が<tag=FireDamage>に変更され、納刀時に「刀熱」を継続的に獲得します。「刀熱」が100%になると溶融バフを獲得します。\n溶融状態では通常攻撃のダメージが<tag=FireDamage>60%+<tag=LightningDamage>60%に変更され、<tag=WeaponAction_BasicAttack>が命中した時、{PERCENT}の確率で<tag=Plasma>を付与します。
+        public static ModWeapon KatanaLightningPlasma { get; } = ModWeaponKatana.CreateKatana("Katana_Lightning_T3_Plasma", 404, 404).SetMainPrefabModifier(main =>
+        {
+            if (main.gameObject.TryGetComponent<WeaponAddonCommon_ElementalBased>(out var status))
+            {
+                var @unsafe = main.gameObject.AddComponent<WeaponAddonKatana_Plasma>();
+
+
+                @unsafe.effectText = new LocalizedString("WeaponAddon_Katana_Lightning_T3_Plasma_Effect");
+                @unsafe.parent = status.parent;
+
+                main.addons = new WeaponAddon[] { status, @unsafe };
+
+                if (main is WeaponSimple_Katana katana)
+                {
+                    if (ModWeapon.KatanaBar != null)
+                    {
+                        var bar = UnityEngine.Object.Instantiate(ModWeapon.KatanaBar, katana.transform);
+                        bar.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                        katana.SetKatanaBar(bar);
+                        //Core.LoggerError("katanaBarPrefab Set: " + katana.GetKatanaBar());
+                    }
+                    else
+                    {
+                        Core.LoggerError("katanaBarPrefab is null");
+                    }
+                    katana.hasKatanaGauge = true;
+                    katana.useAutoFillOnSheath = true;
+                    katana.autoFillOnSheathSpeed = 0.2f;
+                    katana.katanaGaugeDisappearSpeed = 0.05f;
+                    katana.SetCurrentKatanaGauge(0);
+                }
+            }
+        })
+            .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Special, 406, () => new ModSpriteFx[] { null, null })
+            .AddFireDataModifier(ModWeapon.EAttackType.Special, x=>x.SetDamageElemental(EDamageElementalType.Fire));
         #endregion
 
         #region Passives
@@ -2347,6 +2403,12 @@ namespace MiraItemMod
         public static ModSpriteFx StaffSickleAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx4_Sickle", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack4_", 5).SetFps(20);
         public static ModSpriteFx StaffSickleAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx5_Sickle", "StaffSwingFx_Attack1", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack5_", 8).SetFps(20);
         public static ModSpriteFx StaffFlagCannonAttackFx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx_FlagCannon", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Cannon\\Weapon_Staff_Attack4_", 7).SetFps(30);
+        public static ModSpriteFx KatanaPlasmaAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_0", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning1(M)_", 5).SetFps(20);
+        public static ModSpriteFx KatanaPlasmaAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_1", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning2(M)_", 6).SetFps(20);
+        public static ModSpriteFx KatanaPlasmaAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_2", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning3(M)_", 8).SetFps(20);
+        //public static ModSpriteFx KatanaFireSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Fire", "KatanaSwingSheathAttackFx_Fire0", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_SheathAttack_Fire0_", 10).SetFps(20);
+
+        public static ModSpriteFx[] KatanaPlasmaAttack => new ModSpriteFx[] { KatanaPlasmaAttack1Fx, KatanaPlasmaAttack2Fx, KatanaPlasmaAttack3Fx };
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);
@@ -2798,6 +2860,22 @@ namespace MiraItemMod
         public static void RegisterWeapons(List<UnityEngine.Object> list)
         {
             var weapons = list.Select(x => x as WeaponEntity).ToList();
+            foreach(var weapon in weapons)
+            {
+                if(weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var katana) &&  ModWeapon.KatanaBar == null)
+                {
+                    if(katana.katanaBarPrefab != null)
+                    {
+                        ModWeapon.KatanaBar = katana.katanaBarPrefab;
+                        break;
+                    }
+                    if (katana.GetKatanaBar() != null)
+                    {
+                        ModWeapon.KatanaBar = katana.GetKatanaBar();
+                        break;
+                    }
+                }
+            }
 
 
             foreach (var moditem in Weapons)
@@ -2861,6 +2939,22 @@ namespace MiraItemMod
         public static void RegisterWeapons()
         {
             var weapons = WeaponDatabase.GetAll();
+            foreach (var weapon in weapons)
+            {
+                if (weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var katana) && ModWeapon.KatanaBar == null)
+                {
+                    if (katana.katanaBarPrefab != null)
+                    {
+                        ModWeapon.KatanaBar = katana.katanaBarPrefab;
+                        break;
+                    }
+                    if (katana.GetKatanaBar() != null)
+                    {
+                        ModWeapon.KatanaBar = katana.GetKatanaBar();
+                        break;
+                    }
+                }
+            }
 
 
             foreach (var moditem in Weapons)

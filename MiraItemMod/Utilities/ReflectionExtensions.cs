@@ -270,6 +270,22 @@ namespace MiraItemMod.Utilities
         {
             return (Dictionary<string, CharacterDebuff>)typeof(UnitDatabase).GetField("debuffEntities", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(UnitDatabase));
         }
+        public static float GetCurrentKatanaGauge(this WeaponSimple_Katana instance)
+        {
+            return (float)typeof(WeaponSimple_Katana).GetField("currentKatanaGauge", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
+        public static void SetCurrentKatanaGauge(this WeaponSimple_Katana instance, float value)
+        {
+            typeof(WeaponSimple_Katana).GetField("currentKatanaGauge", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
+        public static void SetKatanaBar(this WeaponSimple_Katana instance, UI_KatanaBar value)
+        {
+            typeof(WeaponSimple_Katana).GetField("katanaBar", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
+        public static UI_KatanaBar GetKatanaBar(this WeaponSimple_Katana instance)
+        {
+            return (UI_KatanaBar)typeof(WeaponSimple_Katana).GetField("katanaBar", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
 
 
 
