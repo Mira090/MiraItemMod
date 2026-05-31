@@ -508,7 +508,9 @@ namespace MiraItemMod.Registries
                 item.DashAttacksModifier = attacks =>
                 {
                     if (item.NewDashAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewDashAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
                     if (weapon == null || weapon.mainWeaponPrefab == null || !weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
@@ -534,7 +536,9 @@ namespace MiraItemMod.Registries
                 item.SpecialAttacksModifier = attacks =>
                 {
                     if (item.NewSpecialAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewSpecialAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
                     if (weapon == null || weapon.mainWeaponPrefab == null || !weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple>(out var simple))
@@ -567,7 +571,9 @@ namespace MiraItemMod.Registries
                 {
                     //Core.Logger($"BasicAttacksModifier");
                     if (item.NewBasicAttacks.Count > 0)
-                        return;
+                    {
+                        item.NewBasicAttacks.Clear();
+                    }
 
                     var weapon = WeaponDatabase.FindWeaponById(original);
                     //Core.Logger($"weapon {weapon}");
