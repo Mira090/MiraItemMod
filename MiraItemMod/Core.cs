@@ -23,6 +23,7 @@ namespace MiraItemMod
 {
     public class Core : HorayModBase
     {
+        public static GameObject ModSingletonObject { get; private set; }
         public static void LoggerFew(string message)
         {
             Debug.Log("[MiraItemMod] " + message);
@@ -140,10 +141,24 @@ namespace MiraItemMod
             HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
             HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
             HorayModAPI.OnLocalizationReady += OnLocalizationReady;
+            if (ModSingletonObject != null)
+            {
+                UnityEngine.Object.Destroy(ModSingletonObject);
+        }
+            if (ScreenFader.Instance.IsTestMode)
+            {
+                ModSingletonObject = new GameObject();
+                ModSingletonObject.AddComponent<ModSingletonBehavior>();
+            }
         }
 
         protected override void OnModUnloaded()
         {
+            if (ModSingletonObject != null)
+            {
+                UnityEngine.Object.Destroy(ModSingletonObject);
+            }
+
             HorayModAPI.OnLoadItemDatabase -= OnLoadItemDatabase;
             HorayModAPI.OnLoadMiracleDatabase -= OnLoadMiracleDatabase;
             HorayModAPI.OnLoadStatusDatabase -= OnLoadStatusDatabase;
