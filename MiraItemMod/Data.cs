@@ -2276,7 +2276,8 @@ namespace MiraItemMod
             }
         }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 16, 0, 21)).SetSizeFromTextureRect()
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Basic, 500, () => new ModSpriteFx[] { null, null, null, null, null, StaffFlagCannonAttackFx })
-            .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetRelatedStatFormula(Events.DefenseRelatedStatFormula));
+            .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetRelatedStatFormula(Events.DefenseRelatedStatFormula))
+            .AddLastFireDataModifiers(ModWeapon.EAttackType.Basic, x => x.SetSwingSoundEvent("event:/Scene/Crossbow_Shotgun"));
         #endregion
 
         #region Passives

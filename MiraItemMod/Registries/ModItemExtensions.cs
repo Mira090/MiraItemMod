@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Buffs;
+﻿using FMODUnity;
+using MiraItemMod.Buffs;
 using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -908,6 +909,13 @@ namespace MiraItemMod.Registries
         public static T SetDamageMultiplier<T>(this T fire, float damageMultiplier) where T : NewWeaponFireData
         {
             fire.damageMultiplier = damageMultiplier;
+            return fire;
+        }
+        public static T SetSwingSoundEvent<T>(this T fire, string swingSoundEvent) where T : NewWeaponFireData
+            => SetSwingSoundEvent(fire, RuntimeManager.PathToEventReference(swingSoundEvent));
+        public static T SetSwingSoundEvent<T>(this T fire, EventReference swingSoundEvent) where T : NewWeaponFireData
+        {
+            fire.swingSoundEvent = swingSoundEvent;
             return fire;
         }
         public static T SetDefaultDuration<T>(this T item, float duration) where T : CharacterBuffMod

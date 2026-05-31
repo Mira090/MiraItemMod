@@ -436,13 +436,19 @@ namespace MiraItemMod.Utilities
                 try
                 {
                     var value = prop.GetValue(obj);
-                    if(value is IEnumerable enumerable && !(value is string))
+                    if (value is EventReference eventRef)
+                    {
+                        value = eventRef.GUIDToPath();
+                    }
+                    else if (value is IEnumerable enumerable && !(value is string))
                     {
                         var items = new List<string>();
-                        foreach(var item in enumerable)
+                        foreach (var item in enumerable)
                         {
                             if (item == null)
                                 items.Add("null");
+                            else if (item is EventReference ev)
+                                items.Add(ev.GUIDToPath());
                             else
                                 items.Add(item.ToString());
                         }
@@ -462,13 +468,19 @@ namespace MiraItemMod.Utilities
                 try
                 {
                     var value = field.GetValue(obj);
-                    if (value is IEnumerable enumerable && !(value is string))
+                    if(value is EventReference eventRef)
+                    {
+                        value = eventRef.GUIDToPath();
+                    }
+                    else if (value is IEnumerable enumerable && !(value is string))
                     {
                         var items = new List<string>();
                         foreach (var item in enumerable)
                         {
                             if (item == null)
                                 items.Add("null");
+                            else if(item is EventReference ev)
+                                items.Add(ev.GUIDToPath());
                             else
                                 items.Add(item.ToString());
                         }
