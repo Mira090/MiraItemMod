@@ -15,7 +15,7 @@ namespace MiraItemMod.Items.Jewelry
             string value2 = showAllLevel ? (amp.SafeRandomAccess(0) * 8) + "→" + (amp.SafeRandomAccess(maxLevel) * 8) : (amp.SafeRandomAccess(LevelToIdx(level) * 8)).ToString();
             return new Loc.KeywordValue[2]
             {
-            new Loc.KeywordValue("DAMAGE", "+" + value2 + "%", GetNegativeColor(virtualLevelOffset)),
+            new Loc.KeywordValue("DAMAGE", "+" + value2 + "%", GetPositiveColor(virtualLevelOffset)),
             new Loc.KeywordValue("LEAF", value, GetNegativeColor(virtualLevelOffset))
             };
         }
