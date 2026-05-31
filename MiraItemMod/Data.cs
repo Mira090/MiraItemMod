@@ -3012,6 +3012,55 @@ namespace MiraItemMod
 
         public static void Dispose()
         {
+            foreach(var moditem in All)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in Buffs)
+            {
+                GameObject.Destroy(moditem.gameObject);
+            }
+            foreach(var moditem in Statuses)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in Weapons)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in Passives)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in SpriteFxs)
+            {
+                //moditem.Dispose();
+            }
+            foreach(var moditem in Sephirites)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in TreeShops)
+            {
+                moditem.Dispose();
+            }
+            foreach(var moditem in Keywords)
+            {
+                moditem.Dispose();
+            }
+            All = new List<ModItem>();
+            Combos = new List<ModComboEffect>();
+            EffectHUDs = new List<ModEffectHUD>();
+            Miracles = new List<ModMiracle>();
+            Buffs = new List<CharacterBuffMod>();
+            Statuses = new List<ModCustomStatus>();
+            Weapons = new List<ModWeapon>();
+            Passives = new List<ModPassive>();
+            SpriteFxs = new List<ModSpriteFx>();
+            Sephirites = new List<ModSephirite>();
+            TreeShops = new List<ModTreeShopItem>();
+            Keywords = new List<ModKeyword>();
+            Jewelries = new Dictionary<string, List<ModCharm>>();
 
         }
         #endregion
