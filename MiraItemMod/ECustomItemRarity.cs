@@ -45,8 +45,8 @@ namespace MiraItemMod
                 var colors = ReflectionExtensions.GetItemColorByRarity();
                 var rarityNames = ReflectionExtensions.GetRarityNames();
 
-                colors.Add(ECustomItemRarity.Sacrifice.ToSephiria(), new Color(0.75f, 0, 0));
-                rarityNames.Add(ECustomItemRarity.Sacrifice.ToSephiria(), new LocalizedString("ItemRarity_Sacrifice"));
+                colors[ECustomItemRarity.Sacrifice.ToSephiria()] = new Color(0.75f, 0, 0);
+                rarityNames[ECustomItemRarity.Sacrifice.ToSephiria()] = new LocalizedString("ItemRarity_Sacrifice");
             }
         }
         [HarmonyPatch(typeof(UI_DimensionPocketPanel), "Awake")]
