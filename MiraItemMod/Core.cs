@@ -26,14 +26,17 @@ namespace MiraItemMod
         public static GameObject ModSingletonObject { get; private set; }
         public static void LoggerFew(string message)
         {
+            if (Core.LogFew)
             Debug.Log("[MiraItemMod] " + message);
         }
         public static void LoggerMedium(string message)
         {
+            if (Core.LogMedium)
             Debug.Log("[MiraItemMod] " + message);
         }
         public static void LoggerMany(string message)
         {
+            if (Core.LogMany)
             Debug.Log("[MiraItemMod] " + message);
         }
         public static void Logger(string message)
@@ -47,6 +50,10 @@ namespace MiraItemMod
         public static void LoggerWarning(System.Exception message)
         {
             Debug.LogWarning("[MiraItemMod] " + message);
+        }
+        public static void LoggerError(string message)
+        {
+            Debug.LogError("[MiraItemMod] " + message);
         }
         public static string ItemId
         {
@@ -387,7 +394,7 @@ namespace MiraItemMod
                 {
                     var list = __result.ToList();
 
-                    Data.Register(list);
+                    //Data.Register(list);
 
                     foreach (var item in list)
                     {
@@ -445,6 +452,8 @@ namespace MiraItemMod
 
                     Data.RegisterStatuses(list);
 
+                    //Core.Logger(list.ToAllString());
+
                     foreach (var item in list)
                         if (item is StatusEntity entity)
                             ModifyStatusEntity(entity);
@@ -496,7 +505,7 @@ namespace MiraItemMod
                 {
                     var list = __result.ToList();
 
-                    Data.RegisterWeapons(list);
+                    //Data.RegisterWeapons(list);
 
                     __result = list.ToArray();
                 }
@@ -529,10 +538,10 @@ namespace MiraItemMod
                     var list = __result.ToList();
 
                     //Data.RegisterDebuffs(list);
-                    Core.Logger("TreeShopItems: " + list.Count);
+                    //Core.Logger("TreeShopItems: " + list.Count);
                     foreach(var item in list)
                     {
-                        Core.Logger(item.ToAllString());
+                        //Core.Logger(item.ToAllString());
                     }
 
                     /*
