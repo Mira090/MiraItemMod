@@ -195,6 +195,10 @@ namespace MiraItemMod.Utilities
             var method = type.GetMethod("MakePool", BindingFlags.Instance | BindingFlags.NonPublic);
             method.Invoke(instance, new object[] { parent, prefab });
         }
+        public static Dictionary<string, GameObject> GetPrefabsByName<T>(this ObjectPoolingFactory<T> instance) where T : ObjectPoolable
+        {
+            return (Dictionary<string, GameObject>)typeof(ObjectPoolingFactory<T>).GetField("prefabsByName", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
         public static MiracleController GetActor(this UI_MiracleElement instance)
         {
             return (MiracleController)typeof(UI_MiracleElement).GetField("actor", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
@@ -261,6 +265,10 @@ namespace MiraItemMod.Utilities
             var type = typeof(HorayModAPI);
             var method = type.GetMethod("GetDebuff", BindingFlags.Static);
             return method.Invoke(type, new object[] { debuff, caster }) as CharacterDebuff;
+        }
+        public static Dictionary<string, CharacterDebuff> GetDebuffEntities()
+        {
+            return (Dictionary<string, CharacterDebuff>)typeof(UnitDatabase).GetField("debuffEntities", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(UnitDatabase));
         }
 
 
