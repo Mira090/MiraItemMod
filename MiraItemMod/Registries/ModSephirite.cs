@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModSephirite
+    public class ModSephirite : IDisposable
     {
         public static ModSephirite Create(string name, Sephirite.Type type = Sephirite.Type.NORMAL)
             => new ModSephirite().SetSephirite<Sephirite_Custom>(name, type);
@@ -63,6 +63,11 @@ namespace MiraItemMod.Registries
             UnityEngine.Object.Destroy(sephi);
             //sephirite.enabled = false;
             return sephirite.gameObject;
+        }
+        public void Dispose()
+        {
+            if (Prefab != null)
+                GameObject.Destroy(Prefab);
         }
     }
 }

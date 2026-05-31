@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public abstract class ModItem
+    public abstract class ModItem : IDisposable
     {
         internal ModItem SetItem(string name, EItemType type)
         {
@@ -105,6 +105,15 @@ namespace MiraItemMod.Registries
             entity.cannotThrow = CannotThrow;
             entity.isDual = IsDual;
             return entity;
+        }
+        public virtual void Dispose()
+        {
+            if (ItemEntity != null)
+                ScriptableObject.Destroy(ItemEntity);
+            if (_resourcePrefab != null)
+                GameObject.Destroy(_resourcePrefab);
+            Icon = null;
+            IconInWorld = null;
         }
     }
 }

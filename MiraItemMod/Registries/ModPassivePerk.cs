@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModPassivePerk : IModDamageId
+    public class ModPassivePerk : IModDamageId, IDisposable
     {
         public static ModPassivePerk CreatePassivePerk(ModPassive parent, string name, EPassivePerkLv lv)
         {
@@ -60,6 +60,13 @@ namespace MiraItemMod.Registries
                 Core.LoggerWarning($"{Parent.Name} Perk {Name}: PerkSupplier is null");
             }
             return o;
+        }
+        public void Dispose()
+        {
+            if (PerkPrefab != null)
+                GameObject.Destroy(PerkPrefab);
+            if (DamageIdEntity != null)
+                ScriptableObject.Destroy(DamageIdEntity);
         }
     }
 }

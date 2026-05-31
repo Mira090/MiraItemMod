@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModWeapon
+    public class ModWeapon : IDisposable
     {
         public static ModWeapon CreateWeapon(string name, int copy, int dependency = -1)
         {
@@ -269,6 +269,41 @@ namespace MiraItemMod.Registries
             Basic,
             Dash,
             Special
+        }
+        public virtual void Dispose()
+        {
+            if (WeaponEntity != null)
+                ScriptableObject.Destroy(WeaponEntity);
+            if (MainWeaponPrefab != null)
+                GameObject.Destroy(MainWeaponPrefab);
+            if(NewBasicAttacks != null)
+            {
+                foreach (var attack in NewBasicAttacks)
+                {
+                    if (attack != null)
+                        ScriptableObject.Destroy(attack);
+                }
+                NewBasicAttacks.Clear();
+            }
+            if(NewDashAttacks != null)
+            {
+                foreach (var attack in NewDashAttacks)
+                {
+                    if (attack != null)
+                        ScriptableObject.Destroy(attack);
+                }
+                NewDashAttacks.Clear();
+            }
+            if(NewSpecialAttacks != null)
+            {
+                foreach (var attack in NewSpecialAttacks)
+                {
+                    if (attack != null)
+                        ScriptableObject.Destroy(attack);
+                }
+                NewSpecialAttacks.Clear();
+            }
+            Icon = null;
         }
     }
 }

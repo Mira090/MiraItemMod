@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModCustomStatus
+    public class ModCustomStatus : IDisposable
     {
         public static ModCustomStatus CreateStatus(string name)
         {
@@ -79,6 +79,13 @@ namespace MiraItemMod.Registries
             entity.symbol = Symbol;
             entity.statKeyword = StatKeyword;
             return entity;
+        }
+        public void Dispose()
+        {
+            if (StatusEntity != null)
+                ScriptableObject.Destroy(StatusEntity);
+            if (Keyword != null)
+                Keyword.Dispose();
         }
     }
 }

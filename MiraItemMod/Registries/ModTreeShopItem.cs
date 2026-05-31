@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MiraItemMod.Registries
 {
-    public class ModTreeShopItem
+    public class ModTreeShopItem : IDisposable
     {
         public static ModTreeShopItem CreateTreeShopItem(string name, int id, int dependency, ELinePos line, params int[] prices)
         {
@@ -76,6 +77,13 @@ namespace MiraItemMod.Registries
             entity.icon = Icon?.Invoke() ?? copy.icon;
             entity.bg = copy.bg;
             return entity;
+        }
+        public void Dispose()
+        {
+            if (Entity != null)
+                ScriptableObject.Destroy(Entity);
+            if (Icon != null)
+                Icon = null;
         }
         public enum ELinePos
         {

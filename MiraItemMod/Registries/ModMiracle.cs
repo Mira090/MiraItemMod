@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModMiracle
+    public class ModMiracle : IDisposable
     {
         public static ModMiracle Create(string name)
             => new ModMiracle().SetMiracle<Miracle>(name);
@@ -76,6 +76,12 @@ namespace MiraItemMod.Registries
             if (ManuallyGivenItems == null)
                 return new ItemEntity[0];
             return ManuallyGivenItems?.Invoke();
+        }
+        public void Dispose()
+        {
+            if (Prefab != null)
+                GameObject.Destroy(Prefab);
+            MiracleImage = null;
         }
     }
 }

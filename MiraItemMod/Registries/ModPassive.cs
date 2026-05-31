@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModPassive
+    public class ModPassive : IDisposable
     {
         public static ModPassive CreatePassive(string name, Color mainColor, params string[] stats)
         {
@@ -73,6 +73,17 @@ namespace MiraItemMod.Registries
             entity.lv10PerkPrefab = Lv10Perk?.PerkPrefab;
             entity.lv20PerkPrefab = Lv20Perk?.PerkPrefab;
             return entity;
+        }
+        public void Dispose()
+        {
+            if (PassiveEntity != null)
+                ScriptableObject.Destroy(PassiveEntity);
+            if (Lv5Perk != null)
+                Lv5Perk.Dispose();
+            if (Lv10Perk != null)
+                Lv10Perk.Dispose();
+            if (Lv20Perk != null)
+                Lv20Perk.Dispose();
         }
     }
 }

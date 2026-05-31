@@ -8,7 +8,7 @@ using static Miracle;
 
 namespace MiraItemMod.Registries
 {
-    public class ModEffectHUD
+    public class ModEffectHUD : IDisposable
     {
         public static ModEffectHUD CreateStackEffectHUD(string name, UI_EffectHUD_Basic.EEffectType type)
         {
@@ -60,6 +60,12 @@ namespace MiraItemMod.Registries
         {
             Stack,
             Buff
+        }
+        public void Dispose()
+        {
+            if (ResourcePrefab != null)
+                GameObject.Destroy(ResourcePrefab);
+            Icon = null;
         }
     }
 }

@@ -9,7 +9,7 @@ using static Miracle;
 
 namespace MiraItemMod.Registries
 {
-    public class ModComboEffect : IModDamageId
+    public class ModComboEffect : IModDamageId , IDisposable
     {
         public static ModComboEffect Create(string name, bool requireStartUpItem = false)
             => new ModComboEffect().SetCombo<ComboEffectBase>(name, requireStartUpItem);
@@ -103,6 +103,16 @@ namespace MiraItemMod.Registries
             combo.defaultEffect = DefaultEffect;
             combo.enabled = false;
             return o;
+        }
+        public void Dispose()
+        {
+            if (ItemCategoryEntity != null)
+                ScriptableObject.Destroy(ItemCategoryEntity);
+            if (_resourcePrefab != null)
+                GameObject.Destroy(_resourcePrefab);
+            Icon = null;
+            IconFruit = null;
+            IconFruitIce = null;
         }
     }
 }

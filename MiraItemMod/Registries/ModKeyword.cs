@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModKeyword
+    public class ModKeyword : IDisposable
     {
         public static ModKeyword CreateKeyword(string name)
         {
@@ -81,6 +81,11 @@ namespace MiraItemMod.Registries
                 entity.keywordImage = KeywordImage();
             entity.connectedDetailEntities = new KeywordEntity[0];
             return entity;
+        }
+        public void Dispose()
+        {
+            if (KeywordEntity != null)
+                ScriptableObject.Destroy(KeywordEntity);
         }
     }
 }

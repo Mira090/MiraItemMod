@@ -59,5 +59,19 @@ namespace MiraItemMod.Registries
                     simple.secondSpecialAttackEnhancedFireData = NewSecondSpecialAttacks.SafeRandomAccess(1);
             }
         }
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            if (NewSecondSpecialAttacks != null)
+            {
+                foreach (var attack in NewSecondSpecialAttacks)
+                {
+                    if (attack != null)
+                        ScriptableObject.Destroy(attack);
+                }
+                NewSecondSpecialAttacks.Clear();
+            }
+        }
     }
 }
