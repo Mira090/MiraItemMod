@@ -1,6 +1,8 @@
 ﻿using MiraItemMod.Utilities;
+using Mirror;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,12 +21,10 @@ namespace MiraItemMod
                 if (F2)
                     return;
                 var sprites = Sprite.FindObjectsByType<SpriteFx>(FindObjectsSortMode.None);
-                Core.Logger("Count: " + sprites.Length);
-                GameLogWriter.Instance.WriteLog("Count: " + sprites.Length, Color.white);
+                Log("Count: " + sprites.Length);
                 foreach (var sprite in sprites)
                 {
-                    Core.Logger($"name: {sprite.name}");
-                    GameLogWriter.Instance.WriteLog($"name: {sprite.name}", Color.white);
+                    Log($"name: {sprite.name}");
                 }
                 F2 = true;
             }
@@ -37,12 +37,10 @@ namespace MiraItemMod
                 if (F3)
                     return;
                 var melees = Sprite.FindObjectsByType<MeleeCollision>(FindObjectsSortMode.None);
-                Core.Logger("Count: " + melees.Length);
-                GameLogWriter.Instance.WriteLog("Count: " + melees.Length, Color.white);
+                Log("Count: " + melees.Length);
                 foreach (var melee in melees)
                 {
-                    Core.Logger($"name: {melee.name}");
-                    GameLogWriter.Instance.WriteLog($"name: {melee.name}", Color.white);
+                    Log($"name: {melee.name}");
                 }
                 F3 = true;
             }
@@ -54,22 +52,45 @@ namespace MiraItemMod
             {
                 if (F1)
                     return;
-                var debuffs = ReflectionExtensions.GetDebuffEntities();
-                Core.Logger("Count: " + debuffs.Count);
-                GameLogWriter.Instance.WriteLog("Count: " + debuffs.Count, Color.white);
-                foreach (var debuff in debuffs)
-                {
-                    Core.Logger($"key: {debuff.Key}");
-                    GameLogWriter.Instance.WriteLog($"key: {debuff.Key}", Color.white);
-                    Core.Logger($"name: {debuff.Value.name}");
-                    GameLogWriter.Instance.WriteLog($"name: {debuff.Value.name}", Color.white);
-                }
+                LogCurrentWeapon();
                 F1 = true;
             }
             else
             {
                 F1 = false;
             }
+        }
+        private void LogAllDebuff()
+        {
+            var debuffs = ReflectionExtensions.GetDebuffEntities();
+            Log("Count: " + debuffs.Count);
+            foreach (var debuff in debuffs)
+            {
+                Log($"key: {debuff.Key}");
+                Log($"name: {debuff.Value.name}");
+            }
+        }
+        private void LogCurrentWeapon()
+        {
+            try
+            {
+                if (NetworkClient.localPlayer.gameObject.TryGetComponent<PlayerAvatar>(out var player))
+                {
+                    var cont = player.GetWeaponController();
+                    var weapon = WeaponDatabase.FindWeaponById(cont.currentWeapon.NetworkentityId);
+                    Log(weapon.ToAllString());
+                    Log(cont.currentWeapon.basicComboAttacks.FirstOrDefault().ToAllString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Core.LoggerError(ex);
+            }
+        }
+        private void Log(string text)
+        {
+            Core.Logger(text);
+            GameLogWriter.Instance.WriteLog(text, Color.white);
         }
     }
 }

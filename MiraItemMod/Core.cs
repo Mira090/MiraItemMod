@@ -56,6 +56,10 @@ namespace MiraItemMod
         {
             Debug.LogError("[MiraItemMod] " + message);
         }
+        public static void LoggerError(System.Exception message)
+        {
+            Debug.LogError("[MiraItemMod] " + message);
+        }
         public static string ItemId
         {
             get
