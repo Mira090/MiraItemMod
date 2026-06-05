@@ -2228,7 +2228,7 @@ namespace MiraItemMod
             .AddFireDataModifiers(x => x.SetDamageMultiplier(1.75f * 0.8f));
         /// <summary>
         /// Weapon_Staff_Flag_T2_Name
-        /// 黄色い旗
+        /// 通商の印
         /// WeaponAddon_Staff_Flag_T2_Effect
         /// <tag=Negotiation>が10増加し、<tag=Leaf>の獲得量が50%増加します。
         public static ModWeapon QuarterstaffFlag { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T2", 500).SetEnhanceFromId(500).SetMainPrefabModifier(main =>
