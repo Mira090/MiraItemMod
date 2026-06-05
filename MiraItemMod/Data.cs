@@ -2334,6 +2334,46 @@ namespace MiraItemMod
         })
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Special, 406, () => new ModSpriteFx[] { null, null })
             .AddFireDataModifier(ModWeapon.EAttackType.Special, x=>x.SetDamageElemental(EDamageElementalType.Fire));
+        /// <summary>
+        /// Weapon_Katana_Lightning_T3_Plasma_Name
+        /// クールボルト
+        /// WeaponAddon_Katana_Lightning_T3_Plasma_Effect
+        /// <tag=WeaponAction_BasicAttack>のダメージが<tag=IceDamage>80%+<tag=LightningDamage>80%に変更され、<tag=WeaponAction_BasicAttack>が命中した時、<tag=SnowCloud>が発動します。ただし「刀熱」ゲージが増加し、100%を超えた場合はダメージを受けます。\n<tag=WeaponAction_SpecialAttack>が<tag=IceDamage>に変更され、納刀時は継続的に「刀熱」ゲージが減少します。
+        public static ModWeapon KatanaLightningCooldown { get; } = ModWeaponKatana.CreateKatana("Katana_Lightning_T3_Cooldown", 404, 404).SetMainPrefabModifier(main =>
+        {
+            if (main.gameObject.TryGetComponent<WeaponAddonCommon_ElementalBased>(out var status))
+            {
+                var @unsafe = main.gameObject.AddComponent<WeaponAddonKatana_Cooldown>();
+
+
+                @unsafe.effectText = new LocalizedString("WeaponAddon_Katana_Lightning_T3_Cooldown_Effect");
+                @unsafe.parent = status.parent;
+
+                main.addons = new WeaponAddon[] { status, @unsafe };
+
+                if (main is WeaponSimple_Katana katana)
+                {
+                    if (ModWeapon.KatanaBar != null)
+                    {
+                        var bar = UnityEngine.Object.Instantiate(ModWeapon.KatanaBar, katana.transform);
+                        bar.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                        katana.SetKatanaBar(bar);
+                        //Core.LoggerError("katanaBarPrefab Set: " + katana.GetKatanaBar());
+                    }
+                    else
+                    {
+                        Core.LoggerError("katanaBarPrefab is null");
+                    }
+                    katana.hasKatanaGauge = true;
+                    katana.useAutoFillOnSheath = true;
+                    katana.autoFillOnSheathSpeed = -0.33f;
+                    katana.katanaGaugeDisappearSpeed = 0f;
+                    katana.SetCurrentKatanaGauge(0);
+                }
+            }
+        })
+            .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Special, 406, () => new ModSpriteFx[] { KatanaIceSpecialAttackFx, KatanaIceSpecialAttackFx })
+            .AddFireDataModifier(ModWeapon.EAttackType.Special, x => x.SetDamageElemental(EDamageElementalType.Ice));
         #endregion
 
         #region Passives
@@ -2407,8 +2447,13 @@ namespace MiraItemMod
         public static ModSpriteFx KatanaPlasmaAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_1", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning2(M)_", 6).SetFps(20);
         public static ModSpriteFx KatanaPlasmaAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_2", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning3(M)_", 8).SetFps(20);
         //public static ModSpriteFx KatanaFireSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Fire", "KatanaSwingSheathAttackFx_Fire0", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_SheathAttack_Fire0_", 10).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_0", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning1(M)_", 5).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_1", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning2(M)_", 6).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_2", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning3(M)_", 8).SetFps(20);
+        public static ModSpriteFx KatanaIceSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Ice", "KatanaSwingSheathAttackFx_Fire0", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_SheathAttack_Fire0_", 8).SetFps(20);
 
         public static ModSpriteFx[] KatanaPlasmaAttack => new ModSpriteFx[] { KatanaPlasmaAttack1Fx, KatanaPlasmaAttack2Fx, KatanaPlasmaAttack3Fx };
+        public static ModSpriteFx[] KatanaCooldownAttack => new ModSpriteFx[] { KatanaCooldownAttack1Fx, KatanaCooldownAttack2Fx, KatanaCooldownAttack3Fx };
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);

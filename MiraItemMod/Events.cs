@@ -1349,6 +1349,7 @@ namespace MiraItemMod
         #region RelatedStatFormula
         public static readonly string DefenseRelatedStatFormula = "DEFENSE";
         public static readonly string PlasmaRelatedStatFormula = "PLASMA";
+        public static readonly string CooldownRelatedStatFormula = "COOLDOWN";
 
         [HarmonyPatch(typeof(WeaponSimple), "GetRelatedStatMultiplier")]
         public static class RelatedStatFormulaPatch
@@ -1370,6 +1371,13 @@ namespace MiraItemMod
                     var lightning = owner.GetCustomStat(ECustomStat.LightningDamage);
                     __result = (fire + lightning) * 0.6f;
                     result = EDamageElementalType.FireAndLightning;
+                }
+                else if (relatedStatFormula == CooldownRelatedStatFormula)
+                {
+                    var ice = owner.GetCustomStat(ECustomStat.IceDamage);
+                    var lightning = owner.GetCustomStat(ECustomStat.LightningDamage);
+                    __result = (ice + lightning) * 0.8f;
+                    result = EDamageElementalType.IceAndLightning;
                 }
             }
         }

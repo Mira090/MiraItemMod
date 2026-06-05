@@ -10,6 +10,7 @@ namespace MiraItemMod.Weapons
     public class WeaponAddonKatana_Plasma : WeaponAddon
     {
         public static Dictionary<int, NewWeaponFireData> PlasmaAttacks = new Dictionary<int, NewWeaponFireData>();
+        public static Dictionary<int, NewWeaponFireData> CooldownAttacks = new Dictionary<int, NewWeaponFireData>();
         public int percent = 70;
         public override Loc.KeywordValue[] BuildKeywords()
         {
@@ -38,8 +39,8 @@ namespace MiraItemMod.Weapons
                     avatar.ApplyDebuff(50.Percent() ? SephiriaPrefabs.Burn : SephiriaPrefabs.Electric, parent.Networkowner.unitAvatar);
                     parent.Networkowner.unitAvatar.AddCustomStatUnsafe("PLASMAACTIVE", -1);
                 }
-                }
             }
+        }
 
         protected override void OnDisableAddon()
         {
@@ -51,16 +52,16 @@ namespace MiraItemMod.Weapons
         {
             static void Postfix(WeaponSimple_Katana __instance, ref NewWeaponFireData __result, int idx, string parameter)
             {
-                if (__instance.Networkowner.unitAvatar.GetCustomStatUnsafe("PlasmaKatana".ToUpperInvariant()) <= 0)
-                    return;
                 foreach (var addon in __instance.addons)
                 {
                     if(addon is WeaponAddonKatana_Plasma plasma)
                     {
+                        if (__instance.Networkowner.unitAvatar.GetCustomStatUnsafe("PlasmaKatana".ToUpperInvariant()) <= 0)
+                            continue;
                         if (PlasmaAttacks.ContainsKey(idx))
                         {
                             __result = PlasmaAttacks[idx];
-                            return;
+                            continue;
                         }
                         else if(__result is NewWeaponFireData_MeleeAttack melee)
                         {
@@ -69,7 +70,24 @@ namespace MiraItemMod.Weapons
                             attack.swingFxPrefab = Data.KatanaPlasmaAttack.SafeRandomAccess(idx).ResourcePrefab;
                             PlasmaAttacks[idx] = attack;
                             __result = attack;
-                            return;
+                            continue;
+                        }
+                    }
+                    else if(addon is WeaponAddonKatana_Cooldown cooldown)
+                    {
+                        if (CooldownAttacks.ContainsKey(idx))
+                        {
+                            __result = CooldownAttacks[idx];
+                            continue;
+                        }
+                        else if (__result is NewWeaponFireData_MeleeAttack melee)
+                        {
+                            var attack = ModWeapon.CopyNewWeaponFireData(melee);
+                            attack.SetRelatedStatFormula(Events.CooldownRelatedStatFormula);
+                            attack.swingFxPrefab = Data.KatanaCooldownAttack.SafeRandomAccess(idx).ResourcePrefab;
+                            CooldownAttacks[idx] = attack;
+                            __result = attack;
+                            continue;
                         }
                     }
                 }
