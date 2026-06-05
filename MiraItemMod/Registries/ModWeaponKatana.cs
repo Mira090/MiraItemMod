@@ -17,9 +17,11 @@ namespace MiraItemMod.Registries
         {
             SetWeapon(name, copy, dependency);
             ScabbardSpriteFileName = ModUtil.WeaponPath + name + "_Scabbard";
+            SheathSpriteFileName = ModUtil.WeaponPath + name + "_Sheath";
             return this;
         }
         public string ScabbardSpriteFileName { get; internal set; }
+        public string SheathSpriteFileName { get; internal set; }
 
         public override void Init(WeaponEntity copy)
         {
@@ -50,17 +52,94 @@ namespace MiraItemMod.Registries
                             newState.frameEvents = state.frameEvents;
                             newState.soundEvents = state.soundEvents;
                             newState.transformAttributes = state.transformAttributes;
-                            newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(MainSpriteFileName) } };
+                            foreach (var frame in state.timeline)
+                            {
+                                AssetLoader.SaveSprite(frame.sprite, frame.sprite.name);
+                            }
+                            if (state.state == "SHEATH" && !string.IsNullOrEmpty(SheathSpriteFileName))
+                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(SheathSpriteFileName) ?? AssetLoader.LoadSprite(MainSpriteFileName) } };
+                            else
+                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(MainSpriteFileName) } };
                             set.sprites.Add(newState);
                         }
                         animator.currentSet = set;
                     }
 
+                    /*
+                    Core.Logger(this.Name);
+                    for (int q = 0;q< simple.mainWeaponBody.transform.childCount; q++)
+                    {
+                        var chil = simple.mainWeaponBody.transform.GetChild(q);
+                        Core.Logger(chil.name);
+                        Core.Logger("sprite: " + chil.TryGetComponent<SpriteRenderer>(out var _));
+                    }
+                    if (simple is WeaponSimple_Katana k)
+                    {
+                        if (k.katanaHardeningAnimator != null)
+                            Core.Logger("Animator1: " + k.katanaHardeningAnimator.GetType());
+                        if (k.katanaHardeningScabbardAnimator != null)
+                            Core.Logger("Animator2: " + k.katanaHardeningScabbardAnimator.GetType());
+                        if (k.scabbardAnimator != null)
+                        {
+                            Core.Logger("Animator3: " + k.scabbardAnimator.GetType());
+                            var set = k.scabbardAnimator.currentSet;
+                            foreach (var state in set.sprites)
+                            {
+                                Core.Logger("State: " + state.state);
+                                foreach (var frame in state.timeline)
+                                {
+                                    Core.Logger("Frame: " + frame.frameIdx + " Sprite: " + frame.sprite.name);
+                                    //AssetLoader.SaveSprite(frame.sprite, Name + "_Scabbard_Frame" + frame.frameIdx);
+                                }
+                            }
+                        }
+                        if (k.katanaAnimator != null)
+                        {
+                            Core.Logger("Animator4: " + k.katanaAnimator.GetType());
+                            var set = k.katanaAnimator.currentSet;
+                            foreach (var state in set.sprites)
+                            {
+                                Core.Logger("State: " + state.state);
+                                foreach (var frame in state.timeline)
+                                {
+                                    Core.Logger("Frame: " + frame.frameIdx + " Sprite: " + frame.sprite.name);
+                                    //AssetLoader.SaveSprite(frame.sprite, Name + "_Scabbard_Frame" + frame.frameIdx);
+                                }
+                            }
+                        }
+                    }*/
+                    /*
                     var scabbard = simple.mainWeaponBody.transform.Find("Scabbard");
                     var scabbardSprite = AssetLoader.LoadSprite(ScabbardSpriteFileName);
                     if (scabbardSprite != null && scabbard != null && scabbard.gameObject.TryGetComponent<SpriteRenderer>(out var scabbardRenderer))
                     {
                         scabbardRenderer.sprite = scabbardSprite;
+                    }*/
+                    if (simple is WeaponSimple_Katana katana && katana.scabbardAnimator != null)
+                    {
+                        var set = ScriptableObject.CreateInstance<AnimationSet>();
+                        set.name = Name;
+                        set.sprites = new List<AnimationSet.StateInfo>();
+                        foreach (var state in katana.scabbardAnimator.currentSet.sprites)
+                        {
+                            var newState = new AnimationSet.StateInfo();
+                            newState.fps = state.fps;
+                            newState.state = state.state;
+                            newState.repeat = state.repeat;
+                            newState.frameEvents = state.frameEvents;
+                            newState.soundEvents = state.soundEvents;
+                            newState.transformAttributes = state.transformAttributes;
+                            foreach (var frame in state.timeline)
+                            {
+                                AssetLoader.SaveSprite(frame.sprite, frame.sprite.name);
+                            }
+                            if (state.state != "SHEATH" && !string.IsNullOrEmpty(ScabbardSpriteFileName))
+                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(ScabbardSpriteFileName, new Vector2(0.5f, 0f)) ?? state.timeline[0].sprite } };
+                            else
+                                newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = state.timeline[0].sprite } };
+                            set.sprites.Add(newState);
+                        }
+                        katana.scabbardAnimator.currentSet = set;
                     }
 
                     if (HasBladeSprite && simple.mainWeaponBody.bladeAddOnRenderer != null)
