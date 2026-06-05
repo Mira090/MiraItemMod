@@ -52,10 +52,6 @@ namespace MiraItemMod.Registries
                             newState.frameEvents = state.frameEvents;
                             newState.soundEvents = state.soundEvents;
                             newState.transformAttributes = state.transformAttributes;
-                            foreach (var frame in state.timeline)
-                            {
-                                AssetLoader.SaveSprite(frame.sprite, frame.sprite.name);
-                            }
                             if (state.state == "SHEATH" && !string.IsNullOrEmpty(SheathSpriteFileName))
                                 newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(SheathSpriteFileName) ?? AssetLoader.LoadSprite(MainSpriteFileName) } };
                             else
@@ -129,10 +125,6 @@ namespace MiraItemMod.Registries
                             newState.frameEvents = state.frameEvents;
                             newState.soundEvents = state.soundEvents;
                             newState.transformAttributes = state.transformAttributes;
-                            foreach (var frame in state.timeline)
-                            {
-                                AssetLoader.SaveSprite(frame.sprite, frame.sprite.name);
-                            }
                             if (state.state != "SHEATH" && !string.IsNullOrEmpty(ScabbardSpriteFileName))
                                 newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(ScabbardSpriteFileName, new Vector2(0.5f, 0f)) ?? state.timeline[0].sprite } };
                             else
