@@ -32,18 +32,14 @@ namespace MiraItemMod.Weapons
                 return;
             if (percent.Percent())
             {
-                if(damage.IsSameElementalType(EDamageElementalType.FireAndLightning))
+                if(damage.elementalType == EDamageElementalType.FireAndLightning)
                 {
                     parent.Networkowner.unitAvatar.AddCustomStatUnsafe("PLASMAACTIVE", 1);
                     avatar.ApplyDebuff(50.Percent() ? SephiriaPrefabs.Burn : SephiriaPrefabs.Electric, parent.Networkowner.unitAvatar);
                     parent.Networkowner.unitAvatar.AddCustomStatUnsafe("PLASMAACTIVE", -1);
                 }
-                else
-                {
-                    avatar.ApplyDebuff(SephiriaPrefabs.Burn, parent.Networkowner.unitAvatar);
                 }
             }
-        }
 
         protected override void OnDisableAddon()
         {

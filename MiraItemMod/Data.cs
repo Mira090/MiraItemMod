@@ -2298,7 +2298,7 @@ namespace MiraItemMod
         /// Weapon_Katana_Lightning_T3_Plasma_Name
         /// ブレードブラスター
         /// WeaponAddon_Katana_Lightning_T3_Plasma_Effect
-        /// <tag=WeaponAction_SpecialAttack>が<tag=FireDamage>に変更され、納刀時に「刀熱」を継続的に獲得します。「刀熱」が100%になると溶融バフを獲得します。\n溶融状態では通常攻撃のダメージが<tag=FireDamage>60%+<tag=LightningDamage>60%に変更され、<tag=WeaponAction_BasicAttack>が命中した時、{PERCENT}の確率で<tag=Plasma>を付与します。
+        /// <tag=WeaponAction_SpecialAttack>が<tag=FireDamage>に変更され、納刀時に「刀熱」を継続的に獲得します。「刀熱」が100%になると溶融バフを獲得します。\n溶融状態では<tag=WeaponAction_BasicAttack>のダメージが<tag=FireDamage>60%+<tag=LightningDamage>60%に変更され、<tag=WeaponAction_BasicAttack>が命中した時、{PERCENT}の確率で<tag=Plasma>を付与します。
         public static ModWeapon KatanaLightningPlasma { get; } = ModWeaponKatana.CreateKatana("Katana_Lightning_T3_Plasma", 404, 404).SetMainPrefabModifier(main =>
         {
             if (main.gameObject.TryGetComponent<WeaponAddonCommon_ElementalBased>(out var status))
@@ -2326,8 +2326,8 @@ namespace MiraItemMod
                     }
                     katana.hasKatanaGauge = true;
                     katana.useAutoFillOnSheath = true;
-                    katana.autoFillOnSheathSpeed = 0.2f;
-                    katana.katanaGaugeDisappearSpeed = 0.05f;
+                    katana.autoFillOnSheathSpeed = 0.3f;
+                    katana.katanaGaugeDisappearSpeed = 0.04f;
                     katana.SetCurrentKatanaGauge(0);
                 }
             }
