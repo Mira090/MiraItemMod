@@ -47,7 +47,7 @@ namespace MiraItemMod.Weapons
                 if(katana.GetCurrentKatanaGauge() > 1f)
                 {
                     katana.SetCurrentKatanaGauge(1f);
-                    var damage = DamageInstance.GetDamage(null, null, player.transform.position, long.MaxValue, UnityEngine.Random.Range(1f, 2f), EDamageType.ElementalEffectDamage, EDamageFromType.Trap, UnityEngine.Vector2.zero, 0, 0f);
+                    var damage = DamageInstance.GetDamage(null, null, player.transform.position, long.MaxValue, UnityEngine.Random.Range(1f, 3f), EDamageType.ElementalEffectDamage, EDamageFromType.Trap, UnityEngine.Vector2.zero, 0, 0f);
                     katana.Networkowner.unitAvatar.ApplyDamage(damage);
                 }
             }
