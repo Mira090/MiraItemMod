@@ -1392,7 +1392,7 @@ namespace MiraItemMod
         /// EffectHUD_WeaponDamageBuff_FlavorText
         /// <tag=FinalWeaponDamage>が増加します。
         /// </summary>
-        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("WeaponDamageBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("WeaponDamageBuff", UI_EffectHUD_Basic.EEffectType.Condition);
         public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", 8))
             .SetDefaultDuration(3f);
         /// <summary>
@@ -1410,9 +1410,18 @@ namespace MiraItemMod
         /// EffectHUD_PlasmaKatanaBuff_FlavorText
         /// 刀身が<tag=Plasma>に変化しています。
         /// </summary>
-        public static ModEffectHUD EffectPlasmaKatanaBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PlasmaKatanaBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectPlasmaKatanaBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PlasmaKatanaBuff", UI_EffectHUD_Basic.EEffectType.Condition);
         public static CharacterBuffMod_StatusInstance PlasmaKatanaBuff { get; } = CreateBuff("PlasmaKatanaBuff", "PlasmaKatanaBuff", 1, CreateBuffStatus("PlasmaKatana".ToSephiriaId(), 1))
             .SetDefaultDuration(18f);
+        /// <summary>
+        /// EffectHUD_GoldRushBuff_Name
+        /// ゴールドラッシュ
+        /// EffectHUD_GoldRushBuff_FlavorText
+        /// 自分が与えたダメージの10%の<tag=Leaf>を獲得します
+        /// </summary>
+        public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateStackEffectHUD("GoldRushBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static CharacterBuffMod_StatusInstance GoldRushBuff { get; } = CreateBuff("GoldRushBuff", "GoldRushBuff", 1, CreateBuffStatus("LeafSteal".ToSephiriaId(), 100))
+            .SetDefaultDuration(8f);
 
         /// <summary>
         /// EffectHUD_StargazeTablet_Name
@@ -1569,6 +1578,13 @@ namespace MiraItemMod
         /// </summary>
         public static ModCustomStatus PlasmaKatana { get; } = ModCustomStatus.CreateStatus("PlasmaKatana").DoKeyword(keyword => keyword.SetNotDisplayDetails());
         /// <summary>
+        /// Status_LeafSteal_Name
+        /// リーフ吸収
+        /// Status_LeafSteal_Description
+        /// 自分が与えたダメージの割合に応じて<tag=Leaf>を獲得します。(数値ごとに0.1%)
+        /// </summary>
+        public static ModCustomStatus LeafSteal { get; } = ModCustomStatus.CreateStatus("LeafSteal").DoKeyword(keyword => keyword.SetTextColor(new Color32(200, 120, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.LeafSteal));
+        /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
         /// Status_MagicExecution_Description
@@ -1649,13 +1665,6 @@ namespace MiraItemMod
         /// 対象の<tag=Leaf>を盗み取ります。<tag=Evasion>と同様の確率で盗み取る<tag=Leaf>が増加します。
         /// </summary>
         public static ModKeyword Looting { get; } = ModKeyword.CreateKeyword("Looting").SetTextColor(new Color32(200, 100, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.Looting);
-        /// <summary>
-        /// Status_LeafSteal_Name
-        /// リーフ吸収
-        /// Status_LeafSteal_Description
-        /// 自分が与えたダメージの割合に応じて<tag=Leaf>を獲得します。(数値ごとに0.1%)
-        /// </summary>
-        public static ModKeyword LeafSteal { get; } = ModKeyword.CreateKeyword("LeafSteal").SetTextColor(new Color32(200, 120, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.LeafSteal);
         #endregion
 
 
@@ -2239,6 +2248,29 @@ namespace MiraItemMod
             status.parent = main;
 
             main.addons = new WeaponAddon[] { status };
+
+            if (main is WeaponSimple_QuartterStaff staff)
+            {
+                staff.currentStaffExtend = 4 * staff.extendPixelPerUnit;
+            }
+        }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 17, 0, 20)).SetSizeFromTextureRect();
+        /// <summary>
+        /// Weapon_Staff_Flag_T3_Gold_Name
+        /// 黄金旗
+        /// WeaponAddon_Staff_Flag_T3_Gold_Effect
+        /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Negotiation>1につき1%の確率でゴールドラッシュバフを獲得します。ゴールドラッシュ状態では自分が与えたダメージの10%の<tag=Leaf>を獲得します
+        public static ModWeapon QuarterstaffFlagGold { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T3_Gold", 500).SetEnhanceFromId(500).SetEnhanceFromId(14019).SetMainPrefabModifier(main =>
+        {
+            var status = main.gameObject.AddComponent<WeaponAddonCommon_StatusUnsafe>();
+            status.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T2_Effect");
+            status.status = new WeaponAddonCommon_StatusUnsafe.Stat[] { CreateWeaponStat("STAFFEXTEND", 4), CreateWeaponStat("WEAPONRANGE", 30), CreateWeaponStat("MONEYDROP", 50), CreateWeaponStat("NEGOTIATION", 10) };
+            status.parent = main;
+
+            var @unsafe = main.gameObject.AddComponent<WeaponAddonCommon_GoldRush>();
+            @unsafe.effectText = new LocalizedString("WeaponAddon_Staff_Flag_T3_Gold_Effect");
+            @unsafe.parent = status.parent;
+
+            main.addons = new WeaponAddon[] { status, @unsafe };
 
             if (main is WeaponSimple_QuartterStaff staff)
             {

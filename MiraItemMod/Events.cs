@@ -1382,6 +1382,7 @@ namespace MiraItemMod
             }
         }
         #endregion
+        #region KatanaBar
         [HarmonyPatch(typeof(WeaponSimple_Katana), "Update")]
         public static class WeaponSimple_KatanaUpdatePatch
         {
@@ -1396,6 +1397,28 @@ namespace MiraItemMod
                     return true;
                 }
                 return true;
+            }
+        }
+        #endregion
+        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.ApplyDamage))]
+        public static class OnAttackUnitPatch
+        {
+            static void Postfix(UnitAvatar __instance, DamageInstance damage, EApplyDamageResult __result)
+            {
+                if (damage == null)
+                    return;
+                if (__result != EApplyDamageResult.Success)
+                    return;
+                if (__instance.monsterType == EMonsterType.Dummy)
+                    return;
+                if (damage.origin is UnitAvatar attacker)
+                {
+                    var stat = attacker.GetCustomStatUnsafe("StealLeaf".ToSephiriaUpperId());
+                    if(stat <= 0)
+                        return;
+                    var steal = (damage.damage / 1000f) * stat;
+                    attacker.AddMoney(Mathf.RoundToInt(steal));
+                }
             }
         }
     }
