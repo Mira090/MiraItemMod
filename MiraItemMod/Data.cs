@@ -2327,7 +2327,7 @@ namespace MiraItemMod
                     katana.hasKatanaGauge = true;
                     katana.useAutoFillOnSheath = true;
                     katana.autoFillOnSheathSpeed = 0.3f;
-                    katana.katanaGaugeDisappearSpeed = 0.04f;
+                    katana.katanaGaugeDisappearSpeed = 0.02f;
                     katana.SetCurrentKatanaGauge(0);
                 }
             }
