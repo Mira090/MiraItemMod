@@ -2247,7 +2247,7 @@ namespace MiraItemMod
         }).SetBladeSprite(Vector3.zero).SetBorder(new Vector4(0, 17, 0, 20)).SetSizeFromTextureRect();
         /// <summary>
         /// Weapon_Staff_Flag_T3_Cheer_Name
-        /// 先陣の旗
+        /// 先陣のしるべ
         /// WeaponAddon_Staff_Flag_T3_Cheer_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、{PERCENT}の確率で<tag=Leaf>を{LEAF}消費して、攻撃速度を{SPEED}増加させる励ましの旗を置きます。
         public static ModWeapon QuarterstaffFlagCheer { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T3_Cheer", 500).SetEnhanceFromId(500).SetEnhanceFromId(14019).SetMainPrefabModifier(main =>
