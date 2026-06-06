@@ -870,7 +870,7 @@ namespace MiraItemMod
         /// Item_Auto_MagicDarkCloud_Effect
         /// <tag=MP>を消費するかわりに<tag=DarkCloud>を{CLOUD}消費して、上の枠にある<tag=Magic>を{COOLDOWN}秒遅れて自動発動する
         /// </summary>
-        public static ModCharm AutoMagicDarkCloud { get; } = ModCharmStatus.Create<Charm_AutoMagicDarkCloud>("AutoMagicDarkCloud", 5, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 10, 20, 30, 40, 60, 80))
+        public static ModCharm AutoMagicDarkCloud { get; } = ModCharmStatus.Create<Charm_AutoMagicDarkCloud>("AutoMagicDarkCloud", 3, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 10, 20, 30, 40))
             .SetCategory(ItemCategories.Academy, ItemCategories.DarkCloud).SetIsDual().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
         /// Item_MoreShop_Name

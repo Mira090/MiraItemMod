@@ -10,8 +10,8 @@ namespace MiraItemMod.Items
 {
     public class Charm_AutoMagicDarkCloud : Charm_StatusInstance
     {
-        public float[] cooldownByLevel = new float[] { 6, 6, 5, 5, 4, 3 };
-        public int[] cloud = new int[] { 30, 27, 24, 20, 16, 12 };
+        public float[] cooldownByLevel = new float[] { 3, 2, 1, 0 };
+        public int[] cloud = new int[] { 8, 6, 4, 3 };
 
         public Sprite magicCharmIconSprite;
 
