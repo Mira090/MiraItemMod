@@ -349,6 +349,24 @@ namespace MiraItemMod
             };
         }
 
+        #region アイテム追加関連パッチ
+        [HarmonyPatch(typeof(TreeShopItemStorage), nameof(TreeShopItemStorage.Load))]
+        public static class TreeShopItemStorageLoadPatch
+        {
+            static void Postfix(TreeShopItemStorage __instance)
+            {
+                Core.LoggerFew("unlockedCharms");
+                var player = __instance.GetComponent<PlayerSpawner>();
+                var list = player.unlockedCharms.Distinct().ToList();
+                player.unlockedCharms.Clear();
+                player.unlockedCharms.AddRange(list);
+                foreach (var item in player.unlockedCharms.OrderBy(x => x))
+                {
+                    Core.LoggerFew("Id: " + item);
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(PlayerSpawner), nameof(PlayerSpawner.OnStartServer))]
         public static class PlayerSpawnerOnStartServerPatch
         {
@@ -364,30 +382,30 @@ namespace MiraItemMod
                     }
                     if (itemEntity.activeType == EItemActiveType.Default)
                     {
-                        if (itemEntity.type == EItemType.Charm)
+                        if (itemEntity.type == EItemType.Charm && !__instance.unlockedCharms.Contains(itemEntity.id))
                         {
                             __instance.unlockedCharms.Add(itemEntity.id);
                         }
-                        else if (itemEntity.type == EItemType.StoneTablet)
+                        else if (itemEntity.type == EItemType.StoneTablet && !__instance.unlockedStoneTablets.Contains(itemEntity.id))
                         {
                             __instance.unlockedStoneTablets.Add(itemEntity.id);
                         }
-                        else if (itemEntity.type == EItemType.Potion)
+                        else if (itemEntity.type == EItemType.Potion && !__instance.unlockedPotions.Contains(itemEntity.id))
                         {
                             __instance.unlockedPotions.Add(itemEntity.id);
                         }
                     }
                     else if (itemEntity.activeType == EItemActiveType.TestOnly && (bool)ScreenFader.Instance && ScreenFader.Instance.IsTestMode)
                     {
-                        if (itemEntity.type == EItemType.Charm)
+                        if (itemEntity.type == EItemType.Charm && !__instance.unlockedCharms.Contains(itemEntity.id))
                         {
                             __instance.unlockedCharms.Add(itemEntity.id);
                         }
-                        else if (itemEntity.type == EItemType.StoneTablet)
+                        else if (itemEntity.type == EItemType.StoneTablet && !__instance.unlockedStoneTablets.Contains(itemEntity.id))
                         {
                             __instance.unlockedStoneTablets.Add(itemEntity.id);
                         }
-                        else if (itemEntity.type == EItemType.Potion)
+                        else if (itemEntity.type == EItemType.Potion && !__instance.unlockedPotions.Contains(itemEntity.id))
                         {
                             __instance.unlockedPotions.Add(itemEntity.id);
                         }
@@ -395,6 +413,8 @@ namespace MiraItemMod
                 }
             }
         }
+        #endregion
+
         [HarmonyPatch(typeof(Resources), nameof(Resources.LoadAll), new Type[] { typeof(string), typeof(Type) })]
         public static class ResourcesLoadAllPatch
         {

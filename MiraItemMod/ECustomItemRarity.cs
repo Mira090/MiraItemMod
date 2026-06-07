@@ -52,16 +52,20 @@ namespace MiraItemMod
         [HarmonyPatch(typeof(UI_DimensionPocketPanel), "Awake")]
         public static class UI_DimensionPocketPanelAwakePatch
         {
+            public static UI_JournalPanel_SearchOptionButton Button;
             public static void Prefix(UI_DimensionPocketPanel __instance)
             {
+                if (Button != null)
+                {
+                    UnityEngine.Object.Destroy(Button.gameObject);
+                }
                 EItemRarity rarity = ECustomItemRarity.Sacrifice.ToSephiria();
-                UI_JournalPanel_SearchOptionButton ui_JournalPanel_SearchOptionButton = GameObject.Instantiate<UI_JournalPanel_SearchOptionButton>(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
-                UI_JournalPanel_SearchOptionButton ui_JournalPanel_SearchOptionButton2 = ui_JournalPanel_SearchOptionButton;
+                Button = GameObject.Instantiate<UI_JournalPanel_SearchOptionButton>(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
                 string showText = ItemDatabase.GetItemRarityName(rarity).ToString();
                 string data = rarity.ToString();
                 Action<UI_JournalPanel_SearchOptionButton> onButtonClick = new Action<UI_JournalPanel_SearchOptionButton>(__instance.SelectRarity);
-                ui_JournalPanel_SearchOptionButton2.Initialize(showText, data, onButtonClick, new Color(0.75f, 0, 0), null);
-                __instance.GetRarityOptionButtons().Add(ui_JournalPanel_SearchOptionButton);
+                Button.Initialize(showText, data, onButtonClick, new Color(0.75f, 0, 0), null);
+                __instance.GetRarityOptionButtons().Add(Button);
             }
         }
         [HarmonyPatch(typeof(UI_DimensionPocketPanel), nameof(UI_DimensionPocketPanel.GetCapacity), new Type[] { typeof(EItemRarity) })]
@@ -78,16 +82,20 @@ namespace MiraItemMod
         [HarmonyPatch(typeof(UI_JournalContent_Item), nameof(UI_JournalContent_Item.Initialize))]
         public static class UI_JournalContent_ItemInitializePatch
         {
+            public static UI_JournalPanel_SearchOptionButton Button;
             public static void Prefix(UI_JournalContent_Item __instance)
             {
+                if(Button != null)
+                {
+                    UnityEngine.Object.Destroy(Button.gameObject);
+                }
                 EItemRarity value = ECustomItemRarity.Sacrifice.ToSephiria();
-                UI_JournalPanel_SearchOptionButton uI_JournalPanel_SearchOptionButton = UnityEngine.Object.Instantiate(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
-                UI_JournalPanel_SearchOptionButton uI_JournalPanel_SearchOptionButton2 = uI_JournalPanel_SearchOptionButton;
+                Button = UnityEngine.Object.Instantiate(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
                 string showText = ItemDatabase.GetItemRarityName(value).ToString();
                 string data = value.ToString();
                 Action<UI_JournalPanel_SearchOptionButton> onButtonClick = __instance.SelectRarity;
-                uI_JournalPanel_SearchOptionButton2.Initialize(showText, data, onButtonClick, new Color(0.75f, 0, 0));
-                __instance.GetRarityOptionButtons().Add(uI_JournalPanel_SearchOptionButton);
+                Button.Initialize(showText, data, onButtonClick, new Color(0.75f, 0, 0));
+                __instance.GetRarityOptionButtons().Add(Button);
             }
         }
         [HarmonyPatch(typeof(UI_ItemIcon), nameof(UI_ItemIcon.UpdateRarityBG))]
