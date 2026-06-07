@@ -6,12 +6,68 @@ using System.Reflection;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using static LibraryFloorGenerator;
 
 namespace MiraItemMod.Utilities
 {
     public static class ReflectionExtensions
     {
+        public static bool TryGetField<T>(this object instance, string name, out T result)
+        {
+            try
+            {
+                result = (T)instance.GetType().GetField(name).GetValue(instance);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Core.LoggerError(ex);
+                result = default;
+                return false;
+            }
+        }
+        public static bool TryGetStaticField<T>(this Type type, string name, out T result)
+        {
+            try
+            {
+                result = (T)type.GetField(name).GetValue(type);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Core.LoggerError(ex);
+                result = default;
+                return false;
+            }
+        }
+        public static bool TryGetProperty<T>(this object instance, string name, out T result)
+        {
+            try
+            {
+                result = (T)instance.GetType().GetProperty(name).GetValue(instance);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Core.LoggerError(ex);
+                result = default;
+                return false;
+            }
+        }
+        public static bool TryGetStaticProperty<T>(this Type type, string name, out T result)
+        {
+            try
+            {
+                result = (T)type.GetProperty(name).GetValue(type);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Core.LoggerError(ex);
+                result = default;
+                return false;
+            }
+        }
+
         public static SkillController GetSkillController(this PlayerAvatar player)
         {
             return typeof(PlayerAvatar).GetField("skillController", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(player) as SkillController;
