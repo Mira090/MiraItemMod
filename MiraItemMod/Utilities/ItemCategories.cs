@@ -127,5 +127,11 @@ namespace MiraItemMod.Utilities
         /// 魔導書
         /// </summary>
         public static string Grimoire { get; private set; }
+
+        /// <summary>
+        /// 彗星
+        /// </summary>
+        /// <remarks>Star's Sephiria Mod</remarks>
+        public static string Comet { get; private set; }
     }
 }

@@ -166,10 +166,14 @@ namespace MiraItemMod
                 ModSingletonObject = new GameObject();
                 ModSingletonObject.AddComponent<ModSingletonBehavior>();
             }
+
+            ModCompat.LoadCompats();
         }
 
         protected override void OnModUnloaded()
         {
+            ModCompat.UnloadCompats();
+
             if (ModSingletonObject != null)
             {
                 UnityEngine.Object.Destroy(ModSingletonObject);

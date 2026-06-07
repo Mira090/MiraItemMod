@@ -76,6 +76,10 @@ namespace MiraItemMod.Utilities
         {
             return typeof(ItemDatabase).GetField("itemDictionary", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(ItemDatabase)) as Dictionary<int, ItemEntity>;
         }
+        public static Dictionary<string, ItemCategoryEntity> GetItemCategories()
+        {
+            return typeof(ItemDatabase).GetField("itemCategories", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(ItemDatabase)) as Dictionary<string, ItemCategoryEntity>;
+        }
         public static bool GetSweepRequest(this WeaponSimple_GreatSword instance)
         {
             return (bool)typeof(WeaponSimple_GreatSword).GetField("sweepRequest", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
