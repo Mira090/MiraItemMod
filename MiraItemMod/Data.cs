@@ -1339,7 +1339,7 @@ namespace MiraItemMod
         /// ItemCategory_Fortune
         /// 運命
         /// </summary>
-        public static ModComboEffect Fortune { get; } = ModComboEffect.Create("Fortune").SetStats(CreateComboStat(2, "LUCK/4"), CreateComboStat(4, "LUCK/8"));
+        public static ModComboEffect Fortune { get; } = ModComboEffect.Create("Fortune").SetStats(CreateComboStat(2, "BOSS_REWARD_DICE/1", "MINI_BOSS_REWARD_DICE/1"), CreateComboStat(4, "LUCK/4"), CreateComboStat(6, "LUCK/8"), CreateComboStat(8, "TRUE_DAMAGE/4"));
         /// <summary>
         /// ItemCategory_Grimoire
         /// 魔導書

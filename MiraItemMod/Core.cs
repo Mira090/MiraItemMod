@@ -443,7 +443,39 @@ namespace MiraItemMod
             }
             private static void ModifyItemCategoryEntity(ItemCategoryEntity category)
             {
-
+                if(category.id == ItemCategories.Savvy)
+                {
+                    try
+                    {
+                        if (category.comboEffectPrefab != null && category.comboEffectPrefab.TryGetComponent<ComboEffectBase>(out var combo))
+                        {
+                            combo.addStatByCombo = new ComboEffectBase.ComboStat[]
+                            {
+                                combo.addStatByCombo[0],
+                                combo.addStatByCombo[1],
+                                new ComboEffectBase.ComboStat()
+                                { 
+                                    comboCount = 6,
+                                    status = new string[]{ "ADDITIONAL_MONEY/500", "LEAF_DROP/35"},
+                                },
+                                new ComboEffectBase.ComboStat()
+                                {
+                                    comboCount = 8,
+                                    status = new string[]{"ADDITIONAL_MONEY/1000", "LEAF_DROP/50"},
+                                },
+                                new ComboEffectBase.ComboStat()
+                                {
+                                    comboCount = 10,
+                                    status = new string[]{ "NEGOTIATION/10", "ADDITIONAL_SHOP/2"},
+                                }
+                            };
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Core.LoggerError($"Error in ModifyItemCategoryEntity for category {category.id}: {ex}");
+                    }
+                }
             }
             private static void ModifyStatusEntity(StatusEntity status)
             {
