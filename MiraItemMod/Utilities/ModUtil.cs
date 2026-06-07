@@ -495,6 +495,15 @@ namespace MiraItemMod.Utilities
             }
             return sb.ToString();
         }
+        public static string ToEachString(this IEnumerable<object> objects)
+        {
+            var sb = new StringBuilder();
+            foreach (var obj in objects)
+            {
+                sb.AppendJoin(", ", obj.ToString());
+            }
+            return sb.ToString();
+        }
         public static ItemEntity[] AddRange<T>(this ItemEntity[] sequence, params T[] items) where T : ModItem
         {
             return HarmonyLib.CollectionExtensions.AddRangeToArray<ItemEntity>(sequence, items.Select(x => x.ItemEntity).ToArray());
