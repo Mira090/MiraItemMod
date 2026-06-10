@@ -227,5 +227,21 @@ namespace MiraItemMod.Utilities
                 Core.LoggerWarning(e);
             }
         }
+        public static void LoadSound()
+        {
+            FMOD.Sound playerSound;
+            FMOD.RESULT result = FMODUnity.RuntimeManager.CoreSystem.createSound(
+                GetAssetsFolder("\\audio.wav"),
+                FMOD.MODE._2D,
+                out playerSound
+            );
+
+            if (result == FMOD.RESULT.OK)
+            {
+                // Play the sound once loaded
+                FMODUnity.RuntimeManager.CoreSystem.playSound(playerSound, new FMOD.ChannelGroup(), false, out var channel);
+                //FMODUnity.RuntimeManager.CreateInstance(playerSound);
+            }
+        }
     }
 }
