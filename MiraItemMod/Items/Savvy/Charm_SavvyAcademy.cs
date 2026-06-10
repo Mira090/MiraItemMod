@@ -13,7 +13,7 @@ namespace MiraItemMod.Items.Savvy
 {
     public class Charm_SavvyAcademy : Charm_FireBulletInRange
     {
-        public LocalizedString itemName = new LocalizedString("Item_Jewelry_Coin_Name");
+        public LocalizedString itemName = new LocalizedString("Item_JewelryCoin_Name");
         public int[] mp = new int[] { 10 };
 
         public bool release;

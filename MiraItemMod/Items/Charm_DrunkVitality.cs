@@ -11,7 +11,7 @@ namespace MiraItemMod.Items
         public int[] heal = new int[] { 5, 5, 10 };
         public int[] percent = new int[] { 250 };
         public string damageId = "Charm_DrunkVitality";
-        public LocalizedString item = new LocalizedString("Item_First_Heal_Name");
+        public LocalizedString item = new LocalizedString("Item_FirstHeal_Name");
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             int b = 0;

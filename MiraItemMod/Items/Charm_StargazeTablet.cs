@@ -17,7 +17,7 @@ namespace MiraItemMod.Items
         private int countView = 0;
 
         private bool questCleared;
-        public static LocalizedString Notice = new LocalizedString("Item_Stargaze_Tablet_Notice");
+        public static LocalizedString Notice = new LocalizedString("Item_StargazeTablet_Notice");
 
         private int[] levelByLevel = new int[] { 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 18 };
 
