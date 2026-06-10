@@ -56,9 +56,7 @@ namespace MiraItemMod
             public static void Prefix(UI_DimensionPocketPanel __instance)
             {
                 if (Button != null)
-                {
-                    UnityEngine.Object.Destroy(Button.gameObject);
-                }
+                    return;
                 EItemRarity rarity = ECustomItemRarity.Sacrifice.ToSephiria();
                 Button = GameObject.Instantiate<UI_JournalPanel_SearchOptionButton>(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
                 string showText = ItemDatabase.GetItemRarityName(rarity).ToString();
@@ -86,9 +84,7 @@ namespace MiraItemMod
             public static void Prefix(UI_JournalContent_Item __instance)
             {
                 if(Button != null)
-                {
-                    UnityEngine.Object.Destroy(Button.gameObject);
-                }
+                    return;
                 EItemRarity value = ECustomItemRarity.Sacrifice.ToSephiria();
                 Button = UnityEngine.Object.Instantiate(__instance.searchOptionButtonPrefab, __instance.searchOptionButtonContainer);
                 string showText = ItemDatabase.GetItemRarityName(value).ToString();
