@@ -190,6 +190,7 @@ namespace MiraItemMod
 
             //Data.Dispose();
             WeaponAddonKatana_Plasma.PlasmaAttacks.Clear();
+            WeaponAddonKatana_Plasma.CooldownAttacks.Clear();
             Events.UIStatsPanelPatch.Patched = false;
 
             //IsInitialized = false;
