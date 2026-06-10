@@ -136,26 +136,29 @@ namespace MiraItemMod
         protected override void OnModLoaded()
         {
             base.OnModLoaded();
-            ModPatches = new Harmony("com.Mira.MiraItemMod");
-            ModPatches.PatchAll();
             if (!IsInitialized)
             {
                 IsInitialized = true;
+
+                ModPatches = new Harmony("com.Mira.MiraItemMod");
+                ModPatches.PatchAll();
+
                 CustomSpriteAsset.InitSprites();
-
                 Data.Init();
+
+                CustomSpriteAsset.InitSpriteAsset();
+
+                HorayModAPI.OnLoadItemDatabase += OnLoadItemDatabase;
+                HorayModAPI.OnLoadMiracleDatabase += OnLoadMiracleDatabase;
+                HorayModAPI.OnLoadStatusDatabase += OnLoadStatusDatabase;
+                HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
+                HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
+                HorayModAPI.OnLocalizationReady += OnLocalizationReady;
+
+                HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
+
+                ModCompat.LoadCompats();
             }
-
-            CustomSpriteAsset.InitSpriteAsset();
-
-            HorayModAPI.OnLoadItemDatabase += OnLoadItemDatabase;
-            HorayModAPI.OnLoadMiracleDatabase += OnLoadMiracleDatabase;
-            HorayModAPI.OnLoadStatusDatabase += OnLoadStatusDatabase;
-            HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
-            HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
-            HorayModAPI.OnLocalizationReady += OnLocalizationReady;
-
-            HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
 
             if (ModSingletonObject != null)
             {
@@ -166,12 +169,12 @@ namespace MiraItemMod
                 ModSingletonObject = new GameObject();
                 ModSingletonObject.AddComponent<ModSingletonBehavior>();
             }
-
-            ModCompat.LoadCompats();
         }
 
         protected override void OnModUnloaded()
         {
+            IsInitialized = false;
+
             ModCompat.UnloadCompats();
 
             if (ModSingletonObject != null)
@@ -189,11 +192,8 @@ namespace MiraItemMod
             HorayModAPI.OnLoadWeaponDatabase -= OnLoadWeaponDatabase;
 
             //Data.Dispose();
-            WeaponAddonKatana_Plasma.PlasmaAttacks.Clear();
-            WeaponAddonKatana_Plasma.CooldownAttacks.Clear();
+            WeaponAddonKatana_Plasma.Dispose();
             Events.UIStatsPanelPatch.Patched = false;
-
-            //IsInitialized = false;
 
             if (ModPatches != null)
             {
@@ -360,14 +360,14 @@ namespace MiraItemMod
         {
             static void Postfix(TreeShopItemStorage __instance)
             {
-                Core.LoggerFew("unlockedCharms");
+                //Core.LoggerFew("unlockedCharms");
                 var player = __instance.GetComponent<PlayerSpawner>();
                 var list = player.unlockedCharms.Distinct().ToList();
                 player.unlockedCharms.Clear();
                 player.unlockedCharms.AddRange(list);
-                foreach (var item in player.unlockedCharms.OrderBy(x => x))
+                //foreach (var item in player.unlockedCharms.OrderBy(x => x))
                 {
-                    Core.LoggerFew("Id: " + item);
+                    //Core.LoggerFew("Id: " + item);
                 }
             }
         }

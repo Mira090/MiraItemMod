@@ -9,8 +9,21 @@ namespace MiraItemMod.Weapons
 {
     public class WeaponAddonKatana_Plasma : WeaponAddon
     {
-        public static Dictionary<int, NewWeaponFireData> PlasmaAttacks = new Dictionary<int, NewWeaponFireData>();
-        public static Dictionary<int, NewWeaponFireData> CooldownAttacks = new Dictionary<int, NewWeaponFireData>();
+        public static readonly Dictionary<int, NewWeaponFireData> PlasmaAttacks = new Dictionary<int, NewWeaponFireData>();
+        public static readonly Dictionary<int, NewWeaponFireData> CooldownAttacks = new Dictionary<int, NewWeaponFireData>();
+        public static void Dispose()
+        {
+            foreach (var value in PlasmaAttacks.Values)
+            {
+                UnityEngine.Object.Destroy(value);
+            }
+            foreach (var value in CooldownAttacks.Values)
+            {
+                UnityEngine.Object.Destroy(value);
+            }
+            PlasmaAttacks.Clear();
+            CooldownAttacks.Clear();
+        }
         public int percent = 70;
         public override Loc.KeywordValue[] BuildKeywords()
         {
