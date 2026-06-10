@@ -1382,6 +1382,7 @@ namespace MiraItemMod
             }
         }
         #endregion
+
         #region KatanaBar
         [HarmonyPatch(typeof(WeaponSimple_Katana), "Update")]
         public static class WeaponSimple_KatanaUpdatePatch
@@ -1400,6 +1401,8 @@ namespace MiraItemMod
             }
         }
         #endregion
+
+        #region リーフ吸収
         [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.ApplyDamage))]
         public static class OnAttackUnitPatch
         {
@@ -1421,5 +1424,6 @@ namespace MiraItemMod
                 }
             }
         }
+        #endregion
     }
 }
