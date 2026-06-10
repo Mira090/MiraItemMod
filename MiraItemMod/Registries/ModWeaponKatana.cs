@@ -23,7 +23,7 @@ namespace MiraItemMod.Registries
         public string ScabbardSpriteFileName { get; internal set; }
         public string SheathSpriteFileName { get; internal set; }
 
-        public override void Init(WeaponEntity copy)
+        public override void InitPrefab(WeaponEntity copy)
         {
             //Core.Logger("CreateWeaponEntity from " + copy.name);
             WeaponWieldEntity = copy.wieldEntity;
@@ -38,12 +38,12 @@ namespace MiraItemMod.Registries
                     simple.mainWeaponBody.weaponSpriteRenderer.sprite = AssetLoader.LoadSprite(MainSpriteFileName);
                     simple.mainWeaponBody.weaponStencilRenderer.sprite = AssetLoader.LoadSprite(MainSpriteFileName);
 
-                    if(simple.mainWeaponBody.weaponSpriteRenderer.gameObject.TryGetComponent<Animator2D_MultipleSpriteRenderer>(out var animator))
+                    if (simple.mainWeaponBody.weaponSpriteRenderer.gameObject.TryGetComponent<Animator2D_MultipleSpriteRenderer>(out var animator))
                     {
                         var set = ScriptableObject.CreateInstance<AnimationSet>();
                         set.name = Name;
                         set.sprites = new List<AnimationSet.StateInfo>();
-                        foreach(var state in animator.currentSet.sprites)
+                        foreach (var state in animator.currentSet.sprites)
                         {
                             var newState = new AnimationSet.StateInfo();
                             newState.fps = state.fps;
@@ -175,8 +175,6 @@ namespace MiraItemMod.Registries
             }
 
             MainWeaponPrefab = main;
-
-            WeaponEntity = CreateWeaponEntity();
         }
     }
 }

@@ -74,7 +74,7 @@ namespace MiraItemMod.Registries
             var sprite = AssetLoader.LoadSprite(fileName);
             return sprite;
         }
-        public void InitPrefab(WeaponEntity copy)
+        public virtual void InitPrefab(WeaponEntity copy)
         {
             Core.LoggerMedium("CreateWeaponEntity from " + copy.name);
             WeaponWieldEntity = copy.wieldEntity;

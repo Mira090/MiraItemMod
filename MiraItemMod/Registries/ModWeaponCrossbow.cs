@@ -18,9 +18,9 @@ namespace MiraItemMod.Registries
             SetWeapon(name, copy, dependency);
             return this;
         }
-
-        public override void Init(WeaponEntity copy)
+        public override void InitPrefab(WeaponEntity copy)
         {
+            base.InitPrefab(copy);
             //Core.Logger("CreateWeaponEntity from " + copy.name);
             WeaponWieldEntity = copy.wieldEntity;
             var main = UnityEngine.Object.Instantiate(copy.mainWeaponPrefab);
@@ -48,7 +48,7 @@ namespace MiraItemMod.Registries
                             newState.frameEvents = state.frameEvents;
                             newState.soundEvents = state.soundEvents;
                             newState.transformAttributes = state.transformAttributes;
-                            if(state.state != "FIRE")
+                            if (state.state != "FIRE")
                             {
                                 newState.timeline = new List<AnimationSet.StateInfo.SpriteKeyFrame> { new AnimationSet.StateInfo.SpriteKeyFrame() { frameIdx = 0, sprite = AssetLoader.LoadSprite(MainSpriteFileName) } };
                             }
@@ -106,8 +106,6 @@ namespace MiraItemMod.Registries
             }
 
             MainWeaponPrefab = main;
-
-            WeaponEntity = CreateWeaponEntity();
         }
     }
 }
