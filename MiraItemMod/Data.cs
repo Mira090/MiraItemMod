@@ -228,7 +228,7 @@ namespace MiraItemMod
         /// 戦闘中に魔法を{QUEST}回使用すると、下の枠にある固有でないアカデミーアーティファクトに変わります。\n[魔法を使用した回数：{CURRENT}]
         /// </summary>
         public static ModCharm CopyAcademy { get; } = ModCharmStatus.Create<Charm_CopyAcademy>("CopyAcademy", 1, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 20, 40))
-            .SetCategory(ItemCategories.Academy).SetIsUniqueEffect().SetEffects("Charm_MagicianCoin_Effect", "Item_Copy_Academy_Effect").SetRarity(EItemRarity.Rare)
+            .SetCategory(ItemCategories.Academy).SetIsUniqueEffect().SetEffects("Charm_MagicianCoin_Effect", "Item_CopyAcademy_Effect").SetRarity(EItemRarity.Rare)
             .SetTreeShopItemEntity(TreeShopItems.NewCharmMagic2);
 
         /// <summary>
