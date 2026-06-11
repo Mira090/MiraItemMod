@@ -2507,14 +2507,14 @@ namespace MiraItemMod
 
         public static void GenerateItem(this LevelController level, ModSephirite sephirite, int seed)
         {
-            Debug.Log("[MiraItemMod][LevelController] GenerateItem: " + sephirite.Name);
+            Debug.Log("[MiraItemMod] [LevelController] GenerateItem: " + sephirite.Name);
             GameObject gameObject = UnityEngine.Object.Instantiate(sephirite.Prefab, new Vector3(-1000f, -1000f), Quaternion.identity);
             var identity = gameObject.AddComponent<NetworkIdentity>();
             identity.SetAssetId(sephirite.AssetId);
             Sephirite component = gameObject.GetComponent<Sephirite>();
             component.Initialize(seed);
             NetworkServer.Spawn(gameObject, level.gameObject);
-            Debug.Log("[MiraItemMod][LevelController] Spawn ModSephirite: " + gameObject.name);
+            Debug.Log("[MiraItemMod] [LevelController] Spawn ModSephirite: " + gameObject.name);
             level.levelUpQueue.Add(component);
         }
 
@@ -2725,7 +2725,9 @@ namespace MiraItemMod
             }
             //CustomCostumeDatabase.Initialize();
         }
+
         #region Registers
+        [Obsolete]
         public static void Register(List<UnityEngine.Object> list)
         {
             foreach (var moditem in All)
@@ -2844,20 +2846,6 @@ namespace MiraItemMod
             foreach(var entity in TreeShopItemDatabase.GetAll())
             {
                 var list = new List<ItemEntity>(entity.items);
-                /*
-                if (entity.id == 14000)//絆解放2
-                {
-                    var locked = Data.All.Where(x => x.IsDual && x.Rarity == EItemRarity.Rare).Select(x => x.ItemEntity).ToArray();
-                    locked.Do(entity => entity.activeType = EItemActiveType.Locked);
-                    entity.items = entity.items.AddRangeToArray(locked);
-                    //entity.items = entity.items.AddItem(ItemDatabase.FindItemById(1188)).ToArray();
-                }
-                if (entity.id == 1005)
-                {
-                    var locked = new ModItem[] { Data.CopyAcademy, Data.AutoBuff, Data.AutoMagicLegend };
-                    locked.Do(entity => entity.ItemEntity.activeType = EItemActiveType.Locked);
-                    entity.items = entity.items.AddRange(locked);
-                }*/
                 foreach (var item in Data.All)
                 {
                     if (!item.HasTreeShopItemEntity && entity.id == TreeShopItems.NewCharmDrunk && item.Categories.Contains(ItemCategories.Drunk))
@@ -2934,6 +2922,7 @@ namespace MiraItemMod
                 StatusDatabase.Register(moditem.StatusEntity);
             }
         }
+        [Obsolete]
         public static void RegisterWeapons(List<UnityEngine.Object> list)
         {
             var weapons = list.Select(x => x as WeaponEntity).ToList();
@@ -3093,6 +3082,7 @@ namespace MiraItemMod
                     moditem.WeaponEntity.standardEnhancements = enhances.Select(x => new EnhancementMetadata() { enabled = true, enhanced = x }).ToList();
             }
         }
+        [Obsolete]
         public static void RegisterCostume(List<UnityEngine.Object> list)
         {
             if (list[0] is CostumeEntity entity && entity.costumePrefab.TryGetComponent<PlayerAvatarCostume>(out var costume))
@@ -3101,6 +3091,7 @@ namespace MiraItemMod
                 list.AddRange(CustomCostumeDatabase.CreateAll());
             }
         }
+        [Obsolete]
         public static void RegisterCostumeSkin(List<UnityEngine.Object> list)
         {
             list.AddRange(CustomCostumeDatabase.CreateAllSkin());

@@ -2,6 +2,7 @@
 using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MiraItemMod.Compats
@@ -30,15 +31,7 @@ namespace MiraItemMod.Compats
             {
                 if (!item.categories.Contains(ItemCategories.SkySong))
                     continue;
-                var categories = new List<string>();
-                foreach (var category in item.categories)
-                {
-                    if (category == ItemCategories.SkySong)
-                        categories.Add(ItemCategories.Comet);
-                    else
-                        categories.Add(category);
-                }
-                item.categories = categories;
+                item.categories = item.categories.Select(x => x == ItemCategories.SkySong ? ItemCategories.Comet : x).ToList();
             }
             var dic = ReflectionExtensions.GetItemCategories();
             if (dic.ContainsKey(ItemCategories.Comet))

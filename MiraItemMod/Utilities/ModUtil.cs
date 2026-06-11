@@ -335,6 +335,8 @@ namespace MiraItemMod.Utilities
             }
             return sb.ToString();
         }
+
+        #region FModUtility
         public static string GUIDToPath(this EventReference eventRef)
         {
             if (eventRef.IsNull)
@@ -349,6 +351,9 @@ namespace MiraItemMod.Utilities
             RuntimeManager.StudioSystem.lookupPath(guid, out path);
             return path;
         }
+        #endregion
+
+        #region ダメージ表示キーワード
         public static bool IsMagicExecution(this DamageInstance damage)
         {
             if (!damage.useCustomColor)
@@ -383,6 +388,7 @@ namespace MiraItemMod.Utilities
         public static Color FourGradationMagicExecution = new Color(0, 0, 1, 0);
         public static Color32 Excavation = new Color32(255, 255, 0, 0);
         public static Color32 ExcavationFaild = new Color32(255, 100, 0, 0);
+        #endregion
 
         public static float GetCharmDamageBonus(this Charm_Basic charm, float damage)
         {

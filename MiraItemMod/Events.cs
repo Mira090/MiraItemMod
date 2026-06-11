@@ -599,7 +599,7 @@ namespace MiraItemMod
         }
         #endregion
 
-        #region 魔導書カテゴリー
+        #region GrimoireCombo
         [HarmonyPatch(typeof(Charm_Basic), nameof(Charm_Basic.GetItemCategory), new Type[] { })]
         public static class CharmGetItemCategoryPatch
         {
@@ -616,7 +616,7 @@ namespace MiraItemMod
         }
         #endregion
 
-        #region ショップ拡張
+        #region AdditionalShop
         public static readonly string AdditionalShop = "AdditionalShop".ToUpperInvariant();
         public static readonly string AdditionalShopLegendary = "AdditionalShopLegendary".ToUpperInvariant();
         public static readonly string AdditionalShopInventory = "AdditionalShopInventory".ToUpperInvariant();
@@ -941,7 +941,7 @@ namespace MiraItemMod
         }
         #endregion
 
-        #region 奇跡の最大数
+        #region MaxMiracleCount
         [HarmonyPatch(typeof(UI_MiracleElement), nameof(UI_MiracleElement.HandleClick))]
         public static class MiracleElementPatch
         {
@@ -1312,7 +1312,7 @@ namespace MiraItemMod
         }
         #endregion
 
-        #region HandleDungeonEnvironmentChanged
+        #region MiniBossRewardDice
         [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.Die))]
         public static class DungeonManagerHandleDungeonEnvironmentChangedPatch
         {

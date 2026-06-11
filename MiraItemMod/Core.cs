@@ -25,6 +25,7 @@ namespace MiraItemMod
 {
     public class Core : HorayModBase
     {
+        public static Core Instance { get; private set; }
         public static GameObject ModSingletonObject { get; private set; }
         public static void LoggerFew(string message)
         {
@@ -61,6 +62,7 @@ namespace MiraItemMod
         {
             Debug.LogError("[MiraItemMod] " + message);
         }
+        [Obsolete]
         public static string ItemId
         {
             get
@@ -73,6 +75,7 @@ namespace MiraItemMod
                 return sb.ToString();
             }
         }
+        [Obsolete]
         public static string ItemIdOnly
         {
             get
@@ -85,6 +88,7 @@ namespace MiraItemMod
                 return sb.ToString();
             }
         }
+        [Obsolete]
         public static string StatusId
         {
             get
@@ -106,8 +110,11 @@ namespace MiraItemMod
                 return sb.ToString();
             }
         }
+        [Obsolete]
         public static Dictionary<int, string> ItemIdDic = new Dictionary<int, string>();
+        [Obsolete]
         public static Dictionary<int, string> ItemIdOnlyDic = new Dictionary<int, string>();
+        [Obsolete]
         public static Dictionary<string, StatusEntity> StatusIdDic = new Dictionary<string, StatusEntity>();
 
         public List<List<string>> ModOptions => new List<List<string>>() { new List<string>() { "No Log", "Few", "Medium", "Many" } };
@@ -131,14 +138,15 @@ namespace MiraItemMod
                 LogMode = value;
             Core.Logger("Loaded: " + ModOptions[index][value]);
         }
-        public Harmony ModPatches;
-        public static bool IsInitialized = false;
+        public static Harmony ModPatches { get; private set; }
+        public static bool IsInitialized { get; private set; } = false;
         protected override void OnModLoaded()
         {
             base.OnModLoaded();
             if (!IsInitialized)
             {
                 IsInitialized = true;
+                Instance = this;
 
                 ModPatches = new Harmony("com.Mira.MiraItemMod");
                 ModPatches.PatchAll();
