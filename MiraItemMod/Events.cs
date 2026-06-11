@@ -36,15 +36,17 @@ namespace MiraItemMod
 
         public static EventReference HealSound { get; } = RuntimeManager.PathToEventReference("event:/Scene/healPotion_Small01");
         public static EventReference PerkSound { get; } = RuntimeManager.PathToEventReference("event:/System/talentPerk");
-        static Events()
+
+        #region Version
+        [HarmonyPatch(typeof(Application), nameof(Application.version), MethodType.Getter)]
+        public static class GameVersionPatch
         {
-            OnValueRecieved += (string command, uint netId, int value) =>
+            static void Postfix(ref string __result)
             {
-                //Core.Logger($"Mod Chat({command}): {netId} To {value}");
-            };
-            //GameCamera.Instance.radialDistortion.Play(player.transform.position, RadialDistortion.Type.Weak);
-            ///GameCamera.Instance.glitch.Play(0);
+                __result += ".: " + Core.Instance.metadata.modName + " v" + Core.Instance.metadata.modVersion;
+            }
         }
+        #endregion
 
         #region Chat
         public static void CommandValue(UnitAvatar player, NewItemOwnInstance item, int value)
