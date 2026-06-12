@@ -87,7 +87,7 @@ namespace MiraItemMod
         /// Item_RevivePlayerHaste_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("RevivePlayerHaste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 30, 40, 50), CreateStatusGroup("MAX_HP", 10, 20, 30, 40))
+        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("RevivePlayerHaste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 30, 40, 50), CreateStatusGroup("MAX_HP", 5, 5, 10, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon);
         /// <summary>
         /// Item_AddStarRuby_Name
@@ -394,7 +394,7 @@ namespace MiraItemMod
         /// 黄金に輝くそのサイコロには運命を変える力が宿っている。
         /// </summary>
         public static ModCharm MiniBossDice { get; } = ModCharmStatus.Create("MiniBossDice", 4, CreateStatusGroup("FINAL_DAMAGE", 2, 3, 4, 6, 8), CreateStatusGroup("MINI_BOSS_REWARD_DICE", 1, 1, 2, 2, 3), CreateStatusGroup("LUCK", 0, 0, 2, 2, 4))
-            .SetCategory(ItemCategories.Fortune).SetSimpleEffects(0).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossRootDemon);
+            .SetCategory(ItemCategories.Fortune).SetIsUniqueEffect().SetSimpleEffects(0).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossRootDemon);
 
         /// <summary>
         /// Item_ThrowGrimoire_Name
@@ -587,7 +587,7 @@ namespace MiraItemMod
         /// Item_Super_Meteor_Effect3
         /// <tag=Burn>ダメージを除く<tag=FireDamage>を与えた時、{PERCENT}の確率で<tag=FireDamage>{METEOR}の隕石1個を落とす（クールタイム1秒、<tag=AttackSpeed>が適用されます）
         /// </summary>
-        public static ModCharm SuperMeteor { get; } = ModCharmStatus.Create<Charm_SuperMeteor>("SuperMeteor", 5, CreateStatusGroup("ATTACK_SPEED", 2, 4, 6, 8, 12, 16))
+        public static ModCharm SuperMeteor { get; } = ModCharmStatus.Create<Charm_SuperMeteor>("SuperMeteor", 5, CreateStatusGroup("ATTACK_SPEED", 2, 4, 8, 12, 18, 24))
             .SetCategory(ItemCategories.Ember, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffects(3).SetIsDual().SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
         /// Item_InventoryPower_Name
@@ -737,7 +737,7 @@ namespace MiraItemMod
         /// Item_DrunkVitality_Effect2
         /// ダメージを受けた時、攻撃者のダメージの{PERCENT}を反射する
         /// </summary>
-        public static ModCharm DrunkVitality { get; } = ModCharmStatus.Create<Charm_DrunkVitality>("DrunkVitality", 2, CreateStatusGroup("DEFENSE", -2, -5, -10), CreateStatusGroup("MAX_HP", 2, 5, 10))
+        public static ModCharm DrunkVitality { get; } = ModCharmStatus.Create<Charm_DrunkVitality>("DrunkVitality", 2, CreateStatusGroup("DEFENSE", -1, -2, -5), CreateStatusGroup("MAX_HP", 2, 5, 10))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Vitality).SetIsDual().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetDamageId();
         /// <summary>
         /// Item_DrunkGuardian_Name
