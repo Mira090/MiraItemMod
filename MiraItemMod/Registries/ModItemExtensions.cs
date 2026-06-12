@@ -1,6 +1,7 @@
 ﻿using FMODUnity;
 using MiraItemMod.Buffs;
 using MiraItemMod.Utilities;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -993,6 +994,27 @@ namespace MiraItemMod.Registries
         {
             item.Icon = icon;
             return item;
+        }
+        public static GameObject SetAssetId(this GameObject gameObject, uint assetId)
+        {
+            if(gameObject == null)
+            {
+                Core.LoggerError($"GameObject is null!");
+                return gameObject;
+            }
+            //Core.Logger(gameObject.name + ": " + assetId);
+            if (gameObject.TryGetComponent<NetworkIdentity>(out var identity))
+            {
+                UnityEngine.Object.Destroy(identity);
+            }
+            if (gameObject.TryGetComponent<ModAssetId>(out var mod))
+            {
+                Core.LoggerError($"GameObject {gameObject} has already ModAssetId");
+                mod.AssetId = assetId;
+                return gameObject;
+            }
+            gameObject.AddComponent<ModAssetId>().AssetId = assetId;
+            return gameObject;
         }
 
 

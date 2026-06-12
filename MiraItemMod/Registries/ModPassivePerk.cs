@@ -36,8 +36,8 @@ namespace MiraItemMod.Registries
 
         public void Init(uint assetId)
         {
-            PerkPrefab = CreateResourcePrefab();
             AssetId = assetId;
+            PerkPrefab = CreateResourcePrefab();
             if (DamageId != null)
                 DamageIdEntity = DamageId.CreateEntity();
         }
@@ -50,6 +50,7 @@ namespace MiraItemMod.Registries
             o.AddComponent<LogComponent>();
             //Core.Logger($"CreatePassivePerk");
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             if (PerkSupplier != null)
             {
                 var effect = PerkSupplier.Invoke(o);

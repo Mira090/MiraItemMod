@@ -3,20 +3,22 @@ using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MiraItemMod.Registries;
 
 namespace MiraItemMod.Buffs
 {
     public abstract class CharacterBuffMod : CharacterBuff
     {
-        public uint AssetId;
         public string id = "CUSTOM_";
         public override string ID => id;
         protected override void InitializeInner(UnitAvatar target, float amplified)
         {
             base.InitializeInner(target, amplified);
             enabled = true;
-            var identity = gameObject.AddComponent<NetworkIdentity>();
-            identity.SetAssetId(AssetId);
+        }
+        public void Init(uint assetId)
+        {
+            gameObject.SetAssetId(assetId);
         }
         public void SetCurrentStack(int stack)
         {

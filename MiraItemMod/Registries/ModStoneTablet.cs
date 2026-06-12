@@ -38,6 +38,7 @@ namespace MiraItemMod.Registries
             //Core.Logger($"CreateStoneTablet");
             o.AddComponent<LogComponent>();
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             tablet.enabled = false;
             return o;
         }

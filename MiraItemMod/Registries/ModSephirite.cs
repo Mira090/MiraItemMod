@@ -37,14 +37,15 @@ namespace MiraItemMod.Registries
 
         public void Init(uint assetId)
         {
-            Prefab = CreateResourcePrefab();
             AssetId = assetId;
+            Prefab = CreateResourcePrefab();
         }
         public virtual GameObject CreateResourcePrefab()
         {
             var original = UnityEngine.Object.Instantiate(SephiriaPrefabs.SephiriteLvUp, new Vector3(-1000f, -1000f), Quaternion.identity);
             original.name = "Sephirite_" + Name;
             original.hideFlags = HideFlags.HideAndDontSave;
+            original.SetAssetId(AssetId);
             if (original.TryGetComponent<NetworkIdentity>(out var identity))
             {
                 UnityEngine.Object.Destroy(identity);

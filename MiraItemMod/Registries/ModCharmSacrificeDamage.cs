@@ -31,6 +31,7 @@ namespace MiraItemMod.Registries
             //Core.Logger($"CreateCharm");
             o.AddComponent<LogComponent>();
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             charm.maxLevel = MaxLevel;
             charm.effectsString = Effects;
             charm.isUniqueEffect = IsUniqueEffect;

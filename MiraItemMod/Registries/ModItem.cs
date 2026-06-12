@@ -45,15 +45,7 @@ namespace MiraItemMod.Registries
         public bool IsExcludedJewelry { get; internal set; } = false;
         public int? TreeShopItemEntity { get; internal set; } = null;
         public bool HasTreeShopItemEntity => TreeShopItemEntity.HasValue;
-        public GameObject ResourcePrefab
-        {
-            get
-            {
-                if(_resourcePrefab == null)
-                    _resourcePrefab = CreateResourcePrefab();
-                return _resourcePrefab;
-            }
-        }
+        public GameObject ResourcePrefab => _resourcePrefab;
         private GameObject _resourcePrefab;
 
         public string ItemTypeString => ItemType switch
@@ -70,9 +62,9 @@ namespace MiraItemMod.Registries
         public abstract GameObject CreateResourcePrefab();
         public virtual void Init(int id, uint assetId)
         {
-            _resourcePrefab = CreateResourcePrefab();
             Id = id;
             AssetId = assetId;
+            _resourcePrefab = CreateResourcePrefab();
             ItemEntity = CreateItemEntity();
         }
         public virtual void LateInit()

@@ -30,6 +30,7 @@ namespace MiraItemMod.Registries
             //Core.Logger($"CreateMiracleStatus");
             o.AddComponent<LogComponent>();
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             miracle.id = Id;
             miracle.aName = LocalizedName;
             miracle.giveItem = GiveItem;

@@ -71,8 +71,8 @@ namespace MiraItemMod.Registries
         public bool HasDamageId => DamageIdEntity != null;
         public void Init(uint assetId)
         {
-            _resourcePrefab = CreateResourcePrefab();
             AssetId = assetId;
+            _resourcePrefab = CreateResourcePrefab();
             ItemCategoryEntity = CreateItemCategoryEntity();
             if (DamageId != null)
                 DamageIdEntity = DamageId.CreateEntity();
@@ -99,6 +99,7 @@ namespace MiraItemMod.Registries
             //Core.Logger($"CreateComboEffect");
             o.AddComponent<LogComponent>();
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             combo.addStatByCombo = Stats;
             combo.defaultEffect = DefaultEffect;
             combo.enabled = false;

@@ -45,8 +45,8 @@ namespace MiraItemMod.Registries
         public uint AssetId { get; internal set; }
         public void Init(uint assetId)
         {
-            Prefab = CreateResourcePrefab();
             AssetId = assetId;
+            Prefab = CreateResourcePrefab();
         }
         public virtual GameObject CreateResourcePrefab()
         {
@@ -55,6 +55,7 @@ namespace MiraItemMod.Registries
             //Core.Logger($"CreateMiracle");
             o.AddComponent<LogComponent>();
             o.hideFlags = HideFlags.HideAndDontSave;
+            o.SetAssetId(AssetId);
             miracle.id = Id;
             miracle.aName = LocalizedName;
             miracle.giveItem = GiveItem;

@@ -2672,7 +2672,7 @@ namespace MiraItemMod
             {
                 var moditem = pro.GetValue(type) as CharacterBuffMod;
                 Core.LoggerFew("New Buff: " + pro.Name);
-                moditem.AssetId = assetId;
+                moditem.Init(assetId);
                 assetId = GetNextAssetId(assetId);
                 Buffs.Add(moditem);
             }

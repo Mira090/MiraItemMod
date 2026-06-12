@@ -25,7 +25,7 @@ namespace MiraItemMod.Registries
             WeaponWieldEntity = copy.wieldEntity;
             var main = UnityEngine.Object.Instantiate(copy.mainWeaponPrefab);
             main.name = "Weapon_" + Name;
-            UnityEngine.Object.Destroy(main.GetComponent<NetworkIdentity>());
+            main.SetAssetId(AssetId);
 
             if (main.TryGetComponent<WeaponSimple>(out var simple))
             {

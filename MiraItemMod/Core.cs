@@ -17,6 +17,7 @@ using System.Reflection.Emit;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 using Type = System.Type;
 
@@ -363,6 +364,7 @@ namespace MiraItemMod
         }
 
         #region アイテム追加関連パッチ
+        /*
         [HarmonyPatch(typeof(TreeShopItemStorage), nameof(TreeShopItemStorage.Load))]
         public static class TreeShopItemStorageLoadPatch
         {
@@ -378,7 +380,7 @@ namespace MiraItemMod
                     //Core.LoggerFew("Id: " + item);
                 }
             }
-        }
+        }*/
 
         [HarmonyPatch(typeof(PlayerSpawner), nameof(PlayerSpawner.OnStartServer))]
         public static class PlayerSpawnerOnStartServerPatch
@@ -762,6 +764,70 @@ namespace MiraItemMod
 
             }
         }
+
+        [HarmonyPatch(typeof(UnityEngine.Object))]
+        public static class ObjectInstantiatePatch
+        {
+            [HarmonyPatch("Internal_CloneSingle")]
+            [HarmonyPostfix]
+            static void Postfix0(ref UnityEngine.Object __result, UnityEngine.Object data)
+            {
+                Patch(ref __result, data);
+            }
+            [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object), typeof(Vector3), typeof(Quaternion) })]
+            [HarmonyPostfix]
+            static void Postfix1(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                Patch(ref __result, original);
+            }
+            [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object), typeof(Vector3), typeof(Quaternion), typeof(Transform) })]
+            [HarmonyPostfix]
+            static void Postfix2(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                Patch(ref __result, original);
+            }
+            [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object) })]
+            [HarmonyPostfix]
+            static void Postfix3(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                Patch(ref __result, original);
+            }
+            [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object), typeof(Transform), typeof(bool) })]
+            [HarmonyPostfix]
+            static void Postfix4(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                Patch(ref __result, original);
+            }
+            [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object), typeof(Scene) })]
+            [HarmonyPostfix]
+            static void Postfix5(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                Patch(ref __result, original);
+            }
+            static void Patch(ref UnityEngine.Object __result, UnityEngine.Object original)
+            {
+                if (original == null || __result == null)
+                    return;
+                if(__result is GameObject gameObject && gameObject.TryGetComponent<ModAssetId>(out var mod))
+                {
+                    //Core.Logger(gameObject.name + ": " + mod.AssetId);
+                    mod.ToIdentity();
+                }
+            }
+        }
+        [HarmonyPatch(typeof(NetworkClient), nameof(NetworkClient.GetPrefab))]
+        public static class NetworkClientGetPrefabPatch
+        {
+            static void Postfix(uint assetId, ref GameObject prefab, ref bool __result)
+            {
+                if (!ModAssetId.CustomNetworkPrefabs.ContainsKey(assetId))
+                    return;
+                prefab = ModAssetId.CustomNetworkPrefabs[assetId];
+                __result = prefab != null;
+            }
+        }
+
+        /*
         /// <summary>
         /// アイテムのInstantiateパッチ
         /// </summary>
@@ -1362,7 +1428,8 @@ namespace MiraItemMod
                     // 通常の GetPrefab
                 return NetworkClient.GetPrefab(assetId, out prefab);
             }
-        }
+        }*/
+
         /// <summary>
         /// SpriteFxの登録パッチ
         /// </summary>
