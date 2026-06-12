@@ -346,6 +346,14 @@ namespace MiraItemMod.Utilities
         {
             return (UI_KatanaBar)typeof(WeaponSimple_Katana).GetField("katanaBar", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
         }
+        public static IntegratedActionController GetController(this UI_SkillQuickSlotBar instance)
+        {
+            return (IntegratedActionController)typeof(UI_SkillQuickSlotBar).GetField("controller", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
+        public static PlayerAvatar GetPlayerAvatar(this UI_SkillQuickSlotBar instance)
+        {
+            return (PlayerAvatar)typeof(UI_SkillQuickSlotBar).GetField("playerAvatar", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
 
 
 
