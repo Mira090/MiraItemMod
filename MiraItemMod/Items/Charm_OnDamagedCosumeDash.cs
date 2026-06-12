@@ -98,37 +98,6 @@ namespace MiraItemMod.Items
             if (NetworkAvatar == null)
                 return;
             NetworkAvatar.OnDashServerside?.Invoke(NetworkAvatar.transform.position, true);
-            return;
-            if (WeaponController.currentWeapon.gameObject.TryGetComponent<WeaponAddonKatana_SummonGhost>(out var ghost))
-            {
-                //ghost
-            }
-            if (WeaponController.currentWeapon is WeaponSimple_Katana katana)
-            {
-                //ghost
-            }
-            if (NetworkAvatar.GetCustomStatUnsafe("KATANADASHSTACK") > 0)//オーバーヒート
-            {
-                //katana
-            }
-            if (NetworkAvatar.GetCustomStatUnsafe("DASHATTACKICEHAMMER") > 0)//氷の斧
-            {
-                //katana
-            }
-            foreach (var charm in NetworkAvatar.Inventory.charms.Values)
-            {
-                if (charm is Charm_RockElephant elephant)
-                {
-                    //elephant
-                }
-            }
-            foreach (var charm in NetworkAvatar.Inventory.charms.Values)
-            {
-                if (charm is Charm_IceHammer hammer)
-                {
-                    //hammer
-                }
-            }
         }
         protected override void OnDisabledEffect()
         {

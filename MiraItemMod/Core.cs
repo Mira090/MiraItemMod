@@ -63,60 +63,6 @@ namespace MiraItemMod
         {
             Debug.LogError("[MiraItemMod] " + message);
         }
-        [Obsolete]
-        public static string ItemId
-        {
-            get
-            {
-                var sb = new StringBuilder();
-                foreach(var line in ItemIdDic.OrderBy(x => x.Key).Select(x => x.Value))
-                {
-                    sb.AppendLine(line.Replace('^', '	'));
-                }
-                return sb.ToString();
-            }
-        }
-        [Obsolete]
-        public static string ItemIdOnly
-        {
-            get
-            {
-                var sb = new StringBuilder();
-                foreach (var line in ItemIdOnlyDic.OrderBy(x => x.Key).Select(x => x.Value))
-                {
-                    sb.AppendLine(line.Replace('^', '	'));
-                }
-                return sb.ToString();
-            }
-        }
-        [Obsolete]
-        public static string StatusId
-        {
-            get
-            {
-                var sb = new StringBuilder();
-                foreach (var status in StatusIdDic.OrderBy(x => x.Key).Select(x => x.Value))
-                {
-                    var name = KeywordDatabase.Convert(status.StatusName, useColor: false, useSprite: false, true);
-                    var desc = KeywordDatabase.Convert(status.StatusDescription, useColor: false, useSprite: false, true);
-                    if (name == $"Status_{status.StatusName}_Name")
-                        name = string.Empty;
-                    if (desc == $"Status_{status.StatusDescription}_Description")
-                        desc = string.Empty;
-                    //name = status.StatusName;
-                    //desc = status.StatusDescription;
-                    var line = $"{status.id}^{name.ToNoTag()}^{desc.ToNoTag()}";
-                    sb.AppendLine(line.Replace('^', '	'));
-                }
-                return sb.ToString();
-            }
-        }
-        [Obsolete]
-        public static Dictionary<int, string> ItemIdDic = new Dictionary<int, string>();
-        [Obsolete]
-        public static Dictionary<int, string> ItemIdOnlyDic = new Dictionary<int, string>();
-        [Obsolete]
-        public static Dictionary<string, StatusEntity> StatusIdDic = new Dictionary<string, StatusEntity>();
 
         public List<List<string>> ModOptions => new List<List<string>>() { new List<string>() { "No Log", "Few", "Medium", "Many" } };
         public List<string> ModOptionsDescription => new List<string>() { "Log Mode" };
@@ -331,7 +277,7 @@ namespace MiraItemMod
         private void OnAllDatabasesReady()
         {
             Data.LoadMiracleManuallyGivenItems();
-            Data.RegisterTreeShopItems();
+            Data.LoadTreeShopItems();
         }
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
@@ -435,46 +381,7 @@ namespace MiraItemMod
         {
             private static void ModifyItemEntity(ItemEntity item)
             {
-                var bond = "(" + new LocalizedString("ItemRarity_Dual").ToString() + ")";
-                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_Basic>(out var c))
-                {
-                    ItemIdDic[item.id] = $"{item.id}^{item.name}^{item.aName.ToString()}^{item.activeType.ToJapanese()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}^{c.GetType().Name}";
-                }
-                else if(item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<StoneTablet>(out var t))
-                {
-                    ItemIdDic[item.id] = $"{item.id}^{item.name}^{item.aName.ToString()}^{item.activeType.ToJapanese()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}^{t.GetType().Name}";
-                }
-                else if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<PotionEffect>(out var p))
-                {
-                    ItemIdDic[item.id] = $"{item.id}^{item.name}^{item.aName.ToString()}^{item.activeType.ToJapanese()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}^{p.GetType().Name}";
-                }
-                else
-                {
-                    ItemIdDic[item.id] = $"{item.id}^{item.name}^{item.aName.ToString()}^{item.activeType.ToJapanese()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}^{(item.resourcePrefab == null ? "プレハブ無し" : "プレハブ有り")}";
-                }
-                ItemIds(item);
-            }
-            private static void ItemIds(ItemEntity item)
-            {
-                if (item.activeType == EItemActiveType.Disabled)
-                    return;
-                var bond = "(" + new LocalizedString("ItemRarity_Dual").ToString() + ")";
-                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_Basic>(out var c))
-                {
-                    ItemIdOnlyDic[item.id] = $"{item.id}^{item.aName.ToString()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}";
-                }
-                else if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<StoneTablet>(out var t))
-                {
-                    ItemIdOnlyDic[item.id] = $"{item.id}^{item.aName.ToString()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}";
-                }
-                else if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<PotionEffect>(out var p))
-                {
-                    ItemIdOnlyDic[item.id] = $"{item.id}^{item.aName.ToString()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}";
-                }
-                else
-                {
-                    ItemIdOnlyDic[item.id] = $"{item.id}^{item.aName.ToString()}^{item.type.ToJapanese()}^{item.rarity.ToJapanese() + (item.isDual ? bond : "")}";
-                }
+
             }
             private static void ModifyItemCategoryEntity(ItemCategoryEntity category)
             {
@@ -514,7 +421,7 @@ namespace MiraItemMod
             }
             private static void ModifyStatusEntity(StatusEntity status)
             {
-                StatusIdDic[status.id] = status;
+
             }
             private static void ModifyMiracle(Miracle miracle)
             {
@@ -678,83 +585,11 @@ namespace MiraItemMod
                 {
                     var list = __result.ToList();
 
-                    //Data.RegisterDebuffs(list);
                     //Core.Logger("TreeShopItems: " + list.Count);
-                    foreach(var item in list)
+                    //foreach(var item in list)
                     {
                         //Core.Logger(item.ToAllString());
                     }
-
-                    /*
-                    var addTreeShop = new List<UnityEngine.Object>();
-                    foreach (var item in list)
-                        if (item is TreeShopItemEntity entity)
-                        {
-                            ModifyTreeShopItemEntity(entity);
-                            if(entity.id == TreeShopItems.NewCharmBond1)
-                            {
-                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
-                                bond2.name = TreeShopItems.NewCharmBond2 + "_NewCharm_Bond2";
-                                bond2.id = TreeShopItems.NewCharmBond2;
-                                bond2.maxQuantity = 1;
-                                bond2.bg = entity.bg;
-                                bond2.icon = entity.icon;
-                                bond2.aName = entity.aName;
-                                bond2.aDescription = entity.aDescription;
-                                bond2.anUnlockDescription = entity.anUnlockDescription;
-                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
-                                bond2.autoSwitchName = string.Empty;
-                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
-                                bond2.priceByQuantity = new int[] { 8 };
-                                bond2.showStatus = true;
-                                bond2.hasTutorial = false;
-                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
-
-                                addTreeShop.Add(bond2);
-                            }
-                            if (entity.id == TreeShopItems.NewCharmBond1)
-                            {
-                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
-                                bond2.name = TreeShopItems.NewCharmDrunk + "_NewCharm_Drunk";
-                                bond2.id = TreeShopItems.NewCharmDrunk;
-                                bond2.maxQuantity = 1;
-                                bond2.bg = entity.bg;
-                                bond2.icon = CustomSpriteAsset.TreeIconArtifact;
-                                bond2.aName = entity.aName;
-                                bond2.aDescription = entity.aDescription;
-                                bond2.anUnlockDescription = entity.anUnlockDescription;
-                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
-                                bond2.autoSwitchName = string.Empty;
-                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
-                                bond2.priceByQuantity = new int[] { 7 };
-                                bond2.showStatus = true;
-                                bond2.hasTutorial = false;
-                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
-
-                                addTreeShop.Add(bond2);
-                            }
-                            if (entity.id == 313)//RewardDice
-                            {
-                                var bond2 = ScriptableObject.CreateInstance<TreeShopItemEntity>();
-                                bond2.name = TreeShopItems.NewCharmSacrifice + "_NewCharm_Sacrifice";
-                                bond2.id = TreeShopItems.NewCharmSacrifice;
-                                bond2.maxQuantity = 1;
-                                bond2.bg = entity.bg;
-                                bond2.icon = CustomSpriteAsset.TreeIconArtifactSacrifice;
-                                bond2.aName = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_Name");
-                                bond2.aDescription = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_Description");
-                                bond2.anUnlockDescription = new LocalizedString("TreeShopItem_NewCharm_Sacrifice_UnlockDescription");
-                                bond2.group = TreeShopItemEntity.EGroup.Tier1;
-                                bond2.autoSwitchName = string.Empty;
-                                bond2.behaviour = TreeShopItemEntity.EBehaviour.UnlockItem;
-                                bond2.priceByQuantity = new int[] { 5 };
-                                bond2.showStatus = true;
-                                bond2.hasTutorial = false;
-                                entity.nextConnections = entity.nextConnections.AddItem(bond2).ToArray();
-
-                                addTreeShop.Add(bond2);
-                            }
-                        }*/
 
                     Data.RegisterTreeShops(list);
 

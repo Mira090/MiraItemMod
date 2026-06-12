@@ -225,7 +225,7 @@ namespace MiraItemMod.Items
                 {
                     Inventory.ForceRemoveItem(item.XIdx, item.YIdx);
                 }
-                count = count + item.Entity.rarity switch
+                count += item.Entity.rarity switch
                 {
                     EItemRarity.Common => 1,
                     EItemRarity.Uncommon => 2,

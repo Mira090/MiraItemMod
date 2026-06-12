@@ -87,7 +87,7 @@ namespace MiraItemMod
             }
             catch (EventNotFoundException e)
             {
-
+                Core.LoggerError(e);
             }
             var param = id.Split(' ');
             if(param.Length == 4)
@@ -121,6 +121,7 @@ namespace MiraItemMod
                     catch(EventNotFoundException e)
                     {
                         DungeonManager.Instance.Chat(player as PlayerAvatar, "Log", $"the sound event is not Found!");
+                        Core.LoggerError(e);
                     }
                 }
             }

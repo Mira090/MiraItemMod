@@ -347,8 +347,7 @@ namespace MiraItemMod.Utilities
         }
         public static string GUIDToPath(this FMOD.GUID guid)
         {
-            string path;
-            RuntimeManager.StudioSystem.lookupPath(guid, out path);
+            RuntimeManager.StudioSystem.lookupPath(guid, out var path);
             return path;
         }
         #endregion

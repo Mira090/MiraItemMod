@@ -2841,7 +2841,7 @@ namespace MiraItemMod
                 miracle.LoadManuallyGivenItems();
             }
         }
-        public static void RegisterTreeShopItems()
+        public static void LoadTreeShopItems()
         {
             foreach(var entity in TreeShopItemDatabase.GetAll())
             {

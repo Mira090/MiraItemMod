@@ -18,10 +18,6 @@ namespace MiraItemMod.Items
 
 
         [Header("Cooldown")]
-        private bool isInCooldown;
-
-        private Timer cooldownTimer = new Timer(10f);
-
         public Timer castIntervalTimer = new Timer(4f);
 
         private bool isCasting;
