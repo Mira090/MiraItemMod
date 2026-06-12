@@ -364,7 +364,7 @@ namespace MiraItemMod
         }
 
         #region アイテム追加関連パッチ
-        /*
+        
         [HarmonyPatch(typeof(TreeShopItemStorage), nameof(TreeShopItemStorage.Load))]
         public static class TreeShopItemStorageLoadPatch
         {
@@ -380,7 +380,7 @@ namespace MiraItemMod
                     //Core.LoggerFew("Id: " + item);
                 }
             }
-        }*/
+        }
 
         [HarmonyPatch(typeof(PlayerSpawner), nameof(PlayerSpawner.OnStartServer))]
         public static class PlayerSpawnerOnStartServerPatch
