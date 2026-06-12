@@ -175,9 +175,6 @@ namespace MiraItemMod.Items
                         if (currentCastingTimer.Update(Time.deltaTime) || NetworkAvatar.HasQuickCast())
                         {
                             isCasting = false;
-                            isInCooldown = true;
-                            cooldownTimer.SetTimer(0f);
-                            cooldownTimer.time = magicCharm.NetworkcooldownTimeInThisCycle;
                             magicCharm.FireCasting(NetworkAvatar.transform.position, castingPosition, TopdownActor.CenterYPos, 1, true, false, null);
                             player.GetSkillController().SetLastUsedMagicServerside(magicCharm);
                             //Core.Logger("cast!" + (skillObject == null));
@@ -195,13 +192,8 @@ namespace MiraItemMod.Items
                         return;
                     }
 
-                    if (slot != null)
-                    {
-                        slot.Update(0);
-                    }
-
                     //Core.Logger("waiting... " + castIntervalTimer.GetTimer());
-                    if (slot != null && slot.HasAnyAmmo && !slot.CurrentUsing && magicCharm.CanCast(magicCharm.NetworkAvatar, true, false) == ECanUseSkillResult.Succeeded && !isInCooldown)
+                    if (magicCharm.CanCast(magicCharm.NetworkAvatar, true, false) == ECanUseSkillResult.Succeeded)
                     {
                         if (castIntervalTimer.Update(Time.deltaTime))
                         {

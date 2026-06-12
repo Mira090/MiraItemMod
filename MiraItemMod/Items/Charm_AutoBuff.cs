@@ -161,18 +161,11 @@ namespace MiraItemMod.Items
             }
             if (magicCharm == null)
                 return;
-            if (isInCooldown && cooldownTimer.Update(Time.deltaTime))
-            {
-                isInCooldown = false;
-            }
             if (isCasting)
             {
                 if (currentCastingTimer.Update(Time.deltaTime) || NetworkAvatar.HasQuickCast())
                 {
                     isCasting = false;
-                    isInCooldown = true;
-                    cooldownTimer.SetTimer(0f);
-                    cooldownTimer.time = magicCharm.NetworkcooldownTimeInThisCycle;
                     castingPosition = NetworkAvatar.transform.position;
                     magicCharm.FireCasting(NetworkAvatar.transform.position, castingPosition, TopdownActor.CenterYPos, 1, true, true, null);
                     //Core.Logger("cast!" + (skillObject == null));
@@ -187,18 +180,13 @@ namespace MiraItemMod.Items
                 return;
             }
 
-            if (slot != null)
-            {
-                slot.Update(0);
-            }
-
             if (NetworkAvatar == null || NetworkAvatar.IsDead || !NetworkAvatar.IsInBattle)
             {
                 return;
             }
 
             //Core.Logger("waiting... " + castIntervalTimer.GetTimer());
-            if (slot != null && slot.HasAnyAmmo && !slot.CurrentUsing && castIntervalTimer.Update(Time.deltaTime) && !isInCooldown)
+            if (castIntervalTimer.Update(Time.deltaTime) && magicCharm.CanCast(magicCharm.NetworkAvatar, true, true) == ECanUseSkillResult.Succeeded)
             {
                 isCasting = true;
                 SpriteFx spriteFx = string.IsNullOrEmpty(magicCharm.ContainedMagic.castingCircleOverride) ? SpriteFx.Pool.Spawn(ActiveSkillDatabase.FindCastingCircleByClass(magicCharm.ContainedMagic.GetMajorClass()), NetworkAvatar.transform.position + new Vector3(0f, 0.001f)) : SpriteFx.Pool.Spawn(magicCharm.ContainedMagic.castingCircleOverride, NetworkAvatar.transform.position + new Vector3(0f, 0.001f));

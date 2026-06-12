@@ -156,19 +156,11 @@ namespace MiraItemMod.Items
             if(NetworkAvatar is PlayerAvatar player)
             {
                 //float num6 = (100f + magicCharm.AdditionalcooldownRecoverySpeed) / 100f;
-                var time = Time.deltaTime;
-                if (isInCooldown && cooldownTimer.Update(time))
-                {
-                    isInCooldown = false;
-                }
                 if (isCasting)
                 {
                     if (currentCastingTimer.Update(Time.deltaTime) || NetworkAvatar.HasQuickCast())
                     {
                         isCasting = false;
-                        isInCooldown = true;
-                        cooldownTimer.SetTimer(0f);
-                        cooldownTimer.time = magicCharm.NetworkcooldownTimeInThisCycle;
                         magicCharm.FireCasting(NetworkAvatar.transform.position, castingPosition, TopdownActor.CenterYPos, 1, true, true, null);
                         player.GetSkillController().SetLastUsedMagicServerside(magicCharm);
                         //Core.Logger("cast!" + (skillObject == null));
@@ -184,7 +176,7 @@ namespace MiraItemMod.Items
                 }
 
                 //Core.Logger("waiting... " + castIntervalTimer.GetTimer());
-                if (magicCharm.CanCast(magicCharm.NetworkAvatar, true, true) == ECanUseSkillResult.Succeeded && !isInCooldown)
+                if (magicCharm.CanCast(magicCharm.NetworkAvatar, true, true) == ECanUseSkillResult.Succeeded)
                 {
                     if (castIntervalTimer.Update(Time.deltaTime))
                     {
