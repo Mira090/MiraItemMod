@@ -256,5 +256,41 @@ namespace MiraItemMod.Items
                 }
             }
         }
+        [HarmonyPatch(typeof(Charm_Magic), nameof(Charm_Magic.CanCast))]
+        public static class CanCastPatch
+        {
+            static void Postfix(ref ECanUseSkillResult __result, UnitAvatar avatar, bool useCooldown, bool useMp)
+            {
+                if(useMp && avatar.GetCustomStatUnsafe("BLOODMP") > 0 && __result == ECanUseSkillResult.Failed_NotEnoughMana)
+                {
+                    __result = ECanUseSkillResult.Succeeded;
+                }
+            }
+        }
+        [HarmonyPatch(typeof(UI_SkillQuickSlotBar), "Update")]
+        public static class UI_SkillQuickSlotBarPatch
+        {
+            static void Postfix(UI_SkillQuickSlotBar __instance)
+            {
+                var controller = __instance.GetController();
+                var player = __instance.GetPlayerAvatar();
+                if (controller == null || player == null)
+                    return;
+                if (player.GetCustomStatUnsafe("BLOODMP") <= 0)
+                    return;
+                for (int q = 0; q < controller.quickSlots.Length && q < __instance.pool.Length; q++)
+                {
+                    if (!__instance.pool[q].gameObject.activeSelf)
+                        continue;
+                    __instance.pool[q].SetInsufficientMana(false);
+                }
+                for (int q = 0; q < controller.quickSlotsWeapon.Length && q < __instance.poolWeapon.Length; q++)
+                {
+                    if (!__instance.poolWeapon[q].gameObject.activeSelf)
+                        continue;
+                    __instance.poolWeapon[q].SetInsufficientMana(false);
+                }
+            }
+        }
     }
 }
