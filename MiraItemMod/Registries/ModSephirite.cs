@@ -46,10 +46,6 @@ namespace MiraItemMod.Registries
             original.name = "Sephirite_" + Name;
             original.hideFlags = HideFlags.HideAndDontSave;
             original.SetAssetId(AssetId);
-            if (original.TryGetComponent<NetworkIdentity>(out var identity))
-            {
-                UnityEngine.Object.Destroy(identity);
-            }
             if (!original.TryGetComponent<Sephirite>(out var sephi))
                 return null;
 
