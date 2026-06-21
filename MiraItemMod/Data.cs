@@ -2509,8 +2509,6 @@ namespace MiraItemMod
         {
             Debug.Log("[MiraItemMod] [LevelController] GenerateItem: " + sephirite.Name);
             GameObject gameObject = UnityEngine.Object.Instantiate(sephirite.Prefab, new Vector3(-1000f, -1000f), Quaternion.identity);
-            var identity = gameObject.AddComponent<NetworkIdentity>();
-            identity.SetAssetId(sephirite.AssetId);
             Sephirite component = gameObject.GetComponent<Sephirite>();
             component.Initialize(seed);
             NetworkServer.Spawn(gameObject, level.gameObject);
