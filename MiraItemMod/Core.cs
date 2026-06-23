@@ -613,6 +613,7 @@ namespace MiraItemMod
             [HarmonyPostfix]
             static void Postfix1(ref UnityEngine.Object __result, UnityEngine.Object original)
             {
+                //Core.Logger(original.name + ": Patch");
                 Patch(ref __result, original);
             }
             [HarmonyPatch(nameof(UnityEngine.Object.Instantiate), new Type[] { typeof(UnityEngine.Object), typeof(Vector3), typeof(Quaternion), typeof(Transform) })]
@@ -641,12 +642,19 @@ namespace MiraItemMod
             }
             static void Patch(ref UnityEngine.Object __result, UnityEngine.Object original)
             {
+                //Core.Logger(__result + ": " + original);
                 if (original == null || __result == null)
                     return;
-                if(__result is GameObject gameObject && gameObject.TryGetComponent<ModAssetId>(out var mod))
+                //Core.Logger(__result.GetType() + ": " + (__result is GameObject g && g.TryGetComponent<ModAssetId>(out var _)));
+                if (__result is GameObject gameObject && gameObject.TryGetComponent<ModAssetId>(out var mod))
                 {
                     //Core.Logger(gameObject.name + ": " + mod.AssetId);
                     mod.ToIdentity();
+                }
+                else if (__result is MonoBehaviour behaviour && behaviour.gameObject.TryGetComponent<ModAssetId>(out var mod2))
+                {
+                    //Core.Logger(behaviour.name + ": " + mod2.AssetId);
+                    mod2.ToIdentity();
                 }
             }
         }
