@@ -1,17 +1,17 @@
-# MiraItemMod
+# Mira's Item Mod
 
-## 📌 概要
+## 📌 Overview
 
-Team Horay の <a href="https://store.steampowered.com/app/2436940/_/">Sephiria</a> に新しいアーティファクト、コンボ効果、武器強化、奇跡などを追加する Mod です。
+This is a mod for TEAM HORAY's <a href="https://store.steampowered.com/app/2436940/_/">Sephiria</a> that adds new artifacts, combo effects, weapon upgrades, miracles, and more.
 
-なお、一部のアーティファクトの画像は仮です。
+Please note that the images of some artifacts are placeholders.
 
-## 📥 インストール
-1. Releases から最新の `MiraItemMod-1.X.X.zip` をダウンロードし、解凍してください。
-2. `Program Files (x86)\Steam\steamapps\common\Sephiria` フォルダ内に AddOns フォルダを作成してください。
-3. `Program Files (x86)\Steam\steamapps\common\Sephiria\AddOns` フォルダ内に MiraItemMod フォルダをコピーしてください。
+## 📥 Installation
+1. Download the latest `MiraItemMod-1.X.X.zip` from the Releases section and unzip it.
+2. Create an `AddOns` folder inside the `Program Files (x86)\Steam\steamapps\common\Sephiria` folder.
+3. Copy the `MiraItemMod` folder into the `Program Files (x86)\Steam\steamapps\common\Sephiria\AddOns` folder.
 
-例：
+Example:
 ```
 Sephiria/
 └── AddOns/
@@ -23,14 +23,14 @@ Sephiria/
         └── MiraModBase.dll
 ```
 
-## 📝 注意事項
-- このリポジトリおよびその貢献者は、Sephiria、TEAM HORAY、または関連団体とは一切関係がありません
-- 他の Mod と競合する可能性があります
-- マルチプレイで使用する場合は、ホストもクライアントも必ず全員がこのModをインストールする必要があります。全員の同意を得た上でプレイしてください。
-- 一部のアーティファクトはマルチプレイで上手く動作しないことがあります。
+## 📝 Notes
+- This repository and its contributors are in no way affiliated with Sephiria, TEAM HORAY, or any related organizations.
+- May conflict with other mods
+- When playing in multiplayer, everyone—both the host and all clients—must have this mod installed. Please make sure everyone agrees before playing.
+- Some artifacts may not work properly in multiplayer mode.
 
-## スペシャルサンクス（敬称略）
-- 私の友人（ビリビリクリームクロワッサン、友情のリストバンド、烈火の原子時計などのイラスト）
-- Blue Marl!n（気炎鳳凰、打ち焦がす爪、ソリス・フロストなどのイラスト）
-- UwU（三体模型、魔法仕掛けの天球儀、ルビーの原石などのイラスト）
-- 韓狼（ko-KR.json）
+## Special Thanks
+- My friend (Illustrations of Exciting Custard Croissant, Wristband of Friendship, and Fiery Atomic Clock, etc.)
+- Blue Marl!n (Illustrations of Fiery Phoenix, Singeing Claw, and Solis Frost, etc.)
+- UwU (Illustrations of Three-Body Model, Enchanted Celestial Globe, and Raw Ruby, etc.)
+- 韓狼 (ko-KR.json)
