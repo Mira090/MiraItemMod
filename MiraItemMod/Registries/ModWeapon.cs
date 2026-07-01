@@ -77,7 +77,7 @@ namespace MiraItemMod.Registries
         public virtual void InitPrefab(WeaponEntity copy)
         {
             Core.LoggerMedium("CreateWeaponEntity from " + copy.name);
-            WeaponWieldEntity = copy.wieldEntity;
+            //WeaponWieldEntity = copy.wieldEntity;
             var main = UnityEngine.Object.Instantiate(copy.mainWeaponPrefab);
             main.name = "Weapon_" + Name;
             main.SetAssetId(AssetId);
@@ -162,7 +162,7 @@ namespace MiraItemMod.Registries
             entity.aName = LocalizedName;
             entity.mainWeaponPrefab = MainWeaponPrefab;
             entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
-            entity.wieldEntity = WeaponWieldEntity;
+            //entity.wieldEntity = WeaponWieldEntity;
             if(EnhanceFromId.HasValue)
                 entity.enhanceFromId = EnhanceFromId.Value;
             return entity;

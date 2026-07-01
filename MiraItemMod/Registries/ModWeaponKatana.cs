@@ -26,7 +26,7 @@ namespace MiraItemMod.Registries
         public override void InitPrefab(WeaponEntity copy)
         {
             //Core.Logger("CreateWeaponEntity from " + copy.name);
-            WeaponWieldEntity = copy.wieldEntity;
+            //WeaponWieldEntity = copy.wieldEntity;
             var main = UnityEngine.Object.Instantiate(copy.mainWeaponPrefab);
             main.name = "Weapon_" + Name;
             main.SetAssetId(AssetId);
