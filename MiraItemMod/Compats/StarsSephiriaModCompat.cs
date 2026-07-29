@@ -25,7 +25,7 @@ namespace MiraItemMod.Compats
                 return;
             if (!config.TryGetStaticProperty<object>("Instance", out var instance) || instance == null)
                 return;
-            if (!instance.TryGetProperty<bool>("ModifyItemCategory", out var modify) || !modify)
+            if (!instance.TryGetProperty<bool>("AddCategory", out var modify) || !modify)
                 return;
             foreach (var item in ReflectionExtensions.GetItemDictionary().Values)
             {
@@ -56,6 +56,24 @@ namespace MiraItemMod.Compats
                         {
                             comboCount = 10,
                             status = new string[]{ "DASH_INVINCIBLE_TIME_BONUS/100", "DASH_RECOVERY_SPEED/20" }
+                        },
+                    };
+                }
+                if (dic[ItemCategories.Fortune].comboEffectPrefab.TryGetComponent<ComboEffectBase>(out var combo2))
+                {
+                    combo2.addStatByCombo = new ComboEffectBase.ComboStat[]
+                    {
+                        combo2.addStatByCombo[0],
+                        combo2.addStatByCombo[1],
+                        new ComboEffectBase.ComboStat()
+                        {
+                            comboCount = 6,
+                            status = new string[]{ "LUCK/4", "MINI_BOSS_REWARD_DICE/1" }
+                        },
+                        new ComboEffectBase.ComboStat()
+                        {
+                            comboCount = 8,
+                            status = new string[]{ "LUCK/8", "TRUE_DAMAGE/4" }
                         },
                     };
                 }

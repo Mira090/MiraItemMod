@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using MiraItemMod.Compats;
+using MiraItemMod.Registries;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -23,12 +25,20 @@ namespace MiraItemMod.Items
         {
             base.OnEnabledEffect();
             NetworkAvatar.AddCustomStat("DashAttackRange", rangeByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("STAT_SCORECOUNT", 1);
+            }
         }
 
         protected override void OnDisabledEffect()
         {
             base.OnDisabledEffect();
             NetworkAvatar.AddCustomStat("DashAttackRange", -rangeByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("STAT_SCORECOUNT", -1);
+            }
         }
         protected override void OnUpdatedLevel(int oldLevel, int newLevel)
         {

@@ -43,11 +43,24 @@ namespace MiraItemMod.Utilities
         {
             try
             {
-                result = (T)instance.GetType().GetProperty(name).GetValue(instance);
-                return true;
+                var pros = instance.GetType().GetProperties();
+                foreach(var pro in pros)
+                {
+                    Core.LoggerMany($"Property {pro.Name}");
+                    if (pro.Name == name)
+                    {
+                        result = (T)pro.GetValue(instance);
+                        return true;
+                    }
+                }
+                Core.LoggerError($"No Property {name} in {(instance == null ? "null" : instance.GetType().Name)}");
+                result = default;
+                return false;
             }
             catch (Exception ex)
             {
+                if (instance != null)
+                    Core.Logger(instance.GetType().FullName);
                 Core.LoggerError(ex);
                 result = default;
                 return false;

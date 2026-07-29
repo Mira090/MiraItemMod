@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiraItemMod.Compats;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,22 @@ namespace MiraItemMod.Registries
     public abstract class ModCompat
     {
         public static readonly List<ModCompat> ModCompats = new List<ModCompat>();
+        public static T GetCompat<T>() where T : ModCompat
+        {
+            foreach (var compat in ModCompats)
+            {
+                if (compat.GetType() == typeof(T))
+                    return compat as T;
+            }
+            return null;
+        }
+        public static bool GetHasLoaded<T>() where T : ModCompat
+        {
+            var compat = GetCompat<T>();
+            if (compat == null)
+                return false;
+            return compat.HasLoaded;
+        }
         public static void LoadCompats()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
