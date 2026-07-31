@@ -1121,6 +1121,8 @@ namespace MiraItemMod
 
         public static Dictionary<string, string> commandDescriptionsJapanese = new Dictionary<string, string>
     {
+        { "MS", "ミニスクリプトを即座に実行する（パラメータ：スクリプト、複数の文は「;」で区切る）" },
+        { "RUNSCRIPT", "ミニスクリプトを即座に実行する（パラメータ：スクリプト、複数の文は「;」で区切る）" },
         { "MIRACLE", "奇跡の選択肢を生成" },
         { "ROOMINFO", "部屋情報の表示切り替え" },
         { "MULTI", "マルチプレイヤーパネルを開く" },
@@ -1145,6 +1147,7 @@ namespace MiraItemMod
         { "GLITCH", "グリッチ効果を再生" },
         { "SUMMON", "ユニットを召喚 (パラメータ: ユニットID, [任意] 数量)" },
         { "SUMMON_POS", "指定位置にユニットを召喚 (パラメータ: ユニットID, X, Y)" },
+        { "WARNINGTEST", "実行時生成範囲警告テスト（パラメータ：形状 [楕円/円/ひし形/ドーナツ型/長方形]、幅、[Optional] 高さ）" },
         { "SUMMONNPC", "NPCを召喚 (パラメータ: NPC名)" },
         { "TREESHOP", "運命の刻印を開く" },
         { "TUTORIALCLEAR", "チュートリアルクリア処理" },
@@ -1210,6 +1213,8 @@ namespace MiraItemMod
     };
         public static Dictionary<string, string> commandDescriptions = new Dictionary<string, string>
     {
+        { "MS", "미니스크립트 즉석 실행 (매개변수: 스크립트, 여러 문장은 ; 로 구분)" },
+        { "RUNSCRIPT", "미니스크립트 즉석 실행 (매개변수: 스크립트, 여러 문장은 ; 로 구분)" },
         { "MIRACLE", "미라클 셀렉터 생성" },
         { "ROOMINFO", "방 정보 표시 토글" },
         { "MULTI", "멀티플레이어 패널 열기" },
@@ -1234,6 +1239,7 @@ namespace MiraItemMod
         { "GLITCH", "글리치 효과 재생" },
         { "SUMMON", "유닛 소환 (매개변수: 유닛 ID, [선택적] 수량)" },
         { "SUMMON_POS", "지정 위치에 유닛 소환 (매개변수: 유닛 ID, X, Y)" },
+        { "WARNINGTEST", "런타임 생성 범위 경고 테스트 (매개변수: 형태[ellipse/circle/diamond/donut/rectangle], 가로크기, [선택적] 세로크기)" },
         { "SUMMONNPC", "NPC 소환 (매개변수: NPC 이름)" },
         { "TREESHOP", "트리 상점 패널 열기" },
         { "TUTORIALCLEAR", "튜토리얼 클리어 처리" },
