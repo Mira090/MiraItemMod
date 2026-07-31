@@ -1845,7 +1845,7 @@ namespace MiraItemMod
         /// 打ち焦がす爪
         /// WeaponAddon_Dagger_Flame_T3_Fury_Effect
         /// <tag=FireDamage>を10回与えると、<tag=WeaponAction_Trance>を獲得します。（<tag=WeaponAction_Trance>は最大2回まで充電可能）
-        public static ModWeapon DaggerFlameFury { get; } = ModWeapon.CreateWeapon("Dagger_Flame_T3_Fury", 1202, 1200).SetMainPrefabModifier(main =>
+        public static ModWeapon DaggerFlameFury { get; } = ModWeapon.CreateWeapon("Dagger_Flame_T3_Fury", 1200, 1200).SetMainPrefabModifier(main =>
         {
             if (main.gameObject.TryGetComponent<WeaponAddonCommon_Status>(out var status))
             {
