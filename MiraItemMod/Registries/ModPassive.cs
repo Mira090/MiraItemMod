@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Config;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModPassive : IDisposable
+    public class ModPassive : IDisposable, IModConfigurable
     {
         public static ModPassive CreatePassive(string name, Color mainColor, params string[] stats)
         {
@@ -84,6 +85,19 @@ namespace MiraItemMod.Registries
                 Lv10Perk.Dispose();
             if (Lv20Perk != null)
                 Lv20Perk.Dispose();
+        }
+        public virtual Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddPassive;
+        public void SetActive()
+        {
+            if (ConfigManager.Config == null)
+            {
+                return;
+            }
+            if (PassiveEntity == null)
+            {
+                return;
+            }
+            PassiveEntity.isDefault = ActivePredicate(ConfigManager.Config);
         }
     }
 }

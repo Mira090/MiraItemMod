@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Config;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModMiracle : IDisposable
+    public class ModMiracle : IDisposable, IModConfigurable
     {
         public static ModMiracle Create(string name)
             => new ModMiracle().SetMiracle<Miracle>(name);
@@ -43,6 +44,7 @@ namespace MiraItemMod.Registries
         public Type MiracleType { get; internal set; }
         public GameObject Prefab { get; internal set; }
         public uint AssetId { get; internal set; }
+        public bool IsActive { get; protected set; } = true;
         public void Init(uint assetId)
         {
             AssetId = assetId;
@@ -83,6 +85,19 @@ namespace MiraItemMod.Registries
             if (Prefab != null)
                 GameObject.Destroy(Prefab);
             MiracleImage = null;
+        }
+        public virtual Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddMiracle;
+        public void SetActive()
+        {
+            if (ConfigManager.Config == null)
+            {
+                return;
+            }
+            if (Prefab == null)
+            {
+                return;
+            }
+            IsActive = ActivePredicate(ConfigManager.Config);
         }
     }
 }

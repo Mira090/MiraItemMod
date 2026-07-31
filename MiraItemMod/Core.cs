@@ -1,5 +1,7 @@
 ﻿using FMOD;
 using HarmonyLib;
+using MiraItemMod.Compats;
+using MiraItemMod.Config;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
@@ -98,6 +100,7 @@ namespace MiraItemMod
                 ModPatches = new Harmony("com.Mira.MiraItemMod");
                 ModPatches.PatchAll();
 
+                ConfigManager.Init();
                 CustomSpriteAsset.InitSprites();
                 Data.Init();
 
@@ -113,6 +116,10 @@ namespace MiraItemMod
                 HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
 
                 ModCompat.LoadCompats();
+            }
+            else
+            {
+                ConfigManager.LoadConfig();
             }
 
             if (ModSingletonObject != null)
@@ -165,6 +172,24 @@ namespace MiraItemMod
         private void OnLoadItemDatabase()
         {
             Data.RegisterItems();
+
+            ItemDatabase.Modify(1172, item =>//パラスのカード
+            {
+                if (item.resourcePrefab == null)
+                    return;
+                if (item.resourcePrefab.TryGetComponent<Charm_PallasCard>(out var charm))
+                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
+            });
+            ItemDatabase.Modify(Data.PallasAce.Id, item =>//パラスのエース
+            {
+                if (item.resourcePrefab == null)
+                    return;
+                if (item.resourcePrefab.TryGetComponent<Charm_PallasAce>(out var charm))
+                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
+            });
+
+            if (ConfigManager.Config != null && !ConfigManager.Config.ModifyItem)
+                return;
             ItemDatabase.Modify(3022, item =>//メテオシャワー
             {
                 var prefab = item.resourcePrefab;
@@ -183,82 +208,89 @@ namespace MiraItemMod
                     }
                 }
             });
-            ItemDatabase.Modify(1123, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スタールビー
-            ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
-            ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Vitality));//生命の手
-            ItemDatabase.Modify(1158, SetItemCategories(ItemCategories.Vitality));//強化ポーションキャップ
-            ItemDatabase.Modify(1005, SetItemCategories(ItemCategories.Vitality));//ハート形のニンジン
-            ItemDatabase.Modify(1017, SetItemCategories(ItemCategories.Vitality));//盾のイヤリング
-            ItemDatabase.Modify(1165, SetIsNotUniqueEffect());//ライリーの懐中時計
-            ItemDatabase.Modify(1166, SetIsNotUniqueEffect());//宝石の鎧
-            ItemDatabase.Modify(1169, SetIsNotUniqueEffect());//戦闘魔法使いの手袋
-            ItemDatabase.Modify(1075, SetIsNotUniqueEffect());//空の剣の握り
-            ItemDatabase.Modify(1235, SetItemCategories(ItemCategories.Sturdy, ItemCategories.SkySong));//突き指南書
-            ItemDatabase.Modify(1149, SetItemCategories(ItemCategories.WindSong, ItemCategories.SkySong));//金色のマント
-            ItemDatabase.Modify(1082, SetItemCategories(ItemCategories.SkySong));//圧迫マント
-            ItemDatabase.Modify(1011, SetItemCategories(ItemCategories.SkySong));//風草のスカーフ
-            ItemDatabase.Modify(1093, SetItemCategories(ItemCategories.SkySong));//いばらの茂み
-            ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
-            ItemDatabase.Modify(1188, item =>//血石のイヤリング
-            {
-                item.categories = new List<string> { ItemCategories.Drunk, ItemCategories.Vitality };
-                item.SetEntityRarity(EItemRarity.Rare);
-                item.isDual = true;
 
-                if (item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var status) && status.stats.Length >= 2 && status.stats[1].statusID == "DEFENSE")
+            if (ConfigManager.Config == null || ConfigManager.Config.AddVitality)
+            {
+                ItemDatabase.Modify(1123, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スタールビー
+                ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
+                ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Vitality));//生命の手
+                ItemDatabase.Modify(1005, SetItemCategories(ItemCategories.Vitality));//ハート形のニンジン
+                ItemDatabase.Modify(1017, SetItemCategories(ItemCategories.Vitality));//盾のイヤリング
+                ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
+                ItemDatabase.Modify(1174, item =>
                 {
-                    status.stats[1].valuesByLevel = new int[] { -10, -15, -20, -30 };
-                }
-            });
-            ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
-            ItemDatabase.Modify(1174, item =>
-            {
-                item.categories = new List<string> { ItemCategories.Vitality };
-                item.activeType = EItemActiveType.Default;
-                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_ElruNaptimePillow>(out var charm))
+                    item.categories = new List<string> { ItemCategories.Vitality };
+                    item.activeType = EItemActiveType.Default;
+                    if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_ElruNaptimePillow>(out var charm))
+                    {
+                        var mod = item.resourcePrefab.AddComponent<Charm_ElruNaptimePillowMkII>();
+                        mod.healByLevel = charm.healByLevel;
+                        mod.healFxPrefab = charm.healFxPrefab;
+                        mod.healSound = charm.healSound;
+                        mod.effectsString = charm.effectsString;
+                        mod.maxLevel = charm.maxLevel;
+                        mod.isUniqueEffect = charm.isUniqueEffect;
+                        UnityEngine.Object.Destroy(charm);
+                    }
+                });
+                ItemDatabase.Modify(1148, item =>
                 {
-                    var mod = item.resourcePrefab.AddComponent<Charm_ElruNaptimePillowMkII>();
-                    mod.healByLevel = charm.healByLevel;
-                    mod.healFxPrefab = charm.healFxPrefab;
-                    mod.healSound = charm.healSound;
-                    mod.effectsString = charm.effectsString;
-                    mod.maxLevel = charm.maxLevel;
-                    mod.isUniqueEffect = charm.isUniqueEffect;
-                    UnityEngine.Object.Destroy(charm);
-                }
-            });
-            ItemDatabase.Modify(1148, item =>
+                    item.categories = new List<string> { ItemCategories.Vitality };
+                    item.activeType = EItemActiveType.Default;
+                    if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_FairyJar>(out var charm))
+                    {
+                        charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
+                        charm.maxLevel = 5;
+                    }
+                });
+            }
+            //ItemDatabase.Modify(1158, SetItemCategories(ItemCategories.Vitality));//強化ポーションキャップ
+            if (ConfigManager.Config == null || ConfigManager.Config.AddAcademy)
             {
-                item.categories = new List<string> { ItemCategories.Vitality };
-                item.activeType = EItemActiveType.Default;
-                if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_FairyJar>(out var charm))
+                ItemDatabase.Modify(1165, SetIsNotUniqueEffect());//ライリーの懐中時計
+                ItemDatabase.Modify(1166, SetIsNotUniqueEffect());//宝石の鎧
+                ItemDatabase.Modify(1169, SetIsNotUniqueEffect());//戦闘魔法使いの手袋
+                ItemDatabase.Modify(1075, SetIsNotUniqueEffect());//空の剣の握り
+            }
+            if (ConfigManager.Config == null || ConfigManager.Config.AddSkySong)
+            {
+                ItemDatabase.Modify(1235, SetItemCategories(ItemCategories.Sturdy, ItemCategories.SkySong));//突き指南書
+                ItemDatabase.Modify(1149, SetItemCategories(ItemCategories.WindSong, ItemCategories.SkySong));//金色のマント
+                ItemDatabase.Modify(1082, SetItemCategories(ItemCategories.SkySong));//圧迫マント
+                ItemDatabase.Modify(1011, SetItemCategories(ItemCategories.SkySong));//風草のスカーフ
+                ItemDatabase.Modify(1093, SetItemCategories(ItemCategories.SkySong));//いばらの茂み
+            }
+            if (ConfigManager.Config == null || ConfigManager.Config.AddFortune)
+            {
+                ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
+            }
+            if (ConfigManager.Config == null || ConfigManager.Config.AddDrunk)
+            {
+                ItemDatabase.Modify(1188, item =>//血石のイヤリング
                 {
-                    charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
-                    charm.maxLevel = 5;
-                }
-            });
-            ItemDatabase.Modify(1172, item =>//パラスのカード
-            {
-                if (item.resourcePrefab == null)
-                    return;
-                if(item.resourcePrefab.TryGetComponent<Charm_PallasCard>(out var charm))
-                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
-            });
-            ItemDatabase.Modify(Data.PallasAce.Id, item =>//パラスのエース
-            {
-                if (item.resourcePrefab == null)
-                    return;
-                if (item.resourcePrefab.TryGetComponent<Charm_PallasAce>(out var charm))
-                    charm.gameObject.AddComponent<CustomPallasController>().Set(charm);
-            });
+                    item.categories = new List<string> { ItemCategories.Drunk, ItemCategories.Vitality };
+                    item.SetEntityRarity(EItemRarity.Rare);
+                    item.isDual = true;
+
+                    if (item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var status) && status.stats.Length >= 2 && status.stats[1].statusID == "DEFENSE")
+                    {
+                        status.stats[1].valuesByLevel = new int[] { -10, -15, -20, -30 };
+                    }
+                });
+            }
         }
         private void OnLoadMiracleDatabase()
         {
             MiracleDatabase.Modify("Scholar", SetMiracleCategories(ItemCategories.Lake));
-            MiracleDatabase.Modify("IntelligenceAgent", SetMiracleCategories(ItemCategories.SkySong));
-            MiracleDatabase.Modify("Guard", SetMiracleCategories(ItemCategories.Vitality));
-            MiracleDatabase.Modify("Berserker", SetMiracleCategories(ItemCategories.Drunk));
             MiracleDatabase.Modify("Elementalist", SetMiracleCategories(ItemCategories.Elemental));
+
+            if (ConfigManager.Config == null || ConfigManager.Config.AddSkySong)
+                MiracleDatabase.Modify("IntelligenceAgent", SetMiracleCategories(ItemCategories.SkySong));
+            if (ConfigManager.Config == null || ConfigManager.Config.AddVitality)
+                MiracleDatabase.Modify("Guard", SetMiracleCategories(ItemCategories.Vitality));
+
+            if (!ModCompat.GetHasLoaded<StarsSephiriaModCompat>() && (ConfigManager.Config == null || ConfigManager.Config.AddDrunk))
+                MiracleDatabase.Modify("Berserker", SetMiracleCategories(ItemCategories.Drunk));
         }
         private void OnLoadStatusDatabase()
         {
@@ -461,7 +493,7 @@ namespace MiraItemMod
             }
             private static void ModifyTreeShopItemEntity(TreeShopItemEntity entity)
             {
-
+                
             }
             static void Postfix(string path, Type systemTypeInstance, ref UnityEngine.Object[] __result)
             {

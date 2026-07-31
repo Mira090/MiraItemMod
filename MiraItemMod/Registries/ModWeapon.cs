@@ -1,6 +1,7 @@
 ﻿using FMODUnity;
-using Mirror;
+using MiraItemMod.Config;
 using MiraItemMod.Utilities;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,14 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public class ModWeapon : IDisposable
+    public class ModWeapon : IDisposable, IModConfigurable
     {
         public static UI_KatanaBar KatanaBar { get; internal set; }
         public static ModWeapon CreateWeapon(string name, int copy, int dependency = -1)
+        {
+            return new ModWeapon().SetWeapon(name, copy, dependency);
+        }
+        public static ModWeapon CreateWeapon(string name, int copy, Func<ModConfig, int> dependency)
         {
             return new ModWeapon().SetWeapon(name, copy, dependency);
         }
@@ -20,6 +25,14 @@ namespace MiraItemMod.Registries
             SetItem(name);
             Copy = copy;
             Dependency = dependency;
+            return this;
+        }
+        internal ModWeapon SetWeapon(string name, int copy, Func<ModConfig, int> dependency)
+        {
+            SetItem(name);
+            Copy = copy;
+            Dependency = -1;
+            ConfigurableDependency = dependency;
             return this;
         }
         internal ModWeapon SetItem(string name)
@@ -47,6 +60,7 @@ namespace MiraItemMod.Registries
         public string IconFileName { get; internal set; }
         public Sprite Icon { get; internal set; }
         public int Dependency { get; internal set; }
+        public Func<ModConfig, int> ConfigurableDependency { get; internal set; }
         public int? EnhanceFromId { get; internal set; }
         public int Copy { get; internal set; }
         public WeaponWieldEntity WeaponWieldEntity { get; internal set; }
@@ -176,6 +190,20 @@ namespace MiraItemMod.Registries
         public Action<NewWeaponFireData[]> SpecialAttacksModifier { get; internal set; }
         public List<NewWeaponFireData> NewSpecialAttacks { get; internal set; } = new List<NewWeaponFireData>();
         public bool NewSpecialAttacksOverride { get; internal set; } = false;
+        public virtual Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddWeapon;
+        public void SetActive()
+        {
+            if (ConfigManager.Config == null)
+            {
+                return;
+            }
+            if (WeaponEntity == null)
+            {
+                return;
+            }
+            WeaponEntity.activeState = ActivePredicate(ConfigManager.Config) ? WeaponEntity.EActiveState.Active : WeaponEntity.EActiveState.Deprecated;
+        }
+
         public virtual void OnSpriteFxRegistered()
         {
             if (MainWeaponPrefab == null)

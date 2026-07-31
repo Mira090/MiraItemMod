@@ -1,5 +1,6 @@
 ﻿using FMODUnity;
 using MiraItemMod.Buffs;
+using MiraItemMod.Config;
 using MiraItemMod.Utilities;
 using Mirror;
 using System;
@@ -14,6 +15,11 @@ namespace MiraItemMod.Registries
 {
     public static class ModItemExtensions
     {
+        public static T SetConfig<T>(this T item, Func<ModConfig, bool> config) where T : IModConfigurable
+        {
+            item.ActivePredicate = config;
+            return item;
+        }
         public static T SetRarity<T>(this T item, EItemRarity rarity) where T : ModItem
         {
             item.Rarity = rarity;

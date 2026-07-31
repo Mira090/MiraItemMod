@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Config;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -42,5 +43,6 @@ namespace MiraItemMod.Registries
             tablet.enabled = false;
             return o;
         }
+        public override Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddItem && config.AddStoneTablet;
     }
 }

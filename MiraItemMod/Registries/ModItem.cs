@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Entities;
+﻿using MiraItemMod.Config;
+using MiraItemMod.Entities;
 using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
-    public abstract class ModItem : IDisposable
+    public abstract class ModItem : IDisposable, IModConfigurable
     {
         internal ModItem SetItem(string name, EItemType type)
         {
@@ -59,6 +60,7 @@ namespace MiraItemMod.Registries
             EItemType.ThrowingWeapon => "ThrowingWeapon",
             _ => "Misc",
         };
+
         public abstract GameObject CreateResourcePrefab();
         public virtual void Init(int id, uint assetId)
         {
@@ -106,6 +108,21 @@ namespace MiraItemMod.Registries
                 GameObject.Destroy(_resourcePrefab);
             Icon = null;
             IconInWorld = null;
+        }
+
+
+        public virtual Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddItem;
+        public void SetActive()
+        {
+            if (ConfigManager.Config == null)
+            {
+                return;
+            }
+            if (ItemEntity == null)
+            {
+                return;
+            }
+            ItemEntity.activeType = ActivePredicate(ConfigManager.Config) ? ActiveType : EItemActiveType.Disabled;
         }
     }
 }
