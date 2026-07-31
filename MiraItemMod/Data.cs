@@ -1898,7 +1898,7 @@ namespace MiraItemMod
 
         /// <summary>
         /// Weapon_Crossbow_Planet_T2_Name
-        /// 巨大ボーガン：望遠レンズ
+        /// 巨大クロスボウ：望遠レンズ
         /// WeaponAddon_Crossbow_Planet_T2_Effect
         /// <tag=PlanetDamage>が12%増加します。
         public static ModWeapon CrossbowPlanet { get; } = ModWeaponCrossbow.CreateCrossbow("Crossbow_Planet_T2", 106, 100).SetStandardEnhancements(14008, 14009, 14010).SetMainPrefabModifier(main =>
@@ -1930,7 +1930,7 @@ namespace MiraItemMod
         });
         /// <summary>
         /// Weapon_Crossbow_Planet_T3_Weapon_Name
-        /// 巨大ボーガン：電波収束
+        /// 巨大クロスボウ：電波収束
         /// WeaponAddon_Crossbow_Planet_T3_Weapon_Effect
         /// 惑星がダメージを与えるごとに<tag=FinalWeaponDamage>が積み重なり、最大で50%増加します。
         public static ModWeapon CrossbowPlanetWeapon { get; } = ModWeaponCrossbow.CreateCrossbow("Crossbow_Planet_T3_Weapon", 106).SetMainPrefabModifier(main =>
@@ -1958,7 +1958,7 @@ namespace MiraItemMod
         });
         /// <summary>
         /// Weapon_Crossbow_Planet_T3_Attack_Name
-        /// 巨大ボーガン：超新星
+        /// 巨大クロスボウ：超新星
         /// WeaponAddon_Crossbow_Planet_T3_Attack_Effect
         /// <tag=WeaponAction_BaiscAttack>時に5%の確率で惑星が即時攻撃します。
         public static ModWeapon CrossbowPlanetAttack { get; } = ModWeaponCrossbow.CreateCrossbow("Crossbow_Planet_T3_Attack", 106).SetMainPrefabModifier(main =>
@@ -1986,7 +1986,7 @@ namespace MiraItemMod
         });
         /// <summary>
         /// Weapon_Crossbow_Planet_T3_Binary_Name
-        /// 巨大ボーガン：引力形成
+        /// 巨大クロスボウ：引力形成
         /// WeaponAddon_Crossbow_Planet_T3_Binary_Effect
         /// 惑星の<tag=CriticalChance>が<tag=BinaryPlanet>の発生率に変換されます。
         public static ModWeapon CrossbowPlanetBinary { get; } = ModWeaponCrossbow.CreateCrossbow("Crossbow_Planet_T3_Binary", 106).SetMainPrefabModifier(main =>
