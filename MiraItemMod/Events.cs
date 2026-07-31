@@ -179,7 +179,7 @@ namespace MiraItemMod
         #endregion
 
         #region 神秘の壺ブラックリスト
-        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.GetMysticPotItems), new Type[] { typeof(EItemRarity) })]
+        //[HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.GetMysticPotItems), new Type[] { typeof(EItemRarity) })]
         public static class UnitAvatarGetMysticPotItemsPatch
         {
             static void Postfix(EItemRarity targetRarity, ref ItemEntity[] __result, UnitAvatar __instance)
