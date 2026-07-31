@@ -3005,6 +3005,8 @@ namespace MiraItemMod
             var weapons = WeaponDatabase.GetAll();
             foreach (var weapon in weapons)
             {
+                if (weapon.mainWeaponPrefab == null)
+                    continue;
                 if (weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var katana) && ModWeapon.KatanaBar == null)
                 {
                     if (katana.katanaBarPrefab != null)
