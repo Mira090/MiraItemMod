@@ -277,6 +277,9 @@ namespace MiraItemMod
         }
         private void OnLoadMiracleDatabase()
         {
+            if (ConfigManager.Config != null && !ConfigManager.Config.ModifyMiracle)
+                return;
+
             MiracleDatabase.Modify("Scholar", SetMiracleCategories(ItemCategories.Lake));
             MiracleDatabase.Modify("Elementalist", SetMiracleCategories(ItemCategories.Elemental));
 

@@ -14,6 +14,7 @@ namespace MiraItemMod.Config
         
         public bool AddMiracle = true;
         public bool AddObsoletedMiracle = false;
+        public bool ModifyMiracle = true;
 
         public bool AddItem = true;
         public bool AddVitality = true;
