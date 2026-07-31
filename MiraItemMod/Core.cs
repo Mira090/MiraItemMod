@@ -117,10 +117,6 @@ namespace MiraItemMod
 
                 ModCompat.LoadCompats();
             }
-            else
-            {
-                ConfigManager.LoadConfig();
-            }
 
             if (ModSingletonObject != null)
             {
@@ -209,7 +205,7 @@ namespace MiraItemMod
                 }
             });
 
-            if (ConfigManager.Config == null || ConfigManager.Config.AddVitality)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddVitality))
             {
                 ItemDatabase.Modify(1123, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スタールビー
                 ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
@@ -245,14 +241,14 @@ namespace MiraItemMod
                 });
             }
             //ItemDatabase.Modify(1158, SetItemCategories(ItemCategories.Vitality));//強化ポーションキャップ
-            if (ConfigManager.Config == null || ConfigManager.Config.AddAcademy)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddAcademy))
             {
                 ItemDatabase.Modify(1165, SetIsNotUniqueEffect());//ライリーの懐中時計
                 ItemDatabase.Modify(1166, SetIsNotUniqueEffect());//宝石の鎧
                 ItemDatabase.Modify(1169, SetIsNotUniqueEffect());//戦闘魔法使いの手袋
                 ItemDatabase.Modify(1075, SetIsNotUniqueEffect());//空の剣の握り
             }
-            if (ConfigManager.Config == null || ConfigManager.Config.AddSkySong)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddSkySong))
             {
                 ItemDatabase.Modify(1235, SetItemCategories(ItemCategories.Sturdy, ItemCategories.SkySong));//突き指南書
                 ItemDatabase.Modify(1149, SetItemCategories(ItemCategories.WindSong, ItemCategories.SkySong));//金色のマント
@@ -260,11 +256,11 @@ namespace MiraItemMod
                 ItemDatabase.Modify(1011, SetItemCategories(ItemCategories.SkySong));//風草のスカーフ
                 ItemDatabase.Modify(1093, SetItemCategories(ItemCategories.SkySong));//いばらの茂み
             }
-            if (ConfigManager.Config == null || ConfigManager.Config.AddFortune)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddFortune))
             {
                 ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
             }
-            if (ConfigManager.Config == null || ConfigManager.Config.AddDrunk)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddDrunk))
             {
                 ItemDatabase.Modify(1188, item =>//血石のイヤリング
                 {
@@ -284,12 +280,12 @@ namespace MiraItemMod
             MiracleDatabase.Modify("Scholar", SetMiracleCategories(ItemCategories.Lake));
             MiracleDatabase.Modify("Elementalist", SetMiracleCategories(ItemCategories.Elemental));
 
-            if (ConfigManager.Config == null || ConfigManager.Config.AddSkySong)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddSkySong))
                 MiracleDatabase.Modify("IntelligenceAgent", SetMiracleCategories(ItemCategories.SkySong));
-            if (ConfigManager.Config == null || ConfigManager.Config.AddVitality)
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddVitality))
                 MiracleDatabase.Modify("Guard", SetMiracleCategories(ItemCategories.Vitality));
 
-            if (!ModCompat.GetHasLoaded<StarsSephiriaModCompat>() && (ConfigManager.Config == null || ConfigManager.Config.AddDrunk))
+            if (!ModCompat.GetHasLoaded<StarsSephiriaModCompat>() && (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddDrunk)))
                 MiracleDatabase.Modify("Berserker", SetMiracleCategories(ItemCategories.Drunk));
         }
         private void OnLoadStatusDatabase()

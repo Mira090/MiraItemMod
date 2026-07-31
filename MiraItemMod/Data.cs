@@ -499,7 +499,7 @@ namespace MiraItemMod
         /// <tag=MoveSpeed>が{PERCENT}に固定されます
         /// </summary>
         public static ModCharm FixedMoveSpeed { get; } = ModCharmStatus.Create<Charm_FixedMoveSpeed>("FixedMoveSpeed", 3, CreateStatusGroup("DASH_ATTACK_DAMAGE", 20, 40, 80, 200))
-            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossPanther).SetConfig(config => config.AddSkySong);
+            .SetCategory(ItemCategories.SkySong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossPanther).SetConfig(config => config.AddItem && config.AddSkySong);
         /// <summary>
         /// Item_AnotherExecution_Name
         /// ウリエルの手斧
@@ -1718,19 +1718,19 @@ namespace MiraItemMod
         /// 商人
         /// </summary>
         public static ModMiracle Merchant { get; } = ModMiracleStatus.Create("Merchant", CreatePositiveStat("NEGOTIATION/10"), CreatePositiveStat("ADDITIONAL_SHOP/2"))
-            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddNegotiation);
+            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddItem && config.AddNegotiation);
         /// <summary>
         /// Miracle_Executioner_Name
         /// 執行人
         /// </summary>
         public static ModMiracle Executioner { get; } = ModMiracleStatus.Create("Executioner", CreatePositiveStat("DEBUFF_DAMAGE/12"), CreatePositiveStat("HIGHEST_ELEMENTAL_DAMAGE/3"))
-            .SetCategories(ItemCategories.Curse).SetConfig(config => config.AddMiracle && config.AddCurse);
+            .SetCategories(ItemCategories.Curse);
         /// <summary>
         /// Miracle_Astrologist_Name
         /// 航海士
         /// </summary>
         public static ModMiracle Astrologist { get; } = ModMiracleStatus.Create("Astrologist", CreatePositiveStat("STARGAZE_LEVEL/2"))
-            .SetCategories(ItemCategories.Stargaze).SetConfig(config => config.AddMiracle && config.AddStargaze);
+            .SetCategories(ItemCategories.Stargaze).SetConfig(config => config.AddMiracle && config.AddItem && config.AddStargaze);
         /// <summary>
         /// Miracle_Miner_Name
         /// 採鉱者
@@ -1738,7 +1738,7 @@ namespace MiraItemMod
         /// <tag=ItemRarity_Jewelry>アーティファクトを獲得
         /// </summary>
         public static ModMiracle Miner { get; } = ModMiracleStatus.Create<Miracle_GiveJewelry>("Miner", CreateNegativeStat("ATTACK_SPEED/-15"), CreateNegativeStat("MOVE_SPEED/-12"))
-            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddJewelry).SetJewelryGivenItems().SetNotAutoGenerateEffectString(3, new EEffectType[] { EEffectType.Positive, EEffectType.Negative, EEffectType.Negative });
+            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddItem && config.AddJewelry).SetJewelryGivenItems().SetNotAutoGenerateEffectString(3, new EEffectType[] { EEffectType.Positive, EEffectType.Negative, EEffectType.Negative });
         #endregion
 
         #region Weapon Enhancements
