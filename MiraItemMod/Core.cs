@@ -463,12 +463,12 @@ namespace MiraItemMod
                                 new ComboEffectBase.ComboStat()
                                 {
                                     comboCount = 6,
-                                    status = combo.addStatByCombo[1].status,
+                                    status = new string[]{ "DEBUFF_DAMAGE/20", "MOVE_SPEED/9" },
                                 },
                                 new ComboEffectBase.ComboStat()
                                 {
                                     comboCount = 8,
-                                    status = combo.addStatByCombo[1].status,
+                                    status = new string[]{ "ALL_DEBUFF_STACK/2" },
                                 }
                             };
                         }
