@@ -255,6 +255,7 @@ namespace MiraItemMod
                 ItemDatabase.Modify(1082, SetItemCategories(ItemCategories.SkySong));//圧迫マント
                 ItemDatabase.Modify(1011, SetItemCategories(ItemCategories.SkySong));//風草のスカーフ
                 ItemDatabase.Modify(1093, SetItemCategories(ItemCategories.SkySong));//いばらの茂み
+                ItemDatabase.Modify(1049, SetItemCategories(ItemCategories.SkySong));//小太刀ヤクモ
             }
             if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddFortune))
             {
