@@ -7,6 +7,7 @@ namespace MiraItemMod.Items.Eternal
 {
     public class Charm_GlacierFrost : Charm_StatusInstance
     {
+        public float add = 2f;
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
@@ -28,21 +29,25 @@ namespace MiraItemMod.Items.Eternal
                     continue;
                 if (charm is Charm_IceHammer hammer)
                 {
-                    hammer.chargingCharm.AddTimer(2f);
+                    hammer.chargingCharm.AddTimer(add);
                 }
                 if (charm is Charm_IceSpear spear)
                 {
-                    spear.chargingCharm.AddTimer(2f);
+                    spear.chargingCharm.AddTimer(add);
                 }
                 if (charm is Charm_AirSlash slash)
                 {
-                    slash.chargingCharm.AddTimer(2f);
+                    slash.chargingCharm.AddTimer(add);
+                }
+                if (charm is Charm_Guillotine guillotine)
+                {
+                    guillotine.SetRemainingCooldown(guillotine.GetRemainingCooldown() - add);
                 }
                 if (charm is Charm_IceBow bow)
                 {
-                    bow.chargingCharm.AddTimer(2f);
+                    bow.chargingCharm.AddTimer(add);
                     if (bow.NetworkreadyArrowCount < bow.arrowReloadLimit)
-                        bow.NetworkreadyArrowCount = bow.readyArrowCount + 2;
+                        bow.NetworkreadyArrowCount = bow.readyArrowCount + (int)add;
                 }
             }
         }

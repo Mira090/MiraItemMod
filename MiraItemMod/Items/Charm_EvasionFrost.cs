@@ -11,7 +11,7 @@ namespace MiraItemMod.Items
 {
     public class Charm_EvasionFrost : Charm_StatusInstance
     {
-        public static List<int> FrostRelics = new List<int> { 1014, 1137, 1208, 1247 };//祝詞の鞘、ヴォルスパ、吹雪のハンマー、氷の翼
+        public static List<int> FrostRelics = new List<int> { 1014, 1137, 1208, 1247, 1303 };//祝詞の鞘、ヴォルスパ、吹雪のハンマー、氷の翼、酷寒のギロチン
         public int[] cooldown = new int[] { 50 };
         public Timer cooldownTimer = new Timer(0.1f, resetOnTime: false);
         public int[] percent = new int[] { 10, 20, 30 };
@@ -77,6 +77,11 @@ namespace MiraItemMod.Items
             {
                 cooldownTimer.Ratio = 0f;
                 slash.chargingCharm.AddTimer(cooldown.SafeRandomAccess(CurrentLevelToIdx()) / 100f);
+            }
+            if(charm is Charm_Guillotine guillotine)
+            {
+                cooldownTimer.Ratio = 0f;
+                guillotine.SetRemainingCooldown(guillotine.GetRemainingCooldown() - cooldown.SafeRandomAccess(CurrentLevelToIdx()) / 100f);
             }
             if (charm is Charm_IceBow bow)
             {
@@ -203,6 +208,22 @@ namespace MiraItemMod.Items
                         {
                             __instance.NetworkreadyArrowCount = __instance.readyArrowCount + 1;
                         }
+                    }
+                }
+            }
+        }
+        [HarmonyPatch(typeof(Charm_Guillotine), "SpawnWaves")]
+        public static class GuillotinePatch
+        {
+            static void Postfix(Charm_Guillotine __instance)
+            {
+                var avatar = __instance.NetworkAvatar;
+                if (avatar != null && avatar.GetCustomStatUnsafe("EVASIONCHARGE") > 0)
+                {
+                    float percent = GetChargeChance(avatar);
+                    if (UnityEngine.Random.Range(0f, 100f) < percent)
+                    {
+                        __instance.SetRemainingCooldown(0);
                     }
                 }
             }

@@ -367,6 +367,14 @@ namespace MiraItemMod.Utilities
         {
             return (PlayerAvatar)typeof(UI_SkillQuickSlotBar).GetField("playerAvatar", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
         }
+        public static void SetRemainingCooldown(this Charm_Guillotine instance, float value)
+        {
+            typeof(Charm_Guillotine).GetField("remainingCooldown", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
+        public static float GetRemainingCooldown(this Charm_Guillotine instance)
+        {
+            return (float)typeof(Charm_Guillotine).GetField("remainingCooldown", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
 
 
 

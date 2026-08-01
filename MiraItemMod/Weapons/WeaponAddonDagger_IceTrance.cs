@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using MiraItemMod.Items;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -75,6 +76,10 @@ namespace MiraItemMod.Weapons
             else if (charm is Charm_AirSlash slash)
             {
                 slash.chargingCharm.AddTimer(t);
+            }
+            else if (charm is Charm_Guillotine guillotine)
+            {
+                guillotine.SetRemainingCooldown(guillotine.GetRemainingCooldown() - t);
             }
             else if (charm is Charm_IceBow bow)
             {
