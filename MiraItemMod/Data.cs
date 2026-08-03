@@ -1480,7 +1480,7 @@ namespace MiraItemMod
         /// 機械
         /// </summary>
         public static ModComboEffect Machina { get; } = ModComboEffect.Create<ComboEffect_Machina>("Machina").SetStats(CreateComboStat(4, "MACHINA_DAMAGE/12"),
-            CreateComboStat(6, "MACHINA_ATTACK_SPEED/10"), CreateComboStat(8, "MACHINA_ATTACK_SPEED/16"), CreateComboStat(10, "MACHINA_DAMAGE/20")).SetDefaultEffect();
+            CreateComboStat(6, "MACHINA_ATTACK_SPEED/10"), CreateComboStat(8, "MACHINA_DAMAGE/16"), CreateComboStat(10, "MACHINA_ATTACK_SPEED/20")).SetDefaultEffect();
         #endregion
 
         #region EffectHUDs
