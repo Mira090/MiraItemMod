@@ -121,7 +121,7 @@ namespace MiraItemMod.Combos
             var machinaCharm = GetMachinaCharm();
             if (demolitionCharm == null)
                 return;
-            if (machinaCharm != null && machinaCharm is Charm_MachinaBasic machina)
+            if (machinaCharm != null && machinaCharm is Charm_MachinaBasic machina && machina.maxLevel < machina.ValiableMax)
             {
                 machina.Repair(1 + Mathf.Max(0, Networkavatar.GetCustomStatUnsafe("ADDITIONALREPAIR")));
             }
