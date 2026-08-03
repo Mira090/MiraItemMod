@@ -25,13 +25,21 @@ namespace MiraItemMod.Entities
                 {
                     itemEntity = ItemDatabase.FindItemById(itemEntity2.IEntityID);
                 }
-                if (data is NewItemOwnInstance item && item.Entity is ItemEntity_Jewelry jewelry)
+
+                if (data is NewItemOwnInstance item)
+                {
+                    if(item.Entity is ItemEntity_Jewelry jewelry)
+                        Modify(__instance, jewelry);
+                    else if(item.Entity is ItemEntity_Armament armament)
+                        Modify(__instance, armament);
+                }
+                else if(itemEntity is ItemEntity_Jewelry jewelry)
                 {
                     Modify(__instance, jewelry);
                 }
-                else if(itemEntity is ItemEntity_Jewelry jewelry2)
+                else if (itemEntity is ItemEntity_Armament armament)
                 {
-                    Modify(__instance, jewelry2);
+                    Modify(__instance, armament);
                 }
             }
             static void Modify(UI_CharmTooltip __instance, ItemEntity_Jewelry jewelry)
@@ -73,6 +81,73 @@ namespace MiraItemMod.Entities
                 string text15 = keyword.Convert(true, false);
                 string text16 = ItemDatabase.GetItemRarityName(jewelry.rarity).ToString();
                 string text17 = ItemDatabase.GetItemTypeName(jewelry.type).ToString();
+                bool flag4 = LocalizationManager.Instance.CurrentLanguage == "pt-BR";
+
+
+                if (flag4)
+                {
+                    typeText.text = string.Concat(new string[]
+                    {
+                            text17,
+                            text14,
+                            text15,
+                            text14,
+                            text16,
+                            text13
+                    });
+                }
+                else
+                {
+                    typeText.text = string.Concat(new string[]
+                    {
+                            text16,
+                            text14,
+                            text15,
+                            text14,
+                            text17,
+                            text13
+                    });
+                }
+            }
+            static void Modify(UI_CharmTooltip __instance, ItemEntity_Armament armament)
+            {
+                KeywordEntity keyword = KeywordDatabase.GetEntity("ItemRarity_Armament");
+                if (keyword == null)
+                {
+                    if (Core.LogFew)
+                        Core.LoggerWarning("ItemRarity_Armament does not found!");
+                    return;
+                }
+
+                Color colorViaItemRarity = ItemDatabase.GetColorViaItemRarity(armament.rarity);
+                VertexGradient colorGradient = new VertexGradient(colorViaItemRarity, colorViaItemRarity, keyword.textColor, keyword.textColor);
+                var nameText = __instance.GetNameText();
+                nameText.color = Color.white;
+                nameText.colorGradient = colorGradient;
+                nameText.enableVertexGradient = true;
+
+                var typeText = __instance.GetTypeText();
+                if (!typeText.gameObject.activeSelf)
+                    return;
+
+                string text13 = "";
+                Charm_Basic component5 = armament.resourcePrefab.GetComponent<Charm_Basic>();
+                if (component5)
+                {
+                    if (component5 is Charm_Magic)
+                    {
+                        text13 = "(" + Loc._("ItemType_Charm_Magic") + ")";
+                    }
+                    else if (component5 is Charm_WeaponSkill)
+                    {
+                        text13 = "(" + Loc._("ItemType_Charm_WeaponSkill") + ")";
+                    }
+                }
+
+                string text14 = Loc._("#SeparatorSpace");
+                string text15 = keyword.Convert(true, false);
+                string text16 = ItemDatabase.GetItemRarityName(armament.rarity).ToString();
+                string text17 = ItemDatabase.GetItemTypeName(armament.type).ToString();
                 bool flag4 = LocalizationManager.Instance.CurrentLanguage == "pt-BR";
 
 

@@ -43,6 +43,7 @@ namespace MiraItemMod.Registries
         public bool CannotThrow { get; internal set; } = false;
         public bool IsDual { get; internal set; } = false;
         public bool IsJewelry { get; internal set; } = false;
+        public bool IsArmament { get; internal set; } = false;
         public bool IsExcludedJewelry { get; internal set; } = false;
         public int? TreeShopItemEntity { get; internal set; } = null;
         public bool HasTreeShopItemEntity => TreeShopItemEntity.HasValue;
@@ -73,9 +74,17 @@ namespace MiraItemMod.Registries
         {
 
         }
+        protected virtual ItemEntity CreateInstance()
+        {
+            if (IsJewelry)
+                return ScriptableObject.CreateInstance<ItemEntity_Jewelry>();
+            if(IsArmament)
+                return ScriptableObject.CreateInstance<ItemEntity_Armament>();
+            return ScriptableObject.CreateInstance<ItemEntity>();
+        }
         public ItemEntity CreateItemEntity()
         {
-            var entity = IsJewelry ? ScriptableObject.CreateInstance<ItemEntity_Jewelry>() : ScriptableObject.CreateInstance<ItemEntity>();
+            var entity = CreateInstance();
             entity.name = Id + ItemEntityName;
             entity.activeType = ActiveType;
             entity.aName = LocalizedName;

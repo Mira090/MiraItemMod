@@ -1358,6 +1358,12 @@ namespace MiraItemMod
         /// </summary>
         public static ModComboEffect Grimoire { get; } = ModComboEffect.Create("Grimoire").SetStats(CreateComboStatThreeDamage(2, "Grimoire", 3), CreateComboStatThreeDamage(4, "Grimoire", 6),
             CreateComboStatThreeDamage(6, "Grimoire", 9), CreateComboStatThreeDamage(8, "Grimoire", 12), CreateComboStatThreeDamage(10, "Grimoire", 15));
+        /// <summary>
+        /// ItemCategory_Machina
+        /// 機械
+        /// </summary>
+        public static ModComboEffect Machina { get; } = ModComboEffect.Create<ComboEffect_Machina>("Machina").SetStats(CreateComboStat(4, "MACHINA_DAMAGE/9"),
+            CreateComboStat(6, "MACHINA_DAMAGE/12"), CreateComboStat(8, "MACHINA_DAMAGE/15")).SetDefaultEffect();
         #endregion
 
         #region EffectHUDs
@@ -1587,6 +1593,27 @@ namespace MiraItemMod
         /// </summary>
         public static ModCustomStatus LeafSteal { get; } = ModCustomStatus.CreateStatus("LeafSteal").DoKeyword(keyword => keyword.SetTextColor(new Color32(200, 120, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.LeafSteal));
         /// <summary>
+        /// Status_MachinaDamage_Name
+        /// 機械ダメージ
+        /// Status_MachinaDamage_Description
+        /// 機械アーティファクトのダメージが増加します
+        /// </summary>
+        public static ModCustomStatus MachinaDamage { get; } = ModCustomStatus.CreateStatus("MachinaDamage").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaDamage));
+        /// <summary>
+        /// Status_MachinaAttackSpeed_Name
+        /// 機械攻撃速度
+        /// Status_MachinaAttackSpeed_Description
+        /// 機械アーティファクトのクールダウンが短くなります
+        /// </summary>
+        public static ModCustomStatus MachinaAttackSpeed { get; } = ModCustomStatus.CreateStatus("MachinaAttackSpeed").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaAttackSpeed));
+        /// <summary>
+        /// Status_AdditionalRepair_Name
+        /// 機械レベル追加増加
+        /// Status_AdditionalRepair_Description
+        /// 機械スロットの機械アーティファクトの最大レベルがさらに増加します
+        /// </summary>
+        public static ModCustomStatus AdditionalRepair { get; } = ModCustomStatus.CreateStatus("AdditionalRepair").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaLevel));
+        /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
         /// Status_MagicExecution_Description
@@ -1667,6 +1694,13 @@ namespace MiraItemMod
         /// 対象の<tag=Leaf>を盗み取ります。<tag=Evasion>と同様の確率で盗み取る<tag=Leaf>が増加します。
         /// </summary>
         public static ModKeyword Looting { get; } = ModKeyword.CreateKeyword("Looting").SetTextColor(new Color32(200, 100, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.Looting);
+        /// <summary>
+        /// Status_ItemRarity_Armament_Name
+        /// 武装
+        /// Status_ItemRarity_Armament_Description
+        /// 武器攻撃を再現する特殊なアーティファクト。
+        /// </summary>
+        public static ModKeyword ItemRarityArmament { get; } = ModKeyword.CreateKeyword("ItemRarity_Armament").SetTextColor(new Color32(150, 180, 200, 255));
         #endregion
 
 

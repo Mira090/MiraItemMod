@@ -126,6 +126,14 @@ namespace MiraItemMod.Registries
             item.ActiveType = EItemActiveType.Hidden;
             return item;
         }
+        public static T SetIsArmament<T>(this T item, EItemRarity rarity) where T : ModItem
+        {
+            item.SetRarity(rarity);
+            item.IsArmament = true;
+            //item.Cost += item.Cost;
+            //item.ActiveType = EItemActiveType.Hidden;
+            return item;
+        }
         public static T SetTreeShopItemEntity<T>(this T item, int id) where T : ModItem
         {
             item.TreeShopItemEntity = id;

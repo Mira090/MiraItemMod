@@ -25,6 +25,9 @@ namespace MiraItemMod.Registries
         public static Sprite Crime;
         public static Sprite Looting;
         public static Sprite LeafSteal;
+        public static Sprite MachinaDamage;
+        public static Sprite MachinaAttackSpeed;
+        public static Sprite MachinaLevel;
 
         public static int width = 10;
         public static int height = 10;
@@ -66,6 +69,9 @@ namespace MiraItemMod.Registries
             Crime = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Crime", new Rect(width, height * 0, width, height));
             Looting = AssetLoader.CreateSprite(NewKeywordSprite.texture, "Looting", new Rect(width, height * 1, width, height));
             LeafSteal = AssetLoader.CreateSprite(NewKeywordSprite.texture, "LeafSteal", new Rect(width, height * 2, width, height));
+            MachinaDamage = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaDamage", new Rect(width, height * 3, width, height));
+            MachinaAttackSpeed = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaAttackSpeed", new Rect(width, height * 4, width, height));
+            MachinaLevel = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaLevel", new Rect(width, height * 5, width, height));
         }
         public static void InitSpriteAsset()
         {
@@ -98,6 +104,9 @@ namespace MiraItemMod.Registries
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 0, name = "Crime", sprite = Crime });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 1, name = "Looting", sprite = Looting });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 2, name = "LeafSteal", sprite = LeafSteal });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 3, name = "MachinaDamage", sprite = MachinaDamage });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 4, name = "MachinaAttackSpeed", sprite = MachinaAttackSpeed });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 5, name = "MachinaLevel", sprite = MachinaLevel });
             foreach (var sprite in SpriteAsset.spriteInfoList)
             {
                 sprite.id = id++;

@@ -28,6 +28,8 @@ namespace MiraItemMod.Config
         public bool AddCurse = true;
         public bool AddNegotiation = true;
         public bool AddCompanion = true;
+        public bool AddAlchemy = true;
+        public bool AddMachine = true;
         public bool ModifyItem = true;
 
         public bool AddStoneTablet = true;

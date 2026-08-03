@@ -127,6 +127,10 @@ namespace MiraItemMod.Utilities
         /// 魔導書
         /// </summary>
         public static string Grimoire { get; private set; }
+        /// <summary>
+        /// 機械
+        /// </summary>
+        public static string Machina { get; private set; }
 
         /// <summary>
         /// 彗星
