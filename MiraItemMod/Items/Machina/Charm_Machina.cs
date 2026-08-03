@@ -37,7 +37,7 @@ namespace MiraItemMod.Items.Machina
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (isInCooldown && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe("MACHINACOOLDOWN") / 100f))
+            if (isInCooldown && !NetworkAvatar.IsDead && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe("MACHINACOOLDOWN") / 100f))
             {
                 isInCooldown = false;
             }
