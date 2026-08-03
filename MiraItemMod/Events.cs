@@ -6,6 +6,7 @@ using MiraItemMod.Combos;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
+using MiraItemMod.StatusInstances;
 using MiraItemMod.UI;
 using MiraItemMod.Utilities;
 using Mirror;
@@ -1435,5 +1436,25 @@ namespace MiraItemMod
             }
         }
         #endregion
+
+        [HarmonyPatch(typeof(ItemController), "Awake")]
+        public static class ItemControllerPatch
+        {
+            static void Postfix(ItemController __instance)
+            {
+                __instance.SetPotionDrinkTimer(new PotionDrinkTimer(__instance.Avatar));
+            }
+        }
+        [HarmonyPatch(typeof(Timer), nameof(Timer.Update))]
+        public static class PotionDrinkTimerPatch
+        {
+            static void Prefix(Timer __instance, ref float deltaTime)
+            {
+                if(__instance is PotionDrinkTimer timer)
+                {
+                    deltaTime += Time.deltaTime * timer.Avatar.GetCustomStatUnsafe("POTIONDRINKSPEED") / 100f;
+                }
+            }
+        }
     }
 }

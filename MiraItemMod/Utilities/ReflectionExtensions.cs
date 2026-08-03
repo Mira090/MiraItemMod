@@ -394,6 +394,14 @@ namespace MiraItemMod.Utilities
                 return 0f;
             }
         }
+        public static Timer GetPotionDrinkTimer(this ItemController instance)
+        {
+            return (Timer)typeof(ItemController).GetField("potionDrinkTimer", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
+        public static void SetPotionDrinkTimer(this ItemController instance, Timer value)
+        {
+            typeof(ItemController).GetField("potionDrinkTimer", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
 
 
 

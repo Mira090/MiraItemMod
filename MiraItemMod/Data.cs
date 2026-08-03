@@ -1052,7 +1052,7 @@ namespace MiraItemMod
         /// Item_ConvertToBigPotion_Effect
         /// 獲得した再生のポーションを大きな再生のポーションに変換する
         /// </summary>
-        public static ModCharm ConvertToBigPotion { get; } = ModCharmStatus.Create<Charm_ToBigPotion>("ConvertToBigPotion", 0)
+        public static ModCharm ConvertToBigPotion { get; } = ModCharmStatus.Create<Charm_ToBigPotion>("ConvertToBigPotion", 2, CreateStatusGroup("POTION_DRINK_SPEED", 25, 35, 50))
             .SetCategory(ItemCategories.Alchemy).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddAlchemy);
         /// <summary>
         /// Item_MachinaGear_Name
@@ -1730,6 +1730,13 @@ namespace MiraItemMod
         /// 機械スロットの機械アーティファクトの最大レベルがさらに増加します
         /// </summary>
         public static ModCustomStatus AdditionalRepair { get; } = ModCustomStatus.CreateStatus("AdditionalRepair").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaLevel));
+        /// <summary>
+        /// Status_PotionDrinkSpeed_Name
+        /// ポーションを飲む速度
+        /// Status_PotionDrinkSpeed_Description
+        /// ポーションを飲む速度が増加します
+        /// </summary>
+        public static ModCustomStatus PotionDrinkSpeed { get; } = ModCustomStatus.CreateStatus("PotionDrinkSpeed").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.PotionDrinkSpeed));
         /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
