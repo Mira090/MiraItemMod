@@ -1086,7 +1086,7 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm MachinaSpring { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaSpring", 3,
             CreateStatusGroup("MACHINA_ATTACK_SPEED", 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
-            CreateStatusGroup("MACHINE_RANGE", 10, 15, 20, 25, 30, 35, 40, 45, 50, 60))
+            CreateStatusGroup("MACHINA_RANGE", 10, 15, 20, 25, 30, 35, 40, 45, 50, 60))
             .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
         /// <summary>
         /// Item_MachinaFrame_Name
