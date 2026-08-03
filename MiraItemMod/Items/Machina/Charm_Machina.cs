@@ -169,7 +169,7 @@ namespace MiraItemMod.Items.Machina
             {
                 if (NetworkAvatar == null || WeaponController == null)
                     return;
-                float fxScale = 1f + (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f;
+                float fxScale = 1f + (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
                 NewWeaponFireData basicAttack = FireData;
                 bool flag = false;
                 int ownerIndex = -1;

@@ -1079,6 +1079,16 @@ namespace MiraItemMod
         public static ModCharm MachinaWrench { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaWrench", 3, CreateStatusGroup("ADDITIONAL_REPAIR", 0, 1, 1, 1, 2, 2, 2, 3, 3, 4))
             .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
         /// <summary>
+        /// Item_MachinaSpring_Name
+        /// 魔法伸縮合金
+        /// Item_MachinaSpring_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm MachinaSpring { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaSpring", 3,
+            CreateStatusGroup("MACHINA_ATTACK_SPEED", 5, 10, 15, 20, 25, 30, 35, 40, 45, 50),
+            CreateStatusGroup("MACHINE_RANGE", 10, 15, 20, 25, 30, 35, 40, 45, 50, 60))
+            .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
         /// Item_MachinaFrame_Name
         /// マシンフレーム
         /// Item_MachinaFrame_FlavorText
@@ -1138,7 +1148,7 @@ namespace MiraItemMod
         /// Item_MachinaEclipse_Effect
         /// <tag=WeaponAction_BasicAttack>時、日食の斬撃を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
         /// </summary>
-        public static ModCharm MachinaEclipse { get; } = ModCharmStatus.Create<Charm_MachinaEclipse>("MachinaEclipse", 3)
+        public static ModCharm MachinaEclipse { get; } = ModCharmStatus.Create<Charm_MachinaEclipse>("MachinaEclipse", 1)
             .SetCategory(ItemCategories.Machina, ItemCategories.Ember).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaIceArrow_Name
@@ -1148,7 +1158,7 @@ namespace MiraItemMod
         /// Item_MachinaIceArrow_Effect
         /// <tag=WeaponAction_BasicAttack>時、フロストベールの弾丸を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=IceDamage>{PERCENT})]
         /// </summary>
-        public static ModCharm MachinaIceArrow { get; } = ModCharmStatus.Create<Charm_MachinaIceArrow>("MachinaIceArrow", 3)
+        public static ModCharm MachinaIceArrow { get; } = ModCharmStatus.Create<Charm_MachinaIceArrow>("MachinaIceArrow", 1)
             .SetCategory(ItemCategories.Machina, ItemCategories.Glacier).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaLightningSpear_Name
@@ -1158,7 +1168,7 @@ namespace MiraItemMod
         /// Item_MachinaLightningSpear_Effect
         /// <tag=WeaponAction_BasicAttack>時、稲妻の槍を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=LightningDamage>{PERCENT})]
         /// </summary>
-        public static ModCharm MachinaLightningSpear { get; } = ModCharmStatus.Create<Charm_MachinaLightningSpear>("MachinaLightningSpear", 3)
+        public static ModCharm MachinaLightningSpear { get; } = ModCharmStatus.Create<Charm_MachinaLightningSpear>("MachinaLightningSpear", 1)
             .SetCategory(ItemCategories.Machina, ItemCategories.Magitech).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
 
         #region Jewelries
@@ -1723,6 +1733,13 @@ namespace MiraItemMod
         /// 機械アーティファクトのクールダウンが短くなります
         /// </summary>
         public static ModCustomStatus MachinaAttackSpeed { get; } = ModCustomStatus.CreateStatus("MachinaAttackSpeed").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaAttackSpeed));
+        /// <summary>
+        /// Status_MachinaRange_Name
+        /// 機械攻撃範囲
+        /// Status_MachinaRange_Description
+        /// 機械アーティファクトの攻撃範囲が広がります
+        /// </summary>
+        public static ModCustomStatus MachinaRange { get; } = ModCustomStatus.CreateStatus("MachinaRange").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails());
         /// <summary>
         /// Status_AdditionalRepair_Name
         /// 機械レベル追加増加
