@@ -1736,7 +1736,7 @@ namespace MiraItemMod
         /// Status_PotionDrinkSpeed_Description
         /// ポーションを飲む速度が増加します
         /// </summary>
-        public static ModCustomStatus PotionDrinkSpeed { get; } = ModCustomStatus.CreateStatus("PotionDrinkSpeed").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.PotionDrinkSpeed));
+        public static ModCustomStatus PotionDrinkSpeed { get; } = ModCustomStatus.CreateStatus("PotionDrinkSpeed").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.PotionDrinkSpeed));
         /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
