@@ -6,6 +6,7 @@ using MiraItemMod.Config;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Eternal;
 using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Items.Machina;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Items.Savvy;
 using MiraItemMod.Miracles;
@@ -1043,6 +1044,122 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm SavvyAcademy { get; } = ModCharmStatus.Create<Charm_SavvyAcademy>("SavvyAcademy", 2, CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 5, 10, 20))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Academy).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddJewelry);
+        /// <summary>
+        /// Item_ConvertToBigPotion_Name
+        /// 賢者のフラスコ
+        /// Item_ConvertToBigPotion_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_ConvertToBigPotion_Effect
+        /// 獲得した再生のポーションを大きな再生のポーションに変換する
+        /// </summary>
+        public static ModCharm ConvertToBigPotion { get; } = ModCharmStatus.Create<Charm_ToBigPotion>("ConvertToBigPotion", 0)
+            .SetCategory(ItemCategories.Alchemy).SetSimpleEffect().SetRarity(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddAlchemy);
+        /// <summary>
+        /// Item_MachinaGear_Name
+        /// 錆びた歯車
+        /// Item_MachinaGear_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm MachinaGear { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaGear", 4, CreateStatusGroup("MACHINA_ATTACK_SPEED", 3, 6, 9, 12, 16, 20, 25, 30, 36, 44))
+            .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Common).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaScrew_Name
+        /// 尖ったネジ
+        /// Item_MachinaScrew_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm MachinaScrew { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaScrew", 4, CreateStatusGroup("MACHINA_DAMAGE", 3, 6, 10, 15, 20, 25, 30, 36, 44, 55))
+            .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Common).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaWrench_Name
+        /// 機械仕掛けのレンチ
+        /// Item_MachinaWrench_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm MachinaWrench { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaWrench", 3, CreateStatusGroup("ADDITIONAL_REPAIR", 0, 1, 1, 1, 2, 2, 2, 3, 3, 4))
+            .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaFrame_Name
+        /// マシンフレーム
+        /// Item_MachinaFrame_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaFrame_Effect
+        /// 機械スロットにある機械アーティファクトのダメージ {DAMAGE}
+        /// </summary>
+        public static ModCharm MachinaFrame { get; } = ModCharmStatus.Create<Charm_UpMachineDamage>("MachinaFrame", 3)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetRarity(EItemRarity.Uncommon).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaElemental_Name
+        /// 神秘のポンプ
+        /// Item_MachinaElemental_FlavorText
+        /// フレーバーテキスト募集中
+        /// </summary>
+        public static ModCharm MachinaElemental { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaElemental", 5,
+            CreateStatusGroup("PHYSICAL_DAMAGE", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+            CreateStatusGroup("FIRE_DAMAGE", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+            CreateStatusGroup("ICE_DAMAGE", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+            CreateStatusGroup("LIGHTNING_DAMAGE", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+            .SetCategory(ItemCategories.Machina, ItemCategories.Elemental).SetRarity(EItemRarity.Uncommon).SetSimpleEffects(0).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaSlotElemental_Name
+        /// 古代の動力炉
+        /// Item_MachinaSlotElemental_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaSlotElemental_Effect
+        /// 機械スロットにある<tag=ItemRarity_Armament>アーティファクトが基づくダメージ {DAMAGE}\n[現在：{ELEMENTAL} {DAMAGE}]
+        /// </summary>
+        public static ModCharm MachinaSlotElemental { get; } = ModCharmStatus.Create<Charm_MachinaSlotElemental>("MachinaSlotElemental", 3)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaOnDash_Name
+        /// ロケットブーツ
+        /// Item_MachinaOnDash_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaOnDash_Effect
+        /// <tag=Dash>した時、<tag=FireDamage>を与える炎を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaOnDash { get; } = ModCharmStatus.Create<Charm_MachinaOnDash>("MachinaOnDash", 2)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaCooldown_Name
+        /// 巡回ノコギリ
+        /// Item_MachinaCooldown_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaCooldown_Effect
+        /// {COOLDOWN}秒ごとに周囲に<tag=PhysicalDamage>を与える斬撃を放つ\n[ダメージ：{DAMAGE} (<tag=PhysicalDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaCooldown { get; } = ModCharmStatus.Create<Charm_MachinaCooldown>("MachinaCooldown", 2)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaEclipse_Name
+        /// 武装：日食
+        /// Item_MachinaEclipse_FlavorText
+        /// ソリス・エクリの日食を再現した機械
+        /// Item_MachinaEclipse_Effect
+        /// <tag=WeaponAction_BasicAttack>時、日食の斬撃を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaEclipse { get; } = ModCharmStatus.Create<Charm_MachinaEclipse>("MachinaEclipse", 3)
+            .SetCategory(ItemCategories.Machina, ItemCategories.Ember).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaIceArrow_Name
+        /// 武装：フロストベール
+        /// Item_MachinaIceArrow_FlavorText
+        /// フロストベールを再現した機械
+        /// Item_MachinaIceArrow_Effect
+        /// <tag=WeaponAction_BasicAttack>時、フロストベールの弾丸を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=IceDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaIceArrow { get; } = ModCharmStatus.Create<Charm_MachinaIceArrow>("MachinaIceArrow", 3)
+            .SetCategory(ItemCategories.Machina, ItemCategories.Glacier).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaLightningSpear_Name
+        /// 武装：稲妻の槍
+        /// Item_MachinaLightningSpear_FlavorText
+        /// 稲妻の槍を再現した機械
+        /// Item_MachinaLightningSpear_Effect
+        /// <tag=WeaponAction_BasicAttack>時、稲妻の槍を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=LightningDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaLightningSpear { get; } = ModCharmStatus.Create<Charm_MachinaLightningSpear>("MachinaLightningSpear", 3)
+            .SetCategory(ItemCategories.Machina, ItemCategories.Magitech).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
 
         #region Jewelries
         /// <summary>
@@ -2525,7 +2642,9 @@ namespace MiraItemMod
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);
+        public static ModSephirite SephiriteMachina { get; } = ModSephirite.Create<Sephirite_Machina>("Machina").SetAppearLimit(3);
         public static ModSephirite SephiriteBond { get; } = ModSephirite.Create<Sephirite_Bond>("Bond").SetAppearLimit(3);
+        public static ModSephirite SephiriteWitchHat { get; } = ModSephirite.Create<Sephirite_WitchHat>("Bond").SetAppearLimit(3);
 
         public static ModTreeShopItem NewCharmBond2 { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Bond2", string.Empty,
             TreeShopItems.NewCharmBond2, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Right, 8);

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using MiraItemMod.Items.Machina;
 
 namespace MiraItemMod.Items
 {
@@ -123,7 +124,11 @@ namespace MiraItemMod.Items
                         return;
 
                     bool jewelry = item.Charm is Charm_Jewelry;
-                    if (item.Charm is Charm_VariableMaxLevel variable)
+                    if(item.Charm is Charm_MachinaBasic)
+                    {
+
+                    }
+                    else if (item.Charm is Charm_VariableMaxLevel variable)
                     {
                         additional = variable.AdditionalMaxLevel;
                     }

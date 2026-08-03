@@ -2,6 +2,7 @@
 using FMOD.Studio;
 using FMODUnity;
 using HarmonyLib;
+using MiraItemMod.Combos;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Registries;
@@ -143,7 +144,7 @@ namespace MiraItemMod
 
         #region Mod一覧表示
         /*
-        [HarmonyPatch(typeof(UI_TitleLobby), ("Start"))]
+        [HarmonyPatch(typeof(UI_TitleLobby), ("Awake"))]
         public static class UI_TitleLobbyPatch
         {
             public static GameObject ModListObject = null;
