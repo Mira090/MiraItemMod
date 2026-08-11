@@ -257,7 +257,7 @@ namespace MiraItemMod
             {
                 ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
             }
-            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddDrunk))
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddDrunk && ConfigManager.Config.ModifyBloodEarrings))
             {
                 ItemDatabase.Modify(1188, item =>//血石のイヤリング
                 {

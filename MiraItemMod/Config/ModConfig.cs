@@ -33,6 +33,7 @@ namespace MiraItemMod.Config
         public bool AddAlchemy = true;
         public bool AddMachine = true;
         public bool ModifyItem = true;
+        public bool ModifyBloodEarrings = true;
 
         public bool AddStoneTablet = true;
     }
