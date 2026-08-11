@@ -68,24 +68,20 @@ namespace MiraItemMod
 
         public List<List<string>> ModOptions => new List<List<string>>() { new List<string>() { "No Log", "Few", "Medium", "Many" } };
         public List<string> ModOptionsDescription => new List<string>() { "Log Mode" };
-        public List<int> ModOptionsDefault => new List<int>() { 1 };
+        public List<int> ModOptionsCurrent => new List<int> { ConfigManager.Config.LogMode };
 
-        public static int LogMode = 1;
-        public static bool LogFew => LogMode >= 1;
-        public static bool LogMedium => LogMode >= 2;
-        public static bool LogMany => LogMode >= 3;
+        public static bool LogFew => ConfigManager.Config.LogMode >= 1;
+        public static bool LogMedium => ConfigManager.Config.LogMode >= 2;
+        public static bool LogMany => ConfigManager.Config.LogMode >= 3;
 
         public void OnModOptionChanged(int index, int value)
         {
             if (index == 0)
-                LogMode = value;
-            Core.Logger("Changed: " + ModOptions[index][value]);
-        }
-        public void OnModOptionLoaded(int index, int value)
-        {
-            if (index == 0)
-                LogMode = value;
-            Core.Logger("Loaded: " + ModOptions[index][value]);
+            {
+                ConfigManager.Config.LogMode = value;
+                ConfigManager.SaveConfig();
+                Core.Logger("Changed: " + ModOptions[index][value]);
+            }
         }
         public static Harmony ModPatches { get; private set; }
         public static bool IsInitialized { get; private set; } = false;
