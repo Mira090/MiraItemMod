@@ -159,18 +159,22 @@ namespace MiraItemMod.Items.Machina
         public void RpcAttack()
         {
             NetworkWriterPooled writer = NetworkWriterPool.Get();
-            var func = "System.Void Charm_MachinaTest::RpcAttack()";
+            var func = "System.Void Charm_Machina::RpcAttack()";
             SendRPCInternal(func, func.ToFunctionHashCode(), writer, 0, includeOwner: true);
             NetworkWriterPool.Return(writer);
         }
         protected virtual void UserCode_RpcAttack()
         {
+            Core.LoggerFew("UserCode_RpcAttack: " + Item.Name);
             try
             {
                 if (NetworkAvatar == null || WeaponController == null)
                     return;
                 float fxScale = 1f + (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
                 NewWeaponFireData basicAttack = FireData;
+                Core.LoggerFew("FireData: " + basicAttack);
+                if (basicAttack == null)
+                    return;
                 bool flag = false;
                 int ownerIndex = -1;
                 foreach (PlayerSpawner playerSpawner in PlayerSpawner.MultiplayerList)
@@ -211,7 +215,7 @@ namespace MiraItemMod.Items.Machina
 
         static Charm_Machina()
         {
-            RemoteProcedureCalls.RegisterRpc(typeof(Charm_Machina), "System.Void Charm_MachinaTest::RpcAttack()", InvokeUserCode_RpcAttack);
+            RemoteProcedureCalls.RegisterRpc(typeof(Charm_Machina), "System.Void Charm_Machina::RpcAttack()", InvokeUserCode_RpcAttack);
         }
     }
 }

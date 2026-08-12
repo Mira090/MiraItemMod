@@ -22,6 +22,10 @@ namespace MiraItemMod.Items
         {
             UITierPatch.Init();
         }
+        private void Start()
+        {
+            OriginalMaxLevel = maxLevel;
+        }
         protected override void OnConnected(int instanceID)
         {
             base.OnConnected(instanceID);
