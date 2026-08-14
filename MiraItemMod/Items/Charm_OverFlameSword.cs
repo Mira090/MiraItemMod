@@ -32,7 +32,7 @@ namespace MiraItemMod.Items
                         return;
 
                     int b = __instance.maxSword + __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDMAX");
-                    var over = (__instance.currentSword + amount + __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDPICKBONUS")) - b;
+                    var over = (__instance.currentSword + amount) - b;//__instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDPICKBONUS")
                     for (int q = 0; q < over; q++)
                     {
                         __instance.ServerFireSword(__instance.Networkavatar.transform.position, false, false);
