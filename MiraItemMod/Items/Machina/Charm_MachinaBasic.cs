@@ -89,7 +89,7 @@ namespace MiraItemMod.Items.Machina
         public override void SaveItemOnServer(ISaveData saveData)
         {
             base.SaveItemOnServer(saveData);
-            saveData.SetInt($"CharmSaveData_MachinaBasic_{Item.InstanceID}_Level", maxLevel);
+            saveData.SetInt($"CharmSaveData_MachinaBasic_{Item.InstanceID}_Level", AdditionalMaxLevel);
         }
 
         public override void LoadItemOnServer(ISaveData saveData)
