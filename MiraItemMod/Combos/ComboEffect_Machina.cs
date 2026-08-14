@@ -15,6 +15,10 @@ namespace MiraItemMod.Combos
 {
     public class ComboEffect_Machina : ComboEffectBase
     {
+        public static bool HasSlotInitizalized(GridInventory inventory)
+        {
+            return inventory.mysticPositions.Count > 0;
+        }
         public static int GetMachinaSlot(GridInventory inventory)
         {
             if (inventory.mysticPositions.Count == 0)
@@ -305,6 +309,8 @@ namespace MiraItemMod.Combos
                 return;
             Core.LoggerFew("SetGear");
             if (Networkavatar == null || Networkavatar.Inventory == null)
+                return;
+            if (!HasSlotInitizalized(Networkavatar.Inventory))
                 return;
             ItemPosition position = Networkavatar.Inventory.IdxToPos(isDemolition ? GetDemolitionSlot(Networkavatar.Inventory) : GetMachinaSlot(Networkavatar.Inventory));
             if (isDemolition)
