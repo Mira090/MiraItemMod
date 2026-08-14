@@ -7,6 +7,7 @@ namespace MiraItemMod.Config
     [Serializable]
     public class ModConfig
     {
+        public int Version = 0;
         public int LogMode = 1;
 
         public bool AddPassive = true;

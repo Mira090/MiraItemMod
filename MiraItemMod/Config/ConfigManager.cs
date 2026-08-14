@@ -8,6 +8,7 @@ namespace MiraItemMod.Config
 {
     public static class ConfigManager
     {
+        public static readonly int CurrentConfigVersion = 1;
         public static string GetConfigPath()
         {
             string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -34,12 +35,13 @@ namespace MiraItemMod.Config
             {
                 Core.LoggerWarning(exception);
             }
-            if (Config == null)
+            if (Config == null || Config.Version < CurrentConfigVersion)
                 SaveConfig();
         }
         public static void SaveConfig()
         {
             Config ??= new ModConfig();
+            Config.Version = CurrentConfigVersion;
 
             try
             {
