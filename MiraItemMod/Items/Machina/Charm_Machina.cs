@@ -11,6 +11,8 @@ namespace MiraItemMod.Items.Machina
 {
     public class Charm_Machina : Charm_MachinaBasic, IAttackableCharm
     {
+        private static readonly string CooldownStat = "MachinaAttackSpeed".ToSephiriaUpperId();
+
         public int[] damageByLevel = new int[10] { 70, 80, 100, 120, 140, 160, 190, 220, 260, 300};
         public Timer cooldownTimer = new Timer(0.5f);
         public bool isInCooldown;
@@ -37,7 +39,7 @@ namespace MiraItemMod.Items.Machina
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (isInCooldown && !NetworkAvatar.IsDead && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe("MACHINACOOLDOWN") / 100f))
+            if (isInCooldown && !NetworkAvatar.IsDead && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe(CooldownStat) / 100f))
             {
                 isInCooldown = false;
             }
