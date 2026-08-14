@@ -6,7 +6,7 @@ namespace MiraItemMod.Items.Machina
 {
     public class Charm_UpMachineDamage : Charm_MachinaBasic, IDependencyConditionCharm
     {
-        public int[] damageBonusByLevel = new int[10] { 2, 3, 5, 7, 9, 11, 14, 17, 21, 25 };
+        public int[] damageBonusByLevel = new int[10] { 3, 5, 8, 12, 16, 23, 27, 34, 42, 50 };
         public bool machina = false;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

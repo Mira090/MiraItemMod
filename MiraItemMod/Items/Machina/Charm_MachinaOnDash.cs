@@ -41,5 +41,13 @@ namespace MiraItemMod.Items.Machina
                 return null;
             return simple.haetaeStrikeAttackExplosionFireData;
         }
+        public override EDamageElementalType? GetDamageElementalType(NewWeaponFireData fireData)
+        {
+            return null;
+        }
+        public override string GetRelatedStatFormula(NewWeaponFireData fireData)
+        {
+            return "HIGHEST";
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace MiraItemMod.Items.Machina
 {
     public class Charm_Machina : Charm_MachinaBasic, IAttackableCharm
     {
-        public int[] damageByLevel = new int[10] { 45, 50, 60, 75, 90, 110, 140, 180, 230, 300};
+        public int[] damageByLevel = new int[10] { 70, 80, 100, 120, 140, 160, 190, 220, 260, 300};
         public Timer cooldownTimer = new Timer(0.5f);
         public bool isInCooldown;
         public virtual string DamageId => "Charm_MachinaTest";
@@ -111,12 +111,16 @@ namespace MiraItemMod.Items.Machina
                 return string.Empty;
             return fireData.relatedStatFormula;
         }
-        public virtual void Attack()
+        public virtual Vector3 GetAimedDelta()
+        {
+            return WeaponController.attackDirection;
+        }
+        public virtual void Attack(float percent = 100f)
         {
             List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
-            Attack(WeaponController.attackDirection, basicAttackSharedTargetList);
+            Attack(WeaponController.attackDirection, basicAttackSharedTargetList, percent);
         }
-        public virtual void Attack(Vector3 aimedDelta, List<CombatBehaviour> sharedTarget)
+        public virtual void Attack(Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
         {
             if (WeaponController.currentWeapon == null)
                 return;
@@ -131,20 +135,30 @@ namespace MiraItemMod.Items.Machina
             float damage = Charm_Basic.CalculateDamage(this);
             if (damage <= 0)
                 return;
-            damage += damage * (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponDamageBonus) / 100f;
+            damage = ModifyDamage(damage);
+            if (AttackDashScale > 0f)
+            {
+                GameCamera.Instance.targetTracker.CreateCameraShaking(WeaponController.transform.position, EShakeCameraType.Continous, attack.cameraShakeVelocityOnFire, 0.08f, 0.0625f);
+            }
+            damage = damage * percent / 100f;
+            float rangeBonus = (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + (float)NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
+            var temp = attack.damageElementalType;
+            var elemental = GetDamageElementalType(FireData);
+            if (elemental.HasValue)
+                attack.damageElementalType = elemental.Value;
+            attack.CreateAttack(EDamageFromType.DirectAttack, damage, DamageId, true, NetworkAvatar, vector, vector + aimedDelta, y, OnCreateAttack, sharedTarget, AttackDashScale, null, false, rangeBonus, 1f, MpConsumed, elemental);
+            attack.damageElementalType = temp;
+        }
+        protected virtual float ModifyDamage(float damage)
+        {
             damage += damage * (float)NetworkAvatar.GetCustomStatUnsafe("MACHINADAMAGE") / 100f;
+            damage += damage * (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponDamageBonus) / 100f;
             if (MpConsumed > 0)
             {
                 damage += damage * ((float)NetworkAvatar.GetCustomStatUnsafe("MPSKILLDAMAGE") / 100f);
             }
             damage += damage * ((float)NetworkAvatar.GetCustomStat(ECustomStat.FinalWeaponDamage) / 100f);
-            //damage += damage * (float)this.GetAdditionalBasicAttackDamagePercent(idx) / 100f;
-            if (AttackDashScale > 0f)
-            {
-                GameCamera.Instance.targetTracker.CreateCameraShaking(WeaponController.transform.position, EShakeCameraType.Continous, attack.cameraShakeVelocityOnFire, 0.08f, 0.0625f);
-            }
-            float rangeBonus = (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + (float)NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
-            attack.CreateAttack(EDamageFromType.DirectAttack, damage, DamageId, true, NetworkAvatar, vector, vector + aimedDelta, y, OnCreateAttack, sharedTarget, AttackDashScale, null, false, rangeBonus, 1f, MpConsumed, GetDamageElementalType(FireData));
+            return damage;
         }
 
         protected virtual void OnCreateAttack(int idx, ProjectileBase projectile)

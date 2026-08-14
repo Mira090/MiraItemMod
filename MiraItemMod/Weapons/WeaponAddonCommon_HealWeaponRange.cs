@@ -43,7 +43,7 @@ namespace MiraItemMod.Weapons
             parent.Networkowner.unitAvatar.OnAttackUnitBeforeOperation -= OnAttackUnitBeforeOperation;
         }
 
-        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.Heal))]
+        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.Heal), new Type[] { typeof(float), typeof(bool), typeof(bool) })]
         private static class HealPatch
         {
             static void Postfix(UnitAvatar __instance, ref float amount)
@@ -64,7 +64,7 @@ namespace MiraItemMod.Weapons
                 }
             }
         }
-        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.HealPercent))]
+        [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.HealPercent), new Type[] { typeof(float), typeof(bool), typeof(bool) })]
         private static class HealPercentPatch
         {
             static void Postfix(UnitAvatar __instance, ref float percent)

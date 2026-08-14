@@ -194,6 +194,12 @@ namespace MiraItemMod.Utilities
             var method = type.GetMethod("CreateFlameSword", BindingFlags.Instance | BindingFlags.NonPublic);
             return (IEnumerator)method.Invoke(instance, new object[] { motionTo });
         }
+        public static void InvokeTargetCreatePick(this ComboEffect_FlameSword instance, NetworkConnectionToClient conn, Vector3 pos)
+        {
+            var type = typeof(ComboEffect_FlameSword);
+            var method = type.GetMethod("TargetCreatePick", BindingFlags.Instance | BindingFlags.NonPublic);
+            method.Invoke(instance, new object[] { conn, pos });
+        }
         public static void SetDefaultSpriteAsset(this TMP_Settings instance, TMP_SpriteAsset value)
         {
             instance.GetType().GetField("m_defaultSpriteAsset", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);

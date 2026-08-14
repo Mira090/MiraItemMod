@@ -48,7 +48,7 @@ namespace MiraItemMod.Items
             if (instance.NetworkAvatar == NetworkAvatar)
             {
                 Core.LoggerMedium("Heal: " + healByLevel.SafeRandomAccess(CurrentLevelToIdx()));
-                NetworkAvatar.Heal(healByLevel.SafeRandomAccess(CurrentLevelToIdx()), true);
+                NetworkAvatar.Heal(healByLevel.SafeRandomAccess(CurrentLevelToIdx()), true, false);
             }
         }
         protected override void OnDisabledEffect()

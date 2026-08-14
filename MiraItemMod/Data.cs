@@ -1126,7 +1126,7 @@ namespace MiraItemMod
         /// Item_MachinaOnDash_FlavorText
         /// フレーバーテキスト募集中
         /// Item_MachinaOnDash_Effect
-        /// <tag=Dash>した時、<tag=FireDamage>を与える炎を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
+        /// <tag=Dash>した時、<tag=FireDamage>を与える炎を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=HighestElementalDamage>{PERCENT})]
         /// </summary>
         public static ModCharm MachinaOnDash { get; } = ModCharmStatus.Create<Charm_MachinaOnDash>("MachinaOnDash", 2)
             .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
@@ -1170,6 +1170,38 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm MachinaLightningSpear { get; } = ModCharmStatus.Create<Charm_MachinaLightningSpear>("MachinaLightningSpear", 1)
             .SetCategory(ItemCategories.Machina, ItemCategories.Magitech).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaFlameSpear_Name
+        /// 融合槍
+        /// Item_MachinaFlameSpear_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaFlameSpear_Effect
+        /// 機械スロットにある時、<tag=FlameSword>の代わりに太陽槍を鍛造する\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaFlameSpear { get; } = ModCharmStatus.Create<Charm_MachinaFlameSpear>("MachinaFlameSpear", 0, CreateStatusGroup("FIRE_DAMAGE", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20), CreateStatusGroup("FLAME_SWORD_ADDITIONAL_ATTACK_FROM_WEAPON", 0, 1, 1, 1, 2, 2, 2, 3, 3, 4))
+            .SetCategory(ItemCategories.Machina, ItemCategories.FlameSword).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaDarkCloud_Name
+        /// 雷管
+        /// Item_MachinaDarkCloud_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaDarkCloud_Effect
+        /// <tag=DarkCloud>発動時、機械スロットにある<tag=ItemRarity_Armament>アーティファクトが元の{PERCENT}のダメージで発動する
+        /// </summary>
+        public static ModCharm MachinaDarkCloud { get; } = ModCharmStatus.Create<Charm_MachinaDarkCloud>("MachinaDarkCloud", 5, CreateStatusGroup("DARK_CLOUD_DAMAGE", 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), CreateStatusGroup("MIN_DARK_CLOUD", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20))
+            .SetCategory(ItemCategories.Machina, ItemCategories.DarkCloud).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaIssen_Name
+        /// フラッシュスラスター
+        /// Item_MachinaIssen_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaIssen_Effect
+        /// <tag=WeaponAction_DashAttack>時、閃電一閃を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=LightningDamage>{PERCENT})]
+        /// Item_MachinaIssen_Effect2
+        /// <tag=DashAttackDamage>の影響を受ける
+        /// </summary>
+        public static ModCharm MachinaIssen { get; } = ModCharmStatus.Create<Charm_MachinaIssen>("MachinaIssen", 2, CreateStatusGroup("LIGHTNING_DAMAGE", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20)).SetDamageId()
+            .SetCategory(ItemCategories.Machina, ItemCategories.SkySong).SetSimpleEffects(2).SetIsArmament(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine && config.AddSkySong);
 
         #region Jewelries
         /// <summary>

@@ -1,7 +1,10 @@
 ﻿using HarmonyLib;
+using MiraItemMod.Combos;
 using MiraItemMod.Items.Jewelry;
+using MiraItemMod.Items.Machina;
 using MiraItemMod.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
@@ -27,6 +30,15 @@ namespace MiraItemMod.Items.Eternal
             public static UnitAvatar RecentTarget;
             static bool Prefix(UnitAvatar target, DamageInstance damage, ComboEffect_FlameSword __instance)
             {
+                var combo = __instance.Networkavatar.Inventory.FindComboEffect(ItemCategories.Machina);
+                if (combo is ComboEffect_Machina machina)
+                {
+                    var machinaCharm = machina.GetMachinaCharm();
+                    if (machinaCharm is Charm_MachinaFlameSpear flameSpear && damage.id == flameSpear.DamageId)
+                    {
+                        return false;
+                    }
+                } 
                 if ((bool)target && !target.IsDead && !__instance.GetIsCooldown())
                 {
                     var magitech = __instance.Networkavatar.GetCustomStatUnsafe(Charm_MagitechFlameSword.Status);
@@ -70,6 +82,57 @@ namespace MiraItemMod.Items.Eternal
         [HarmonyPatch(typeof(ComboEffect_FlameSword), nameof(ComboEffect_FlameSword.ServerFireSword))]
         public static class ComboEffect_FlameSwordLocalFireSwordPatch
         {
+            static bool Prefix(Vector3 motionTo, bool isDireectAttack, bool isMagic, int bonus, ComboEffect_FlameSword __instance)
+            {
+                var combo = __instance.Networkavatar.Inventory.FindComboEffect(ItemCategories.Machina);
+                if(combo is ComboEffect_Machina machina)
+                {
+                    var machinaCharm = machina.GetMachinaCharm();
+                    if(machinaCharm is Charm_MachinaFlameSpear flameSpear)
+                    {
+                        int count = 1 + bonus;
+                        if ((bool)__instance.Networkavatar)
+                        {
+                            int additional = __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDADDITIONALATTACK");
+                            count += additional;
+                        }
+
+                        if (isDireectAttack)
+                        {
+                            int sineris = __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDADDITIONALATTACKFROMWEAPON");
+                            count += sineris;
+                        }
+
+                        if (isMagic)
+                        {
+                            int bond = __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDADDITIONALATTACKFROMMAGIC");
+                            count += bond;
+                        }
+                        __instance.StartCoroutine(FlameSpear(__instance, motionTo, flameSpear, count));
+                        return false;
+                    }
+                }
+                return true;
+            }
+            private static IEnumerator FlameSpear(ComboEffect_FlameSword __instance, Vector3 motionTo, Charm_MachinaFlameSpear flameSpear, int count)
+            {
+                for(int q = 0; q < count; q++)
+                {
+                    if (flameSpear == null || flameSpear.NetworkAvatar == null || flameSpear.NetworkAvatar.IsDead || !flameSpear.IsEffectEnabled)
+                        yield break;
+                    if (!__instance.UseSword(1))
+                        yield break;
+                    flameSpear.Attack();
+                    var pos = flameSpear.NetworkAvatar.AimedPosition;
+                    __instance.Delay(0.75f, () =>
+                    {
+                        if (__instance == null || !__instance.isFlameSwordEnabled || flameSpear == null || flameSpear.NetworkAvatar == null || flameSpear.NetworkAvatar.IsDead || !flameSpear.IsEffectEnabled)
+                            return;
+                        __instance.InvokeTargetCreatePick(__instance.Networkavatar.connectionToClient, pos);
+                    });
+                    yield return new WaitForSeconds(0.05f);
+                }
+            }
             static void Postfix(Vector3 motionTo, bool isDireectAttack, bool isMagic, ComboEffect_FlameSword __instance)
             {
                 if(ComboEffect_FlameSwordHandleAttackUnitPatch.RecentTarget == null)

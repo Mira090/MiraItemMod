@@ -120,6 +120,10 @@ namespace MiraItemMod.Entities
                 }
 
                 Color colorViaItemRarity = ItemDatabase.GetColorViaItemRarity(armament.rarity);
+                if (armament.isDual && KeywordDatabase.GetEntity("ItemRarity_Dual") is KeywordEntity bond)
+                {
+                    colorViaItemRarity = bond.textColor;
+                }
                 VertexGradient colorGradient = new VertexGradient(colorViaItemRarity, colorViaItemRarity, keyword.textColor, keyword.textColor);
                 var nameText = __instance.GetNameText();
                 nameText.color = Color.white;
