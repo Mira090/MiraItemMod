@@ -122,7 +122,7 @@ namespace MiraItemMod.Items.Machina
                 return;
             RpcAttack();
 
-            Vector3 vector = FirePosition();
+            Vector3 vector = FirePosition(WeaponController);
             float y = WeaponController.shoulder.Position.y;
             NewWeaponFireData attack = FireData;
             if (attack == null)
@@ -151,9 +151,9 @@ namespace MiraItemMod.Items.Machina
         {
 
         }
-        public virtual Vector3 FirePosition()
+        public virtual Vector3 FirePosition(WeaponControllerSimple simple)
         {
-            return WeaponController.shoulder.swingPoint.position - new Vector3(0f, WeaponController.shoulder.Position.y, 0f);
+            return simple.shoulder.swingPoint.position - new Vector3(0f, simple.shoulder.Position.y, 0f);
         }
         [ClientRpc]
         public void RpcAttack()
@@ -165,10 +165,15 @@ namespace MiraItemMod.Items.Machina
         }
         protected virtual void UserCode_RpcAttack()
         {
+            if (Item == null)
+                return;
             Core.LoggerFew("UserCode_RpcAttack: " + Item.Name);
             try
             {
-                if (NetworkAvatar == null || WeaponController == null)
+                if (NetworkAvatar == null)
+                    return;
+                var weapon = NetworkAvatar.GetComponent<WeaponControllerSimple>();
+                if (weapon == null)
                     return;
                 float fxScale = 1f + (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
                 NewWeaponFireData basicAttack = FireData;
@@ -179,7 +184,7 @@ namespace MiraItemMod.Items.Machina
                 int ownerIndex = -1;
                 foreach (PlayerSpawner playerSpawner in PlayerSpawner.MultiplayerList)
                 {
-                    if (playerSpawner && (WeaponController.gameObject == playerSpawner.gameObject || (NetworkAvatar.NetworkLeader && NetworkAvatar.NetworkLeader.gameObject == playerSpawner.gameObject)))
+                    if (playerSpawner && (weapon.gameObject == playerSpawner.gameObject || (NetworkAvatar.NetworkLeader && NetworkAvatar.NetworkLeader.gameObject == playerSpawner.gameObject)))
                     {
                         flag = true;
                         ownerIndex = (playerSpawner.isOwned ? 1 : 0);
@@ -191,8 +196,8 @@ namespace MiraItemMod.Items.Machina
                 {
                     canBeTransparentOnMultiplayer = true;
                 }
-                Vector3 position = this.FirePosition() + new Vector3(0f, WeaponController.shoulder.Position.y, 0f);
-                basicAttack.CreateSwingFx(canBeTransparentOnMultiplayer, WeaponController.transform, position, WeaponController.shoulder.transform.eulerAngles, fxScale, ownerIndex, 0f);
+                Vector3 position = this.FirePosition(weapon) + new Vector3(0f, weapon.shoulder.Position.y, 0f);
+                basicAttack.CreateSwingFx(canBeTransparentOnMultiplayer, weapon.transform, position, weapon.shoulder.transform.eulerAngles, fxScale, ownerIndex, 0f);
             }
             catch(Exception e)
             {
