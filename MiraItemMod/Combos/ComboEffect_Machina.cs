@@ -302,7 +302,7 @@ namespace MiraItemMod.Combos
         }
         protected virtual void UserCode_RpcSetGear(bool enabled, bool isDemolition)
         {
-            if (UIManager.Instance == null)
+            if (UIManager.Instance == null || !isOwned)
                 return;
             UI_CharacterStatusPanel element = UIManager.Instance.GetElement<UI_CharacterStatusPanel>();
             if (element == null)
