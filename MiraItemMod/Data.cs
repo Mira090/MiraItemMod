@@ -1149,7 +1149,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_BasicAttack>時、日食の斬撃を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
         /// </summary>
         public static ModCharm MachinaEclipse { get; } = ModCharmStatus.Create<Charm_MachinaEclipse>("MachinaEclipse", 1)
-            .SetCategory(ItemCategories.Machina, ItemCategories.Ember).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+            .SetCategory(ItemCategories.Machina, ItemCategories.FlameSword).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaIceArrow_Name
         /// 武装：フロストベール
@@ -1169,7 +1169,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_BasicAttack>時、稲妻の槍を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=LightningDamage>{PERCENT})]
         /// </summary>
         public static ModCharm MachinaLightningSpear { get; } = ModCharmStatus.Create<Charm_MachinaLightningSpear>("MachinaLightningSpear", 1)
-            .SetCategory(ItemCategories.Machina, ItemCategories.Magitech).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+            .SetCategory(ItemCategories.Machina, ItemCategories.DarkCloud).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaFlameSpear_Name
         /// 融合槍
