@@ -112,6 +112,7 @@ namespace MiraItemMod.Entities
             static void Modify(UI_CharmTooltip __instance, ItemEntity_Armament armament)
             {
                 KeywordEntity keyword = KeywordDatabase.GetEntity("ItemRarity_Armament");
+                KeywordEntity bond = KeywordDatabase.GetEntity("ItemRarity_Dual");
                 if (keyword == null)
                 {
                     if (Core.LogFew)
@@ -120,7 +121,7 @@ namespace MiraItemMod.Entities
                 }
 
                 Color colorViaItemRarity = ItemDatabase.GetColorViaItemRarity(armament.rarity);
-                if (armament.isDual && KeywordDatabase.GetEntity("ItemRarity_Dual") is KeywordEntity bond)
+                if (armament.isDual && bond != null)
                 {
                     colorViaItemRarity = bond.textColor;
                 }
@@ -153,31 +154,68 @@ namespace MiraItemMod.Entities
                 string text16 = ItemDatabase.GetItemRarityName(armament.rarity).ToString();
                 string text17 = ItemDatabase.GetItemTypeName(armament.type).ToString();
                 bool flag4 = LocalizationManager.Instance.CurrentLanguage == "pt-BR";
+                var isDual = armament.isDual;
 
 
                 if (flag4)
                 {
-                    typeText.text = string.Concat(new string[]
+                    if (isDual && bond != null)
                     {
+                        var bondText = bond.Convert(true, false);
+                        typeText.text = string.Concat(new string[]
+                        {
+                            text17,
+                            text14,
+                            text15,
+                            text14,
+                            bondText,
+                            text14,
+                            text16,
+                            text13
+                        });
+                    }
+                    else
+                    {
+                        typeText.text = string.Concat(new string[]
+                        {
                             text17,
                             text14,
                             text15,
                             text14,
                             text16,
                             text13
-                    });
+                        });
+                    }
                 }
                 else
                 {
-                    typeText.text = string.Concat(new string[]
+                    if(isDual && bond != null)
                     {
+                        var bondText = bond.Convert(true, false);
+                        typeText.text = string.Concat(new string[]
+                        {
+                            text16,
+                            text14,
+                            bondText,
+                            text14,
+                            text15,
+                            text14,
+                            text17,
+                            text13
+                        });
+                    }
+                    else
+                    {
+                        typeText.text = string.Concat(new string[]
+                        {
                             text16,
                             text14,
                             text15,
                             text14,
                             text17,
                             text13
-                    });
+                        });
+                    }
                 }
             }
         }
