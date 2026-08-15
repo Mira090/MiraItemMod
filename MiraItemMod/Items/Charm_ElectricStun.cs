@@ -36,8 +36,9 @@ namespace MiraItemMod.Items
         {
             Events.OnValueRecieved += OnValueRecieved;
         }
-        public void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Events.OnValueRecieved -= OnValueRecieved;
         }
         protected override void OnEnabledEffect()
@@ -71,7 +72,7 @@ namespace MiraItemMod.Items
                 return;
             foreach(var debuff in avatar.Debuffs)
             {
-                if (debuff.ID == SephiriaPrefabs.Electric.ID)
+                if (debuff.ID == SephiriaPrefabs.Electric.ID || debuff.ID == SephiriaPrefabs.Plasma.ID)
                     return;
             }
             float num = percentByLevel[CurrentLevelToIdx()] * count;
