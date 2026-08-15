@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using static UnitAvatar;
 
 namespace MiraItemMod.Utilities
 {
@@ -407,6 +408,10 @@ namespace MiraItemMod.Utilities
         public static void SetPotionDrinkTimer(this ItemController instance, Timer value)
         {
             typeof(ItemController).GetField("potionDrinkTimer", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
+        public static SyncList<ShieldData> GetCurShieldDatas(this UnitAvatar instance)
+        {
+            return (SyncList<ShieldData>)typeof(UnitAvatar).GetField("curShieldDatas", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
         }
 
 
