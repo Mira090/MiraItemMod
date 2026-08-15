@@ -302,38 +302,46 @@ namespace MiraItemMod.Combos
         }
         protected virtual void UserCode_RpcSetGear(bool enabled, bool isDemolition)
         {
-            if (UIManager.Instance == null || !isOwned)
-                return;
-            UI_CharacterStatusPanel element = UIManager.Instance.GetElement<UI_CharacterStatusPanel>();
-            if (element == null)
-                return;
-            Core.LoggerFew("SetGear");
-            if (Networkavatar == null || Networkavatar.Inventory == null)
-                return;
-            if (!HasSlotInitizalized(Networkavatar.Inventory))
-                return;
-            ItemPosition position = Networkavatar.Inventory.IdxToPos(isDemolition ? GetDemolitionSlot(Networkavatar.Inventory) : GetMachinaSlot(Networkavatar.Inventory));
-            if (isDemolition)
-                _demolitionSlot = position;
-            else
-                _machinaSlot = position;
-            UI_NewInventoryIcon itemIcon = element.GetItemIcon(position);
-            if (itemIcon)
+            try
             {
-                if (enabled)
+                Core.LoggerMedium("isOwned: " + isOwned);
+                if (UIManager.Instance == null || !isOwned)
+                    return;
+                UI_CharacterStatusPanel element = UIManager.Instance.GetElement<UI_CharacterStatusPanel>();
+                if (element == null)
+                    return;
+                Core.LoggerMany("SetGear");
+                if (Networkavatar == null || Networkavatar.Inventory == null)
+                    return;
+                if (!HasSlotInitizalized(Networkavatar.Inventory))
+                    return;
+                ItemPosition position = Networkavatar.Inventory.IdxToPos(isDemolition ? GetDemolitionSlot(Networkavatar.Inventory) : GetMachinaSlot(Networkavatar.Inventory));
+                if (isDemolition)
+                    _demolitionSlot = position;
+                else
+                    _machinaSlot = position;
+                UI_NewInventoryIcon itemIcon = element.GetItemIcon(position);
+                if (itemIcon)
                 {
-                    Core.LoggerFew("EnableGear");
-                    EnableGear(itemIcon, isDemolition);
+                    if (enabled)
+                    {
+                        Core.LoggerMedium("EnableGear");
+                        EnableGear(itemIcon, isDemolition);
+                    }
+                    else
+                    {
+                        Core.LoggerMedium("DisableGear");
+                        DisableGear(itemIcon);
+                    }
                 }
                 else
                 {
-                    Core.LoggerFew("DisableGear");
-                    DisableGear(itemIcon);
+                    Core.LoggerError($"Could not find item icon for position {position} when trying to {(enabled ? "enable" : "disable")} gear image.");
                 }
             }
-            else
+            catch(Exception e)
             {
-                Core.LoggerError($"Could not find item icon for position {position} when trying to {(enabled ? "enable" : "disable")} gear image.");
+                Core.LoggerError(e);
             }
         }
         protected virtual void ClearGear()
