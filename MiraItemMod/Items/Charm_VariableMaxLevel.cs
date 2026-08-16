@@ -17,19 +17,32 @@ namespace MiraItemMod.Items
         public virtual string StatusName => "STARGAZELEVEL";
         public virtual int ValiableMax => 16;
         public int AdditionalMaxLevel { get; protected set; }
-        public int OriginalMaxLevel { get; protected set; }
+        public int OriginalMaxLevel
+        {
+            get
+            {
+                if (Item == null)
+                    return 0;
+                var entity = ItemDatabase.FindItemById(Item.EntityID);
+                if(entity == null)
+                    return 0;
+                if (entity.resourcePrefab == null)
+                    return 0;
+                if(entity.resourcePrefab.TryGetComponent<Charm_Basic>(out var charm))
+                {
+                    return charm.maxLevel;
+                }
+                return 0;
+            }
+        }
         private void Awake()
         {
             UITierPatch.Init();
         }
-        private void Start()
-        {
-            OriginalMaxLevel = maxLevel;
-        }
         protected override void OnConnected(int instanceID)
         {
             base.OnConnected(instanceID);
-            OriginalMaxLevel = maxLevel;
+            //OriginalMaxLevel = maxLevel;
             //Core.Logger($"OnConnected: {OriginalMaxLevel}");
         }
         protected override void OnEnabledEffect()
