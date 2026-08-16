@@ -329,6 +329,15 @@ namespace MiraItemMod.Registries
             item.SetMiracleEffects(list.ToArray());
             return item;
         }
+        public static T SetNotAutoGenerateEffectString<T>(this T item, int count, params EEffectType[] types) where T : ModMiracleStatus
+        {
+            item.AutoGenerateEffectString = false;
+            var list = new List<Effect>();
+            for (int q = 1; q <= count; q++)
+                list.Add(CreateEffect("Miracle_" + item.Name + "_Effect" + (q == 1 ? "" : q.ToString()), types.SafeRandomAccess(q - 1)));
+            item.SetMiracleEffects(list.ToArray());
+            return item;
+        }
         public static T SetDivideForDisplay<T>(this T item, int divideForDisplay) where T : ModCustomStatus
         {
             item.DivideForDisplay = divideForDisplay;

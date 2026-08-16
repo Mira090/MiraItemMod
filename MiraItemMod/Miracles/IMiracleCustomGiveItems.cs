@@ -10,6 +10,7 @@ namespace MiraItemMod.Miracles
     public interface IMiracleCustomGiveItems
     {
         public List<int> GetAllItems(bool generateInstanceID, MiracleController identity, int instanceID);
+        public ItemMetadata[] GetAdditionalItems(bool generateInstanceID, System.Random random, MiracleController identity, int instanceID);
 
         public bool UseCategory => true;
         public bool UseDual => false;
@@ -158,6 +159,7 @@ namespace MiraItemMod.Miracles
             {
                 Debug.LogError("관련 아이템을 찾을 수 없음");
             }
+            list.AddRange(GetAdditionalItems(generateInstanceID, random, identity, instanceID));
             return list.ToArray();
         }
 

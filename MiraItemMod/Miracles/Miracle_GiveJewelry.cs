@@ -22,5 +22,9 @@ namespace MiraItemMod.Miracles
             }
             return list;
         }
+        public ItemMetadata[] GetAdditionalItems(bool generateInstanceID, System.Random random, MiracleController identity, int instanceID)
+        {
+            return new ItemMetadata[0];
+        }
     }
 }

@@ -1958,7 +1958,41 @@ namespace MiraItemMod
         /// <tag=ItemRarity_Jewelry>アーティファクトを獲得
         /// </summary>
         public static ModMiracle Miner { get; } = ModMiracleStatus.Create<Miracle_GiveJewelry>("Miner", CreateNegativeStat("ATTACK_SPEED/-15"), CreateNegativeStat("MOVE_SPEED/-12"))
-            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddItem && config.AddJewelry).SetJewelryGivenItems().SetNotAutoGenerateEffectString(3, new EEffectType[] { EEffectType.Positive, EEffectType.Negative, EEffectType.Negative });
+            .SetCategories(ItemCategories.Savvy).SetConfig(config => config.AddMiracle && config.AddItem && config.AddJewelry).SetJewelryGivenItems().SetNotAutoGenerateEffectString(3, EEffectType.Positive, EEffectType.Negative, EEffectType.Negative);
+        /// <summary>
+        /// Miracle_Archmage_Name
+        /// 大魔導士
+        /// </summary>
+        /// Miracle_Archmage_Effect
+        /// <tag=MP>を10<tag=ReservedMP>
+        public static ModMiracle Archmage { get; } = ModMiracleStatus.Create<Miracle_MPReserved>("Archmage", CreatePositiveStat("MAGIC_DAMAGE_BONUS/24"), CreatePositiveStat("COOLDOWN_RECOVERY_SPEED/16"))
+            .SetCategories(ItemCategories.Academy).SetConfig(config => config.AddMiracle && config.AddItem && config.AddAcademy).SetNotAutoGenerateEffectString(3, EEffectType.Negative, EEffectType.Positive, EEffectType.Positive);
+        /// <summary>
+        /// Miracle_Mechanic_Name
+        /// メカニック
+        /// </summary>
+        public static ModMiracle Mechanic { get; } = ModMiracleStatus.Create("Mechanic", CreatePositiveStat("MACHINA_DAMAGE/25"), CreatePositiveStat("MACHINA_ATTACK_SPEED/10"))
+            .SetCategories(ItemCategories.Machina).SetConfig(config => config.AddMiracle && config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Miracle_Alchemist_Name
+        /// 錬金術師
+        /// Miracle_Alchemist_Effect
+        /// 追加でポーションを獲得
+        /// </summary>
+        public static ModMiracle Alchemist { get; } = ModMiracleStatus.Create<Miracle_GivePotion>("Alchemist")
+            .SetCategories(ItemCategories.Alchemy).SetNotAutoGenerateEffectString(1, EEffectType.Positive);
+        /// <summary>
+        /// Miracle_Historian_Name
+        /// 史学者
+        /// </summary>
+        public static ModMiracle Historian { get; } = ModMiracleStatus.Create("Historian", CreatePositiveStat("CHARM_DAMAGE_BONUS/25"), CreateNegativeStat("CRITICAL_DAMAGE_RATE/-15"))
+            .SetCategories();
+        /// <summary>
+        /// Miracle_Collector_Name
+        /// 収集家
+        /// </summary>
+        public static ModMiracle Collector { get; } = ModMiracleStatus.Create("Collector", CreatePositiveStat("EXTRA_ITEM_CHOICES/1"), CreateNegativeStat("LUCK/-20"))
+            .SetCategories().SetNotGiveItem().SetNotAutoGenerateEffectString(2, new EEffectType[] { EEffectType.Positive, EEffectType.Negative }, true);
         #endregion
 
         #region Weapon Enhancements
