@@ -26,9 +26,15 @@ namespace MiraItemMod.Items
         public Dictionary<string, int> keys = new Dictionary<string, int>();
         public List<int> indexes = new List<int>();
         public List<int> indexesClient = new List<int>();
+        public readonly SyncList<int> NetworkIndexes = new SyncList<int>();
 
         public bool active = false;
         public string category = null;
+
+        public Charm_InventoryPower()
+        {
+            InitSyncObject(NetworkIndexes);
+        }
         private void Awake()
         {
             list = new List<StatusGroup>();
@@ -74,50 +80,17 @@ namespace MiraItemMod.Items
                     pair.Value.valuesByLevel = Enumerable.Range(1, ValiableMax + 1).Select(x => x * value).ToArray();
             }
         }
-        private bool start = false;
-        private void Start()
-        {
-            if (start)
-                return;
-            if (isOwned)
-            {
-                assignedCategory.Clear();
-            }
-            Events.OnValueRecieved += OnValueRecieved;
-            start = true;
-        }
-        private void OnValueRecieved(string command, uint netId, int value)
-        {
-            //Core.Logger("OnValueRecieved: " + netId + " to " + base.netId);
-            if (netId == base.netId)
-            {
-                if(value == -1)
-                {
-                    indexesClient.Clear();
-                    Core.LoggerMany("OnValueRecieved: Clear");
-                }
-                else
-                {
-                    indexesClient.Add(value);
-                    Core.LoggerMany("OnValueRecieved: Add " + list[value].statusID);
-                }
-            }
-        }
-        public void OnDestroy()
-        {
-            Events.OnValueRecieved -= OnValueRecieved;
-        }
         public override int GetEffectStringCount()
         {
-            if (indexesClient.Count == 0)
+            if (NetworkIndexes.Count == 0)
                 return list.Count + effectsString.Length;
             else
-                return indexesClient.Count + effectsString.Length;
+                return NetworkIndexes.Count + effectsString.Length;
         }
 
         public override string GetEffectString(int idx, int level, int virtualLevelOffset, bool showAllLevel)
         {
-            if(indexesClient.Count == 0)
+            if(NetworkIndexes.Count == 0)
             {
                 var stats = list.ToArray();
                 if (idx < effectsString.Length)
@@ -145,8 +118,8 @@ namespace MiraItemMod.Items
                 }
 
                 idx -= effectsString.Length;
-                StatusInstance statusInstance2 = StatusDatabase.CreateStatusEntity(list[indexesClient[idx]].statusID, list[indexesClient[idx]].valuesByLevel.SafeRandomAccess(level));
-                if (list[indexesClient[idx]].hideIfStatValueIsZero && statusInstance2.Value == 0)
+                StatusInstance statusInstance2 = StatusDatabase.CreateStatusEntity(list[NetworkIndexes[idx]].statusID, list[NetworkIndexes[idx]].valuesByLevel.SafeRandomAccess(level));
+                if (list[NetworkIndexes[idx]].hideIfStatValueIsZero && statusInstance2.Value == 0)
                 {
                     return null;
                 }
@@ -173,10 +146,10 @@ namespace MiraItemMod.Items
             }
 
 
-            instances = new StatusInstance[indexes.Count];
+            instances = new StatusInstance[NetworkIndexes.Count];
             for (int j = 0; j < instances.Length; j++)
             {
-                instances[j] = StatusDatabase.CreateStatusEntity(list[indexes[j]].statusID, list[indexes[j]].valuesByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+                instances[j] = StatusDatabase.CreateStatusEntity(list[NetworkIndexes[j]].statusID, list[NetworkIndexes[j]].valuesByLevel.SafeRandomAccess(CurrentLevelToIdx()));
                 instances[j].SetTarget(NetworkAvatar);
                 instances[j].ApplyStatus(fromRuntime: true);
             }
@@ -211,10 +184,10 @@ namespace MiraItemMod.Items
                 instances = null;
             }
 
-            instances = new StatusInstance[indexes.Count];
+            instances = new StatusInstance[NetworkIndexes.Count];
             for (int j = 0; j < instances.Length; j++)
             {
-                instances[j] = StatusDatabase.CreateStatusEntity(list[indexes[j]].statusID, list[indexes[j]].valuesByLevel.SafeRandomAccess(LevelToIdx(newLevel)));
+                instances[j] = StatusDatabase.CreateStatusEntity(list[NetworkIndexes[j]].statusID, list[NetworkIndexes[j]].valuesByLevel.SafeRandomAccess(LevelToIdx(newLevel)));
                 instances[j].SetTarget(NetworkAvatar);
                 instances[j].ApplyStatus(fromRuntime: true);
             }
@@ -222,7 +195,7 @@ namespace MiraItemMod.Items
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (!active && indexes.Count > 0)
+            if (!active && NetworkIndexes.Count > 0)
                 return;
             active = false;
             for (int x = -1; x <= 1; x++)
@@ -261,7 +234,7 @@ namespace MiraItemMod.Items
         public override void OnCharmEffectRefreshed()
         {
             base.OnCharmEffectRefreshed();
-            if (indexes.Count > 0)
+            if (NetworkIndexes.Count > 0)
                 return;
             for (int x = -1; x <= 1; x++)
             {
@@ -350,38 +323,16 @@ namespace MiraItemMod.Items
         }
         public override void LoadItemOnServer(ISaveData saveData)
         {
-            base.LoadItemOnServer(saveData);
-            if (!start)
-                Start();
+            base.LoadItemOnServer(saveData);;
 
             var count = saveData.GetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack", 0);
-            indexes.Clear();
-            if (NetworkClient.active)
-            {
-                indexesClient.Clear();
-            }
-            else
-            {
-                Events.CommandValue(NetworkAvatar, Item, -1);
-            }
+            NetworkIndexes.Clear();
+
             for (int q = 0; q < count; q++)
             {
-                indexes.Add(saveData.GetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack" + q, -1));
-                if (indexes[^1] == -1)
-                {
-                    indexes.RemoveAt(indexes.Count - 1);
-                }
-                else
-                {
-                    if (NetworkClient.active)
-                    {
-                        indexesClient.Add(indexes[^1]);
-                    }
-                    else
-                    {
-                        Events.CommandValue(NetworkAvatar, Item, indexes[^1]);
-                    }
-                }
+                var index = saveData.GetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack" + q, -1);
+                if(index >= 0)
+                NetworkIndexes.Add(index);
             }
             var cate = saveData.GetString($"CharmSaveData_InventoryPower_{Item.InstanceID}_Category", null);
             if (!string.IsNullOrEmpty(cate) && !assignedCategory.Contains(cate))
