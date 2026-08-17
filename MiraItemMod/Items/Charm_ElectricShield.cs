@@ -10,7 +10,7 @@ namespace MiraItemMod.Items
     public class Charm_ElectricShield : Charm_StatusInstance
     {
         public static readonly string ShieldKey = "Charm_ElectricShield";
-        public int[] maxShield = new int[] { 10, 20, 30, 40 };
+        public int[] maxShield = new int[] { 10, 15, 20, 30 };
         public int[] percent = new int[] { 40, 55, 75, 100 };
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

@@ -8,7 +8,7 @@ namespace MiraItemMod.Items
 {
     public class Charm_ElectricStun : Charm_StatusInstance
     {
-        public int[] percentByLevel = new int[] { 3, 5, 7, 9 };
+        public int[] percentByLevel = new int[] { 1, 2, 3, 5 };
         private int count = 0;
         private int countView;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
