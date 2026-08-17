@@ -31,9 +31,8 @@ namespace MiraItemMod.Items.Savvy
                 int money = ((NetworkAvatar.Money + add) / (500 * count)) * 1;
                 if (money > 0 && money.Percent())
                 {
-                    if(avatar.monsterType != EMonsterType.Dummy)
-                        this.AddRandomJewelry();
                     damage.color = ModUtil.Excavation;
+                    damage.flag += "|EXCAVATION";
                 }
                 else
                 {
@@ -78,6 +77,10 @@ namespace MiraItemMod.Items.Savvy
                 //add += add * NetworkAvatar.GetCustomStat(ECustomStat.MoneyDrop) / 100;
                 //SephiriaPrefabs.SpawnMoney(add, avatar.transform.position);
                 NetworkAvatar.AddMoney(add);
+            }
+            if (damage.flag.Contains("EXCAVATION"))
+            {
+                this.AddRandomJewelry();
             }
         }
 
