@@ -122,13 +122,14 @@ namespace MiraItemMod.Items.Eternal
                         yield break;
                     if (!__instance.UseSword(1))
                         yield break;
-                    flameSpear.Attack();
-                    var pos = flameSpear.NetworkAvatar.AimedPosition;
+                    var dest = motionTo - flameSpear.NetworkAvatar.transform.position;
+                    dest -= dest.normalized * 0.5f;
+                    flameSpear.Attack(dest);
                     __instance.Delay(0.75f, () =>
                     {
                         if (__instance == null || !__instance.isFlameSwordEnabled || flameSpear == null || flameSpear.NetworkAvatar == null || flameSpear.NetworkAvatar.IsDead || !flameSpear.IsEffectEnabled)
                             return;
-                        __instance.InvokeTargetCreatePick(__instance.Networkavatar.connectionToClient, pos);
+                        __instance.InvokeTargetCreatePick(__instance.Networkavatar.connectionToClient, motionTo + dest.normalized * 0.5f);
                     });
                     yield return new WaitForSeconds(0.05f);
                 }
