@@ -22,7 +22,8 @@ namespace MiraItemMod.Miracles
         public ItemMetadata[] GetAdditionalItems(bool generateInstanceID, System.Random random, MiracleController identity, int instanceID)
         {
             var list = new List<ItemMetadata>();
-            var potion = new List<int>() { 28, 29, 30, 31, 33, 35, 36, 38, 39, 45, 46, 47, 48 }.GetRandom();
+            var potions = new List<int>() { 28, 29, 30, 31, 33, 35, 36, 38, 39, 45, 46, 47, 48 };
+            var potion = potions[random.Next(0, potions.Count)];
             if (generateInstanceID)
             {
                 list.Add(new ItemMetadata(ItemDatabase.GenerateInstanceID(random), potion, 1));
