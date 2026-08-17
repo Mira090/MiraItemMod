@@ -53,7 +53,7 @@ namespace MiraItemMod.Items.Machina
             SetAdditionalMaxLevel(added);
             RpcSetAdditionalMaxLevel(added);
             Inventory.UpdatePing(Item.Position);
-            //SaveItemOnServer(SaveManager.CurrentRun);
+            SaveItemOnServer(SaveManager.CurrentRun);
         }
         public void Dismantle()
         {
@@ -67,7 +67,7 @@ namespace MiraItemMod.Items.Machina
             SetAdditionalMaxLevel(added);
             RpcSetAdditionalMaxLevel(added);
             Inventory.UpdatePing(Item.Position);
-            //SaveItemOnServer(SaveManager.CurrentRun);
+            SaveItemOnServer(SaveManager.CurrentRun);
         }
         public override void OnCharmEffectRefreshed()
         {
