@@ -13,7 +13,7 @@ namespace MiraItemMod.Items.Machina
     {
         private static readonly string CooldownStat = "MachinaAttackSpeed".ToSephiriaUpperId();
 
-        public int[] damageByLevel = new int[10] { 70, 80, 100, 120, 140, 160, 190, 220, 260, 300};
+        public int[] damageByLevel = new int[10] { 70, 80, 100, 110, 130, 140, 160, 170, 190, 220};
         public Timer cooldownTimer = new Timer(0.5f);
         public bool isInCooldown;
         public virtual string DamageId => "Charm_MachinaTest";
@@ -121,6 +121,15 @@ namespace MiraItemMod.Items.Machina
         {
             List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
             Attack(WeaponController.attackDirection, basicAttackSharedTargetList, percent);
+        }
+        public void Attack(CombatBehaviour target, float percent = 100)
+        {
+            List<CombatBehaviour> basicAttackSharedTargetList = new List<CombatBehaviour>() { target };
+            Attack(target.transform.position, basicAttackSharedTargetList, percent);
+        }
+        public void Attack(Vector3 pos, float percent = 100)
+        {
+            Attack(pos, new List<CombatBehaviour>(), percent);
         }
         public virtual void Attack(Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
         {
