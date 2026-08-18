@@ -11,7 +11,8 @@ namespace MiraItemMod.Items.Machina
 {
     public class Charm_Machina : Charm_MachinaBasic, IAttackableCharm
     {
-        private static readonly string CooldownStat = "MachinaAttackSpeed".ToSephiriaUpperId();
+        public static readonly string CooldownStat = "MachinaAttackSpeed".ToSephiriaUpperId();
+        public static readonly string FrostToMachina = "FrostToMachina".ToSephiriaUpperId();
 
         public int[] damageByLevel = new int[10] { 70, 80, 100, 110, 130, 140, 160, 170, 190, 220};
         public Timer cooldownTimer = new Timer(0.5f);
@@ -39,10 +40,16 @@ namespace MiraItemMod.Items.Machina
         protected override void OnUpdate()
         {
             base.OnUpdate();
-            if (isInCooldown && !NetworkAvatar.IsDead && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe(CooldownStat) / 100f))
+            if (isInCooldown && !NetworkAvatar.IsDead && cooldownTimer.Update(Time.deltaTime + Time.deltaTime * NetworkAvatar.GetCustomStatUnsafe(CooldownStat) / 100f + Time.deltaTime * GetCooldownMultiplier()))
             {
                 isInCooldown = false;
             }
+        }
+        protected virtual float GetCooldownMultiplier()
+        {
+            if (NetworkAvatar.GetCustomStatUnsafe(FrostToMachina) > 0 && IsInMachinaSlot)
+                return NetworkAvatar.GetCustomStatUnsafe("CHARGINGCHARMBONUS") / 100f;
+            return 0;
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
@@ -117,21 +124,31 @@ namespace MiraItemMod.Items.Machina
         {
             return WeaponController.attackDirection;
         }
+        public virtual int GetTriggerCount()
+        {
+            int count = 1;
+            var frostToMachina = NetworkAvatar.GetCustomStatUnsafe(FrostToMachina);
+            if (frostToMachina > 0 && IsInMachinaSlot)
+            {
+                count += NetworkAvatar.GetCustomStatUnsafe("CHARGINGCHARMAMPLIFY");
+            }
+            return count;
+        }
         public virtual void Attack(float percent = 100f)
         {
             List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
-            Attack(WeaponController.attackDirection, basicAttackSharedTargetList, percent);
+            Attack(GetTriggerCount(), WeaponController.attackDirection, basicAttackSharedTargetList, percent);
         }
         public void Attack(CombatBehaviour target, float percent = 100)
         {
             List<CombatBehaviour> basicAttackSharedTargetList = new List<CombatBehaviour>() { target };
-            Attack(target.transform.position, basicAttackSharedTargetList, percent);
+            Attack(GetTriggerCount(), target.transform.position, basicAttackSharedTargetList, percent);
         }
         public void Attack(Vector3 aimedDelta, float percent = 100)
         {
-            Attack(aimedDelta, new List<CombatBehaviour>(), percent);
+            Attack(GetTriggerCount(), aimedDelta, new List<CombatBehaviour>(), percent);
         }
-        public virtual void Attack(Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
+        public virtual void Attack(int count, Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
         {
             if (WeaponController.currentWeapon == null)
                 return;
@@ -159,9 +176,24 @@ namespace MiraItemMod.Items.Machina
                 attack.damageElementalType = elemental.Value;
             attack.CreateAttack(EDamageFromType.DirectAttack, damage, DamageId, true, NetworkAvatar, vector, vector + aimedDelta, y, OnCreateAttack, sharedTarget, AttackDashScale, null, false, rangeBonus, 1f, MpConsumed, elemental);
             attack.damageElementalType = temp;
+
+            if(count - 1 > 0)
+            {
+                this.Delay(0.05f, () =>
+                {
+                    if(IsEffectEnabled && NetworkAvatar != null && !NetworkAvatar.IsDead)
+                    {
+                        Attack(count - 1, aimedDelta, sharedTarget, percent);
+                    }
+                });
+            }
         }
         protected virtual float ModifyDamage(float damage)
         {
+            if (NetworkAvatar.GetCustomStatUnsafe(FrostToMachina) > 0 && IsInMachinaSlot)
+            {
+                damage += damage * (float)NetworkAvatar.GetCustomStatUnsafe("FROSTRELICDAMAGE") / 100f;
+            }
             damage += damage * (float)NetworkAvatar.GetCustomStatUnsafe("MACHINADAMAGE") / 100f;
             damage += damage * (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponDamageBonus) / 100f;
             if (MpConsumed > 0)
