@@ -1178,7 +1178,7 @@ namespace MiraItemMod
         /// Item_MachinaFlameSpear_Effect
         /// 機械スロットにある時、<tag=FlameSword>の代わりに太陽槍を鍛造する\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
         /// </summary>
-        public static ModCharm MachinaFlameSpear { get; } = ModCharmStatus.Create<Charm_MachinaFlameSpear>("MachinaFlameSpear", 0, CreateStatusGroup("FIRE_DAMAGE", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20), CreateStatusGroup("FLAME_SWORD_ADDITIONAL_ATTACK_FROM_WEAPON", 0, 1, 1, 1, 2, 2, 2, 3, 3, 4))
+        public static ModCharm MachinaFlameSpear { get; } = ModCharmStatus.Create<Charm_MachinaFlameSpear>("MachinaFlameSpear", 0, CreateStatusGroup("FIRE_DAMAGE", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20))
             .SetCategory(ItemCategories.Machina, ItemCategories.FlameSword).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaDarkCloud_Name
