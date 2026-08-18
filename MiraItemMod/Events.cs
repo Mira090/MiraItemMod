@@ -1427,10 +1427,10 @@ namespace MiraItemMod
                     return;
                 if (damage.origin is UnitAvatar attacker)
                 {
-                    var stat = attacker.GetCustomStatUnsafe("StealLeaf".ToSephiriaUpperId());
+                    var stat = attacker.GetCustomStatUnsafe("LeafSteal".ToSephiriaUpperId());
                     if(stat <= 0)
                         return;
-                    var steal = (damage.damage / 1000f) * stat;
+                    var steal = damage.damage * stat / 1000f;
                     attacker.AddMoney(Mathf.RoundToInt(steal));
                 }
             }

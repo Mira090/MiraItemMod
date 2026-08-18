@@ -1597,10 +1597,10 @@ namespace MiraItemMod
         /// EffectHUD_GoldRushBuff_Name
         /// ゴールドラッシュ
         /// EffectHUD_GoldRushBuff_FlavorText
-        /// 自分が与えたダメージの10%の<tag=Leaf>を獲得します
+        /// 自分が与えたダメージの3%の<tag=Leaf>を獲得します
         /// </summary>
         public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateStackEffectHUD("GoldRushBuff", UI_EffectHUD_Basic.EEffectType.Boon);
-        public static CharacterBuffMod_StatusInstance GoldRushBuff { get; } = CreateBuff("GoldRushBuff", "GoldRushBuff", 1, CreateBuffStatus("LeafSteal".ToSephiriaId(), 100))
+        public static CharacterBuffMod_StatusInstance GoldRushBuff { get; } = CreateBuff("GoldRushBuff", "GoldRushBuff", 1, CreateBuffStatus("LeafSteal".ToSephiriaId(), 30))
             .SetDefaultDuration(8f);
 
         /// <summary>
@@ -2514,7 +2514,7 @@ namespace MiraItemMod
         /// Weapon_Staff_Flag_T3_Gold_Name
         /// 黄金旗
         /// WeaponAddon_Staff_Flag_T3_Gold_Effect
-        /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Negotiation>1につき1%の確率でゴールドラッシュバフを獲得します。ゴールドラッシュ状態では自分が与えたダメージの10%の<tag=Leaf>を獲得します
+        /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Negotiation>1につき1%の確率でゴールドラッシュバフを獲得します。ゴールドラッシュ状態では自分が与えたダメージの3%の<tag=Leaf>を獲得します
         public static ModWeapon QuarterstaffFlagGold { get; } = ModWeaponStaff.CreateStaff("Staff_Flag_T3_Gold", 500).SetEnhanceFromId(500).SetEnhanceFromId(14019).SetMainPrefabModifier(main =>
         {
             var status = main.gameObject.AddComponent<WeaponAddonCommon_StatusUnsafe>();
