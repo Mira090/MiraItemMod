@@ -127,9 +127,9 @@ namespace MiraItemMod.Items.Machina
             List<CombatBehaviour> basicAttackSharedTargetList = new List<CombatBehaviour>() { target };
             Attack(target.transform.position, basicAttackSharedTargetList, percent);
         }
-        public void Attack(Vector3 pos, float percent = 100)
+        public void Attack(Vector3 aimedDelta, float percent = 100)
         {
-            Attack(pos, new List<CombatBehaviour>(), percent);
+            Attack(aimedDelta, new List<CombatBehaviour>(), percent);
         }
         public virtual void Attack(Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
         {

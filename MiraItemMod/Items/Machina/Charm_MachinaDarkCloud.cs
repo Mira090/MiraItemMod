@@ -4,6 +4,7 @@ using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace MiraItemMod.Items.Machina
 {
@@ -52,7 +53,8 @@ namespace MiraItemMod.Items.Machina
                 var machinaCharm = machina.GetMachinaCharm();
                 if (!(machinaCharm is Charm_Machina armament))
                     return;
-                armament.Attack(stat);
+                var dest = (Vector3)armament.NetworkAvatar.AimedPosition - armament.NetworkAvatar.transform.position;
+                armament.Attack(dest, stat);
             }
         }
     }
