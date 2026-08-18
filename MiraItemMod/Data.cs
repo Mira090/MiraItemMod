@@ -1094,7 +1094,7 @@ namespace MiraItemMod
         /// Item_MachinaFrame_FlavorText
         /// フレーバーテキスト募集中
         /// Item_MachinaFrame_Effect
-        /// 機械スロットにある機械アーティファクトのダメージ {DAMAGE}
+        /// <tag=MachineSlot>にある機械アーティファクトのダメージ {DAMAGE}
         /// </summary>
         public static ModCharm MachinaFrame { get; } = ModCharmStatus.Create<Charm_UpMachineDamage>("MachinaFrame", 3)
             .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetRarity(EItemRarity.Uncommon).SetConfig(config => config.AddItem && config.AddMachine);
@@ -1116,7 +1116,7 @@ namespace MiraItemMod
         /// Item_MachinaSlotElemental_FlavorText
         /// フレーバーテキスト募集中
         /// Item_MachinaSlotElemental_Effect
-        /// 機械スロットにある<tag=ItemRarity_Armament>アーティファクトが基づくダメージ {DAMAGE}\n[現在：{ELEMENTAL} {DAMAGE}]
+        /// <tag=MachineSlot>にある<tag=ItemRarity_Armament>アーティファクトが基づくダメージ {DAMAGE}\n[現在：{ELEMENTAL} {DAMAGE}]
         /// </summary>
         public static ModCharm MachinaSlotElemental { get; } = ModCharmStatus.Create<Charm_MachinaSlotElemental>("MachinaSlotElemental", 3)
             .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddMachine);
@@ -1176,7 +1176,7 @@ namespace MiraItemMod
         /// Item_MachinaFlameSpear_FlavorText
         /// フレーバーテキスト募集中
         /// Item_MachinaFlameSpear_Effect
-        /// 機械スロットにある時、<tag=FlameSword>の代わりに太陽槍を鍛造する\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
+        /// <tag=MachineSlot>にある時、<tag=FlameSword>の代わりに太陽槍を鍛造する\n[ダメージ：{DAMAGE} (<tag=FireDamage>{PERCENT})]
         /// </summary>
         public static ModCharm MachinaFlameSpear { get; } = ModCharmStatus.Create<Charm_MachinaFlameSpear>("MachinaFlameSpear", 0, CreateStatusGroup("FIRE_DAMAGE", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20))
             .SetCategory(ItemCategories.Machina, ItemCategories.FlameSword).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
@@ -1186,7 +1186,7 @@ namespace MiraItemMod
         /// Item_MachinaDarkCloud_FlavorText
         /// フレーバーテキスト募集中
         /// Item_MachinaDarkCloud_Effect
-        /// <tag=DarkCloud>発動時、機械スロットにある<tag=ItemRarity_Armament>アーティファクトが元の{PERCENT}のダメージで発動する
+        /// <tag=DarkCloud>発動時、<tag=MachineSlot>にある<tag=ItemRarity_Armament>アーティファクトが元の{PERCENT}のダメージで発動する
         /// </summary>
         public static ModCharm MachinaDarkCloud { get; } = ModCharmStatus.Create<Charm_MachinaDarkCloud>("MachinaDarkCloud", 5, CreateStatusGroup("DARK_CLOUD_DAMAGE", 5, 10, 15, 20, 25, 30, 35, 40, 45, 50), CreateStatusGroup("MIN_DARK_CLOUD", 2, 4, 6, 8, 10, 12, 14, 16, 18, 20))
             .SetCategory(ItemCategories.Machina, ItemCategories.DarkCloud).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
@@ -1789,7 +1789,7 @@ namespace MiraItemMod
         /// Status_AdditionalRepair_Name
         /// 機械レベル追加増加
         /// Status_AdditionalRepair_Description
-        /// 機械スロットの機械アーティファクトの最大レベルがさらに増加します
+        /// <tag=MachineSlot>の機械アーティファクトの最大レベルがさらに増加します
         /// </summary>
         public static ModCustomStatus AdditionalRepair { get; } = ModCustomStatus.CreateStatus("AdditionalRepair").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.MachinaLevel));
         /// <summary>
@@ -1887,6 +1887,20 @@ namespace MiraItemMod
         /// 武器攻撃を再現する特殊なアーティファクト。
         /// </summary>
         public static ModKeyword ItemRarityArmament { get; } = ModKeyword.CreateKeyword("ItemRarity_Armament").SetTextColor(new Color32(150, 180, 200, 255));
+        /// <summary>
+        /// Status_MachineSlot_Name
+        /// 機械スロット
+        /// Status_MachineSlot_Description
+        /// 機械コンボによって設定されるインベントリの特別な枠です
+        /// </summary>
+        public static ModKeyword MachineSlot { get; } = ModKeyword.CreateKeyword("MachineSlot").SetTextColor(new Color32(150, 180, 200, 255));
+        /// <summary>
+        /// Status_SalvageSlot_Name
+        /// 解体スロット
+        /// Status_SalvageSlot_Description
+        /// 機械コンボによって設定されるインベントリの特別な枠です
+        /// </summary>
+        public static ModKeyword SalvageSlot { get; } = ModKeyword.CreateKeyword("SalvageSlot").SetTextColor(new Color32(150, 180, 200, 255));
         #endregion
 
 
