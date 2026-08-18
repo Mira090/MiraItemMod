@@ -15,6 +15,8 @@ namespace MiraItemMod.Items.Machina
         }
         protected override void OnUpdate()
         {
+            if (!NetworkAvatar.IsInBattle)
+                return;
             base.OnUpdate();
             if (isInCooldown)
                 return;
