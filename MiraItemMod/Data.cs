@@ -1210,7 +1210,7 @@ namespace MiraItemMod
         /// Item_MachinaFrost_Effect
         /// <tag=FrostRelic>ダメージ、<tag=FrostRelic>チャージ速度、<tag=FrostRelic>の追加発動が<tag=MachineSlot>にある<tag=ItemRarity_Armament>アーティファクトにも適用される
         /// </summary>
-        public static ModCharm MachinaFrost { get; } = ModCharmStatus.Create<Charm_MachinaFrost>("MachinaFrost", 4, CreateStatusGroup("CHARGING_CHARM_BONUS", 5, 10, 15, 20, 30, 40, 55, 75, 100, 130), CreateStatusGroup("CHARGING_CHARM_AMPLIFY", 0, 0, 0, 0, 1, 1, 1, 2, 2, 3))
+        public static ModCharm MachinaFrost { get; } = ModCharmStatus.Create<Charm_MachinaFrost>("MachinaFrost", 4, CreateStatusGroup("CHARGING_CHARM_AMPLIFY", 0, 0, 0, 0, 1, 1, 1, 2, 2, 3), CreateStatusGroup("FROST_RELIC_DAMAGE", -33, -33, -33, -33, -33, -33, -22, -22, -22, -11))
             .SetCategory(ItemCategories.Machina, ItemCategories.Frost).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine);
 
         /// <summary>
