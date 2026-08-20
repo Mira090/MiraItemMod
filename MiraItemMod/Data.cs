@@ -1156,7 +1156,7 @@ namespace MiraItemMod
         /// Item_MachinaIceArrow_FlavorText
         /// フロストベールを再現した機械
         /// Item_MachinaIceArrow_Effect
-        /// <tag=WeaponAction_BasicAttack>時、フロストベールの弾丸を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=IceDamage>{PERCENT})]
+        /// <tag=WeaponAction_BasicAttack>時、<tag=Frostbite>を付与するフロストベールの弾丸を放つ（クールダウン{COOLDOWN}秒）\n[ダメージ：{DAMAGE} (<tag=IceDamage>{PERCENT})]
         /// </summary>
         public static ModCharm MachinaIceArrow { get; } = ModCharmStatus.Create<Charm_MachinaIceArrow>("MachinaIceArrow", 1)
             .SetCategory(ItemCategories.Machina, ItemCategories.Glacier).SetSimpleEffect().SetIsArmament(EItemRarity.Legend).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
