@@ -24,8 +24,6 @@ namespace MiraItemMod.Items
         public Dictionary<string, StatusGroup> status = new Dictionary<string, StatusGroup>();
         public List<StatusGroup> list = new List<StatusGroup>();
         public Dictionary<string, int> keys = new Dictionary<string, int>();
-        public List<int> indexes = new List<int>();
-        public List<int> indexesClient = new List<int>();
         public readonly SyncList<int> NetworkIndexes = new SyncList<int>();
 
         public bool active = false;
@@ -33,7 +31,13 @@ namespace MiraItemMod.Items
 
         public Charm_InventoryPower()
         {
+            //Core.LoggerFew("Init NetworkIndexes");
             InitSyncObject(NetworkIndexes);
+            /*
+            NetworkIndexes.OnChange += (SyncList<int>.Operation op, int index, int value) =>
+            {
+                Core.LoggerFew("NetworkIndexes Changed: " + op + " index: " + index + " value: " + value);
+            };*/
         }
         private void Awake()
         {
@@ -68,6 +72,7 @@ namespace MiraItemMod.Items
             status[ItemCategories.Alchemy] = CreateStatusGroup("POTION_SLOT", 1);
             status[ItemCategories.Weapon] = CreateStatusGroup("FINAL_WEAPONDAMAGE", 2);
             status[ItemCategories.Grimoire] = CreateStatusGroup("MAGIC_DAMAGE_BONUS", 4);
+            status[ItemCategories.Machina] = CreateStatusGroup("MACHINA_DAMAGE", 4);
 
             foreach (var pair in status)
             {
@@ -266,17 +271,17 @@ namespace MiraItemMod.Items
                 instances = null;
             }
 
-            instances = new StatusInstance[indexes.Count];
+            instances = new StatusInstance[NetworkIndexes.Count];
             for (int j = 0; j < instances.Length; j++)
             {
-                instances[j] = StatusDatabase.CreateStatusEntity(list[indexes[j]].statusID, list[indexes[j]].valuesByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+                instances[j] = StatusDatabase.CreateStatusEntity(list[NetworkIndexes[j]].statusID, list[NetworkIndexes[j]].valuesByLevel.SafeRandomAccess(CurrentLevelToIdx()));
                 instances[j].SetTarget(NetworkAvatar);
                 instances[j].ApplyStatus(fromRuntime: true);
             }
         }
         private void Activate(List<string> categories, int count)
         {
-            indexes.Clear();
+            NetworkIndexes.Clear();
             Events.CommandValue(NetworkAvatar, Item, -1);
             if (categories.Count > 0)
             {
@@ -292,15 +297,15 @@ namespace MiraItemMod.Items
                 if(categories.Count > q && keys.ContainsKey(categories[q]))
                 {
                     var index = keys[categories[q]];
-                    indexes.Add(index);
-                    Events.CommandValue(NetworkAvatar, Item, index);
+                    NetworkIndexes.Add(index);
+                    //Events.CommandValue(NetworkAvatar, Item, index);
                     //l.Remove(index);
                 }
                 else
                 {
                     var random = l.GetRandom();
-                    indexes.Add(random);
-                    Events.CommandValue(NetworkAvatar, Item, random);
+                    NetworkIndexes.Add(random);
+                    //Events.CommandValue(NetworkAvatar, Item, random);
                     //l.Remove(random);
                 }
             }
@@ -311,10 +316,10 @@ namespace MiraItemMod.Items
         public override void SaveItemOnServer(ISaveData saveData)
         {
             base.SaveItemOnServer(saveData);
-            saveData.SetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack", indexes.Count);
-            for(int q= 0; q < indexes.Count; q++)
+            saveData.SetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack", NetworkIndexes.Count);
+            for(int q= 0; q < NetworkIndexes.Count; q++)
             {
-                saveData.SetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack" + q, indexes[q]);
+                saveData.SetInt($"CharmSaveData_InventoryPower_{Item.InstanceID}_Stack" + q, NetworkIndexes[q]);
             }
             if(category != null)
             {
@@ -376,7 +381,7 @@ namespace MiraItemMod.Items
                     }
                 }
             }
-            if(indexesClient.Count > 0)
+            if(NetworkIndexes.Count > 0)
             {
                 return CustomSpriteAsset.NoneCategoryIcon;
             }
