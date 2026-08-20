@@ -62,6 +62,7 @@ namespace MiraItemMod.Items
             if (shieldData.shield > shieldData.maxShield)
                 shieldData.shield = shieldData.maxShield;
             shields.Add(shieldData);
+            NetworkAvatar.InvokeOnShieldChanged();
         }
         protected void CreateShield(UnitAvatar avatar, string key, int max, int value = 0)
         {
@@ -76,6 +77,7 @@ namespace MiraItemMod.Items
                 if (shieldData.shield > shieldData.maxShield)
                     shieldData.shield = shieldData.maxShield;
                 shields.Add(shieldData);
+                avatar.InvokeOnShieldChanged();
             }
         }
         protected void AddShield(UnitAvatar avatar, string key, int value)
@@ -87,6 +89,7 @@ namespace MiraItemMod.Items
             shield.shield += value;
             if (shield.shield > shield.maxShield)
                 shield.shield = shield.maxShield;
+            avatar.InvokeOnShieldChanged();
         }
     }
 }

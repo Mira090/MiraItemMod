@@ -157,7 +157,18 @@ namespace MiraItemMod.Utilities
             var type = typeof(UnitAvatar);
             var field = type.GetField(nameof(instance.OnEvade), BindingFlags.Instance | BindingFlags.NonPublic);
             var del = (Delegate)field.GetValue(instance);
+            if (del == null)
+                return;
             del.DynamicInvoke(damage);
+        }
+        public static void InvokeOnShieldChanged(this UnitAvatar instance)
+        {
+            var type = typeof(UnitAvatar);
+            var field = type.GetField(nameof(instance.OnShieldChanged), BindingFlags.Instance | BindingFlags.NonPublic);
+            var del = (Delegate)field.GetValue(instance);
+            if (del == null)
+                return;
+            del.DynamicInvoke();
         }
         public static void InvokeAddFury(this WeaponSimple_Dagger instance, int fury)
         {
