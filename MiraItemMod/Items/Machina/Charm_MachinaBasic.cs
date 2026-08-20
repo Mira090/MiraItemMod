@@ -46,6 +46,7 @@ namespace MiraItemMod.Items.Machina
         {
             base.OnEnabledEffect();
             LoadItemOnServer(SaveManager.CurrentRun);
+            Inventory.UpdatePing(Item.Position);
         }
         public void Repair(int add = 1)
         {
