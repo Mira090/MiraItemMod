@@ -224,7 +224,7 @@ namespace MiraItemMod.Items.Machina
         {
             if (Item == null)
                 return;
-            Core.LoggerFew("UserCode_RpcAttack: " + Item.Name);
+            Core.LoggerMany("UserCode_RpcAttack: " + Item.Name);
             try
             {
                 if (NetworkAvatar == null)
@@ -234,7 +234,7 @@ namespace MiraItemMod.Items.Machina
                     return;
                 float fxScale = 1f + (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
                 NewWeaponFireData basicAttack = FireData;
-                Core.LoggerFew("FireData: " + basicAttack);
+                Core.LoggerMany("FireData: " + basicAttack);
                 if (basicAttack == null)
                     return;
                 bool flag = false;
