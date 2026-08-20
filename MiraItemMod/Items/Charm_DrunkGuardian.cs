@@ -9,7 +9,7 @@ namespace MiraItemMod.Items
 {
     public class Charm_DrunkGuardian : Charm_StatusInstance, IAttackableCharm
     {
-        public int[] percent = new int[] { 1000, 1500, 2000, 2500 };
+        public int[] percent = new int[] { 500, 750, 1000, 1500, 2000, 2500 };
         public int[] minus = new int[] { 100 };
         public string damageId = "Charm_DrunkGuardian";
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)

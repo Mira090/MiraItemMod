@@ -750,7 +750,7 @@ namespace MiraItemMod
         /// Item_DrunkGuardian_Effect
         /// <tag=WeaponAction_DirectAttack>が命中した時、追加の<tag=PhysicalDamage>を与える\n[ダメージ：{DAMAGE}（守護アーティファクトの数×酩酊アーティファクトの数{PERCENT} - <tag=Defense>の絶対値）]
         /// </summary>
-        public static ModCharm DrunkGuardian { get; } = ModCharmStatus.Create<Charm_DrunkGuardian>("DrunkGuardian", 3, CreateStatusGroup("FINAL_DAMAGE", 5, 10, 15, 20))
+        public static ModCharm DrunkGuardian { get; } = ModCharmStatus.Create<Charm_DrunkGuardian>("DrunkGuardian", 5, CreateStatusGroup("FINAL_DAMAGE", 0, 1, 2, 3, 5, 8))
             .SetCategory(ItemCategories.Drunk, ItemCategories.Guardian).SetIsDual().SetSimpleEffects(1).SetRarity(EItemRarity.Rare).SetDamageId().SetConfig(config => config.AddItem && config.AddDrunk);
         /// <summary>
         /// Item_EvasionCurse_Name
