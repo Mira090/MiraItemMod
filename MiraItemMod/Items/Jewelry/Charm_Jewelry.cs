@@ -33,7 +33,7 @@ namespace MiraItemMod.Items.Jewelry
                 }
                 else
                 {
-                    var max = Mathf.Min(moneyLevel, ValiableMax - OriginalMaxLevel);
+                    var max = Mathf.Min(moneyLevel, ValiableMax - originalMaxLevel);
                     var remain = money - max * MoneyPerLevel;
                     NetworkAvatar.SetMoney(remain);
                 }

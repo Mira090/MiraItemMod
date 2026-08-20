@@ -17,24 +17,8 @@ namespace MiraItemMod.Items
         public virtual string StatusName => "STARGAZELEVEL";
         public virtual int ValiableMax => 16;
         public int AdditionalMaxLevel { get; protected set; }
-        public int OriginalMaxLevel
-        {
-            get
-            {
-                if (Item == null)
-                    return 0;
-                var entity = ItemDatabase.FindItemById(Item.EntityID);
-                if(entity == null)
-                    return 0;
-                if (entity.resourcePrefab == null)
-                    return 0;
-                if(entity.resourcePrefab.TryGetComponent<Charm_Basic>(out var charm))
-                {
-                    return charm.maxLevel;
-                }
-                return 0;
-            }
-        }
+
+        public int originalMaxLevel;
         private void Awake()
         {
             UITierPatch.Init();
@@ -42,14 +26,14 @@ namespace MiraItemMod.Items
         protected override void OnConnected(int instanceID)
         {
             base.OnConnected(instanceID);
-            //OriginalMaxLevel = maxLevel;
-            //Core.Logger($"OnConnected: {OriginalMaxLevel}");
+            //originalMaxLevel = maxLevel;
+            //Core.Logger($"OnConnected: {originalMaxLevel}");
         }
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
-            //OriginalMaxLevel = maxLevel;
-            if(NetworkAvatar != null)
+            //originalMaxLevel = maxLevel;
+            if (NetworkAvatar != null)
             {
                 if(!string.IsNullOrEmpty(StatusName))
                     SetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
@@ -58,25 +42,26 @@ namespace MiraItemMod.Items
         protected override void OnDisabledEffect()
         {
             base.OnDisabledEffect();
-            //maxLevel = OriginalMaxLevel;
+            //maxLevel = originalMaxLevel;
         }
         public virtual void SetAdditionalMaxLevel(int level)
         {
-            if(OriginalMaxLevel + level > ValiableMax)
+            if(originalMaxLevel + level > ValiableMax)
             {
-                level = ValiableMax - OriginalMaxLevel;
+                level = ValiableMax - originalMaxLevel;
             }
             AdditionalMaxLevel = level;
-            maxLevel = OriginalMaxLevel + AdditionalMaxLevel;
+            maxLevel = originalMaxLevel + AdditionalMaxLevel;
         }
         protected virtual void SetAdditionalMaxLevelOnClient(int level)
         {
-            if (OriginalMaxLevel + level > ValiableMax)
+            if (originalMaxLevel + level > ValiableMax)
             {
-                level = ValiableMax - OriginalMaxLevel;
+                level = ValiableMax - originalMaxLevel;
             }
             AdditionalMaxLevel = level;
-            maxLevel = OriginalMaxLevel + AdditionalMaxLevel;
+            maxLevel = originalMaxLevel + AdditionalMaxLevel;
+            Core.LoggerMany($"SetMaxLevel({name}): " + maxLevel);
         }
         public override void OnCharmEffectRefreshed()
         {
@@ -221,7 +206,7 @@ namespace MiraItemMod.Items
         [ClientRpc]
         public void RpcSetAdditionalMaxLevel(int additional)
         {
-            Debug.Log("[Charm_VariableMaxLevel] RpcSetAdditionalMaxLevel: " + additional);
+            Core.LoggerFew("[Charm_VariableMaxLevel] RpcSetAdditionalMaxLevel: " + additional);
 
             NetworkWriterPooled writer = NetworkWriterPool.Get();
             writer.WriteInt(additional);
@@ -237,7 +222,7 @@ namespace MiraItemMod.Items
 
         protected void UserCode_RpcSetAdditionalMaxLevel__Int32(int additional)
         {
-            Debug.Log("[Charm_VariableMaxLevel] UserCode_RpcSetAdditionalMaxLevel__Int32: " + additional);
+            Core.LoggerFew("[Charm_VariableMaxLevel] UserCode_RpcSetAdditionalMaxLevel__Int32: " + additional);
             SetAdditionalMaxLevelOnClient(additional);
         }
 

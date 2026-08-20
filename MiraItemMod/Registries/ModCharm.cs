@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Items;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -43,6 +44,10 @@ namespace MiraItemMod.Registries
             charm.isWeaponRelatedCharm = IsWeaponRelatedCharm;
             charm.relatedWeapon = RelatedWeapon;
             charm.enabled = false;
+            if (charm is Charm_VariableMaxLevel variable)
+            {
+                variable.originalMaxLevel = MaxLevel;
+            }
             return o;
         }
         public override void Init(int id, uint assetId)
