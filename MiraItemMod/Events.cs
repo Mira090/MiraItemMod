@@ -89,7 +89,7 @@ namespace MiraItemMod
             }
             catch (EventNotFoundException e)
             {
-                Core.LoggerError(e);
+                Core.LoggerWarning(e);
             }
             var param = id.Split(' ');
             if(param.Length == 4)
