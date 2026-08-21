@@ -35,8 +35,11 @@ namespace MiraItemMod.Items
             //originalMaxLevel = maxLevel;
             if (NetworkAvatar != null)
             {
-                if(!string.IsNullOrEmpty(StatusName))
+                if (!string.IsNullOrEmpty(StatusName))
+                {
                     SetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
+                    RpcSetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
+                }
             }
         }
         protected override void OnDisabledEffect()
@@ -71,6 +74,7 @@ namespace MiraItemMod.Items
                 if (!string.IsNullOrEmpty(StatusName))
                 {
                     SetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
+                    RpcSetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
                     Inventory.UpdatePing(Item.Position);
                 }
             }

@@ -40,6 +40,10 @@ namespace MiraItemMod.Registries
             {
                 variable.originalMaxLevel = MaxLevel;
             }
+            else if (charm is Charm_VariableMaxLevelWhitePaper variable2)
+            {
+                variable2.originalMaxLevel = MaxLevel;
+            }
             charm.enabled = false;
             return o;
         }

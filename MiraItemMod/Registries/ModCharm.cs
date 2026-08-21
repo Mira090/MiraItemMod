@@ -48,6 +48,10 @@ namespace MiraItemMod.Registries
             {
                 variable.originalMaxLevel = MaxLevel;
             }
+            else if (charm is Charm_VariableMaxLevelWhitePaper variable2)
+            {
+                variable2.originalMaxLevel = MaxLevel;
+            }
             return o;
         }
         public override void Init(int id, uint assetId)
