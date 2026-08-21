@@ -1060,7 +1060,7 @@ namespace MiraItemMod
         /// Item_MachinaGear_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm MachinaGear { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaGear", 4, CreateStatusGroup("MACHINA_ATTACK_SPEED", 3, 6, 9, 12, 16, 20, 25, 30, 36, 44))
+        public static ModCharm MachinaGear { get; } = ModCharmStatus.Create<Charm_MachinaBasic>("MachinaGear", 4, CreateStatusGroup("MACHINA_ATTACK_SPEED", 4, 8, 12, 18, 24, 32, 42, 54, 64, 80))
             .SetCategory(ItemCategories.Machina).SetSimpleEffects(0).SetRarity(EItemRarity.Common).SetConfig(config => config.AddItem && config.AddMachine);
         /// <summary>
         /// Item_MachinaScrew_Name
