@@ -52,6 +52,10 @@ namespace MiraItemMod.Registries
             {
                 sephirite.enabled = true;
             }
+            if (gameObject.TryGetComponent<WeaponSimple>(out var simple))
+            {
+                simple.enabled = true;
+            }
 
             UnityEngine.Object.Destroy(this);
         }

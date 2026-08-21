@@ -164,6 +164,7 @@ namespace MiraItemMod.Registries
                     shield.weaponStencilRenderer.sprite = sprite;
                 }
                 MainPrefabModifier?.Invoke(simple);
+                simple.enabled = false;
             }
 
             MainWeaponPrefab = main;
