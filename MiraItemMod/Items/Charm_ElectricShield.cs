@@ -86,9 +86,11 @@ namespace MiraItemMod.Items
             var shield = shields.Find(x => x.key == key);
             if (shield == null)
                 return;
+            shields.Remove(shield);
             shield.shield += value;
             if (shield.shield > shield.maxShield)
                 shield.shield = shield.maxShield;
+            shields.Add(shield);
             avatar.InvokeOnShieldChanged();
         }
     }
