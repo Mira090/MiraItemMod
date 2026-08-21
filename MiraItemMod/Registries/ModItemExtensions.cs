@@ -427,6 +427,16 @@ namespace MiraItemMod.Registries
             item.ConnectedDetailEntities = keywords.ToList();
             return item;
         }
+        public static T SetTooltip<T>(this T item) where T : ModKeyword
+        {
+            item.DetailsOverrideName = new LocalizedString("Status_" + item.Keyword + "_Tooltip");
+            return item;
+        }
+        public static T SetTooltip<T>(this T item, LocalizedString name) where T : ModKeyword
+        {
+            item.DetailsOverrideName = name;
+            return item;
+        }
         public static T SetStandardEnhancements<T>(this T item, params int[] enhancements) where T : ModWeapon
         {
             item.StandardEnhancements = enhancements.ToList();

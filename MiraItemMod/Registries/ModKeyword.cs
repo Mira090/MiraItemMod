@@ -32,6 +32,7 @@ namespace MiraItemMod.Registries
         public LocalizedString VisualText { get; internal set; }
         public LocalizedString Description { get; internal set; }
         public LocalizedString DetailedValue { get; internal set; } = new LocalizedString();
+        public LocalizedString DetailsOverrideName { get; internal set; }
         public bool DisplayDetails { get; internal set; } = true;
         public bool NeedParseValueOnVisualText { get; internal set; } = false;
         public string TextColorOriginal { get; internal set; } = null;
@@ -80,6 +81,11 @@ namespace MiraItemMod.Registries
             if(!UseCopyKeywordImage && KeywordImage != null)
                 entity.keywordImage = KeywordImage();
             entity.connectedDetailEntities = new KeywordEntity[0];
+            if(DetailsOverrideName != null)
+            {
+                entity.useDetailsOverrideName = true;
+                entity.detailsOverrideName = DetailsOverrideName;
+            }
             return entity;
         }
         public void Dispose()

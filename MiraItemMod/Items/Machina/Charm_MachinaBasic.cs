@@ -3,6 +3,7 @@ using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace MiraItemMod.Items.Machina
 {
@@ -99,6 +100,104 @@ namespace MiraItemMod.Items.Machina
             var level = saveData.GetInt($"CharmSaveData_MachinaBasic_{Item.InstanceID}_Level", AdditionalMaxLevel);
             SetAdditionalMaxLevel(level);
             RpcSetAdditionalMaxLevel(level);
+        }
+
+        protected List<ItemPosition> AdjacentPositions = new List<ItemPosition> { new ItemPosition(0, 1), new ItemPosition(0, -1), new ItemPosition(1, 0), new ItemPosition(-1, 0) };
+        protected List<Charm_MachinaBasic> GetAdjacentMachinas()
+        {
+            var list = new List<Charm_MachinaBasic>();
+            try
+            {
+                if (Item == null)
+                    return list;
+            }
+            catch (Exception e)
+            {
+                return list;
+            }
+            foreach (var direction in AdjacentPositions)
+            {
+                var charm = NetworkAvatar.Inventory.FindItem(Item.Position + direction);
+                if (charm == null)
+                    continue;
+                if(charm.Charm is Charm_MachinaBasic machina)
+                {
+                    list.Add(machina);
+                }
+            }
+            return list;
+        }
+        protected List<Charm_MachinaBasic> GetAdjacentMachinas(GridInventory inventory)
+        {
+            var list = new List<Charm_MachinaBasic>();
+            try
+            {
+                if (Item == null)
+                    return list;
+            }
+            catch (Exception e)
+            {
+                return list;
+            }
+            foreach (var direction in AdjacentPositions)
+            {
+                var charm = inventory.FindItem(Item.Position + direction);
+                if (charm == null)
+                    continue;
+                if (charm.Charm is Charm_MachinaBasic machina)
+                {
+                    list.Add(machina);
+                }
+            }
+            return list;
+        }
+        public List<Charm_MachinaBasic> GetConnectedMachinas()
+            => GetConnectedMachinas(new List<Charm_MachinaBasic>());
+        protected List<Charm_MachinaBasic> GetConnectedMachinas(List<Charm_MachinaBasic> list)
+        {
+            try
+            {
+                if (Item == null)
+                    return list;
+            }
+            catch (Exception e)
+            {
+                return list;
+            }
+            if (list.Contains(this))
+                return list;
+            list.Add(this);
+            foreach(var adjacent in GetAdjacentMachinas())
+            {
+                if (list.Contains(adjacent))
+                    continue;
+                adjacent.GetConnectedMachinas(list);
+            }
+            return list;
+        }
+        public List<Charm_MachinaBasic> GetConnectedMachinas(GridInventory inventory)
+            => GetConnectedMachinas(inventory, new List<Charm_MachinaBasic>());
+        protected List<Charm_MachinaBasic> GetConnectedMachinas(GridInventory inventory, List<Charm_MachinaBasic> list)
+        {
+            try
+            {
+                if (Item == null)
+                    return list;
+            }
+            catch (Exception e)
+            {
+                return list;
+            }
+            if (list.Contains(this))
+                return list;
+            list.Add(this);
+            foreach (var adjacent in GetAdjacentMachinas(inventory))
+            {
+                if (list.Contains(adjacent))
+                    continue;
+                adjacent.GetConnectedMachinas(inventory, list);
+            }
+            return list;
         }
     }
 }

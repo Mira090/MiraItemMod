@@ -1911,6 +1911,15 @@ namespace MiraItemMod
         /// 機械コンボによって設定されるインベントリの特別な枠です
         /// </summary>
         public static ModKeyword SalvageSlot { get; } = ModKeyword.CreateKeyword("SalvageSlot").SetTextColor(new Color32(150, 180, 200, 255));
+        /// <summary>
+        /// Status_MechanicalConnect_Name
+        /// 接続
+        /// Status_MechanicalConnect_Tooltip
+        /// 接続する機械アーティファクト
+        /// Status_MechanicalConnect_Description
+        /// 隣接する機械アーティファクトのこと。隣の隣も含まれる。
+        /// </summary>
+        public static ModKeyword MechanicalConnect { get; } = ModKeyword.CreateKeyword("MechanicalConnect").SetTooltip().SetTextColor(new Color32(150, 180, 200, 255));
         #endregion
 
 
