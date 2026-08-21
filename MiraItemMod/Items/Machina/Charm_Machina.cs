@@ -21,6 +21,7 @@ namespace MiraItemMod.Items.Machina
         public virtual float AttackDashScale => 0.5f;
         public virtual int MpConsumed => 0;
         public virtual float RangeBonus => 0f;
+        public virtual float TargetNoiseScale => 0.2f;
         public NewWeaponFireData FireData
         {
             get
@@ -141,8 +142,10 @@ namespace MiraItemMod.Items.Machina
         }
         public void Attack(CombatBehaviour target, float percent = 100)
         {
-            List<CombatBehaviour> basicAttackSharedTargetList = new List<CombatBehaviour>() { target };
-            Attack(GetTriggerCount(), target.transform.position, basicAttackSharedTargetList, percent);
+            List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
+            var delta = target.transform.position - FirePosition(WeaponController);
+            delta += (Vector3)UnityEngine.Random.insideUnitCircle * TargetNoiseScale;
+            Attack(GetTriggerCount(), delta, basicAttackSharedTargetList, percent);
         }
         public void Attack(Vector3 aimedDelta, float percent = 100)
         {

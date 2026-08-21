@@ -1111,6 +1111,26 @@ namespace MiraItemMod
             CreateStatusGroup("LIGHTNING_DAMAGE", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
             .SetCategory(ItemCategories.Machina, ItemCategories.Elemental).SetRarity(EItemRarity.Uncommon).SetSimpleEffects(0).SetConfig(config => config.AddItem && config.AddMachine);
         /// <summary>
+        /// Item_MachinaCooldown_Name
+        /// 巡回ノコギリ
+        /// Item_MachinaCooldown_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaCooldown_Effect
+        /// {COOLDOWN}秒ごとに周囲に<tag=PhysicalDamage>を与える斬撃を放つ\n[ダメージ：{DAMAGE} (<tag=PhysicalDamage>{PERCENT})]
+        /// </summary>
+        public static ModCharm MachinaCooldown { get; } = ModCharmStatus.Create<Charm_MachinaCooldown>("MachinaCooldown", 2)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        /// <summary>
+        /// Item_MachinaConnectedElemental_Name
+        /// ネットワークバッテリー
+        /// Item_MachinaConnectedElemental_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaConnectedElemental_Effect
+        /// <tag=MechanicalConnect>する<tag=ItemRarity_Armament>アーティファクトが基づくダメージ {DAMAGE}\n現在：
+        /// </summary>
+        public static ModCharm MachinaConnectedElemental { get; } = ModCharmStatus.Create<Charm_MachinaConnectedElemental>("MachinaConnectedElemental", 3)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
         /// Item_MachinaSlotElemental_Name
         /// 古代の動力炉
         /// Item_MachinaSlotElemental_FlavorText
@@ -1120,6 +1140,16 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm MachinaSlotElemental { get; } = ModCharmStatus.Create<Charm_MachinaSlotElemental>("MachinaSlotElemental", 3)
             .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddMachine);
+        /// <summary>
+        /// Item_MachinaConnectedDamage_Name
+        /// ネットワークブースター
+        /// Item_MachinaConnectedDamage_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MachinaConnectedDamage_Effect
+        /// <tag=MechanicalConnect>する<tag=ItemRarity_Armament>アーティファクトのダメージ {DAMAGE}
+        /// </summary>
+        public static ModCharm MachinaConnectedDamage { get; } = ModCharmStatus.Create<Charm_UpConnectedDamage>("MachinaConnectedDamage", 4)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddMachine);
         /// <summary>
         /// Item_MachinaOnDash_Name
         /// ロケットブーツ
@@ -1131,15 +1161,17 @@ namespace MiraItemMod
         public static ModCharm MachinaOnDash { get; } = ModCharmStatus.Create<Charm_MachinaOnDash>("MachinaOnDash", 2)
             .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
-        /// Item_MachinaCooldown_Name
-        /// 巡回ノコギリ
-        /// Item_MachinaCooldown_FlavorText
+        /// Item_MachinaLaser_Name
+        /// メカニカルレーザー
+        /// Item_MachinaLaser_FlavorText
         /// フレーバーテキスト募集中
-        /// Item_MachinaCooldown_Effect
-        /// {COOLDOWN}秒ごとに周囲に<tag=PhysicalDamage>を与える斬撃を放つ\n[ダメージ：{DAMAGE} (<tag=PhysicalDamage>{PERCENT})]
+        /// Item_MachinaLaser_Effect
+        /// {COOLDOWN}秒ごとに敵に<tag=ChaosDamage>を与えるレーザーを放つ\n[ダメージ：{DAMAGE} (<tag=HighestElementalDamage>{PERCENT})]
+        /// Item_MachinaLaser_Effect2
+        /// <tag=MechanicalConnect>する機械アーティファクトの数{PER}個ごとにレーザーの本数が1本増加\r\n[現在：{LASER}本]
         /// </summary>
-        public static ModCharm MachinaCooldown { get; } = ModCharmStatus.Create<Charm_MachinaCooldown>("MachinaCooldown", 2)
-            .SetCategory(ItemCategories.Machina).SetSimpleEffect().SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
+        public static ModCharm MachinaLaser { get; } = ModCharmStatus.Create<Charm_MachinaLaser>("MachinaLaser", 2)
+            .SetCategory(ItemCategories.Machina).SetSimpleEffects(2).SetIsArmament(EItemRarity.Rare).SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddMachine).SetDamageId();
         /// <summary>
         /// Item_MachinaEclipse_Name
         /// 武装：日食
