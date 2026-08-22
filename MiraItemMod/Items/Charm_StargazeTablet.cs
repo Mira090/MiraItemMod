@@ -157,8 +157,9 @@ namespace MiraItemMod.Items
         {
             Events.OnValueRecieved += OnValueRecieved;
         }
-        public void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Events.OnValueRecieved -= OnValueRecieved;
         }
         protected override void OnConnected(int instanceID)

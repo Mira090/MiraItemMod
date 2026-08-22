@@ -40,8 +40,10 @@ namespace MiraItemMod.Items
                 EventPlayer.OnReviveFromOtherPlayerClientside += OnReviveFromOtherPlayerClientside;
             }
         }
-        public void OnDestroy()
+
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             if (EventPlayer != null)
             {
                 EventPlayer.OnReviveFromOtherPlayerClientside -= OnReviveFromOtherPlayerClientside;

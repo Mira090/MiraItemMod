@@ -32,8 +32,9 @@ namespace MiraItemMod.Items
             magicCharmIconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Academy_Charm");
             Events.OnValueRecieved += OnValueRecieved;
         }
-        public void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Events.OnValueRecieved -= OnValueRecieved;
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)

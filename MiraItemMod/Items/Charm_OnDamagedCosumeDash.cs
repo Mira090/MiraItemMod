@@ -36,8 +36,9 @@ namespace MiraItemMod.Items
             }
             Events.OnValueRecieved += OnValueRecieved;
         }
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             if(EventAvatar != null)
             {
                 EventAvatar.OnDamagedClientside -= OnDamageApplied;

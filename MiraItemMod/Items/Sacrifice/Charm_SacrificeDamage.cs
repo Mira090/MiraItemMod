@@ -29,8 +29,9 @@ namespace MiraItemMod.Items.Sacrifice
         {
             Events.OnValueRecieved += OnValueRecieved;
         }
-        public void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             Events.OnValueRecieved -= OnValueRecieved;
         }
         protected override void OnEnabledEffect()
