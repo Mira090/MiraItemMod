@@ -454,5 +454,21 @@ namespace MiraItemMod.Utilities
             instance.GetType().GetField("isReadyToMix", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
         }
         #endregion
+
+        #region KeywordJournal
+
+        public static Dictionary<string, KeywordEntity> GetKeywordDictionary()
+        {
+            return typeof(KeywordDatabase).GetField("keywordDictionary", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(KeywordDatabase)) as Dictionary<string, KeywordEntity>;
+        }
+        public static List<UI_ItemIcon> GetIcons(this UI_JournalContent_Item instance)
+        {
+            return (List<UI_ItemIcon>)typeof(UI_JournalContent_Item).GetField("icons", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
+        }
+        public static void SetIcons(this UI_JournalContent_Item instance, List<UI_ItemIcon> value)
+        {
+            typeof(UI_JournalContent_Item).GetField("icons", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(instance, value);
+        }
+        #endregion
     }
 }
