@@ -135,21 +135,20 @@ namespace MiraItemMod.Items.Machina
             }
             return count;
         }
-        public virtual void Attack(float percent = 100f)
+        public void Attack(float percent = 100f)
         {
-            List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
-            Attack(GetTriggerCount(), WeaponController.attackDirection, basicAttackSharedTargetList, percent);
+            Attack(WeaponController.attackDirection, percent);
         }
-        public void Attack(CombatBehaviour target, float percent = 100)
-        {
-            List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
-            var delta = target.transform.position - FirePosition(WeaponController);
-            delta += (Vector3)UnityEngine.Random.insideUnitCircle * TargetNoiseScale;
-            Attack(GetTriggerCount(), delta, basicAttackSharedTargetList, percent);
-        }
-        public void Attack(Vector3 aimedDelta, float percent = 100)
+        public virtual void Attack(Vector3 aimedDelta, float percent = 100)
         {
             Attack(GetTriggerCount(), aimedDelta, new List<CombatBehaviour>(), percent);
+        }
+        public virtual void Attack(CombatBehaviour target, float percent = 100)
+        {
+            //List<CombatBehaviour> basicAttackSharedTargetList = WeaponController.currentWeapon.GetBasicAttackSharedTargetList(0);
+            var delta = target.transform.position - FirePosition(WeaponController);
+            delta += (Vector3)UnityEngine.Random.insideUnitCircle * TargetNoiseScale;
+            Attack(GetTriggerCount(), delta, new List<CombatBehaviour>(), percent);
         }
         public virtual void Attack(int count, Vector3 aimedDelta, List<CombatBehaviour> sharedTarget, float percent)
         {

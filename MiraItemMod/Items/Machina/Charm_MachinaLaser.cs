@@ -59,12 +59,17 @@ namespace MiraItemMod.Items.Machina
             if (isInCooldown)
                 return;
             isInCooldown = true;
-
+            Attack();
+        }
+        public override void Attack(Vector3 aimedDelta, float percent = 100)
+        {
             var targets = GetTargets();
-            for(int q = 0; q < GetCount(); q++)
+            if (targets.Count == 0)
+                return;
+            for (int q = 0; q < GetCount(); q++)
             {
                 var target = targets.SafeRandomAccess(q, ArrayExtensions.ERandomAccessType.Repeat);
-                Attack(target);
+                Attack(target, percent);
             }
         }
         public List<UnitAvatar> GetTargets()
