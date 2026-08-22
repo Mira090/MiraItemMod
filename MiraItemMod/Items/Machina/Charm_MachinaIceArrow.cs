@@ -10,7 +10,7 @@ namespace MiraItemMod.Items.Machina
         public override string DamageId => "Charm_MachinaIceArrow";
         protected override void Awake()
         {
-            damageByLevel = new int[10] { 50, 55, 60, 65, 70, 80, 90, 100, 120, 140 };
+            damageByLevel = new int[10] { 50, 55, 60, 65, 70, 80, 100, 120, 140, 170 };
         }
         protected override NewWeaponFireData GetFireData()
         {
