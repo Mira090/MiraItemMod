@@ -8,6 +8,7 @@ namespace MiraItemMod.Items.Machina
 {
     public class Charm_MachinaLaser : Charm_Machina, IDependencyConditionCharm
     {
+        public override string DamageId => "Charm_MachinaLaser";
         public int[] radius = new int[] { 5 };
         public int per = 3;
         public bool IsDependencyValid(Charm_Basic request)
