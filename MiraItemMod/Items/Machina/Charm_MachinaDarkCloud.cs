@@ -12,7 +12,7 @@ namespace MiraItemMod.Items.Machina
     {
         public static readonly string Stat = "MachinaDarkCloud".ToSephiriaUpperId();
 
-        public int[] statByLevel = new int[10] { 10, 15, 20, 25, 35, 45, 60, 75, 90, 120 };
+        public int[] statByLevel = new int[10] { 25, 30, 35, 40, 50, 60, 75, 95, 120, 150 };
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string value = showAllLevel ? statByLevel.SafeRandomAccess(0) + "→" + statByLevel.SafeRandomAccess(maxLevel) : statByLevel.SafeRandomAccess(LevelToIdx(level)).ToString();

@@ -12,6 +12,7 @@ namespace MiraItemMod.Items.Machina
         protected override void Awake()
         {
             cooldownTimer.time = 0.2f;
+            damageByLevel = new int[10] { 110, 120, 130, 140, 160, 180, 200, 230, 260, 300 };
         }
         protected override NewWeaponFireData GetFireData()
         {

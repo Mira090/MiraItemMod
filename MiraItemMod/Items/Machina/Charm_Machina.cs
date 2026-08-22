@@ -14,7 +14,7 @@ namespace MiraItemMod.Items.Machina
         public static readonly string CooldownStat = "MachinaAttackSpeed".ToSephiriaUpperId();
         public static readonly string FrostToMachina = "FrostToMachina".ToSephiriaUpperId();
 
-        public int[] damageByLevel = new int[10] { 70, 80, 100, 110, 130, 140, 160, 170, 190, 220};
+        public int[] damageByLevel = new int[10] { 80, 90, 100, 110, 120, 140, 160, 170, 190, 220};
         public Timer cooldownTimer = new Timer(0.5f);
         public bool isInCooldown;
         public virtual string DamageId => "Charm_MachinaTest";
