@@ -30,7 +30,7 @@ namespace MiraItemMod.Items.Machina
             recentLuck = ComboEffect_FlameSword.CheckLuck(NetworkAvatar);
             if (recentLuck)
             {
-                int luck = 100 + KeywordDatabase.GetConstValue("flameSwordLuckBonusDamagePercent");
+                int luck = KeywordDatabase.GetConstValue("flameSwordLuckBonusDamagePercent");
                 damage += damage * luck / 100f;
             }
             if (NetworkAvatar.GetCustomStatUnsafe("FLAMESWORDMAGICDAMAGE") > 0)

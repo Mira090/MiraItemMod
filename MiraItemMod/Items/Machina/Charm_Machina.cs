@@ -174,13 +174,17 @@ namespace MiraItemMod.Items.Machina
             damage = damage * percent / 100f;
             float rangeBonus = (float)NetworkAvatar.GetCustomStat(ECustomStat.WeaponRange) / 100f + (float)NetworkAvatar.GetCustomStatUnsafe("MACHINARANGE") / 100f + RangeBonus;
             var temp = attack.damageElementalType;
+            var tempMultiplier = attack.damageMultiplier;
             var elemental = GetDamageElementalType(FireData);
             if (elemental.HasValue)
                 attack.damageElementalType = elemental.Value;
+            attack.damageMultiplier = 1f;
+            
             attack.CreateAttack(EDamageFromType.DirectAttack, damage, DamageId, true, NetworkAvatar, vector, vector + aimedDelta, y, OnCreateAttack, sharedTarget, AttackDashScale, null, false, rangeBonus, 1f, MpConsumed, elemental);
             attack.damageElementalType = temp;
+            attack.damageMultiplier = tempMultiplier;
 
-            if(count - 1 > 0)
+            if (count - 1 > 0)
             {
                 this.Delay(0.05f, () =>
                 {
