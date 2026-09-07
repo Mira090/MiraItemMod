@@ -4,6 +4,8 @@
 
 This is a mod for TEAM HORAY's <a href="https://store.steampowered.com/app/2436940/_/">Sephiria</a> that adds new artifacts, combo effects, weapon upgrades, miracles, and more.
 
+Some artifacts can be unlocked using Destiny Inscription.
+
 Please note that the images of some artifacts are placeholders.
 
 ## 📥 Installation
