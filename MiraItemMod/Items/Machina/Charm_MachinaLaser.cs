@@ -49,7 +49,7 @@ namespace MiraItemMod.Items.Machina
         protected override void Awake()
         {
             cooldownTimer.time = 2f;
-            damageByLevel = new int[10] { 50, 60, 70, 80, 90, 100, 120, 140, 160, 180 };
+            damageByLevel = new int[10] { 50, 55, 60, 70, 80, 90, 100, 120, 140, 160 };
         }
         protected override void OnUpdate()
         {
