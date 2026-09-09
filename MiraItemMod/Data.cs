@@ -1443,7 +1443,7 @@ namespace MiraItemMod
         /// Item_JewelryAll_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharm JewelryAll { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryAll", 0,
+        public static ModCharm JewelryAll { get; } = ModCharmStatus.Create<Charm_JewelryAll>("JewelryAll", 0,
             CreateStatusGroupBy("FINAL_DAMAGE", 2))
             .SetCategory(ItemCategories.Mystic).SetSimpleEffects(0).SetIsExcludedJewelry(EItemRarity.Legend);
 
