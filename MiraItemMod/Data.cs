@@ -1330,7 +1330,7 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm JewelryWind { get; } = ModCharmStatus.Create<Charm_JewelryDamage>("JewelryWind", 0,
             CreateStatusGroupBy("AttackSpeed".ToSephiriaId(), 5),
-            CreateStatusGroupBy("TrueDamage".ToSephiriaId(), 3, 3))
+            CreateStatusGroupBy("TrueDamage".ToSephiriaId(), 3, 2))
             .SetCategory(ItemCategories.WindSong).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare).SetDamageId();
         /// <summary>
         /// Item_JewelryPrecision_Name
@@ -1341,7 +1341,7 @@ namespace MiraItemMod
         /// <tag=WeaponAction_DirectAttack>が命中した時、<tag=Leaf>を{LEAF}消費して<tag=CriticalChance>が{CRITICAL}増加する
         /// </summary>
         public static ModCharm JewelryPrecision { get; } = ModCharmStatus.Create<Charm_JewelryCritical>("JewelryPrecision", 0,
-            CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 20))
+            CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 10))
             .SetCategory(ItemCategories.Precision).SetSimpleEffects(1).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
         /// Item_JewelryExcavation_Name
@@ -1351,7 +1351,7 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm JewelryExcavation { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryExcavation", 0,
             CreateStatusGroupBy("ExcavationDamage".ToSephiriaId(), 3, 30),
-            CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 20))
+            CreateStatusGroupBy("CriticalDamageRate".ToSephiriaId(), 10))
             .SetCategory(ItemCategories.Precision).SetSimpleEffects(0).SetIsUniqueEffect().SetIsJewelry(EItemRarity.Rare);
         /// <summary>
         /// Item_JewelryEmber_Name
@@ -1444,7 +1444,7 @@ namespace MiraItemMod
         /// フレーバーテキスト募集中
         /// </summary>
         public static ModCharm JewelryAll { get; } = ModCharmStatus.Create<Charm_JewelryExcavation>("JewelryAll", 0,
-            CreateStatusGroupBy("FINAL_DAMAGE", 4))
+            CreateStatusGroupBy("FINAL_DAMAGE", 2))
             .SetCategory(ItemCategories.Mystic).SetSimpleEffects(0).SetIsExcludedJewelry(EItemRarity.Legend);
 
         public static readonly System.Random JewelryRandom = new System.Random();
