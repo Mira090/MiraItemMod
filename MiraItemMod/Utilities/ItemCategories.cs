@@ -131,6 +131,10 @@ namespace MiraItemMod.Utilities
         /// 機械
         /// </summary>
         public static string Machina { get; private set; }
+        /// <summary>
+        /// 回顧
+        /// </summary>
+        public static string Recollection { get; private set; }
 
         /// <summary>
         /// 彗星

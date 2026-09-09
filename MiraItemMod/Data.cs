@@ -1269,7 +1269,7 @@ namespace MiraItemMod
         /// 
         /// </summary>
         public static ModCharm MouseSlash { get; } = ModCharmStatus.Create<Charm_MouseSlash>("MouseSlash", 0)
-            .SetCategory().SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && ModUtil.IsTestMode());
+            .SetCategory(ItemCategories.Recollection).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && ModUtil.IsTestMode());
         /// <summary>
         /// Item_FrogGirl_Name
         /// カエルちゃん
@@ -1613,6 +1613,12 @@ namespace MiraItemMod
         /// </summary>
         public static ModComboEffect Machina { get; } = ModComboEffect.Create<ComboEffect_Machina>("Machina").SetStats(CreateComboStat(4, "MACHINA_DAMAGE/15"),
             CreateComboStat(6, "MACHINA_DAMAGE/20"), CreateComboStat(8, "MACHINA_ATTACK_SPEED/20"), CreateComboStat(10, "CHARM_DAMAGE_BONUS/25")).SetDefaultEffect();
+        /// <summary>
+        /// ItemCategory_Recollection
+        /// 回顧
+        /// </summary>
+        public static ModComboEffect Recollection { get; } = ModComboEffect.Create("Recollection").SetStats(CreateComboStat(2, "CHARM_DAMAGE_BONUS/5"), CreateComboStat(4, "CHARM_DAMAGE_BONUS/10"),
+            CreateComboStat(6, "CHARM_DAMAGE_BONUS/15"), CreateComboStat(8, "CHARM_DAMAGE_BONUS/20"), CreateComboStat(10, "CHARM_DAMAGE_BONUS/25")).SetDefaultEffect();
         #endregion
 
         #region EffectHUDs

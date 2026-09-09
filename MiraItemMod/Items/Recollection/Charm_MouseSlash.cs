@@ -20,19 +20,19 @@ namespace MiraItemMod.Items.Recollection
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
-            WeaponController.OnSpecialAttackSwing += OnSpecialAttackSwing;
+            WeaponController.OnSpecialAttack += OnSpecialAttackSwing;
         }
         protected override void OnDisabledEffect()
         {
             base.OnDisabledEffect();
-            WeaponController.OnSpecialAttackSwing -= OnSpecialAttackSwing;
+            WeaponController.OnSpecialAttack -= OnSpecialAttackSwing;
         }
-        private void OnSpecialAttackSwing(int idx)
+        private void OnSpecialAttackSwing(CombatBehaviour combat, DamageInstance damage, ProjectileBase projectile)
         {
             if (isInCooldown)
                 return;
             isInCooldown = true;
-            RpcAttack();
+            RpcAttack(combat);
         }
         protected override void OnUpdate()
         {
@@ -48,14 +48,15 @@ namespace MiraItemMod.Items.Recollection
         }
 
         [ClientRpc]
-        public void RpcAttack()
+        public void RpcAttack(CombatBehaviour target)
         {
             NetworkWriterPooled writer = NetworkWriterPool.Get();
+            writer.WriteNetworkBehaviour(target);
             var func = "System.Void Charm_MouseSlash::RpcAttack()";
             SendRPCInternal(func, func.ToFunctionHashCode(), writer, 0, includeOwner: true);
             NetworkWriterPool.Return(writer);
         }
-        protected virtual void UserCode_RpcAttack()
+        protected virtual void UserCode_RpcAttack(CombatBehaviour target)
         {
             if (!(NetworkAvatar is PlayerAvatar avatar))
                 return;
@@ -69,7 +70,7 @@ namespace MiraItemMod.Items.Recollection
                     var spawner = floor.props[1];
                     if (!spawner.TryGetComponent<BossEnvironment_QQBoss>(out var boss))
                         return;
-                    avatar.StartCoroutine(MouseSlashAttackClientCoroutine(avatar, boss.dramaticDieMouseSlash.gameObject, false));
+                    avatar.StartCoroutine(MouseSlashAttackClientCoroutine(avatar, boss.dramaticDieMouseSlash.gameObject, target, false));
                     return;
                 }
             }
@@ -87,7 +88,7 @@ namespace MiraItemMod.Items.Recollection
             }
             else
             {
-                ((Charm_MouseSlash)obj).UserCode_RpcAttack();
+                ((Charm_MouseSlash)obj).UserCode_RpcAttack(reader.ReadNetworkBehaviour<CombatBehaviour>());
             }
         }
 
@@ -98,30 +99,22 @@ namespace MiraItemMod.Items.Recollection
         }
 
 
-        public static Vector3 GetMouseSlashSpawnPosition(PlayerAvatar avatar)
-        {
-            return avatar.aimObject.transform.position;
-        }
-        public static Transform GetTargetTransform(PlayerAvatar avatar)
-        {
-            return avatar.aimObject.transform;
-        }
-        public static IEnumerator MouseSlashAttackClientCoroutine(PlayerAvatar avatar, GameObject prefab, bool camera)
+        public static IEnumerator MouseSlashAttackClientCoroutine(PlayerAvatar avatar, GameObject prefab, CombatBehaviour target, bool camera)
         {
             var mouseSlashAttackDelay = 1f;
 
             if (camera)
             {
-                GameCamera.Instance.targetTracker.SetDualTarget(GetMouseSlashSpawnPosition(avatar), 0.5f, autoZoom: true, 48f);
+                GameCamera.Instance.targetTracker.SetDualTarget(target.transform.position, 0.5f, autoZoom: true, 48f);
                 GameCamera.Instance.targetTracker.SetDualFollowSpeed(3f);
             }
             yield return new WaitForSeconds(0.5f);
-            var pos = GetMouseSlashSpawnPosition(avatar);
+            var pos = target.transform.position;
             GameObject gameObject = UnityEngine.Object.Instantiate(prefab, pos, Quaternion.identity);
             gameObject.SetActive(true);
             var mouseSlashInstance = gameObject.GetComponent<QQBossMouseSlash>();
             mouseSlashInstance.isDramaticDieObj = false;
-            mouseSlashInstance.SetTargetTransform(GetTargetTransform(avatar));
+            mouseSlashInstance.SetTargetTransform(target.transform);
             if (camera)
             {
                 GameCamera.Instance.targetTracker.SetDualTarget(mouseSlashInstance.topdownActor.body, 0.5f, autoZoom: true, 48f);
