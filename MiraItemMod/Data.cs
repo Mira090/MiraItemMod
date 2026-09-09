@@ -1032,7 +1032,7 @@ namespace MiraItemMod
         /// Item_SavvyShadow_Effect2
         /// {COUNT}回<tag=Looting>するたび<tag=Leaf>ではなく<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyShadow { get; } = ModCharmStatus.Create<Charm_SavvyShadow>("SavvyShadow", 5, CreateStatusGroup("EVASION", 200, 300, 500, 700, 1000, 1400))
+        public static ModCharm SavvyShadow { get; } = ModCharmStatus.Create<Charm_SavvyShadow>("SavvyShadow", 5, CreateStatusGroup("EVASION", 200, 300, 500, 700, 1000, 1400), CreateStatusGroup("NEGOTIATION", 2, 3, 5, 7, 10, 14))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Shadow).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddJewelry);
         /// <summary>
         /// Item_SavvyAcademy_Name
