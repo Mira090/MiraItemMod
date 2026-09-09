@@ -29,6 +29,7 @@ namespace MiraItemMod.Utilities
         public static readonly string PassivePath = "Passive\\";
         public static readonly string KeywordPath = "Keyword\\";
         public static readonly string LocalizationPath = "Localization\\";
+        public static readonly string UnitPath = "Unit\\";
 
         /// <summary>
         /// 「ToFileName」を「to_file_name」に変換する
@@ -133,6 +134,12 @@ namespace MiraItemMod.Utilities
             if (avatar == null)
                 return false;
             return avatar.GetCustomStatUnsafe("MAGICQUICKCAST") > 0;
+        }
+        public static bool IsTestMode()
+        {
+            if (ScreenFader.Instance == null)
+                return false;
+            return ScreenFader.Instance.IsTestMode;
         }
 
         #region RPC Miracle Controller

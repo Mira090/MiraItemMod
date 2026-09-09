@@ -219,6 +219,16 @@ namespace MiraItemMod.Registries
             item.ElementalType = elementalType;
             return item;
         }
+        public static T SetHp<T>(this T item, params int[] hp) where T : ModCharmCompanion
+        {
+            item.HpByLevel = hp;
+            return item;
+        }
+        public static T SetDamage<T>(this T item, params int[] damage) where T : ModCharmCompanion
+        {
+            item.DamageByLevel = damage;
+            return item;
+        }
         public static T SetConditionQuery<T>(this T item, string query) where T : ModStoneTablet
         {
             item.ConditionQuery = query;

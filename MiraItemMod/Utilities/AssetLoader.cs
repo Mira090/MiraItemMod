@@ -48,6 +48,29 @@ namespace MiraItemMod.Utilities
             //sprite.bounds.extents = new Vector3(sprite.bounds.extents.x * 6, sprite.bounds.extents.y * 6, sprite.bounds.extents.z);
             return sprite;
         }
+        public static Sprite LoadSpriteForUnit(string name)
+        {
+            var path = GetAssetsFolder(name);
+            if (!File.Exists(path))
+            {
+                Core.LoggerWarning(path + " is not exist!");
+                return null;
+            }
+
+            byte[] fileData = File.ReadAllBytes(path);
+            Texture2D tex = new Texture2D(2, 2, TextureFormat.ARGB32, false);
+            tex.LoadImage(fileData);
+
+            var sprite = Sprite.Create(
+                tex,
+                new Rect(0, 0, tex.width, tex.height),
+                new Vector2(0.5f, 0.0f), 16
+            );
+            sprite.name = name;
+            sprite.texture.filterMode = FilterMode.Point;
+            //sprite.bounds.extents = new Vector3(sprite.bounds.extents.x * 6, sprite.bounds.extents.y * 6, sprite.bounds.extents.z);
+            return sprite;
+        }
         public static Sprite LoadSprite(string name, Vector2 pivot)
         {
             var path = GetAssetsPath(name);

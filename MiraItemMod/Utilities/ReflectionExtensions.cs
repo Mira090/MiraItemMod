@@ -424,6 +424,10 @@ namespace MiraItemMod.Utilities
         {
             return (SyncList<ShieldData>)typeof(UnitAvatar).GetField("curShieldDatas", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(instance);
         }
+        public static Dictionary<Transform, TopdownRigidbody> GetCachedRigidbodies()
+        {
+            return (Dictionary<Transform, TopdownRigidbody>)typeof(TopdownRigidbody).GetField("cachedRigidbodies", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(TopdownRigidbody));
+        }
 
 
 

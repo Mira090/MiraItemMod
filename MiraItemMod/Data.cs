@@ -41,6 +41,7 @@ namespace MiraItemMod
         public static List<ModSpriteFx> SpriteFxs { get; private set; } = new List<ModSpriteFx>();
         public static List<ModSephirite> Sephirites { get; private set; } = new List<ModSephirite>();
         public static List<ModTreeShopItem> TreeShops { get; private set; } = new List<ModTreeShopItem>();
+        public static List<ModUnit> Units { get; private set; } = new List<ModUnit>();
         public static List<string> AllResourcePrefabNames { get; private set; }
         public static Dictionary<string, List<ModCharm>> Jewelries { get; private set; } = new Dictionary<string, List<ModCharm>>();
         /// <summary>
@@ -1257,6 +1258,29 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm ElectricShield { get; } = ModCharmStatus.Create<Charm_ElectricShield>("ElectricShield", 3, CreateStatusGroup("LIGHTNING_DAMAGE", 1, 3, 5, 8), CreateStatusGroup("DEFENSE", 1, 3, 5, 8))
             .SetCategory(ItemCategories.Guardian, ItemCategories.Magitech).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem);
+
+        /// <summary>
+        /// Item_FrogGirl_Name
+        /// カエルちゃん
+        /// Item_FrogGirl_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_FrogGirl_Effect
+        /// 
+        /// </summary>
+        public static ModCharm FrogGirl { get; } = ModCharmCompanion.Create("FrogGirl", 3, () => FrogGirlUnit).SetHp(80, 120, 240, 320).SetDamage(90, 140, 180, 230)
+            .SetCategory(ItemCategories.Companion, ItemCategories.Magitech).SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddCompanion && ModUtil.IsTestMode());
+        public static ModUnit FrogGirlUnit { get; } = ModUnit.Create("FrogGirl", () => ModUnit.GetOriginalBySummonCharm(1029));
+        /// <summary>
+        /// Item_Mole_Name
+        /// 色違いモグラ
+        /// Item_Mole_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_Mole_Effect
+        /// 
+        /// </summary>
+        public static ModCharm Mole { get; } = ModCharmCompanion.Create("Mole", 3, () => MoleUnit).SetHp(80, 120, 240, 320).SetDamage(90, 140, 180, 230)
+            .SetCategory(ItemCategories.Companion).SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddCompanion && ModUtil.IsTestMode());
+        public static ModUnit MoleUnit { get; } = ModUnit.Create("Mole", () => ModUnit.GetOriginalBySummonCharm(1029));
 
         #region Jewelries
         /// <summary>
@@ -3044,6 +3068,15 @@ namespace MiraItemMod
                 Core.LoggerFew("New TreeShop: " + pro.Name);
                 TreeShops.Add(moditem);
             }
+            var pros13 = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType == typeof(ModUnit) || p.PropertyType.IsSubclassOf(typeof(ModUnit)));
+            foreach (var pro in pros13)
+            {
+                var moditem = pro.GetValue(type) as ModUnit;
+                Core.LoggerFew("New Unit: " + pro.Name);
+                moditem.Init(assetId);
+                assetId = GetNextAssetId(assetId);
+                Units.Add(moditem);
+            }
             //CustomCostumeDatabase.Initialize();
         }
 
@@ -3062,6 +3095,13 @@ namespace MiraItemMod
             {
                 moditem.SetActive();
                 ItemDatabase.Register(moditem.ItemEntity);
+            }
+            foreach(var moditem in All)
+            {
+                if(moditem is ModCharmCompanion companion)
+                {
+                    companion.InitUnit();
+                }
             }
         }
         public static void RegisterDamageIds(List<UnityEngine.Object> list)

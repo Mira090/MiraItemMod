@@ -25,6 +25,13 @@ namespace MiraItemMod.Registries
         private uint _assetId;
         public void ToIdentity()
         {
+            if(gameObject.TryGetComponent<NetworkIdentity>(out var existingIdentity))
+            {
+                existingIdentity.SetAssetId(AssetId);
+                Core.LoggerError("ModAssetId: NetworkIdentity already exists on this GameObject. Overwriting AssetId.");
+                UnityEngine.Object.Destroy(this);
+                return;
+            }
             var identity = gameObject.AddComponent<NetworkIdentity>();
             identity.SetAssetId(AssetId);
 
@@ -56,8 +63,21 @@ namespace MiraItemMod.Registries
             {
                 simple.enabled = true;
             }
+            if (gameObject.TryGetComponent<UnitAvatar>(out var avatar))
+            {
+                avatar.enabled = true;
+            }
+            if (gameObject.TryGetComponent<UnitAI_NewBasic>(out var ai))
+            {
+                ai.enabled = true;
 
-            UnityEngine.Object.Destroy(this);
+                if (gameObject.transform.Find("Hitbox") is Transform hitbox)
+                {
+                    hitbox.gameObject.SetActive(true);
+                }
+            }
+
+            UnityEngine.Object.DestroyImmediate(this);
         }
     }
 }
