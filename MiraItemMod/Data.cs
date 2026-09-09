@@ -983,7 +983,7 @@ namespace MiraItemMod
         /// このアーティファクトを消費して、バッグの枠を{COUNT}拡張します
         /// </summary>
         public static ModCharm AddInventory { get; } = ModCharm.Create<Charm_AddInventory>("AddInventory", 0, true).SetActiveType(EItemActiveType.Hidden)
-            .SetCategory().SetSimpleEffect().SetRarity(EItemRarity.Legend);
+            .SetCategory().SetSimpleEffect().SetRarity(EItemRarity.Rare);
         /// <summary>
         /// Item_AddMaxMiracle_Name
         /// 輝く樹の枝
