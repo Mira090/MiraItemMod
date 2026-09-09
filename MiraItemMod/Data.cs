@@ -8,6 +8,7 @@ using MiraItemMod.Items.Eternal;
 using MiraItemMod.Items.Jewelry;
 using MiraItemMod.Items.Machina;
 using MiraItemMod.Items.Pallas;
+using MiraItemMod.Items.Recollection;
 using MiraItemMod.Items.Savvy;
 using MiraItemMod.Miracles;
 using MiraItemMod.Passives;
@@ -1259,6 +1260,16 @@ namespace MiraItemMod
         public static ModCharm ElectricShield { get; } = ModCharmStatus.Create<Charm_ElectricShield>("ElectricShield", 3, CreateStatusGroup("LIGHTNING_DAMAGE", 1, 3, 5, 8), CreateStatusGroup("DEFENSE", 1, 3, 5, 8))
             .SetCategory(ItemCategories.Guardian, ItemCategories.Magitech).SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem);
 
+        /// <summary>
+        /// Item_MouseSlash_Name
+        /// ディン
+        /// Item_MouseSlash_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MouseSlash_Effect
+        /// 
+        /// </summary>
+        public static ModCharm MouseSlash { get; } = ModCharmStatus.Create<Charm_MouseSlash>("MouseSlash", 0)
+            .SetCategory().SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && ModUtil.IsTestMode());
         /// <summary>
         /// Item_FrogGirl_Name
         /// カエルちゃん

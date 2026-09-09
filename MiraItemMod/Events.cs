@@ -11,6 +11,7 @@ using MiraItemMod.UI;
 using MiraItemMod.Utilities;
 using Mirror;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -323,8 +324,222 @@ namespace MiraItemMod
         [HarmonyPatch(typeof(DungeonManager), "UserCode_RpcChat__PlayerAvatar__String__String", new Type[] { typeof(PlayerAvatar), typeof(string), typeof(string) })]
         public static class DungeonManagerChatPatch
         {
+            private static Vector3 GetMouseSlashSpawnPosition(PlayerAvatar avatar)
+            {
+                return avatar.aimObject.transform.position;
+            }
+            private static Transform GetTargetTransform(PlayerAvatar avatar)
+            {
+                return avatar.aimObject.transform;
+            }
+            private static IEnumerator MouseSlashAttackClientCoroutine(PlayerAvatar avatar, GameObject prefab, bool camera)
+            {
+                var mouseSlashAttackDelay = 1f;
+                var mouseSlashSelfDamageMaxHpRatio = 0.17f;
+
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.SetDualTarget(GetMouseSlashSpawnPosition(avatar), 0.5f, autoZoom: true, 48f);
+                    GameCamera.Instance.targetTracker.SetDualFollowSpeed(3f);
+                }
+                yield return new WaitForSeconds(0.5f);
+                GameObject gameObject = UnityEngine.Object.Instantiate(prefab, GetMouseSlashSpawnPosition(avatar), Quaternion.identity);
+                gameObject.SetActive(true);
+                var mouseSlashInstance = gameObject.GetComponent<QQBossMouseSlash>();
+                mouseSlashInstance.isDramaticDieObj = false;
+                mouseSlashInstance.SetTargetTransform(GetTargetTransform(avatar));
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.SetDualTarget(mouseSlashInstance.topdownActor.body, 0.5f, autoZoom: true, 48f);
+                    GameCamera.Instance.targetTracker.SetDualFollowSpeed(3f);
+                }
+                yield return new WaitForSeconds(Mathf.Max(0f, mouseSlashAttackDelay));
+                if ((bool)mouseSlashInstance)
+                {
+                    mouseSlashInstance.attackRequest = true;
+                    /*
+                     * ダメージ処理
+                    if (base.isServer)
+                    {
+                        if (hp > 0.5f)
+                        {
+                            SetHp(Mathf.Max(0.5f, hp - base.MaxHp * Mathf.Max(0f, mouseSlashSelfDamageMaxHpRatio)));
+                        }
+
+                        LocalApplySystemDamage(1f);
+                        ClearPreparingLineGroundAreaAttacks();
+                        ClearWindmillBulletHells();
+                        StopPerimeterBulletGimmick(clearBullets: true);
+                    }*/
+                    if (avatar.isServer)
+                    {
+                        ApplyDamage(avatar, GetMouseSlashSpawnPosition(avatar));
+                    }
+                }
+
+                yield return new WaitForSeconds(1f);
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.ResetDualTarget();
+                }
+                yield return new WaitForSeconds(1f);
+                //UnityEngine.Object.Destroy(mouseSlashInstance.gameObject);
+            }
+            private static void ApplyDamage(PlayerAvatar avatar, Vector3 pos)
+            {
+                var results = Physics2D.BoxCastAll(pos, new Vector2(3, 15), -36, Vector2.zero, 0f, CombatManager.Topdown1FLayerMask);
+                foreach(var result in results)
+                {
+                    Hitbox component = result.transform.GetComponent<Hitbox>();
+                    if ((bool)component)
+                    {
+                        CombatBehaviour combatBehaviour = component.GetCombatBehaviour(0);
+                        if ((bool)combatBehaviour)
+                        {
+                            float d = avatar.GetCustomStat(ECustomStat.PhysicalDamage) * 8f;
+                            for(int q = 0; q < 5; q++)
+                            {
+                                DamageInstance damage = DamageInstance.GetDamage(avatar, "Mouse_Test", pos, avatar.GetHostileFactionLayers(EDamageFromType.None), d, EDamageType.Slice, EDamageFromType.None, Vector2.zero, 0, 0f);
+                                combatBehaviour.ApplyDamage(damage);
+                            }
+                        }
+                    }
+                }
+            }
+            private static IEnumerator CreateCrystalLionCoroutine(PlayerAvatar avatar, GameObject prefab, bool camera)
+            {
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.SetDualTarget(GetMouseSlashSpawnPosition(avatar), 0.5f, autoZoom: true, 48f);
+                    GameCamera.Instance.targetTracker.SetDualFollowSpeed(3f);
+                }
+                yield return new WaitForSeconds(0.5f);
+                GameObject gameObject = UnityEngine.Object.Instantiate(prefab, GetMouseSlashSpawnPosition(avatar), Quaternion.identity);
+                gameObject.SetActive(true);
+                var crystalLionInstance = gameObject.GetComponent<QQBossCrystalLion>();
+                crystalLionInstance.Initialize(null);
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.SetDualTarget(crystalLionInstance.transform, 0.5f, autoZoom: true, 48f);
+                    GameCamera.Instance.targetTracker.SetDualFollowSpeed(3f);
+                }
+                yield return new WaitForSeconds(1f);
+                if ((bool)crystalLionInstance)
+                {
+                    //powerCrystalFailState = 1;
+                    if ((bool)crystalLionInstance)
+                    {
+                        crystalLionInstance.attackRequest = true;
+                    }
+                    /*
+                    if (base.isServer)
+                    {
+                        LocalApplySystemDamage(1f);
+                    }
+
+                    crystalLionLockFxAnimator.SetEntryState();
+                    crystalLionLockFxAnimator_Back.SetEntryState();*/
+                }
+                if (camera)
+                {
+                    GameCamera.Instance.targetTracker.ResetDualTarget();
+                }
+                UnityEngine.Object.Destroy(crystalLionInstance.gameObject);
+            }
+
             static bool Prefix(PlayerAvatar avatar, string name, string message, ref DungeonManager __instance)
             {
+                if (ModUtil.IsTestMode())
+                {
+                    if (message == "/slash")
+                    {
+                        try
+                        {
+                            var race = RaceDatabase.FindById(30);
+                            var stage = race.stages.LastOrDefault();
+                            var battle = stage.firstFloor;
+                            if (battle is FullyDesignedFloorGenerator floor)
+                            {
+                                var spawner = floor.props[1];
+                                if (!spawner.TryGetComponent<BossEnvironment_QQBoss>(out var boss))
+                                    return true;
+                                avatar.StartCoroutine(MouseSlashAttackClientCoroutine(avatar, boss.dramaticDieMouseSlash.gameObject, false));
+                                return false;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Core.LoggerError(e);
+                        }
+                        return true;
+                    }
+                    if (message == "/lion")
+                    {
+                        try
+                        {
+                            var race = RaceDatabase.FindById(30);
+                            var stage = race.stages.LastOrDefault();
+                            var battle = stage.firstFloor;
+                            if (battle is FullyDesignedFloorGenerator floor)
+                            {
+                                var spawner = floor.props[1];
+                                if (!spawner.TryGetComponent<BossEnvironment_QQBoss>(out var boss))
+                                    return true;
+                                avatar.StartCoroutine(CreateCrystalLionCoroutine(avatar, boss.dramaticDieLion.gameObject, false));
+                                return false;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Core.LoggerError(e);
+                        }
+                        return true;
+                    }
+                    if (message == "/lion camera")
+                    {
+                        try
+                        {
+                            var race = RaceDatabase.FindById(30);
+                            var stage = race.stages.LastOrDefault();
+                            var battle = stage.firstFloor;
+                            if (battle is FullyDesignedFloorGenerator floor)
+                            {
+                                var spawner = floor.props[1];
+                                if (!spawner.TryGetComponent<BossEnvironment_QQBoss>(out var boss))
+                                    return true;
+                                avatar.StartCoroutine(CreateCrystalLionCoroutine(avatar, boss.dramaticDieLion.gameObject, true));
+                                return false;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Core.LoggerError(e);
+                        }
+                        return true;
+                    }
+                    if (message == "/slash camera")
+                    {
+                        try
+                        {
+                            var race = RaceDatabase.FindById(30);
+                            var stage = race.stages.LastOrDefault();
+                            var battle = stage.firstFloor;
+                            if (battle is FullyDesignedFloorGenerator floor)
+                            {
+                                var spawner = floor.props[1];
+                                if (!spawner.TryGetComponent<BossEnvironment_QQBoss>(out var boss))
+                                    return true;
+                                avatar.StartCoroutine(MouseSlashAttackClientCoroutine(avatar, boss.dramaticDieMouseSlash.gameObject, true));
+                                return false;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Core.LoggerError(e);
+                        }
+                        return true;
+                    }
+                }
                 if (name == "Mod" && message.StartsWith("/"))
                 {
                     Core.LoggerMany($"Mod Chat({avatar.Name}): {message}");
