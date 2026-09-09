@@ -1020,7 +1020,7 @@ namespace MiraItemMod
         /// Item_SavvyCurse_Effect5
         /// <tag=Crime>を犯すたび、追加で{LEAF}<tag=Leaf>を生成し、<tag=ItemRarity_Jewelry>アーティファクトを手に入れる
         /// </summary>
-        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("SavvyCurse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 2, 2, 3))
+        public static ModCharm SavvyCurse { get; } = ModCharmStatus.Create<Charm_SavvyCurse>("SavvyCurse", 3, CreateStatusGroup("HIGHEST_ELEMENTAL_DAMAGE", 1, 3, 5, 7))
             .SetCategory(ItemCategories.Savvy, ItemCategories.Curse).SetSimpleEffects(5).SetRarity(EItemRarity.Rare).SetIsDual().SetIsUniqueEffect().SetConfig(config => config.AddItem && config.AddJewelry);
         /// <summary>
         /// Item_SavvyShadow_Name
