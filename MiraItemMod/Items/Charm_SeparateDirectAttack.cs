@@ -10,13 +10,15 @@ namespace MiraItemMod.Items
         public int[] separate = new int[] { 56, 52, 48, 42, 36 };
         public Timer cooldown = new Timer(0.1f);
         public int cooldownCount = 0;
-        public int countMax = 5;
+        public int countMax = 4;
         public bool IsInCooldown => cooldownCount > countMax;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string value = showAllLevel ? separate.SafeRandomAccess(0) + "→" + separate.SafeRandomAccess(maxLevel) : separate.SafeRandomAccess(LevelToIdx(level)).ToString();
-            return new Loc.KeywordValue[1]
+            return new Loc.KeywordValue[]
             {
+            new Loc.KeywordValue("MAX", countMax.ToString(), GetPositiveColor(virtualLevelOffset)),
+            new Loc.KeywordValue("COOLDOWN", "0.1", GetPositiveColor(virtualLevelOffset)),
             new Loc.KeywordValue("DAMAGE", value, GetPositiveColor(virtualLevelOffset))
             };
         }
