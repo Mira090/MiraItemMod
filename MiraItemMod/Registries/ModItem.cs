@@ -14,7 +14,7 @@ namespace MiraItemMod.Registries
         {
             Name = name;
             LocalizedName = new LocalizedString("Item_" + name + "_Name");
-            FlavorText = new LocalizedString("Item_" + name + "_FlavorText");
+            FlavorText = new LocalizedFlavorText("Item_" + name + "_FlavorText");
             ItemType = type;
             ItemEntityName = "_" + name;
             ResourcePrefabName = ItemTypeString + "-" + name;
