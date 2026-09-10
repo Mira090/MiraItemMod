@@ -10,6 +10,13 @@ namespace MiraItemMod.Items
     public class Charm_OverFlameSword : Charm_StatusInstance
     {
         public static readonly string OverFlameSword = "OverFlameSword".ToUpperInvariant();
+        public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
+        {
+            return new Loc.KeywordValue[]
+            {
+                new Loc.KeywordValue("COOLDOWN", FlameSwordPatch.Cooldown.ToString()),
+            };
+        }
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
@@ -24,19 +31,34 @@ namespace MiraItemMod.Items
         [HarmonyPatch(typeof(ComboEffect_FlameSword), "AddSwordServer")]
         public static class FlameSwordPatch
         {
+            public static Dictionary<ComboEffect_FlameSword, bool> IsInCooldown = new Dictionary<ComboEffect_FlameSword, bool>();
+            public static float Cooldown = 1.5f;
             static void Prefix(ComboEffect_FlameSword __instance, int amount)
             {
+                if (IsInCooldown.TryGetValue(__instance, out var value) && value)
+                    return;
                 try
                 {
                     if (__instance.Networkavatar.GetCustomStatUnsafe(OverFlameSword) <= 0 || !__instance.Networkavatar.IsInBattle)
                         return;
 
                     int b = __instance.maxSword + __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDMAX");
-                    var over = (__instance.currentSword + amount) - b;//__instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDPICKBONUS")
+                    var bonus = __instance.Networkavatar.GetCustomStatUnsafe("FLAMESWORDPICKBONUS");
+                    var over = (__instance.currentSword + amount + bonus) - b;//
+
                     for (int q = 0; q < over; q++)
                     {
                         __instance.ServerFireSword(__instance.Networkavatar.transform.position, false, false);
                     }
+                    if (DungeonManager.Instance == null || over <= 0)
+                        return;
+                    IsInCooldown[__instance] = true;
+                    DungeonManager.Instance.Delay(Cooldown, () =>
+                    {
+                        if (__instance == null)
+                            return;
+                        IsInCooldown.Remove(__instance);
+                    });
                 }
                 catch(Exception e)
                 {

@@ -894,7 +894,7 @@ namespace MiraItemMod
         /// Item_OverFlameSword_FlavorText
         /// フレーバーテキスト募集中
         /// Item_OverFlameSword_Effect
-        /// 余分に拾った<tag=FlameSword>を地面に投げる
+        /// 余分に拾った<tag=FlameSword>を地面に投げる（クールダウン{COOLDOWN}秒）
         /// </summary>
         public static ModCharm OverFlameSword { get; } = ModCharmStatus.Create<Charm_OverFlameSword>("OverFlameSword", 3, CreateStatusGroup("FLAME_SWORD_DAMAGE", 5, 5, 10, 15), CreateStatusGroup("FLAME_SWORD_CRITICAL", 5, 8, 11, 15))
             .SetCategory(ItemCategories.FlameSword).SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsUniqueEffect();
