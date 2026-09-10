@@ -205,7 +205,7 @@ namespace MiraItemMod
             {
                 ItemDatabase.Modify(1123, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スタールビー
                 ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
-                ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Vitality));//生命の手
+                ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Sturdy, ItemCategories.Vitality));//生命の手
                 ItemDatabase.Modify(1005, SetItemCategories(ItemCategories.Vitality));//ハート形のニンジン
                 ItemDatabase.Modify(1017, SetItemCategories(ItemCategories.Vitality));//盾のイヤリング
                 ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
