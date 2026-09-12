@@ -91,7 +91,7 @@ namespace MiraItemMod
         /// Item_RevivePlayerHaste_FlavorText
         /// フレーバーテキスト募集中
         /// </summary>
-        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("RevivePlayerHaste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 30, 40, 50), CreateStatusGroup("MAX_HP", 5, 5, 10, 20))
+        public static ModCharmStatus RevivePlayerHaste { get; } = ModCharmStatus.Create("RevivePlayerHaste", 3, CreateStatusGroup("REVIVE_PLAYER_HASTE", 20, 25, 30, 40), CreateStatusGroup("MAX_HP", 5, 10, 15, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetRarity(EItemRarity.Uncommon).SetConfig(config => config.AddItem && config.AddVitality);
         /// <summary>
         /// Item_AddStarRuby_Name

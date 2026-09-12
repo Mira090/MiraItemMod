@@ -207,7 +207,11 @@ namespace MiraItemMod
                 ItemDatabase.Modify(1124, SetItemCategories(ItemCategories.Lake, ItemCategories.Vitality));//スターアクアマリン
                 ItemDatabase.Modify(1196, SetItemCategories(ItemCategories.Sturdy, ItemCategories.Vitality));//生命の手
                 ItemDatabase.Modify(1005, SetItemCategories(ItemCategories.Vitality));//ハート形のニンジン
-                ItemDatabase.Modify(1017, SetItemCategories(ItemCategories.Vitality));//盾のイヤリング
+                ItemDatabase.Modify(1017, item =>
+                {
+                    item.SetEntityRarity(EItemRarity.Common);
+                    SetItemCategories(ItemCategories.Vitality);
+                });//盾のイヤリング
                 ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
                 ItemDatabase.Modify(1174, item =>
                 {
@@ -224,17 +228,18 @@ namespace MiraItemMod
                         mod.isUniqueEffect = charm.isUniqueEffect;
                         UnityEngine.Object.Destroy(charm);
                     }
-                });
+                });//エルルーのお昼寝枕
                 ItemDatabase.Modify(1148, item =>
                 {
                     item.categories = new List<string> { ItemCategories.Vitality };
+                    item.SetEntityRarity(EItemRarity.Common);
                     item.activeType = EItemActiveType.Default;
                     if (item.resourcePrefab != null && item.resourcePrefab.TryGetComponent<Charm_FairyJar>(out var charm))
                     {
                         charm.orbCreateChanceByLevel = new float[] { 2, 4, 7, 10, 15, 20 };
                         charm.maxLevel = 5;
                     }
-                });
+                });//妖精の壺
             }
             //ItemDatabase.Modify(1158, SetItemCategories(ItemCategories.Vitality));//強化ポーションキャップ
             if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddAcademy))
@@ -257,18 +262,19 @@ namespace MiraItemMod
             {
                 ItemDatabase.Modify(1172, SetItemCategories(ItemCategories.Fortune));//パラスのカード
             }
-            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddDrunk && ConfigManager.Config.ModifyBloodEarrings))
+            if (ConfigManager.Config == null || (ConfigManager.Config.AddItem && ConfigManager.Config.AddVitality && ConfigManager.Config.ModifyBloodEarrings))
             {
                 ItemDatabase.Modify(1188, item =>//血石のイヤリング
                 {
-                    item.categories = new List<string> { ItemCategories.Drunk, ItemCategories.Vitality };
-                    item.SetEntityRarity(EItemRarity.Rare);
+                    item.categories = new List<string> { ItemCategories.Vitality };
+                    //item.SetEntityRarity(EItemRarity.Rare);
+                    /*
                     item.isDual = true;
 
                     if (item.resourcePrefab.TryGetComponent<Charm_StatusInstance>(out var status) && status.stats.Length >= 2 && status.stats[1].statusID == "DEFENSE")
                     {
                         status.stats[1].valuesByLevel = new int[] { -10, -15, -20, -30 };
-                    }
+                    }*/
                 });
             }
         }
