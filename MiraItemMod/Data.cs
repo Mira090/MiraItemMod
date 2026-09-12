@@ -149,6 +149,26 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
+        /// <summary>
+        /// Item_CriticalRuby_Name
+        /// 真鍮のダウジングロッド
+        /// Item_CriticalRuby_FlavorText
+        /// 慎重に扱わなければ宝石にたどり着くことはできません。
+        /// Item_CriticalRuby_Effect
+        /// <tag=CriticalChance>{CRITICAL}ごとに報酬で{ITEM}が出現する確率が{PERCENT}増加\r\n[現在：{CURRENT}]
+        /// </summary>
+        public static ModCharm CriticalRuby { get; } = ModCharmStatus.Create<Charm_CriticalRuby>("CriticalRuby", 3, CreateStatusGroup("MAX_HP", 5, 10, 20, 30), CreateStatusGroup("CRITICAL", 300, 600, 900, 1200))
+            .SetCategory(ItemCategories.Vitality, ItemCategories.Precision).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetConfig(config => config.AddItem && config.AddVitality);
+        /// <summary>
+        /// Item_WindSongVitality_Name
+        /// 脈打つ花びら
+        /// Item_WindSongVitality_FlavorText
+        /// 血を求めて風に乗っている。
+        /// Item_WindSongVitality_Effect
+        /// <tag=HP>を{PER}回復するたび<tag=Crave>バフを獲得します。
+        /// </summary>
+        public static ModCharm WindSongVitality { get; } = ModCharmStatus.Create<Charm_WindSongVitality>("WindSongVitality", 2, CreateStatusGroup("HP_POTION_BONUS", 10, 15, 20), CreateStatusGroup("ATTACK_SPEED", 6, 12, 20))
+            .SetCategory(ItemCategories.Vitality, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetConfig(config => config.AddItem && config.AddVitality);
 
         /// <summary>
         /// Item_LegendaryMania_Name
@@ -1720,6 +1740,15 @@ namespace MiraItemMod
         public static ModEffectHUD EffectTrueBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("TrueBuff");
         public static CharacterBuffMod_StatusInstance TrueBuff { get; } = CreateBuff("TrueBuff", "TrueBuff", 8, CreateBuffStatus("TrueDamage".ToSephiriaId(), 1), CreateBuffStatus("Toughness".ToSephiriaId(), 1))
             .SetDefaultDuration(8f);
+        /// <summary>
+        /// EffectHUD_CraveBuff_Name
+        /// 渇望
+        /// EffectHUD_CraveBuff_FlavorText
+        /// <tag=AttackSpeed>が増加します。
+        /// </summary>
+        public static ModEffectHUD EffectCraveBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("CraveBuff");
+        public static CharacterBuffMod_StatusInstance CraveBuff { get; } = CreateBuff("CraveBuff", "CraveBuff", 100, CreateBuffStatus("AttackSpeed".ToSephiriaId(), 1))
+            .SetDefaultDuration(15f);
 
         /// <summary>
         /// EffectHUD_CreateRegenPotion_Name
@@ -2042,6 +2071,13 @@ namespace MiraItemMod
         /// 隣接する機械アーティファクトのこと。隣の隣も含まれる。
         /// </summary>
         public static ModKeyword MechanicalConnect { get; } = ModKeyword.CreateKeyword("MechanicalConnect").SetTooltip().SetTextColor(new Color32(150, 180, 200, 255));
+        /// <summary>
+        /// Status_Crave_Name
+        /// 渇望
+        /// Status_Crave_Description
+        /// <tag=AttackSpeed>がスタックごとに1%増加します。最大100スタックまで蓄積します。
+        /// </summary>
+        public static ModKeyword Crave { get; } = ModKeyword.CreateKeyword("Crave").SetTextColor(new Color(0.8f, 0.3f, 0.2f));
         #endregion
 
 

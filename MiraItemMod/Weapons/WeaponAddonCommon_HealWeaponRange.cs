@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using MiraItemMod.Buffs;
+using MiraItemMod.Items.Vitality;
 using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
@@ -46,20 +47,32 @@ namespace MiraItemMod.Weapons
         [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.Heal), new Type[] { typeof(float), typeof(bool), typeof(bool) })]
         private static class HealPatch
         {
-            static void Postfix(UnitAvatar __instance, ref float amount)
+            static void Postfix(UnitAvatar __instance, float amount)
             {
                 if (__instance.IsDead)
                     return;
-                var stat = __instance.GetCustomStatUnsafe(StatusID);
-                if (stat <= 0)
-                    return;
-                float value = Mathf.Max(16f / stat, 1);
-                if (value > 0 && amount > 0)
+                var soulsteal = __instance.GetCustomStatUnsafe(StatusID);
+                if (soulsteal > 0)
                 {
-                    __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
-                    for (int q = 0; q < amount / value; q++)
+                    float value = Mathf.Max(16f / soulsteal, 1);
+                    if (value > 0 && amount > 0)
                     {
                         __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
+                        for (int q = 0; q < amount / value; q++)
+                        {
+                            __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
+                        }
+                    }
+                }
+                var attackspeed = __instance.GetCustomStatUnsafe(Charm_WindSongVitality.Stat);
+                if(attackspeed > 0)
+                {
+                    for(int q = 0; q < (amount / Charm_WindSongVitality.Per); q++)
+                    {
+                        for(int q2 = 0; q2 < attackspeed; q2++)
+                        {
+                            __instance.ApplyBuff(Data.CraveBuff, 1, __instance, true);
+                        }
                     }
                 }
             }
@@ -67,20 +80,33 @@ namespace MiraItemMod.Weapons
         [HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.HealPercent), new Type[] { typeof(float), typeof(bool), typeof(bool) })]
         private static class HealPercentPatch
         {
-            static void Postfix(UnitAvatar __instance, ref float percent)
+            static void Postfix(UnitAvatar __instance, float percent)
             {
                 if (__instance.IsDead)
                     return;
-                var stat = __instance.GetCustomStatUnsafe(StatusID);
-                if (stat <= 0)
-                    return;
-                stat = Mathf.Max(16 / stat, 1);
-                if (stat > 0 && percent > 0)
+                var soulsteal = __instance.GetCustomStatUnsafe(StatusID);
+                if (soulsteal > 0)
                 {
-                    __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
-                    for (int q = 0; q < (__instance.MaxHp * (percent / 100f)) / stat; q++)
+                    var value = Mathf.Max(16 / soulsteal, 1);
+                    if (value > 0 && percent > 0)
                     {
                         __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
+                        for (int q = 0; q < (__instance.MaxHp * (percent / 100f)) / value; q++)
+                        {
+                            __instance.ApplyBuff(Data.SoulStealBuff, 1, __instance, true);
+                        }
+                    }
+                }
+                var amount = __instance.MaxHp * (percent / 100f);
+                var attackspeed = __instance.GetCustomStatUnsafe(Charm_WindSongVitality.Stat);
+                if (attackspeed > 0)
+                {
+                    for (int q = 0; q < (amount / Charm_WindSongVitality.Per); q++)
+                    {
+                        for (int q2 = 0; q2 < attackspeed; q2++)
+                        {
+                            __instance.ApplyBuff(Data.CraveBuff, 1, __instance, true);
+                        }
                     }
                 }
             }

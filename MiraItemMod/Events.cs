@@ -6,6 +6,7 @@ using MiraItemMod.Combos;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Items.Stargaze;
+using MiraItemMod.Items.Vitality;
 using MiraItemMod.Registries;
 using MiraItemMod.StatusInstances;
 using MiraItemMod.UI;
@@ -814,6 +815,16 @@ namespace MiraItemMod
                         int currentCategoryItemDropWeight2 = __instance.GetCurrentCategoryItemDropWeight(ItemCategories.Grimoire, 0, bondBonus: false, allBondCategoryAcquired: false, addDefaultWeight: true);
                         num = Mathf.Max(num, currentCategoryItemDropWeight2);
                         __result = num + value;
+                    }
+                }
+                if(__instance.UnitAvatar.GetCustomStatUnsafe(Charm_CriticalRuby.Stat) > 0)
+                {
+                    if (entity.id != 1123)//スタールビー
+                    {
+                        var critical = __instance.UnitAvatar.GetCustomStat(ECustomStat.Critical);
+                        var percent = critical / Charm_CriticalRuby.Critical;
+                        //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
+                        __result += percent;
                     }
                 }
             }
