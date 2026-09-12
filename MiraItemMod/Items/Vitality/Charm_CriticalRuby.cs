@@ -13,6 +13,8 @@ namespace MiraItemMod.Items.Vitality
         public static readonly int Critical = 50;
 
         public static readonly LocalizedString Charm = new LocalizedString("Item_FinalHP_Name");
+
+        public int percent = 2;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string current = "-%";
@@ -25,7 +27,7 @@ namespace MiraItemMod.Items.Vitality
                 new Loc.KeywordValue("CURRENT", current, Color.yellow),
                 new Loc.KeywordValue("CRITICAL", (Critical / 100f).ToString() + "%"),
             new Loc.KeywordValue("ITEM", Charm.ToString()),
-            new Loc.KeywordValue("PERCENT", "1%")
+            new Loc.KeywordValue("PERCENT", percent + "2%")
             };
         }
         public int GetCurrentBonus(UnitAvatar avatar)
@@ -37,12 +39,12 @@ namespace MiraItemMod.Items.Vitality
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
-            NetworkAvatar.AddCustomStatUnsafe(Stat, 1);
+            NetworkAvatar.AddCustomStatUnsafe(Stat, percent);
         }
         protected override void OnDisabledEffect()
         {
             base.OnDisabledEffect();
-            NetworkAvatar.AddCustomStatUnsafe(Stat, -1);
+            NetworkAvatar.AddCustomStatUnsafe(Stat, -percent);
         }
     }
 }
