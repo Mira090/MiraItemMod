@@ -27,7 +27,7 @@ namespace MiraItemMod.Items.Vitality
                 new Loc.KeywordValue("CURRENT", current, Color.yellow),
                 new Loc.KeywordValue("CRITICAL", (Critical / 100f).ToString() + "%"),
             new Loc.KeywordValue("ITEM", Charm.ToString()),
-            new Loc.KeywordValue("PERCENT", percent + "2%")
+            new Loc.KeywordValue("PERCENT", percent + "%")
             };
         }
         public int GetCurrentBonus(UnitAvatar avatar)
