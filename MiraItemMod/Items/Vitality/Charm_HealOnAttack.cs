@@ -28,6 +28,8 @@ namespace MiraItemMod.Items.Vitality
 
         private void OnAttackUnit(UnitAvatar avatar, DamageInstance damage)
         {
+            if (avatar.monsterType == EMonsterType.Dummy)
+                return;
             if (isInCooldown)
                 return;
             isInCooldown = true;
