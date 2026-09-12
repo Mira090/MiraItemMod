@@ -130,16 +130,6 @@ namespace MiraItemMod
         public static ModCharm ReviveOnce { get; } = ModCharmStatus.Create<Charm_ReviveOnce>("ReviveOnce", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
         /// <summary>
-        /// Item_MaxHPAttack_Name
-        /// 溢れる生命
-        /// Item_MaxHPAttack_FlavorText
-        /// フレーバーテキスト募集中
-        /// Item_MaxHPAttack_Effect
-        /// 敵にダメージを与える時、追加で最大<tag=HP>の{PERCENT}%のダメージを与える\n[ダメージ：{DAMAGE}]
-        /// </summary>
-        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
-            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
-        /// <summary>
         /// Item_HealOnAttack_Name
         /// 血石のペンダント
         /// Item_HealOnAttack_FlavorText
@@ -149,6 +139,16 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharmStatus HealOnAttack { get; } = ModCharmStatus.Create<Charm_HealOnAttack>("HealOnAttack", 3, CreateStatusGroup("MAX_HP", 5, 10, 15, 20), CreateStatusGroup("FINAL_HP", 10, 10, 20, 20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
+        /// <summary>
+        /// Item_MaxHPAttack_Name
+        /// 溢れる生命
+        /// Item_MaxHPAttack_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_MaxHPAttack_Effect
+        /// 敵にダメージを与える時、追加で最大<tag=HP>の{PERCENT}%のダメージを与える\n[ダメージ：{DAMAGE}]
+        /// </summary>
+        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
+            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
 
         /// <summary>
         /// Item_LegendaryMania_Name
