@@ -116,6 +116,18 @@ namespace MiraItemMod
         public static ModCharm CreateRegenPotion { get; } = ModCharmStatus.Create<Charm_CreateRegenPotion>("CreateRegenPotion", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
         /// <summary>
+        /// Item_ReviveOnce_Name
+        /// 光の輪
+        /// Item_ReviveOnce_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_ReviveOnce_Effect
+        /// 死亡するダメージを受けた時、<tag=HP>を{HP}残して復活する
+        /// Item_ReviveOnce_Effect2
+        /// この効果は戦闘中1度だけ発動する
+        /// </summary>
+        public static ModCharm ReviveOnce { get; } = ModCharmStatus.Create<Charm_ReviveOnce>("ReviveOnce", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
+            .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
+        /// <summary>
         /// Item_MaxHPAttack_Name
         /// 溢れる生命
         /// Item_MaxHPAttack_FlavorText
@@ -125,6 +137,16 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
+        /// <summary>
+        /// Item_HealOnAttack_Name
+        /// 血石のペンダント
+        /// Item_HealOnAttack_FlavorText
+        /// フレーバーテキスト募集中
+        /// Item_HealOnAttack_Effect
+        /// 敵にダメージを与えた時、<tag=HP>を{HEAL}回復する（クールダウン{COOLDOWN}秒）
+        /// </summary>
+        public static ModCharmStatus HealOnAttack { get; } = ModCharmStatus.Create<Charm_HealOnAttack>("HealOnAttack", 3, CreateStatusGroup("MAX_HP", 5, 10, 15, 20), CreateStatusGroup("FINAL_HP", 10, 10, 20, 20))
+            .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
 
         /// <summary>
         /// Item_LegendaryMania_Name
@@ -1698,6 +1720,20 @@ namespace MiraItemMod
             .SetDefaultDuration(8f);
 
         /// <summary>
+        /// EffectHUD_CreateRegenPotion_Name
+        /// 再生の水筒
+        /// EffectHUD_CreateRegenPotion_FlavorText
+        /// 4回ステージを移動するたび、再生のポーションを獲得する。
+        /// </summary>
+        public static ModEffectHUD EffectCreateRegenPotion { get; } = ModEffectHUD.CreateStackEffectHUD("CreateRegenPotion");
+        /// <summary>
+        /// EffectHUD_ReviveOnce_Name
+        /// 光の輪
+        /// EffectHUD_ReviveOnce_FlavorText
+        /// 死亡するダメージを受けた時、<tag=HP>を1残して復活できる。
+        /// </summary>
+        public static ModEffectHUD EffectReviveOnce { get; } = ModEffectHUD.CreateStackEffectHUD("ReviveOnce", false);
+        /// <summary>
         /// EffectHUD_StargazeTablet_Name
         /// 星見の石版
         /// EffectHUD_StargazeTablet_FlavorText
@@ -3205,6 +3241,12 @@ namespace MiraItemMod
                 if(moditem.Type == ModEffectHUD.EffectHUDType.Stack && stack != null)
                 {
                     var prefab = UnityEngine.Object.Instantiate(stack);
+                    moditem.SetResourcePrefab(prefab);
+                    list.Add(moditem.CreateEntity());
+                }
+                if (moditem.Type == ModEffectHUD.EffectHUDType.Buff && buff != null)
+                {
+                    var prefab = UnityEngine.Object.Instantiate(buff);
                     moditem.SetResourcePrefab(prefab);
                     list.Add(moditem.CreateEntity());
                 }

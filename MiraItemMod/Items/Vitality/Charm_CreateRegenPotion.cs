@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiraItemMod.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,10 @@ namespace MiraItemMod.Items.Vitality
         public int count = 0;
         public int require = 4;
         public PlayerAvatar playerAvatar;
+        private void Awake()
+        {
+            effectHUD_ID = "CreateRegenPotion".ToSephiriaUpperId();
+        }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             return new Loc.KeywordValue[3]
@@ -26,6 +31,7 @@ namespace MiraItemMod.Items.Vitality
             {
                 playerAvatar.OnEnteredFloorServerside += HandleEnterFloor;
             }
+            NetworkAvatar.SetEffectHUDValue(GetCharmHUDID(), $"{count}/{require}");
         }
 
         protected override void OnDisabledEffect()
@@ -53,6 +59,8 @@ namespace MiraItemMod.Items.Vitality
                     Inventory.AddItem(new ItemMetadata(ItemDatabase.GenerateInstanceID(random), 0, 1));
                 }
                 SaveItemOnServer(SaveManager.CurrentRun);
+                NetworkAvatar.SetEffectHUDValue(GetCharmHUDID(), $"{count}/{require}");
+                NetworkAvatar.SetEffectHUDFlash(GetCharmHUDID());
             }
         }
         public override void SaveItemOnServer(ISaveData saveData)
