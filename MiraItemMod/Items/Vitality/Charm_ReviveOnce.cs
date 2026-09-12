@@ -64,13 +64,13 @@ namespace MiraItemMod.Items.Vitality
         {
             NetworkWriterPooled writer = NetworkWriterPool.Get();
             writer.WriteNetworkBehaviour(avatar);
-            var func = "System.Void DungeonManager::RpcBroadcastChintamani(UnitAvatar)";
+            var func = "System.Void Charm_ReviveOnce::RpcBroadcastChintamani(UnitAvatar)";
             SendRPCInternal(func, func.ToFunctionHashCode(), writer, 0, includeOwner: true);
             NetworkWriterPool.Return(writer);
         }
         static Charm_ReviveOnce()
         {
-            RemoteProcedureCalls.RegisterRpc(typeof(DungeonManager), "System.Void DungeonManager::RpcBroadcastChintamani(UnitAvatar)", InvokeUserCode_RpcBroadcastChintamani__UnitAvatar);
+            RemoteProcedureCalls.RegisterRpc(typeof(DungeonManager), "System.Void Charm_ReviveOnce::RpcBroadcastChintamani(UnitAvatar)", InvokeUserCode_RpcBroadcastChintamani__UnitAvatar);
         }
         protected void UserCode_RpcBroadcastChintamani__UnitAvatar(UnitAvatar avatar)
         {
@@ -85,7 +85,7 @@ namespace MiraItemMod.Items.Vitality
         {
             if (!NetworkClient.active)
             {
-                Debug.LogError("RPC RpcBroadcastChintamani called on server.");
+                Debug.LogError("RPC Charm_ReviveOnce::RpcBroadcastChintamani called on server.");
             }
             else
             {
