@@ -1747,7 +1747,7 @@ namespace MiraItemMod
         /// <tag=AttackSpeed>が増加します。
         /// </summary>
         public static ModEffectHUD EffectCraveBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("CraveBuff");
-        public static CharacterBuffMod_StatusInstance CraveBuff { get; } = CreateBuff("CraveBuff", "CraveBuff", 100, CreateBuffStatus("AttackSpeed".ToSephiriaId(), 1))
+        public static CharacterBuffMod_StatusInstance CraveBuff { get; } = CreateBuff("CraveBuff", "CraveBuff", 60, CreateBuffStatus("AttackSpeed".ToSephiriaId(), 1))
             .SetDefaultDuration(15f);
 
         /// <summary>
@@ -2075,7 +2075,7 @@ namespace MiraItemMod
         /// Status_Crave_Name
         /// 渇望
         /// Status_Crave_Description
-        /// <tag=AttackSpeed>がスタックごとに1%増加します。最大100スタックまで蓄積します。
+        /// <tag=AttackSpeed>がスタックごとに1%増加します。最大60スタックまで蓄積します。
         /// </summary>
         public static ModKeyword Crave { get; } = ModKeyword.CreateKeyword("Crave").SetTextColor(new Color(0.8f, 0.3f, 0.2f));
         #endregion
