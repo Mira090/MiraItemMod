@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Vitality
 {
     public class Charm_CreateRegenPotion : Charm_StatusInstance
     {

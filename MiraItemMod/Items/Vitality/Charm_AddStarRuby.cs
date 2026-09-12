@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Vitality
 {
     public class Charm_AddStarRuby : Charm_StatusInstance
     {

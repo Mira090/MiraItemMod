@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Vitality
 {
     public class Charm_ElruNaptimePillowMkII : Charm_Basic
     {
@@ -19,33 +19,33 @@ namespace MiraItemMod.Items
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
-            string value = (showAllLevel ? (healByLevel.SafeRandomAccess(0).ToString("0;#") + "→" + healByLevel.SafeRandomAccess(maxLevel)) : healByLevel.SafeRandomAccess(LevelToIdx(level)).ToString("0;#"));
+            string value = showAllLevel ? healByLevel.SafeRandomAccess(0).ToString("0;#") + "→" + healByLevel.SafeRandomAccess(maxLevel) : healByLevel.SafeRandomAccess(LevelToIdx(level)).ToString("0;#");
             return new Loc.KeywordValue[1]
             {
-            new Loc.KeywordValue("HEAL", value + "%", Charm_Basic.GetPositiveColor(virtualLevelOffset))
+            new Loc.KeywordValue("HEAL", value + "%", GetPositiveColor(virtualLevelOffset))
             };
         }
 
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();
-            UnitAvatar networkAvatar = base.NetworkAvatar;
+            UnitAvatar networkAvatar = NetworkAvatar;
             networkAvatar.OnEndSpawnerBattle += OnEndSpawnerBattle;
         }
 
         protected override void OnDisabledEffect()
         {
             base.OnDisabledEffect();
-            UnitAvatar networkAvatar = base.NetworkAvatar;
+            UnitAvatar networkAvatar = NetworkAvatar;
             networkAvatar.OnEndSpawnerBattle -= OnEndSpawnerBattle;
         }
 
         private void OnEndSpawnerBattle()
         {
-            if (!base.NetworkAvatar.IsDead)
+            if (!NetworkAvatar.IsDead)
             {
-                base.NetworkAvatar.HealPercent(healByLevel.SafeRandomAccess(CurrentLevelToIdx()));
-                RpcHeal(base.NetworkAvatar.transform.position);
+                NetworkAvatar.HealPercent(healByLevel.SafeRandomAccess(CurrentLevelToIdx()));
+                RpcHeal(NetworkAvatar.transform.position);
             }
         }
 

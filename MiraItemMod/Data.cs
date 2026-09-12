@@ -10,6 +10,7 @@ using MiraItemMod.Items.Machina;
 using MiraItemMod.Items.Pallas;
 using MiraItemMod.Items.Recollection;
 using MiraItemMod.Items.Savvy;
+using MiraItemMod.Items.Vitality;
 using MiraItemMod.Miracles;
 using MiraItemMod.Passives;
 using MiraItemMod.Registries;

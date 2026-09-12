@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Vitality
 {
     public class Charm_FairyJarMkII : Charm_Basic
     {
@@ -21,10 +21,10 @@ namespace MiraItemMod.Items
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
-            string value = (showAllLevel ? (orbCreateChanceByLevel.SafeRandomAccess(0) + "→" + orbCreateChanceByLevel.SafeRandomAccess(maxLevel)) : orbCreateChanceByLevel.SafeRandomAccess(LevelToIdx(level)).ToString());
+            string value = showAllLevel ? orbCreateChanceByLevel.SafeRandomAccess(0) + "→" + orbCreateChanceByLevel.SafeRandomAccess(maxLevel) : orbCreateChanceByLevel.SafeRandomAccess(LevelToIdx(level)).ToString();
             return new Loc.KeywordValue[1]
             {
-            new Loc.KeywordValue("CHANCE", value, Charm_Basic.GetPositiveColor(virtualLevelOffset))
+            new Loc.KeywordValue("CHANCE", value, GetPositiveColor(virtualLevelOffset))
             };
         }
         protected override void OnConnected(int instanceID)
@@ -62,14 +62,14 @@ namespace MiraItemMod.Items
                 RuntimeManager.PlayOneShot(orbCreateSoundEvent, pos);
             }
 
-            if (base.isServer)
+            if (isServer)
             {
-                GameObject obj = UnityEngine.Object.Instantiate(orbPrefab, pos + (Vector3)UnityEngine.Random.insideUnitCircle * 0.1f + new Vector3(0f, 0.125f), Quaternion.identity);
+                GameObject obj = Instantiate(orbPrefab, pos + (Vector3)UnityEngine.Random.insideUnitCircle * 0.1f + new Vector3(0f, 0.125f), Quaternion.identity);
                 HPOrb component = obj.GetComponent<HPOrb>();
-                component.target = base.NetworkAvatar;
+                component.target = NetworkAvatar;
                 component.amount = heal;
                 component.AddPhysicalForce(UnityEngine.Random.insideUnitCircle * 5.4f, UnityEngine.Random.Range(6f, 11f));
-                NetworkServer.Spawn(obj, base.NetworkAvatar.gameObject);
+                NetworkServer.Spawn(obj, NetworkAvatar.gameObject);
             }
         }
 

@@ -2,8 +2,8 @@
 using HarmonyLib;
 using MiraItemMod.Compats;
 using MiraItemMod.Config;
-using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
+using MiraItemMod.Items.Vitality;
 using MiraItemMod.Registries;
 using MiraItemMod.Utilities;
 using MiraItemMod.Weapons;
