@@ -10,16 +10,44 @@ namespace MiraItemMod.Registries
 {
     public class ModEffectHUD : IDisposable
     {
-        public static ModEffectHUD CreateStackEffectHUD(string name, UI_EffectHUD_Basic.EEffectType type)
+        /// <summary>
+        /// テキストに「数値/数値」と書く場合
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="hasStackText"></param>
+        /// <returns></returns>
+        public static ModEffectHUD CreateStackEffectHUD(string name, bool hasStackText = true, Image.FillMethod fill = Image.FillMethod.Radial360)
         {
             var hud = new ModEffectHUD();
             hud.Type = EffectHUDType.Stack;
-            hud.EffectType = type;
+            hud.EffectType = UI_EffectHUD_Basic.EEffectType.Boon;
             hud.Name = name;
             hud.Id = name.ToSephiriaUpperId();
             hud.LocalizedName = new LocalizedString("EffectHUD_" + name + "_Name");
             hud.FlavorText = new LocalizedString("EffectHUD_" + name + "_FlavorText");
             hud.IconFileName = ModUtil.EffectHUDPath + name;
+            hud.HasStackText = hasStackText;
+            hud.FillMethod = fill;
+            return hud;
+        }
+        /// <summary>
+        /// テキストに「数値」と書く場合
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="hasStackText"></param>
+        /// <returns></returns>
+        public static ModEffectHUD CreateBuffEffectHUD(string name, bool hasStackText = true, Image.FillMethod fill = Image.FillMethod.Vertical)
+        {
+            var hud = new ModEffectHUD();
+            hud.Type = EffectHUDType.Buff;
+            hud.EffectType = UI_EffectHUD_Basic.EEffectType.Condition;
+            hud.Name = name;
+            hud.Id = name.ToSephiriaUpperId();
+            hud.LocalizedName = new LocalizedString("EffectHUD_" + name + "_Name");
+            hud.FlavorText = new LocalizedString("EffectHUD_" + name + "_FlavorText");
+            hud.IconFileName = ModUtil.EffectHUDPath + name;
+            hud.HasStackText = hasStackText;
+            hud.FillMethod = fill;
             return hud;
         }
         public EffectHUDType Type { get; internal set; }
@@ -30,7 +58,8 @@ namespace MiraItemMod.Registries
         public UI_EffectHUD_Basic.EEffectType EffectType { get; internal set; }
         public LocalizedString LocalizedName { get; internal set; }
         public LocalizedString FlavorText {  get; internal set; }
-        public bool HasStackText { get; internal set; } = true;
+        public bool HasStackText { get; internal set; }
+        public Image.FillMethod FillMethod { get; internal set; }
         public GameObject ResourcePrefab { get; internal set; }
         public void SetResourcePrefab(GameObject prefab)
         {
@@ -42,6 +71,17 @@ namespace MiraItemMod.Registries
             if(basic is UI_EffectHUD_Stack stack)
             {
                 stack.stackText.gameObject.SetActive(HasStackText);
+                if(stack.fillImage != null)
+                {
+                    stack.fillImage.fillMethod = FillMethod;
+                }
+            }
+            if(basic is UI_BuffHUD buff)
+            {
+                if (!HasStackText)
+                {
+                    UnityEngine.Object.Destroy(buff.stackText.gameObject);
+                }
             }
             var rect = prefab.transform as RectTransform;
             var icon = rect.GetChild(1).GetComponent<Image>();//Icon
