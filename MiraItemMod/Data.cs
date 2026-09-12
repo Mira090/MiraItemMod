@@ -1682,8 +1682,17 @@ namespace MiraItemMod
         /// EffectHUD_GoldRushBuff_FlavorText
         /// 自分が与えたダメージの3%の<tag=Leaf>を獲得します
         /// </summary>
-        public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateStackEffectHUD("GoldRushBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateStackEffectHUD("GoldRushBuff", UI_EffectHUD_Basic.EEffectType.Condition);
         public static CharacterBuffMod_StatusInstance GoldRushBuff { get; } = CreateBuff("GoldRushBuff", "GoldRushBuff", 1, CreateBuffStatus("LeafSteal".ToSephiriaId(), 30))
+            .SetDefaultDuration(8f);
+        /// <summary>
+        /// EffectHUD_TrueBuff_Name
+        /// 烈風
+        /// EffectHUD_TrueBuff_FlavorText
+        /// <tag=TrueDamage>と<tag=Toughness>が増加します。
+        /// </summary>
+        public static ModEffectHUD EffectTrueBuff { get; } = ModEffectHUD.CreateStackEffectHUD("TrueBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static CharacterBuffMod_StatusInstance TrueBuff { get; } = CreateBuff("TrueBuff", "TrueBuff", 8, CreateBuffStatus("TrueDamage".ToSephiriaId(), 1), CreateBuffStatus("Toughness".ToSephiriaId(), 1))
             .SetDefaultDuration(8f);
 
         /// <summary>
@@ -2794,7 +2803,7 @@ namespace MiraItemMod
         /// Passive_Vampire_Description
         /// 王たる理を追求します。
         /// Passive_Vampire_Effect_LV5
-        /// <tag=HP>の回復量が{VAL0}%減少しますが、最大HPが{VAL1}増加します。
+        /// <tag=HP>の回復量が25%減少しますが、最大HPが{VAL1}増加します。
         /// Passive_Vampire_Effect_LV10
         /// さらに<tag=HP>の回復量が{VAL0}%減少しますが、<tag=WeaponAction_DirectAttack>が命中した時、<tag=Debuff_Poison>デバフを付与します。
         /// Passive_Vampire_Effect_LV20
@@ -2804,22 +2813,22 @@ namespace MiraItemMod
             .CreatePerk(EPassivePerkLv.lv5, "HPDecrease").SetPerkSupplierStatus("HEALING_PENALTY/-25", "MAX_HP/15").Parent
             .CreatePerk(EPassivePerkLv.lv10, "DirectAttackPoison").SetPerkSupplierStatus<ModPassivePerk, PassiveObject_DirectAttackPoison>("HEALING_PENALTY/-25").Parent
             .CreatePerk(EPassivePerkLv.lv20, "ChaosSteal").SetPerkSupplier<ModPassivePerk, PassiveObject_ChaosSteal>().Parent;
-        /*/// <summary>
+        /// <summary>
         /// Passive_Movement_Name
         /// 機動
         /// Passive_Movement_Description
         /// 昔から足が早いのが取り柄でした。
         /// Passive_Movement_Effect_LV5
-        /// <tag=WeaponAction_DirectAttack>が命中した時、{VAL0}の追加<tag=PhysicalDamage>を与えます。
+        /// <tag=BuffDuration>が{VAL0}増加します。
         /// Passive_Movement_Effect_LV10
-        /// <tag=Toughness>と<tag=TrueDamage>が{VAL0}増加します。
+        /// <tag=WeaponAction_DirectAttack>が命中するたび、「烈風」バフを獲得します。（烈風：<tag=TrueDamage>と<tag=Toughness>が{VAL0}増加します。最大{VAL1}スタック）
         /// Passive_Movement_Effect_LV20
-        /// <tag=WeaponAction_DirectAttack>が命中するたび、「旋風」バフを獲得します。（旋風：<tag=SpecialAttackSpeed>が2%増加します）
+        /// バフを獲得した時、他のプレイヤーにも同様のバフを付与します。
         /// </summary>
         public static ModPassive MovementPassive { get; } = ModPassive.CreatePassive("Movement", new Color32(168, 226, 61, byte.MaxValue), "MOVE_SPEED/2")
-            .CreatePerk(EPassivePerkLv.lv5, "AdditionalDamage").SetPerkSupplier<ModPassivePerk, PassiveObject_AdditionalDamage>().Parent
-            .CreatePerk(EPassivePerkLv.lv10, "TrueDamage").SetPerkSupplierStatus("TOUGHNESS/5", "TRUE_DAMAGE/5").Parent
-            .CreatePerk(EPassivePerkLv.lv20, "SpecialAttackSpeed").SetPerkSupplier<ModPassivePerk, PassiveObject_SpecialAttackSpeed>().Parent;*/
+            .CreatePerk(EPassivePerkLv.lv5, "BuffDuration").SetPerkSupplierStatus("BUFF_DURATION/100").Parent
+            .CreatePerk(EPassivePerkLv.lv10, "TrueBuff").SetPerkSupplier<ModPassivePerk, PassiveObject_TrueBuff>().Parent
+            .CreatePerk(EPassivePerkLv.lv20, "AdvancedPartyBuff").SetPerkSupplier<ModPassivePerk, PassiveObject_AdvancedPartyBuff>().Parent;
         #endregion
 
         #region SpriteFxs
