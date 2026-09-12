@@ -1,7 +1,10 @@
 ﻿using MiraItemMod.Utilities;
+using Mirror;
+using Mirror.RemoteCalls;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace MiraItemMod.Items.Vitality
 {
@@ -9,6 +12,7 @@ namespace MiraItemMod.Items.Vitality
     {
         public bool isInCooldown;
         public float remain = 1;
+        public LocalizedString message = new LocalizedString("Item_ReviveOnce_Notice");
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             return new Loc.KeywordValue[1]
@@ -41,10 +45,7 @@ namespace MiraItemMod.Items.Vitality
                 return;
             if (base.NetworkAvatar.hp > 0f)
                 return;
-            if ((bool)DungeonManager.Instance)
-            {
-                DungeonManager.Instance.RpcBroadcastChintamani(base.NetworkAvatar);
-            }
+            RpcBroadcastChintamani(NetworkAvatar);
 
             base.NetworkAvatar.Networkhp = 0f;
             base.NetworkAvatar.Heal(remain);
@@ -57,6 +58,39 @@ namespace MiraItemMod.Items.Vitality
             isInCooldown = false;
             CreateEffectHUD();
             NetworkAvatar.SetEffectHUDFlash(GetCharmHUDID());
+        }
+        [ClientRpc]
+        public void RpcBroadcastChintamani(UnitAvatar avatar)
+        {
+            NetworkWriterPooled writer = NetworkWriterPool.Get();
+            writer.WriteNetworkBehaviour(avatar);
+            var func = "System.Void DungeonManager::RpcBroadcastChintamani(UnitAvatar)";
+            SendRPCInternal(func, func.ToFunctionHashCode(), writer, 0, includeOwner: true);
+            NetworkWriterPool.Return(writer);
+        }
+        static Charm_ReviveOnce()
+        {
+            RemoteProcedureCalls.RegisterRpc(typeof(DungeonManager), "System.Void DungeonManager::RpcBroadcastChintamani(UnitAvatar)", InvokeUserCode_RpcBroadcastChintamani__UnitAvatar);
+        }
+        protected void UserCode_RpcBroadcastChintamani__UnitAvatar(UnitAvatar avatar)
+        {
+            if (avatar.isOwned)
+            {
+                GameLogWriter.Instance.WriteLog(message.ToString(), Color.yellow);
+                UIManager.Instance.GetElement<UI_SystemMessage>().Open(message.ToString(), 2.7f);
+            }
+        }
+
+        protected static void InvokeUserCode_RpcBroadcastChintamani__UnitAvatar(NetworkBehaviour obj, NetworkReader reader, NetworkConnectionToClient senderConnection)
+        {
+            if (!NetworkClient.active)
+            {
+                Debug.LogError("RPC RpcBroadcastChintamani called on server.");
+            }
+            else
+            {
+                ((Charm_ReviveOnce)obj).UserCode_RpcBroadcastChintamani__UnitAvatar(reader.ReadNetworkBehaviour<UnitAvatar>());
+            }
         }
     }
 }

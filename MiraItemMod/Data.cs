@@ -124,6 +124,8 @@ namespace MiraItemMod
         /// 死亡するダメージを受けた時、<tag=HP>を{HP}残して復活する
         /// Item_ReviveOnce_Effect2
         /// この効果は戦闘中1度だけ発動する
+        /// Item_ReviveOnce_Notice
+        /// 光の輪があなたを守ります。
         /// </summary>
         public static ModCharm ReviveOnce { get; } = ModCharmStatus.Create<Charm_ReviveOnce>("ReviveOnce", 2, CreateStatusGroup("FINAL_HP", 5, 10, 20))
             .SetCategory(ItemCategories.Vitality).SetIsUniqueEffect().SetSimpleEffects(2).SetRarity(EItemRarity.Rare).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
