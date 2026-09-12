@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Stargaze
 {
     public class Charm_CreateStoneTablet : Charm_VariableMaxLevel
     {

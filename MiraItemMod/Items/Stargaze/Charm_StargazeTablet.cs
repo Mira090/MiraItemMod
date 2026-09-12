@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Stargaze
 {
     public class Charm_StargazeTablet : Charm_VariableMaxLevel
     {
@@ -214,7 +214,7 @@ namespace MiraItemMod.Items
         {
             if ((bool)item.StoneTablet)
             {
-                if(NetworkAvatar.GetCustomStatUnsafe("DISCONNECT") > 0 && (item.EntityID == 2049))// || item.EntityID == Data.Transcendent.Id
+                if(NetworkAvatar.GetCustomStatUnsafe("DISCONNECT") > 0 && item.EntityID == 2049)// || item.EntityID == Data.Transcendent.Id
                 {
                     return;
                 }

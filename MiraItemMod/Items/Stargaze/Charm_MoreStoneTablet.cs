@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Stargaze
 {
     public class Charm_MoreStoneTablet : Charm_VariableMaxLevel
     {

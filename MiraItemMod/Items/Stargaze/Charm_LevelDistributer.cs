@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Stargaze
 {
     public class Charm_LevelDistributer : Charm_VariableMaxLevel
     {

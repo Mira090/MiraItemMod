@@ -5,6 +5,7 @@ using HarmonyLib;
 using MiraItemMod.Combos;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Pallas;
+using MiraItemMod.Items.Stargaze;
 using MiraItemMod.Registries;
 using MiraItemMod.StatusInstances;
 using MiraItemMod.UI;

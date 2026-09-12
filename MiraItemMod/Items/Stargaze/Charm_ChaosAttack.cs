@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace MiraItemMod.Items
+namespace MiraItemMod.Items.Stargaze
 {
     public class Charm_ChaosAttack : Charm_VariableMaxLevel, IAttackableCharm
     {
@@ -40,7 +40,7 @@ namespace MiraItemMod.Items
         {
             if (!NetworkAvatar.IsDead && IsEffectEnabled && damageInstance.id != damageId && damageInstance.fromType == EDamageFromType.DirectAttack)
             {
-                float customStatUnsafe = Charm_Basic.CalculateDamage(this);
+                float customStatUnsafe = CalculateDamage(this);
                 if (customStatUnsafe > 0 && unitAvatar != null && !(UnityEngine.Random.Range(0f, 1f) > chanceByLevel.SafeRandomAccess(CurrentLevelToIdx()) / 100f))
                 {
                     DamageInstance damage = DamageInstance.GetDamage(NetworkAvatar, damageId, unitAvatar.transform.position, 4294967295L, customStatUnsafe, EDamageType.ElementalEffectDamage, EDamageFromType.None, Vector2.zero, 0, 0f);
