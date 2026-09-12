@@ -210,7 +210,7 @@ namespace MiraItemMod
                 ItemDatabase.Modify(1017, item =>
                 {
                     item.SetEntityRarity(EItemRarity.Common);
-                    SetItemCategories(ItemCategories.Vitality);
+                    item.categories = new List<string> { ItemCategories.Vitality };
                 });//盾のイヤリング
                 ItemDatabase.Modify(1120, SetItemCategories(ItemCategories.Vitality));//血石の指輪
                 ItemDatabase.Modify(1174, item =>
