@@ -70,7 +70,7 @@ namespace MiraItemMod.Items.Vitality
         }
         static Charm_ReviveOnce()
         {
-            RemoteProcedureCalls.RegisterRpc(typeof(DungeonManager), "System.Void Charm_ReviveOnce::RpcBroadcastChintamani(UnitAvatar)", InvokeUserCode_RpcBroadcastChintamani__UnitAvatar);
+            RemoteProcedureCalls.RegisterRpc(typeof(Charm_ReviveOnce), "System.Void Charm_ReviveOnce::RpcBroadcastChintamani(UnitAvatar)", InvokeUserCode_RpcBroadcastChintamani__UnitAvatar);
         }
         protected void UserCode_RpcBroadcastChintamani__UnitAvatar(UnitAvatar avatar)
         {
