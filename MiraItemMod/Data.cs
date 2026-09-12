@@ -1652,7 +1652,7 @@ namespace MiraItemMod
         /// EffectHUD_PhysicalDamageBuff_FlavorText
         /// 物理ダメージ増加（最大4スタック）
         /// </summary>
-        public static ModEffectHUD EffectPhysicalDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PhysicalDamageBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectPhysicalDamageBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("PhysicalDamageBuff");
         public static CharacterBuffMod_StatusInstance PhysicalDamageBuff { get; } = CreateBuff("PhysicalDamageBuff", "PhysicalDamageBuff", 4, CreateBuffStatus("PHYSICAL_DAMAGE", 5))
             .SetDefaultDuration(8f);
         /// <summary>
@@ -1661,7 +1661,7 @@ namespace MiraItemMod
         /// EffectHUD_MagitechFrostRelicBuff_FlavorText
         /// 氷属性ダメージ増加（最大20スタック）
         /// </summary>
-        public static ModEffectHUD EffectMagitechFrostRelicBuff { get; } = ModEffectHUD.CreateStackEffectHUD("MagitechFrostRelicBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectMagitechFrostRelicBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("MagitechFrostRelicBuff");
         public static CharacterBuffMod_StatusInstance MagitechFrostRelicBuff { get; } = CreateBuff("MagitechFrostRelicBuff", "MagitechFrostRelicBuff", 20, CreateBuffStatus("ICE_DAMAGE", 2))
             .SetDefaultDuration(Charm_MagitechFrostRelic.BuffDuration);
         /// <summary>
@@ -1670,7 +1670,7 @@ namespace MiraItemMod
         /// EffectHUD_SoulStealBuff_FlavorText
         /// 近接攻撃範囲増加（最大50スタック）
         /// </summary>
-        public static ModEffectHUD EffectSoulStealBuff { get; } = ModEffectHUD.CreateStackEffectHUD("SoulStealBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectSoulStealBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("SoulStealBuff");
         public static CharacterBuffMod_StatusInstance SoulStealBuff { get; } = CreateBuff("SoulStealBuff", "SoulStealBuff", 50, CreateBuffStatus("WEAPON_RANGE", 2))
             .SetDefaultDuration(30f);
         /// <summary>
@@ -1679,7 +1679,7 @@ namespace MiraItemMod
         /// EffectHUD_WeaponDamageBuff_FlavorText
         /// <tag=FinalWeaponDamage>が増加します。
         /// </summary>
-        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateStackEffectHUD("WeaponDamageBuff", UI_EffectHUD_Basic.EEffectType.Condition);
+        public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("WeaponDamageBuff", false);
         public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", 8))
             .SetDefaultDuration(3f);
         /// <summary>
@@ -1688,7 +1688,7 @@ namespace MiraItemMod
         /// EffectHUD_PallasBuff_FlavorText
         /// <tag=TrueDamage>増加（最大5スタック）
         /// </summary>
-        public static ModEffectHUD EffectPallasBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PallasBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectPallasBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("PallasBuff");
         public static CharacterBuffMod_StatusInstance PallasBuff { get; } = CreateBuff("PallasBuff", "PallasBuff", 5, CreateBuffStatus("TRUE_DAMAGE", 1))
             .SetDefaultDuration(5f);
         /// <summary>
@@ -1697,7 +1697,7 @@ namespace MiraItemMod
         /// EffectHUD_PlasmaKatanaBuff_FlavorText
         /// 刀身が<tag=Plasma>に変化しています。
         /// </summary>
-        public static ModEffectHUD EffectPlasmaKatanaBuff { get; } = ModEffectHUD.CreateStackEffectHUD("PlasmaKatanaBuff", UI_EffectHUD_Basic.EEffectType.Condition);
+        public static ModEffectHUD EffectPlasmaKatanaBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("PlasmaKatanaBuff", false);
         public static CharacterBuffMod_StatusInstance PlasmaKatanaBuff { get; } = CreateBuff("PlasmaKatanaBuff", "PlasmaKatanaBuff", 1, CreateBuffStatus("PlasmaKatana".ToSephiriaId(), 1))
             .SetDefaultDuration(18f);
         /// <summary>
@@ -1706,7 +1706,7 @@ namespace MiraItemMod
         /// EffectHUD_GoldRushBuff_FlavorText
         /// 自分が与えたダメージの3%の<tag=Leaf>を獲得します
         /// </summary>
-        public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateStackEffectHUD("GoldRushBuff", UI_EffectHUD_Basic.EEffectType.Condition);
+        public static ModEffectHUD EffectGoldRushBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("GoldRushBuff", false);
         public static CharacterBuffMod_StatusInstance GoldRushBuff { get; } = CreateBuff("GoldRushBuff", "GoldRushBuff", 1, CreateBuffStatus("LeafSteal".ToSephiriaId(), 30))
             .SetDefaultDuration(8f);
         /// <summary>
@@ -1715,7 +1715,7 @@ namespace MiraItemMod
         /// EffectHUD_TrueBuff_FlavorText
         /// <tag=TrueDamage>と<tag=Toughness>が増加します。
         /// </summary>
-        public static ModEffectHUD EffectTrueBuff { get; } = ModEffectHUD.CreateStackEffectHUD("TrueBuff", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectTrueBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("TrueBuff");
         public static CharacterBuffMod_StatusInstance TrueBuff { get; } = CreateBuff("TrueBuff", "TrueBuff", 8, CreateBuffStatus("TrueDamage".ToSephiriaId(), 1), CreateBuffStatus("Toughness".ToSephiriaId(), 1))
             .SetDefaultDuration(8f);
 
@@ -1739,42 +1739,42 @@ namespace MiraItemMod
         /// EffectHUD_StargazeTablet_FlavorText
         /// 破壊された石版の欠片。
         /// </summary>
-        public static ModEffectHUD EffectStargazeTablet { get; } = ModEffectHUD.CreateStackEffectHUD("StargazeTablet", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectStargazeTablet { get; } = ModEffectHUD.CreateStackEffectHUD("StargazeTablet");
         /// <summary>
         /// EffectHUD_CreateStoneTablet_Name
         /// 流れ星の結晶
         /// EffectHUD_CreateStoneTablet_FlavorText
         /// 倒した敵の数。
         /// </summary>
-        public static ModEffectHUD EffectCreateStoneTablet { get; } = ModEffectHUD.CreateStackEffectHUD("CreateStoneTablet", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectCreateStoneTablet { get; } = ModEffectHUD.CreateStackEffectHUD("CreateStoneTablet");
         /// <summary>
         /// EffectHUD_CopyAcademy_Name
         /// 原典
         /// EffectHUD_CopyAcademy_FlavorText
         /// <tag=Grimoire>を一定回数使用するとアカデミーアーティファクトを複製する
         /// </summary>
-        public static ModEffectHUD EffectCopyAcademy { get; } = ModEffectHUD.CreateStackEffectHUD("CopyAcademy", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectCopyAcademy { get; } = ModEffectHUD.CreateStackEffectHUD("CopyAcademy");
         /// <summary>
         /// EffectHUD_ElectricStun_Name
         /// ビリビリクリームクロワッサン
         /// EffectHUD_ElectricStun_FlavorText
         /// <tag=Electric>が付与されていない敵に<tag=LightningDamage>を与えた時の気絶確率
         /// </summary>
-        public static ModEffectHUD EffectElectricStun { get; } = ModEffectHUD.CreateStackEffectHUD("ElectricStun", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectElectricStun { get; } = ModEffectHUD.CreateStackEffectHUD("ElectricStun");
         /// <summary>
         /// EffectHUD_ImmersionIce_Name
         /// 冷静
         /// EffectHUD_ImmersionIce_FlavorText
         /// <tag=FrostRelic>が1回追加発動します。
         /// </summary>
-        public static ModEffectHUD EffectIceTrance { get; } = ModEffectHUD.CreateStackEffectHUD("ImmersionIce", UI_EffectHUD_Basic.EEffectType.Boon).SetHasStackText();
+        public static ModEffectHUD EffectIceTrance { get; } = ModEffectHUD.CreateStackEffectHUD("ImmersionIce", false);
         /// <summary>
         /// EffectHUD_SavvyShadow_Name
         /// 黒の貨幣
         /// EffectHUD_SavvyShadow_FlavorText
         /// <tag=Looting>した回数
         /// </summary>
-        public static ModEffectHUD EffectSavvyShadow { get; } = ModEffectHUD.CreateStackEffectHUD("SavvyShadow", UI_EffectHUD_Basic.EEffectType.Boon);
+        public static ModEffectHUD EffectSavvyShadow { get; } = ModEffectHUD.CreateStackEffectHUD("SavvyShadow");
         #endregion
 
         #region Keywords and Stats
@@ -3216,6 +3216,7 @@ namespace MiraItemMod
         public static void RegisterEffectHUDs(List<UnityEngine.Object> list)
         {
             GameObject stack = null;
+            GameObject buff = null;
             foreach(var o in list)
             {
                 if(o is EffectHUDEntity entity)
@@ -3223,6 +3224,16 @@ namespace MiraItemMod
                     if(entity.id == "ABANDONEDGOLDRING")
                     {
                         stack = entity.hudPrefab;
+                    }
+                }
+            }
+            foreach (var o in list)
+            {
+                if (o is EffectHUDEntity entity)
+                {
+                    if (entity.id == "FLAMEEATER")
+                    {
+                        buff = entity.hudPrefab;
                     }
                 }
             }
