@@ -155,7 +155,7 @@ namespace MiraItemMod
         /// Item_CriticalRuby_FlavorText
         /// 慎重に扱わなければ宝石にたどり着くことはできません。
         /// Item_CriticalRuby_Effect
-        /// <tag=CriticalChance>{CRITICAL}ごとに報酬で{ITEM}が出現する確率が{PERCENT}増加\r\n[現在：{CURRENT}]
+        /// <tag=CriticalChance>{CRITICAL}ごとに報酬で{ITEM}が出現する確率が{PERCENT}増加（最大{MAX}）\r\n[現在：{CURRENT}]
         /// </summary>
         public static ModCharm CriticalRuby { get; } = ModCharmStatus.Create<Charm_CriticalRuby>("CriticalRuby", 3, CreateStatusGroup("MAX_HP", 5, 10, 20, 30), CreateStatusGroup("CRITICAL", 300, 600, 900, 1200))
             .SetCategory(ItemCategories.Vitality, ItemCategories.Precision).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetConfig(config => config.AddItem && config.AddVitality);
@@ -167,7 +167,7 @@ namespace MiraItemMod
         /// Item_WindSongVitality_Effect
         /// <tag=HP>を{PER}回復するたび<tag=Crave>バフを獲得します。
         /// </summary>
-        public static ModCharm WindSongVitality { get; } = ModCharmStatus.Create<Charm_WindSongVitality>("WindSongVitality", 2, CreateStatusGroup("HP_POTION_BONUS", 10, 15, 20), CreateStatusGroup("ATTACK_SPEED", 6, 12, 20))
+        public static ModCharm WindSongVitality { get; } = ModCharmStatus.Create<Charm_WindSongVitality>("WindSongVitality", 2, CreateStatusGroup("ATTACK_SPEED", 6, 12, 20))
             .SetCategory(ItemCategories.Vitality, ItemCategories.WindSong).SetIsUniqueEffect().SetSimpleEffect().SetRarity(EItemRarity.Rare).SetIsDual().SetConfig(config => config.AddItem && config.AddVitality);
 
         /// <summary>

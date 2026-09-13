@@ -10,11 +10,12 @@ namespace MiraItemMod.Items.Vitality
     public class Charm_CriticalRuby : Charm_StatusInstance
     {
         public static readonly string Stat = "CriticalRuby".ToSephiriaUpperId();
-        public static readonly int Critical = 50;
+        public static readonly int Critical = 100;
+        public static readonly int Max = 500;
 
         public static readonly LocalizedString Charm = new LocalizedString("Item_FinalHP_Name");
 
-        public int percent = 2;
+        public int percent = 5;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string current = "-%";
@@ -27,7 +28,8 @@ namespace MiraItemMod.Items.Vitality
                 new Loc.KeywordValue("CURRENT", current, Color.yellow),
                 new Loc.KeywordValue("CRITICAL", (Critical / 100f).ToString() + "%"),
             new Loc.KeywordValue("ITEM", Charm.ToString()),
-            new Loc.KeywordValue("PERCENT", percent + "%")
+            new Loc.KeywordValue("PERCENT", percent + "%"),
+            new Loc.KeywordValue("MAX", Max + "%")
             };
         }
         public int GetCurrentBonus(UnitAvatar avatar)
