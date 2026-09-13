@@ -36,7 +36,7 @@ namespace MiraItemMod.Items.Vitality
         {
             var critical = avatar.GetCustomStat(ECustomStat.Critical);
             var percent = critical / Charm_CriticalRuby.Critical;
-            return percent;
+            return Mathf.Min(percent * this.percent, Max);
         }
         protected override void OnEnabledEffect()
         {

@@ -817,12 +817,13 @@ namespace MiraItemMod
                         __result = num + value;
                     }
                 }
-                if(__instance.UnitAvatar.GetCustomStatUnsafe(Charm_CriticalRuby.Stat) > 0)
+                var ruby = __instance.UnitAvatar.GetCustomStatUnsafe(Charm_CriticalRuby.Stat);
+                if (ruby > 0)
                 {
                     if (entity.id == 1123)//スタールビー
                     {
                         var critical = __instance.UnitAvatar.GetCustomStat(ECustomStat.Critical);
-                        var percent = critical / Charm_CriticalRuby.Critical;
+                        var percent = critical / Charm_CriticalRuby.Critical * ruby;
                         percent = Mathf.Min(percent, Charm_CriticalRuby.Max);
                         //Debug.Log(string.Format("마법서 드롭 확률 보너스 가중치: {0}", bonus));
                         __result += percent;
