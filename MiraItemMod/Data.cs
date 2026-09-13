@@ -147,7 +147,7 @@ namespace MiraItemMod
         /// Item_MaxHPAttack_Effect
         /// 敵にダメージを与える時、追加で最大<tag=HP>の{PERCENT}%のダメージを与える\n[ダメージ：{DAMAGE}]
         /// </summary>
-        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 5, 10, 15, 20, 25, 30), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
+        public static ModCharmStatus MaxHPAttack { get; } = ModCharmStatus.Create<Charm_MaxHPAttack>("MaxHPAttack", 5, CreateStatusGroup("MAX_HP", 20, 15, 10, 10, 5, 5), CreateStatusGroup("DEFENSE", -5, -5, -10, -10, -20, -20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetDamageId().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
         /// <summary>
         /// Item_CriticalRuby_Name
