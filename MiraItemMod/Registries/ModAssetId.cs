@@ -77,7 +77,15 @@ namespace MiraItemMod.Registries
                 }
             }
 
-            UnityEngine.Object.DestroyImmediate(this);
+            try
+            {
+                UnityEngine.Object.DestroyImmediate(this);
+            }
+            catch(Exception ex)
+            {
+                Core.LoggerWarning(ex);
+                UnityEngine.Object.Destroy(this);
+            }
         }
     }
 }
