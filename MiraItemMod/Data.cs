@@ -1702,7 +1702,7 @@ namespace MiraItemMod
         /// <tag=FinalWeaponDamage>が増加します。
         /// </summary>
         public static ModEffectHUD EffectWeaponDamageBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("WeaponDamageBuff", false);
-        public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", 8))
+        public static CharacterBuffMod_StatusInstance WeaponDamageBuff { get; } = CreateBuff("WeaponDamageBuff", "WeaponDamageBuff", 1, CreateBuffStatus("FINAL_WEAPONDAMAGE", Charm_JewelrySturdy.WeaponDamage))
             .SetDefaultDuration(3f);
         /// <summary>
         /// EffectHUD_PallasBuff_Name

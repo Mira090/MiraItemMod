@@ -7,12 +7,13 @@ namespace MiraItemMod.Items.Jewelry
     public class Charm_JewelrySturdy : Charm_Jewelry
     {
         public int[] amp = new int[] { 0, 0, 1, 2, 3 };
+        public static readonly int WeaponDamage = 5;
         public override int[] Consume => consumeSmall;
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string value = showAllLevel ? Consume.SafeRandomAccess(0) + "→" + Consume.SafeRandomAccess(maxLevel) : Consume.SafeRandomAccess(LevelToIdx(level)).ToString();
-            string value2 = showAllLevel ? (amp.SafeRandomAccess(0) * 8) + "→" + (amp.SafeRandomAccess(maxLevel) * 8) : (amp.SafeRandomAccess(LevelToIdx(level) * 8)).ToString();
+            string value2 = showAllLevel ? (amp.SafeRandomAccess(0) * WeaponDamage) + "→" + (amp.SafeRandomAccess(maxLevel) * WeaponDamage) : (amp.SafeRandomAccess(LevelToIdx(level)) * WeaponDamage).ToString();
             return new Loc.KeywordValue[2]
             {
             new Loc.KeywordValue("DAMAGE", "+" + value2 + "%", GetPositiveColor(virtualLevelOffset)),
