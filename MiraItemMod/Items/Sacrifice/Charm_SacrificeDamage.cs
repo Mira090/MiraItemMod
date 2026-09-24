@@ -15,6 +15,12 @@ namespace MiraItemMod.Items.Sacrifice
         public EDamageFromType fromType;
         public bool useElementalType = false;
         public EDamageElementalType elementalType;
+
+        private void Awake()
+        {
+            effectHUD_ID = "SacrificeDamage".ToSephiriaUpperId();
+        }
+
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string value = showAllLevel ? requiredDamage.ToString(".##") + "→" + requiredDamage.ToString(".##") : requiredDamage.ToString(".##");
@@ -38,6 +44,9 @@ namespace MiraItemMod.Items.Sacrifice
         {
             base.OnEnabledEffect();
             NetworkAvatar.OnAttackUnit += OnAttackUnit;
+            NetworkAvatar.SetEffectHUDFillAmount(GetCharmHUDID(), 1 - damaged / requiredDamage);
+            NetworkAvatar.SetEffectHUDValue(GetCharmHUDID(), ((int)damaged).ToString());
+
         }
 
         private void OnAttackUnit(UnitAvatar avatar, DamageInstance damage)
@@ -55,6 +64,8 @@ namespace MiraItemMod.Items.Sacrifice
             {
                 quest = true;
             }
+            NetworkAvatar.SetEffectHUDFillAmount(GetCharmHUDID(), 1 - damaged / requiredDamage);
+            NetworkAvatar.SetEffectHUDValue(GetCharmHUDID(), ((int)damaged).ToString());
         }
 
         protected override void OnDisabledEffect()

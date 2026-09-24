@@ -1806,6 +1806,13 @@ namespace MiraItemMod
         /// <tag=Looting>した回数
         /// </summary>
         public static ModEffectHUD EffectSavvyShadow { get; } = ModEffectHUD.CreateStackEffectHUD("SavvyShadow");
+        /// <summary>
+        /// EffectHUD_SacrificeDamage_Name
+        /// 儀式
+        /// EffectHUD_SacrificeDamage_FlavorText
+        /// 与えたダメージ
+        /// </summary>
+        public static ModEffectHUD EffectSacrificeDamage { get; } = ModEffectHUD.CreateBuffEffectHUD("SacrificeDamage");
         #endregion
 
         #region Keywords and Stats
