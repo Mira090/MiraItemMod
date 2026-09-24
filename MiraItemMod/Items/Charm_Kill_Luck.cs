@@ -70,9 +70,9 @@ namespace MiraItemMod.Items
                 {
                     count = NetworkCount;
                 }
-                catch
+                catch (Exception e)
                 {
-
+                    Core.LoggerError(e);
                 }
             }
 
