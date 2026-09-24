@@ -1,4 +1,5 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Buffs;
+using MiraItemMod.Utilities;
 using Mirror;
 using System;
 using System.Collections.Generic;
@@ -77,14 +78,13 @@ namespace MiraItemMod.Registries
                 }
             }
 
-            try
+            if(gameObject.TryGetComponent<CharacterBuffMod>(out var _))
+            {
+                UnityEngine.Object.Destroy(this);
+            }
+            else
             {
                 UnityEngine.Object.DestroyImmediate(this);
-            }
-            catch(Exception ex)
-            {
-                Core.LoggerWarning(ex);
-                UnityEngine.Object.Destroy(this);
             }
         }
     }
