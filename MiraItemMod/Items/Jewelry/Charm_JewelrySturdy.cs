@@ -6,9 +6,9 @@ namespace MiraItemMod.Items.Jewelry
 {
     public class Charm_JewelrySturdy : Charm_Jewelry
     {
-        public int[] amp = new int[] { 0, 0, 1, 2, 3 };
+        public int[] amp = new int[] { 0, 0, 1, 2, 3, 4 };
         public static readonly int WeaponDamage = 5;
-        public override int[] Consume => consumeSmall;
+        public override int[] Consume => consumeMedium;
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
