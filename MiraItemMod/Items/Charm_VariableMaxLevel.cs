@@ -55,6 +55,9 @@ namespace MiraItemMod.Items
             }
             AdditionalMaxLevel = level;
             maxLevel = originalMaxLevel + AdditionalMaxLevel;
+            if (Inventory == null || Item == null)
+                return;
+            Inventory.maxLevelMatrix[Item.Position] = maxLevel;
         }
         protected virtual void SetAdditionalMaxLevelOnClient(int level)
         {
@@ -65,6 +68,7 @@ namespace MiraItemMod.Items
             AdditionalMaxLevel = level;
             maxLevel = originalMaxLevel + AdditionalMaxLevel;
             Core.LoggerMany($"SetMaxLevel({name}): " + maxLevel);
+            Inventory.UpdatePing(Item.Position);
         }
         public override void OnCharmEffectRefreshed()
         {
@@ -75,7 +79,6 @@ namespace MiraItemMod.Items
                 {
                     SetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
                     RpcSetAdditionalMaxLevel(NetworkAvatar.GetCustomStatUnsafe(StatusName));
-                    Inventory.UpdatePing(Item.Position);
                 }
             }
         }
@@ -204,7 +207,23 @@ namespace MiraItemMod.Items
                 }
             }
         }
+        /*
+        [HarmonyPatch(typeof(UI_NewInventoryIcon), nameof(UI_NewInventoryIcon.UpdateIcon))]
 
+        public static class UpdateMaxLevelPatch
+        {
+            static void Postfix(UI_NewInventoryIcon __instance)
+            {
+                try
+                {
+                    __instance.InvokeUpdateLevel();
+                }
+                catch(Exception e)
+                {
+                    Core.LoggerError(e);
+                }
+            }
+        }*/
 
 
         [ClientRpc]

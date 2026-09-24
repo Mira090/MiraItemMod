@@ -428,6 +428,12 @@ namespace MiraItemMod.Utilities
         {
             return (Dictionary<Transform, TopdownRigidbody>)typeof(TopdownRigidbody).GetField("cachedRigidbodies", BindingFlags.Static | BindingFlags.NonPublic).GetValue(typeof(TopdownRigidbody));
         }
+        public static void InvokeUpdateLevel(this UI_NewInventoryIcon icon)
+        {
+            var type = typeof(UI_NewInventoryIcon);
+            var method = type.GetMethod("UpdateLevel", BindingFlags.Instance | BindingFlags.NonPublic);
+            method.Invoke(icon, new object[] { });
+        }
 
 
 
