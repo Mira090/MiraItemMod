@@ -36,8 +36,14 @@ namespace MiraItemMod.Items
         {
             base.SetAdditionalMaxLevel(level + GetAroundPlanets());
         }
+        protected override void SetAdditionalMaxLevelOnClient(int level)
+        {
+            base.SetAdditionalMaxLevelOnClient(level + GetAroundPlanets());
+        }
         public int GetAroundPlanets()
         {
+            if (NetworkAvatar == null || NetworkAvatar.Inventory == null)
+                return 0;
             int count = 0;
             ItemPosition[] array = directions;
             foreach (ItemPosition itemPosition in array)
