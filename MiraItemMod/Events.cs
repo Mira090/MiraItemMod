@@ -184,24 +184,93 @@ namespace MiraItemMod
         #endregion
 
         #region 神秘の壺ブラックリスト
-        //[HarmonyPatch(typeof(UnitAvatar), nameof(UnitAvatar.GetMysticPotItems), new Type[] { typeof(EItemRarity) })]
+        [HarmonyPatch(typeof(PlayerSpawner), nameof(PlayerSpawner.GetMysticPotItem))]
         public static class UnitAvatarGetMysticPotItemsPatch
         {
-            static void Postfix(EItemRarity targetRarity, ref ItemEntity[] __result, UnitAvatar __instance)
+            static void Postfix(EItemRarity targetRarity, System.Random rand, ref ItemEntity __result, PlayerSpawner __instance)
             {
                 if(targetRarity == EItemRarity.Legend)
                 {
-                    var temp = __result.ToList();
-                    temp.Remove(Data.WarCrime.ItemEntity);
-                    __result = temp.ToArray();
-                }
-                else if(targetRarity == EItemRarity.Common)
-                {
-                    var temp = __result.ToList();
-                    temp.Remove(Data.Malice.ItemEntity);
-                    __result = temp.ToArray();
+                    __result = __instance.GetMysticPotItemCustom(targetRarity, rand);
                 }
             }
+        }
+        public static List<int> MysticPotBlacklist => new List<int>() { Data.InventoryPower.Id };
+        public static ItemEntity GetMysticPotItemCustom(this PlayerSpawner player, EItemRarity targetRarity, System.Random rand)
+        {
+            var blacklist = MysticPotBlacklist;
+
+            WeaponControllerSimple weaponControllerSimple = (player.PlayerAvatar ? player.PlayerAvatar.GetComponent<WeaponControllerSimple>() : null);
+            WeightedItemSelector weightedItemSelector = new WeightedItemSelector();
+            List<ItemEntity> list = new List<ItemEntity>();
+            List<ItemEntity> list2 = new List<ItemEntity>();
+            foreach (int item in new List<int>(player.unlockedCharms))
+            {
+                ItemEntity itemEntity = ItemDatabase.FindItemById(item);
+                if (!itemEntity || itemEntity.isDual || !itemEntity.resourcePrefab || !itemEntity.resourcePrefab.TryGetComponent<Charm_Basic>(out var component))
+                {
+                    continue;
+                }
+                if (blacklist.Contains(itemEntity.id))
+                    continue;
+
+                if ((bool)player.PlayerAvatar && player.PlayerAvatar.Inventory.HasItem(itemEntity, out var _, out var _, out var _))
+                {
+                    if (component.isUniqueEffect && component.connectedUniqueItems.Count > 0)
+                    {
+                        list.AddRange(component.connectedUniqueItems);
+                    }
+
+                    if (player.PlayerAvatar.Inventory.uniquePairCount > 0)
+                    {
+                        Charm_Basic charm_Basic = null;
+                        foreach (Charm_Basic value in player.PlayerAvatar.Inventory.charms.Values)
+                        {
+                            if ((bool)value && value.Item != null && value.Item.EntityID == itemEntity.id)
+                            {
+                                charm_Basic = value;
+                                break;
+                            }
+                        }
+
+                        if ((bool)charm_Basic && charm_Basic.DisplayedLevel >= charm_Basic.maxLevel)
+                        {
+                            continue;
+                        }
+                    }
+                    else if (component.isUniqueEffect)
+                    {
+                        continue;
+                    }
+                }
+
+                if (itemEntity.rarity != targetRarity || itemEntity.cannotBeReward)
+                {
+                    continue;
+                }
+
+                int itemDropWeight = player.PlayerAvatar.Inventory.GetItemDropWeight(itemEntity);
+                if (!component.isWeaponRelatedCharm || ((bool)weaponControllerSimple && (bool)weaponControllerSimple.currentWeapon && component.relatedWeapon == weaponControllerSimple.currentWeapon.weaponType))
+                {
+                    weightedItemSelector.AddItem(new WeightedItem(itemEntity, itemDropWeight));
+                    if (itemEntity.isExtraDamage)
+                    {
+                        list2.Add(itemEntity);
+                    }
+                }
+            }
+
+            foreach (ItemEntity item2 in list)
+            {
+                weightedItemSelector.RemoveItem(item2.id);
+            }
+
+            if (weightedItemSelector.Count == 0)
+            {
+                return null;
+            }
+
+            return weightedItemSelector.GetRandom(rand).item;
         }
         #endregion
 
