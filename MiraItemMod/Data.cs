@@ -2026,6 +2026,13 @@ namespace MiraItemMod
         /// </summary>
         public static ModKeyword ItemRarityJewelry { get; } = ModKeyword.CreateKeyword("ItemRarity_Jewelry").SetTextColor(new Color32(255, 120, 0, 255));
         /// <summary>
+        /// Status_JewelryCharm_Name
+        /// 宝飾アーティファクト
+        /// Status_ItemRarity_Jewelry_Description
+        /// 価値の高い特殊なアーティファクト。このアーティファクトを手に入れた時、所持する<tag=Leaf>を消費して、消費した<tag=Leaf>500ごとに最大レベルが1増加します。（最大5レベルまで）
+        /// </summary>
+        public static ModKeyword JewelryCharm { get; } = ModKeyword.CreateKeyword("JewelryCharm").SetTextColor(new Color32(255, 120, 0, 255)).SetKeywordImage(() => CustomSpriteAsset.JewelryCharm);
+        /// <summary>
         /// Status_Excavation_Name
         /// 発掘
         /// Status_Excavation_Description

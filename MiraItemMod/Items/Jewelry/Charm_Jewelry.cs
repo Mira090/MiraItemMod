@@ -12,10 +12,11 @@ namespace MiraItemMod.Items.Jewelry
         public int[] consumeMedium = new int[] { 5 };
         public int[] consumeSmall = new int[] { 2 };
         public virtual int[] Consume => consumeSmall;
-        public virtual int MoneyPerLevel => 200;
+        public virtual int MoneyPerLevel => 500;
         public override string StatusName => string.Empty;
         public int moneyLevel = -1;
-        protected virtual bool ConsumeAll => true;
+        protected virtual bool ConsumeAll => false;
+        protected virtual bool HasJewelryKeyword => true;
         protected override void OnConnected(int instanceID)
         {
             base.OnConnected(instanceID);
@@ -79,13 +80,30 @@ namespace MiraItemMod.Items.Jewelry
         protected virtual int FirstLevel => 2;
         protected virtual int SecondLevel => 0;
         public override int ValiableMax => 5;
+        public override int GetEffectStringCount()
+        {
+            return base.GetEffectStringCount() + (HasJewelryKeyword ? 1 : 0);
+        }
         public override string GetEffectString(int idx, int level, int virtualLevelOffset, bool showAllLevel)
         {
-            if (idx == 0 && level < FirstLevel)
-                return "<color=#666666>" + base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel) + "</color>";
-            if (idx == 1 && level < SecondLevel)
-                return "<color=#666666>" + base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel) + "</color>";
-            return base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel);
+            if (HasJewelryKeyword)
+            {
+                if (idx == 0)
+                    return KeywordDatabase.Convert("<tag=JewelryCharm>", useColor: false);
+                if (idx == 1 && level < FirstLevel)
+                    return "<color=#666666>" + base.GetEffectString(idx - 1, level, virtualLevelOffset, showAllLevel) + "</color>";
+                if (idx == 2 && level < SecondLevel)
+                    return "<color=#666666>" + base.GetEffectString(idx - 1, level, virtualLevelOffset, showAllLevel) + "</color>";
+                return base.GetEffectString(idx - 1, level, virtualLevelOffset, showAllLevel);
+            }
+            else
+            {
+                if (idx == 0 && level < FirstLevel)
+                    return "<color=#666666>" + base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel) + "</color>";
+                if (idx == 1 && level < SecondLevel)
+                    return "<color=#666666>" + base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel) + "</color>";
+                return base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel);
+            }
         }
         public override void SaveItemOnServer(ISaveData saveData)
         {

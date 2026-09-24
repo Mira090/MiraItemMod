@@ -29,6 +29,7 @@ namespace MiraItemMod.Registries
         public static Sprite MachinaAttackSpeed;
         public static Sprite MachinaLevel;
         public static Sprite PotionDrinkSpeed;
+        public static Sprite JewelryCharm;
 
         public static int width = 10;
         public static int height = 10;
@@ -74,6 +75,7 @@ namespace MiraItemMod.Registries
             MachinaAttackSpeed = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaAttackSpeed", new Rect(width, height * 4, width, height));
             MachinaLevel = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaLevel", new Rect(width, height * 5, width, height));
             PotionDrinkSpeed = AssetLoader.CreateSprite(NewKeywordSprite.texture, "PotionDrinkSpeed", new Rect(width, height * 6, width, height));
+            JewelryCharm = AssetLoader.CreateSprite(NewKeywordSprite.texture, "JewelryCharm", new Rect(width, height * 7, width, height));
         }
         public static void InitSpriteAsset()
         {
@@ -110,6 +112,7 @@ namespace MiraItemMod.Registries
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 4, name = "MachinaAttackSpeed", sprite = MachinaAttackSpeed });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 5, name = "MachinaLevel", sprite = MachinaLevel });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 6, name = "PotionDrinkSpeed", sprite = PotionDrinkSpeed });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 7, name = "JewelryCharm", sprite = JewelryCharm });
             foreach (var sprite in SpriteAsset.spriteInfoList)
             {
                 sprite.id = id++;

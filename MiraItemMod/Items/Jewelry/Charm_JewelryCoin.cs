@@ -12,6 +12,7 @@ namespace MiraItemMod.Items.Jewelry
         protected override int SecondLevel => 0;
         protected override bool ConsumeAll => false;
         public override int MoneyPerLevel => 200;
+        protected override bool HasJewelryKeyword => false;
 
         public int[] damage = new int[] { 0, 1, 2 };
         public int per = 100;
