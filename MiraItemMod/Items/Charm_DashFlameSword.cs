@@ -23,7 +23,7 @@ namespace MiraItemMod.Items
             var combo = NetworkAvatar.Inventory.FindComboEffect(ItemCategories.FlameSword);
             if(combo == null || !combo.isEnabled)
                 return;
-            if(combo is ComboEffect_FlameSword flame)
+            if(combo is ComboEffect_FlameSword flame && NetworkAvatar.IsInBattle)
             {
                 flame.ServerFireSword((Vector2)NetworkAvatar.transform.position + motionTo / 2f, false, false);
             }
