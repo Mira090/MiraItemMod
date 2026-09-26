@@ -37,5 +37,7 @@ namespace MiraItemMod.Config
         public bool ModifyBloodEarrings = true;
 
         public bool AddStoneTablet = true;
+
+        public float GearOpacity = 0.5f;
     }
 }

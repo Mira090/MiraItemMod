@@ -8,7 +8,7 @@ namespace MiraItemMod.Config
 {
     public static class ConfigManager
     {
-        public static readonly int CurrentConfigVersion = 1;
+        public static readonly int CurrentConfigVersion = 2;
         public static string GetConfigPath()
         {
             string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;

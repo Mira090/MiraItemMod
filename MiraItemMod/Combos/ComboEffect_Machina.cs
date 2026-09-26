@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using MiraItemMod.Config;
 using MiraItemMod.Items.Machina;
 using MiraItemMod.Sephirites;
 using MiraItemMod.Utilities;
@@ -236,6 +237,7 @@ namespace MiraItemMod.Combos
                 var image = gameObject.AddComponent<Image>();
                 image.sprite = Gear1Sprite;
                 image.raycastTarget = false;
+                image.color = new Color(1, 1, 1, Mathf.Clamp01(ConfigManager.Config.GearOpacity));
                 var animation = gameObject.AddComponent<SimpleRotateAnimation>();
                 animation.speed = 24f;
 
@@ -262,6 +264,7 @@ namespace MiraItemMod.Combos
                     if(gear.TryGetComponent<Image>(out var image))
                     {
                         image.sprite = isDemolition ? NewInventoryIconPatch.Gear2Sprite : NewInventoryIconPatch.Gear1Sprite;
+                        image.color = new Color(1, 1, 1, Mathf.Clamp01(ConfigManager.Config.GearOpacity));
                     }
                 }
                 icon.defaultBGSprite = isDemolition ? DemolitionSlotSprite : MachinaSlotSprite;
