@@ -51,6 +51,7 @@ namespace MiraItemMod.Items
             status[ItemCategories.Precision] = CreateStatusGroup("CRITICAL", 400);
             status[ItemCategories.WindSong] = CreateStatusGroup("ATTACK_SPEED", 4);
             status[ItemCategories.SkySong] = CreateStatusGroup("DASH_RECOVERY_SPEED", 4);
+            status[ItemCategories.Comet] = CreateStatusGroup("DASH_RECOVERY_SPEED", 4);
             status[ItemCategories.Academy] = CreateStatusGroup("COOLDOWN_RECOVERY_SPEED", 4);
             status[ItemCategories.Vitality] = CreateStatusGroup("MAX_HP", 3);
             status[ItemCategories.Lake] = CreateStatusGroup("MAX_MP", 3);
@@ -88,41 +89,19 @@ namespace MiraItemMod.Items
         public override int GetEffectStringCount()
         {
             if (NetworkIndexes.Count == 0)
-                return list.Count + effectsString.Length;
+                return base.GetEffectStringCount();
             else
-                return NetworkIndexes.Count + effectsString.Length;
+                return NetworkIndexes.Count;
         }
 
         public override string GetEffectString(int idx, int level, int virtualLevelOffset, bool showAllLevel)
         {
             if(NetworkIndexes.Count == 0)
             {
-                var stats = list.ToArray();
-                if (idx < effectsString.Length)
-                {
-                    return base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel);
-                }
-
-                idx -= effectsString.Length;
-                StatusInstance statusInstance2 = StatusDatabase.CreateStatusEntity(stats[idx].statusID, stats[idx].valuesByLevel.SafeRandomAccess(level));
-                if (stats[idx].hideIfStatValueIsZero && statusInstance2.Value == 0)
-                {
-                    return null;
-                }
-
-                Color color2 = statusInstance2.Value < 0 ? GetNegativeColor(virtualLevelOffset) : GetPositiveColor(virtualLevelOffset);
-                return statusInstance2.ToString(reverse: true, color: false, sprite: true, color2);
+                return base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel);
             }
             else
             {
-                if (idx < effectsString.Length)
-                {
-                    if (idx == 0 || idx == 1)
-                        return null;
-                    return base.GetEffectString(idx, level, virtualLevelOffset, showAllLevel);
-                }
-
-                idx -= effectsString.Length;
                 StatusInstance statusInstance2 = StatusDatabase.CreateStatusEntity(list[NetworkIndexes[idx]].statusID, list[NetworkIndexes[idx]].valuesByLevel.SafeRandomAccess(level));
                 if (list[NetworkIndexes[idx]].hideIfStatValueIsZero && statusInstance2.Value == 0)
                 {

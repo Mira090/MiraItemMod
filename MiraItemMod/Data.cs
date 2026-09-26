@@ -651,7 +651,7 @@ namespace MiraItemMod
         /// 他のアーティファクトをカジノチップに変えた時、元のアーティファクトのカテゴリーに基づいて以下の効果からランダムに獲得する（発動するとこの効果を失う）
         /// </summary>
         public static ModCharm InventoryPower { get; } = ModCharmStatus.Create<Charm_InventoryPower>("InventoryPower", 0, false)
-            .SetCategory().SetSimpleEffects(2).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossBirdDemon);
+            .SetCategory().SetSimpleEffects(5).SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossBirdDemon);
         /// <summary>
         /// Item_FirstHeal_Name
         /// 酔狂のお守り
