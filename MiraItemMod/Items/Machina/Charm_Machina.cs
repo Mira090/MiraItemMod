@@ -163,6 +163,7 @@ namespace MiraItemMod.Items.Machina
                 return;
             //float damage = WeaponController.currentWeapon.InvokeGetRelatedStatMultiplier(NetworkAvatar, GetDamageElementalType(attack), GetRelatedStatFormula(attack), out var elemental);
             float damage = Charm_Basic.CalculateDamage(this);
+            Core.LoggerMany("Damage: " + damage);
             if (damage <= 0)
                 return;
             damage = ModifyDamage(damage);
@@ -189,10 +190,15 @@ namespace MiraItemMod.Items.Machina
                 {
                     if(IsEffectEnabled && NetworkAvatar != null && !NetworkAvatar.IsDead)
                     {
+                        Core.LoggerMany("Attack: " + (count - 1));
                         Attack(count - 1, aimedDelta, sharedTarget, percent);
                     }
                 });
             }
+        }
+        protected virtual void OnHit(CombatBehaviour combat, DamageInstance damage, ProjectileBase projectile)
+        {
+            Core.LoggerMany("OnHit: " + combat.name);
         }
         protected virtual float ModifyDamage(float damage)
         {
@@ -212,7 +218,7 @@ namespace MiraItemMod.Items.Machina
 
         protected virtual void OnCreateAttack(int idx, ProjectileBase projectile)
         {
-
+            Core.LoggerMany("OnCreateAttack: " + projectile.name);
         }
         public virtual Vector3 FirePosition(WeaponControllerSimple simple)
         {
