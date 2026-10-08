@@ -191,7 +191,7 @@ namespace MiraItemMod.Items.Machina
                     if(IsEffectEnabled && NetworkAvatar != null && !NetworkAvatar.IsDead)
                     {
                         Core.LoggerMany("Attack: " + (count - 1));
-                        Attack(count - 1, aimedDelta, sharedTarget, percent);
+                        Attack(count - 1, aimedDelta, new List<CombatBehaviour>(), percent);
                     }
                 });
             }
