@@ -11,11 +11,11 @@ namespace MiraItemMod.Items.Vitality
     {
         public static readonly string Stat = "CriticalRuby".ToSephiriaUpperId();
         public static readonly int Critical = 100;
-        public static readonly int Max = 500;
+        public static readonly int Max = 200;
 
         public static readonly LocalizedString Charm = new LocalizedString("Item_FinalHP_Name");
 
-        public int percent = 5;
+        public int percent = 2;
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string current = "-%";

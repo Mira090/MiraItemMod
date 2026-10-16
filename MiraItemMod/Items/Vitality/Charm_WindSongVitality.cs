@@ -9,7 +9,7 @@ namespace MiraItemMod.Items.Vitality
     public class Charm_WindSongVitality : Charm_StatusInstance
     {
         public static readonly string Stat = "HealAttackSpeed".ToSephiriaUpperId();
-        public static readonly float Per = 0.5f;
+        public static readonly float Per = 2f;
         protected override void OnEnabledEffect()
         {
             base.OnEnabledEffect();

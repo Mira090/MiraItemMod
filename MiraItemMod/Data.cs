@@ -137,7 +137,7 @@ namespace MiraItemMod
         /// Item_HealOnAttack_Effect
         /// 敵にダメージを与えた時、<tag=HP>を{HEAL}回復する（クールダウン{COOLDOWN}秒）
         /// </summary>
-        public static ModCharmStatus HealOnAttack { get; } = ModCharmStatus.Create<Charm_HealOnAttack>("HealOnAttack", 3, CreateStatusGroup("MAX_HP", 5, 10, 15, 20), CreateStatusGroup("FINAL_HP", 10, 10, 20, 20))
+        public static ModCharmStatus HealOnAttack { get; } = ModCharmStatus.Create<Charm_HealOnAttack>("HealOnAttack", 6, CreateStatusGroup("MAX_HP", 5, 5, 10, 10, 15, 15, 20), CreateStatusGroup("FINAL_HP", 0, 0, 5, 10, 10, 20, 20))
             .SetCategory(ItemCategories.Vitality).SetSimpleEffect().SetIsUniqueEffect().SetRarity(EItemRarity.Legend).SetTreeShopItemEntity(TreeShopItems.BossOink).SetConfig(config => config.AddItem && config.AddVitality);
         /// <summary>
         /// Item_MaxHPAttack_Name
@@ -1747,7 +1747,7 @@ namespace MiraItemMod
         /// <tag=AttackSpeed>が増加します。
         /// </summary>
         public static ModEffectHUD EffectCraveBuff { get; } = ModEffectHUD.CreateBuffEffectHUD("CraveBuff");
-        public static CharacterBuffMod_StatusInstance CraveBuff { get; } = CreateBuff("CraveBuff", "CraveBuff", 60, CreateBuffStatus("AttackSpeed".ToSephiriaId(), 1))
+        public static CharacterBuffMod_StatusInstance CraveBuff { get; } = CreateBuff("CraveBuff", "CraveBuff", 25, CreateBuffStatus("AttackSpeed".ToSephiriaId(), 1))
             .SetDefaultDuration(15f);
 
         /// <summary>

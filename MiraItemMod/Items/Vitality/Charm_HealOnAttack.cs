@@ -10,7 +10,7 @@ namespace MiraItemMod.Items.Vitality
         public Timer cooldownTimer = new Timer(1f);
         public bool isInCooldown;
 
-        public float[] heal = new float[] { 0.5f, 0.6f, 0.75f, 1f };
+        public float[] heal = new float[] { 0.25f, 0.3f, 0.4f, 0.5f, 0.6f, 0.75f, 1f };
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {
             string value = showAllLevel ? heal.SafeRandomAccess(0) + "→" + heal.SafeRandomAccess(maxLevel) : heal.SafeRandomAccess(LevelToIdx(level)).ToString();
