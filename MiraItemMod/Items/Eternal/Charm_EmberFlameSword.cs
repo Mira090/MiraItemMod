@@ -184,5 +184,39 @@ namespace MiraItemMod.Items.Eternal
                 __instance.FireSword(motionFrom, motionTo);
             }
         }
+        [HarmonyPatch(typeof(ComboEffect_FlameSword), nameof(ComboEffect_FlameSword.FireSword))]
+        public static class ComboEffect_FlameSwordFireSwordPatch
+        { 
+            static bool Prefix(Vector3 motionFrom, Vector3 motionTo, ComboEffect_FlameSword __instance)
+            {
+                var combo = __instance.Networkavatar.Inventory.FindComboEffect(ItemCategories.Machina);
+                if (combo is ComboEffect_Machina machina)
+                {
+                    var machinaCharm = machina.GetMachinaCharm();
+                    if (machinaCharm is Charm_MachinaFlameSpear flameSpear)
+                    {
+                        FlameSpear(__instance, motionTo, flameSpear);
+                        return false;
+                    }
+                }
+                return true;
+            }
+            private static void FlameSpear(ComboEffect_FlameSword __instance, Vector3 motionTo, Charm_MachinaFlameSpear flameSpear)
+            {
+                if (flameSpear == null || flameSpear.NetworkAvatar == null || flameSpear.NetworkAvatar.IsDead || !flameSpear.IsEffectEnabled)
+                    return;
+                if (!__instance.UseSword(1))
+                    return;
+                var dest = motionTo - flameSpear.NetworkAvatar.transform.position;
+                dest -= dest.normalized * 0.5f;
+                flameSpear.Attack(dest);
+                __instance.Delay(0.75f, () =>
+                {
+                    if (__instance == null || !__instance.isFlameSwordEnabled || flameSpear == null || flameSpear.NetworkAvatar == null || flameSpear.NetworkAvatar.IsDead || !flameSpear.IsEffectEnabled)
+                        return;
+                    __instance.InvokeTargetCreatePick(__instance.Networkavatar.connectionToClient, motionTo + dest.normalized * 0.5f);
+                });
+            }
+        }
     }
 }
