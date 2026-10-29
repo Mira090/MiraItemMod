@@ -2089,7 +2089,7 @@ namespace MiraItemMod
         /// Status_Crave_Name
         /// 渇望
         /// Status_Crave_Description
-        /// <tag=AttackSpeed>がスタックごとに1%増加します。最大60スタックまで蓄積します。
+        /// <tag=AttackSpeed>がスタックごとに1%増加します。最大25スタックまで蓄積します。
         /// </summary>
         public static ModKeyword Crave { get; } = ModKeyword.CreateKeyword("Crave").SetTextColor(new Color(0.8f, 0.3f, 0.2f));
         #endregion
