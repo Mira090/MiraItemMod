@@ -26,7 +26,7 @@ using Type = System.Type;
 
 namespace MiraItemMod
 {
-    public class Core : HorayModBase
+    public class Core : WorkshopModBase
     {
         public static Core Instance { get; private set; }
         public static GameObject ModSingletonObject { get; private set; }
@@ -151,7 +151,7 @@ namespace MiraItemMod
 
             if (ModPatches != null)
             {
-                ModPatches.UnpatchSelf();
+                ModPatches.UnpatchAll();
             }
             base.OnModUnloaded();
         }

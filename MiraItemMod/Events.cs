@@ -43,7 +43,7 @@ namespace MiraItemMod
         public static EventReference PerkSound { get; } = RuntimeManager.PathToEventReference("event:/System/talentPerk");
 
         #region Version
-        [HarmonyPatch(typeof(Application), nameof(Application.version), MethodType.Getter)]
+        //[HarmonyPatch(typeof(Application), nameof(Application.version), MethodType.Getter)]
         public static class GameVersionPatch
         {
             static void Postfix(ref string __result)
