@@ -15,10 +15,10 @@ namespace MiraItemMod.UI
         public static readonly Dictionary<ELinePos, int> LinePosExampleMap = new Dictionary<ELinePos, int>()
         {
             { ELinePos.Right, TreeShopItems.NewCharmBond1 },
-            { ELinePos.Center, TreeShopItems.NewCharmMagic2 },
+            { ELinePos.Center, TreeShopItems.NewCharmLeft2 },
             { ELinePos.Left, TreeShopItems.NewCharmLeft1 },
             { ELinePos.RightUp, TreeShopItems.NewCharmLeft1 },
-            { ELinePos.CenterUp, TreeShopItems.NewCharmMagic2 },
+            { ELinePos.CenterUp, TreeShopItems.NewCharmLeft2 },
             { ELinePos.LeftUp, TreeShopItems.NewCharmBond1 }
         };
         public static readonly Dictionary<ELinePos, Vector2> LinePosOffsetMap = new Dictionary<ELinePos, Vector2>()

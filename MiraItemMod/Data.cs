@@ -2959,7 +2959,7 @@ namespace MiraItemMod
         public static ModTreeShopItem NewCharmDrunk { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Drunk", string.Empty,
             TreeShopItems.NewCharmDrunk, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Center, 7).SetIcon(() => CustomSpriteAsset.TreeIconArtifact);
         public static ModTreeShopItem NewCharmSacrifice { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Sacrifice", "NewCharm_Sacrifice",
-            TreeShopItems.NewCharmSacrifice, TreeShopItems.NewCharmMagic2, ModTreeShopItem.ELinePos.Left, 5).SetIcon(() => CustomSpriteAsset.TreeIconArtifactSacrifice);
+            TreeShopItems.NewCharmSacrifice, TreeShopItems.NewCharmMagic2, ModTreeShopItem.ELinePos.Center, 5).SetIcon(() => CustomSpriteAsset.TreeIconArtifactSacrifice);
         
         public static Sprite IconInWorldPotion { get; internal set; }
         public static Sprite IconInWorldCharm { get; internal set; }
