@@ -66,23 +66,10 @@ namespace MiraItemMod
             Debug.LogError("[MiraItemMod] " + message);
         }
 
-        public List<List<string>> ModOptions => new List<List<string>>() { new List<string>() { "No Log", "Few", "Medium", "Many" } };
-        public List<string> ModOptionsDescription => new List<string>() { "Log Mode" };
-        public List<int> ModOptionsCurrent => new List<int> { ConfigManager.Config.LogMode };
-
         public static bool LogFew => ConfigManager.Config.LogMode >= 1;
         public static bool LogMedium => ConfigManager.Config.LogMode >= 2;
         public static bool LogMany => ConfigManager.Config.LogMode >= 3;
 
-        public void OnModOptionChanged(int index, int value)
-        {
-            if (index == 0)
-            {
-                ConfigManager.Config.LogMode = value;
-                ConfigManager.SaveConfig();
-                Core.Logger("Changed: " + ModOptions[index][value]);
-            }
-        }
         public static Harmony ModPatches { get; private set; }
         public static bool IsInitialized { get; private set; } = false;
         protected override void OnModLoaded()
@@ -96,7 +83,7 @@ namespace MiraItemMod
                 ModPatches = new Harmony("com.Mira.MiraItemMod");
                 ModPatches.PatchAll();
 
-                ConfigManager.Init();
+                ConfigManager.Init(this);
                 CustomSpriteAsset.InitSprites();
                 Data.Init();
 
