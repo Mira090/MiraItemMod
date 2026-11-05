@@ -131,6 +131,7 @@ namespace MiraItemMod.Registries
 
             if(TMP_Settings.defaultSpriteAsset != null)
             {
+                TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets ??= new List<TMP_SpriteAsset>();
                 TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets.Add(SpriteAsset);
             }
             else
