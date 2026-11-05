@@ -30,6 +30,8 @@ namespace MiraItemMod.Registries
         public static Sprite MachinaLevel;
         public static Sprite PotionDrinkSpeed;
         public static Sprite JewelryCharm;
+        public static Sprite BloodFlameSword;
+        public static Sprite Wind;
 
         public static int width = 10;
         public static int height = 10;
@@ -76,6 +78,8 @@ namespace MiraItemMod.Registries
             MachinaLevel = AssetLoader.CreateSprite(NewKeywordSprite.texture, "MachinaLevel", new Rect(width, height * 5, width, height));
             PotionDrinkSpeed = AssetLoader.CreateSprite(NewKeywordSprite.texture, "PotionDrinkSpeed", new Rect(width, height * 6, width, height));
             JewelryCharm = AssetLoader.CreateSprite(NewKeywordSprite.texture, "JewelryCharm", new Rect(width, height * 7, width, height));
+            BloodFlameSword = AssetLoader.CreateSprite(NewKeywordSprite.texture, "BloodFlameSword", new Rect(width, height * 8, width, height));
+            Wind = AssetLoader.CreateSprite(NewKeywordSprite.texture, "KeywordIcon_Wind", new Rect(width, height * 9, width, height));
         }
         public static void InitSpriteAsset()
         {
@@ -113,6 +117,8 @@ namespace MiraItemMod.Registries
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 5, name = "MachinaLevel", sprite = MachinaLevel });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 6, name = "PotionDrinkSpeed", sprite = PotionDrinkSpeed });
             SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 7, name = "JewelryCharm", sprite = JewelryCharm });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 8, name = "BloodFlameSword", sprite = BloodFlameSword });
+            SpriteAsset.spriteInfoList.Add(new TMP_Sprite() { x = width * 1, y = max - height * 9, name = "KeywordIcon_Wind", sprite = Wind });
             foreach (var sprite in SpriteAsset.spriteInfoList)
             {
                 sprite.id = id++;

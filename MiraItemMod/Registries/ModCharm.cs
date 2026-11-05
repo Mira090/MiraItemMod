@@ -60,5 +60,16 @@ namespace MiraItemMod.Registries
             if (DamageId != null)
                 DamageIdEntity = DamageId.CreateEntity();
         }
+
+        public virtual void ChangeEffect(int idx, LocalizedString effect)
+        {
+            if (idx < 0 || idx >= Effects.Length)
+                return;
+            Effects[idx] = effect;
+            if(ResourcePrefab != null && ResourcePrefab.TryGetComponent<Charm_Basic>(out var charm))
+            {
+                charm.effectsString = Effects;
+            }
+        }
     }
 }

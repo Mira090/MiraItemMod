@@ -75,6 +75,9 @@ namespace MiraItemMod.Items
             status[ItemCategories.Grimoire] = CreateStatusGroup("MAGIC_DAMAGE_BONUS", 4);
             status[ItemCategories.Machina] = CreateStatusGroup("MACHINA_DAMAGE", 4);
 
+            status[ItemCategories.Hurricane] = CreateStatusGroup("WIND_DAMAGE", 2);
+            status[ItemCategories.Party] = CreateStatusGroup("ALL_PLAYER_ALL_DAMAGE", 2);
+
             foreach (var pair in status)
             {
                 keys.Add(pair.Key, list.Count);

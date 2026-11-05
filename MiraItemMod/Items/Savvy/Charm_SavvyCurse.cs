@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MiraItemMod.Compats;
+using MiraItemMod.Registries;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -116,6 +118,10 @@ namespace MiraItemMod.Items.Savvy
             NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(idx));
             NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(idx));
             NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(idx));
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(idx));
+            }
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(idx));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(idx));
@@ -128,6 +134,10 @@ namespace MiraItemMod.Items.Savvy
             NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
+            }
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(CurrentLevelToIdx()));
@@ -141,6 +151,10 @@ namespace MiraItemMod.Items.Savvy
             NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
+            }
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(CurrentLevelToIdx()));

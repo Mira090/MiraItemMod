@@ -44,6 +44,22 @@ namespace MiraItemMod.Utilities
             }
         }
         private static CharacterDebuff _plasma;
+        public static CharacterDebuff WindErosion
+        {
+            get
+            {
+                if (_windErosion == null)
+                {
+                    var combo = ItemDatabase.FindItemCategory(ItemCategories.Hurricane);
+                    if(combo != null && combo.comboEffectPrefab.TryGetComponent<ComboEffect_Debuff>(out var effect))
+                    {
+                        _windErosion = effect.debuffPrefab;
+                    }
+                }
+                return _windErosion;
+            }
+        }
+        private static CharacterDebuff _windErosion;
 
         private static GameObject _pallasBigBullet;
         public static GameObject PallasBigBullet

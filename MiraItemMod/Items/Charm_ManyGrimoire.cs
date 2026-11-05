@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MiraItemMod.Compats;
+using MiraItemMod.Registries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +42,10 @@ namespace MiraItemMod.Items
                 NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, enabledCriticalBonus);
                 NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, enabledCriticalBonus);
                 NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, enabledCriticalBonus);
+                if(ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+                {
+                    NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", enabledCriticalBonus);
+                }
             }
         }
 
@@ -49,6 +55,10 @@ namespace MiraItemMod.Items
             NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, -enabledCriticalBonus);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", -enabledCriticalBonus);
+            }
             savedStoneTabletCount = 0;
             enabledCriticalBonus = 0;
             if (!(NetworkAvatar.Inventory == null))
@@ -63,10 +73,18 @@ namespace MiraItemMod.Items
             NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, -enabledCriticalBonus);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", -enabledCriticalBonus);
+            }
             enabledCriticalBonus = criticalBonusByLevel.SafeRandomAccess(LevelToIdx(newLevel)) * savedStoneTabletCount;
             NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, enabledCriticalBonus);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", enabledCriticalBonus);
+            }
         }
 
         private void OnItemUpdated()
@@ -74,11 +92,19 @@ namespace MiraItemMod.Items
             NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, -enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, -enabledCriticalBonus);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", -enabledCriticalBonus);
+            }
             savedStoneTabletCount = NetworkAvatar.Inventory.charms.Values.Count(charm => charm is Charm_Magic);
             enabledCriticalBonus = criticalBonusByLevel.SafeRandomAccess(CurrentLevelToIdx()) * savedStoneTabletCount;
             NetworkAvatar.AddCustomStat(ECustomStat.FireDamage, enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.IceDamage, enabledCriticalBonus);
             NetworkAvatar.AddCustomStat(ECustomStat.LightningDamage, enabledCriticalBonus);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                NetworkAvatar.AddCustomStatUnsafe("WINDDAMAGE", enabledCriticalBonus);
+            }
         }
 
         public override bool Weaved()

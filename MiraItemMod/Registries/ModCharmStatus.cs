@@ -47,5 +47,13 @@ namespace MiraItemMod.Registries
             charm.enabled = false;
             return o;
         }
+        public virtual void ChangeStats(params Charm_StatusInstance.StatusGroup[] stats)
+        {
+            Stats = stats;
+            if (ResourcePrefab != null && ResourcePrefab.TryGetComponent<Charm_StatusInstance>(out var charm))
+            {
+                charm.stats = stats;
+            }
+        }
     }
 }

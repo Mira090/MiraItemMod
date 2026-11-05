@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MiraItemMod.Buffs;
 using MiraItemMod.Combos;
+using MiraItemMod.Compats;
 using MiraItemMod.Config;
 using MiraItemMod.Items;
 using MiraItemMod.Items.Eternal;

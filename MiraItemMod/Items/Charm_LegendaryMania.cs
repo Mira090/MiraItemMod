@@ -41,14 +41,6 @@ namespace MiraItemMod.Items
             CreateStatusGroup("EVASION", 100, 200, 300, 400),
             CreateStatusGroup("EXP_DROP", 1, 2, 3, 4),
             CreateStatusGroup("LUCK", 1, 2, 3, 4),
-            //CreateStatusGroup("BURN_SPEED", 1, 2, 3, 4),
-            //CreateStatusGroup("FROSTBITE_DAMAGE", 1, 2, 3, 4),
-            //CreateStatusGroup("ELECTRIC_QUICKNESS", 0, 0, 1, 1),
-            //CreateStatusGroup("FLAME_SWORD_FAST_FALL", 1, 2, 4, 8),
-            //CreateStatusGroup("CHARGING_CHARM_BONUS", 1, 3, 5, 10),
-            //CreateStatusGroup("DARK_CLOUD_SPEED", 5, 10, 15, 20),
-            //CreateStatusGroup("FOLLOWER_DAMAGE", 2, 4, 6, 8),
-            //CreateStatusGroup("PLANET_DAMAGE", 2, 4, 6, 8),
         };
 
         public bool showStatsEffectStringFirst;

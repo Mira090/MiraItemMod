@@ -102,6 +102,10 @@ namespace MiraItemMod.Utilities
         /// 鍛冶場
         /// </summary>
         public static string Weapon { get; private set; }
+        /// <summary>
+        /// パーティ
+        /// </summary>
+        public static string Party { get; private set; }
         //public static string Purgatory { get; private set; }
         /// <summary>
         /// 生命
@@ -141,5 +145,11 @@ namespace MiraItemMod.Utilities
         /// </summary>
         /// <remarks>Star's Sephiria Mod</remarks>
         public static string Comet { get; private set; }
+
+        /// <summary>
+        /// ハリケーン
+        /// </summary>
+        /// <remarks>Star's Sephiria Mod</remarks>
+        public static string Hurricane { get; private set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Compats;
+using MiraItemMod.Registries;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -65,6 +67,10 @@ namespace MiraItemMod.Items
                 SephiriaPrefabs.Poison,
                 SephiriaPrefabs.Plasma
             };
+            if(ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                list.Add(SephiriaPrefabs.WindErosion);
+            }
             foreach (var debuff in target.Debuffs)
             {
                 if(debuff.CurrentStack == debuff.MaxStackCount)

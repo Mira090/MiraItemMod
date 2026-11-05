@@ -1,4 +1,6 @@
-﻿using MiraItemMod.Utilities;
+﻿using MiraItemMod.Compats;
+using MiraItemMod.Registries;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -49,18 +51,30 @@ namespace MiraItemMod.Items
                 else
                     damage.color = new Color(1, 1, 1, 0);
                 damage.useCustomColor = true;
-                var phy = NetworkAvatar.GetCustomStat(ECustomStat.PhysicalDamage);
-                var fire = NetworkAvatar.GetCustomStat(ECustomStat.FireDamage);
-                var ice = NetworkAvatar.GetCustomStat(ECustomStat.IceDamage);
-                var lightning = NetworkAvatar.GetCustomStat(ECustomStat.LightningDamage);
-                float max = Mathf.Max(phy, fire, ice, lightning);
-                float min = Mathf.Min(phy, fire, ice, lightning);
-                if (min < 1)
-                    min = 1;
-                damage.damage *= Mathf.Clamp(max / min, 1, MagicExecutionMax);
+                damage.damage *= Mathf.Clamp(GetMagicExecutionRatio(NetworkAvatar), 1, MagicExecutionMax);
                 //damage.ignoreDefense += ignoreDegence.SafeRandomAccess(CurrentLevelToIdx());
                 //Core.Logger("審判!: " + (max / min));
             }
+        }
+        public static float GetMagicExecutionRatio(UnitAvatar avatar)
+        {
+            var phy = avatar.GetCustomStat(ECustomStat.PhysicalDamage);
+            var fire = avatar.GetCustomStat(ECustomStat.FireDamage);
+            var ice = avatar.GetCustomStat(ECustomStat.IceDamage);
+            var lightning = avatar.GetCustomStat(ECustomStat.LightningDamage);
+            var stats = new List<float> { phy, fire, ice, lightning };
+
+            if(ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                var wind = avatar.GetCustomStatUnsafe("WINDDAMAGE");
+                stats.Add(wind);
+            }
+
+            float max = Mathf.Max(stats.ToArray());
+            float min = Mathf.Min(stats.ToArray());
+            if (min < 1)
+                min = 1;
+            return max / min;
         }
 
         private void OnAttackUnit(UnitAvatar avatar, DamageInstance damage)
