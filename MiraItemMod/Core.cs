@@ -98,7 +98,7 @@ namespace MiraItemMod
 
                 HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
 
-                ModCompat.LoadCompats();
+                ModCompat.Initialize();
             }
 
             if (ModSingletonObject != null)
@@ -116,7 +116,7 @@ namespace MiraItemMod
         {
             IsInitialized = false;
 
-            ModCompat.UnloadCompats();
+            ModCompat.Destroy();
 
             if (ModSingletonObject != null)
             {
@@ -310,15 +310,15 @@ namespace MiraItemMod
             }
         }
 
-        private static Action<ItemEntity> SetItemCategories(params string[] categories)
+        public static Action<ItemEntity> SetItemCategories(params string[] categories)
         {
             return item => item.categories = categories.ToList();
         }
-        private static Action<Miracle> SetMiracleCategories(params string[] categories)
+        public static Action<Miracle> SetMiracleCategories(params string[] categories)
         {
             return item => item.categories = categories;
         }
-        private static Action<ItemEntity> SetIsNotUniqueEffect()
+        public static Action<ItemEntity> SetIsNotUniqueEffect()
         {
             return item =>
             {

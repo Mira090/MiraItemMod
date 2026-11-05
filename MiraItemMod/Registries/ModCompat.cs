@@ -1,15 +1,26 @@
-﻿using MiraItemMod.Compats;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace MiraItemMod.Registries
 {
     public abstract class ModCompat
     {
         public static readonly List<ModCompat> ModCompats = new List<ModCompat>();
+        public static bool TryGetCompat<T>(out T result) where T : ModCompat
+        {
+            result = null;
+            foreach (var compat in ModCompats)
+            {
+                if (compat.GetType() == typeof(T))
+                {
+                    result = compat as T;
+                    return true;
+                }
+            }
+            return false;
+        }
         public static T GetCompat<T>() where T : ModCompat
         {
             foreach (var compat in ModCompats)
@@ -26,7 +37,7 @@ namespace MiraItemMod.Registries
                 return false;
             return compat.HasLoaded;
         }
-        public static void LoadCompats()
+        public static void Initialize()
         {
             var types = Assembly.GetExecutingAssembly().GetTypes();
             foreach(var type in types)
@@ -38,21 +49,22 @@ namespace MiraItemMod.Registries
             }
             foreach(var compat in ModCompats)
             {
-                compat.OnModLoaded();
+                compat.OnCompatLoaded();
             }
         }
-        public static void UnloadCompats()
+        public static void Destroy()
         {
             foreach (var compat in ModCompats)
             {
-                compat.OnModUnloaded();
+                compat.OnCompatUnloaded();
             }
             ModCompats.Clear();
         }
 
         public abstract string ModName { get; }
+        public abstract string ModId { get; }
 
-        public AddOnLoader.LoadedAddOn LoadedMod
+        protected AddOnLoader.LoadedAddOn LoadedAddOnMod
         {
             get
             {
@@ -64,10 +76,35 @@ namespace MiraItemMod.Registries
                 return null;
             }
         }
+        protected WorkshopModActivation LoadedWorkshopMod
+        {
+            get
+            {
+                foreach (var mod in WorkshopModRuntime.LastResults)
+                {
+                    if (mod.ModId == ModId)
+                        return mod;
+                }
+                return null;
+            }
+        }
+        public List<Assembly> GetAssemblies()
+        {
+            if (LoadedWorkshopMod != null)
+                return LoadedWorkshopMod.Modules.Where(x => x.Assembly != null).Select(x => x.Assembly).ToList();
+            if(LoadedAddOnMod != null)
+                return new List<Assembly>() { LoadedAddOnMod.Assembly };
+            return new List<Assembly>();
+        }
         public bool HasLoaded
         {
             get
             {
+                foreach (var mod in WorkshopModRuntime.LastResults)
+                {
+                    if (mod.ModId == ModId)
+                        return true;
+                }
                 foreach (var mod in AddOnLoader.LoadedMods)
                 {
                     if (mod.Metadata?.modName == ModName)
@@ -79,29 +116,37 @@ namespace MiraItemMod.Registries
         public bool TryGetType(string name, out Type result)
         {
             result = null;
-            var assembly = LoadedMod?.Assembly;
-            if(assembly == null)
+            var assemblies = GetAssemblies();
+            if(assemblies.Count == 0)
                 return false;
-            var type = assembly.GetType(name);
-            if(type == null)
+            foreach(var assembly in assemblies)
             {
-                Core.LoggerWarning("ModCompat Faild Load: " + name);
-                return false;
+                var type = assembly.GetType(name);
+                if (type == null)
+                {
+                    continue;
+                }
+                result = type;
+                return true;
             }
-            result = type;
-            return true;
+            Core.LoggerWarning("ModCompat Faild Load: " + name);
+            return false;
         }
         public bool TryGetType<T>(out Type result)
         {
             result = null;
-            var assembly = LoadedMod?.Assembly;
-            if (assembly == null)
+            var assemblies = GetAssemblies();
+            if (assemblies.Count == 0)
                 return false;
-            var type = assembly.GetTypes().FirstOrDefault(x => x.IsSubclassOf(typeof(T)));
-            if (type == null)
-                return false;
-            result = type;
-            return true;
+            foreach(var assembly in assemblies)
+            {
+                var type = assembly.GetTypes().FirstOrDefault(x => x.IsSubclassOf(typeof(T)));
+                if (type == null)
+                    continue;
+                result = type;
+                return true;
+            }
+            return false;
         }
 
         public ModCompat()
@@ -113,11 +158,17 @@ namespace MiraItemMod.Registries
         {
 
         }
-        public virtual void OnModLoaded()
+        /// <summary>
+        /// OnModLoadedと同じタイミング。イベントのサブスク用
+        /// </summary>
+        public virtual void OnCompatLoaded()
         {
 
         }
-        public virtual void OnModUnloaded()
+        /// <summary>
+        /// OnModUnloadedと同じタイミング。イベントのサブスク解除用
+        /// </summary>
+        public virtual void OnCompatUnloaded()
         {
 
         }

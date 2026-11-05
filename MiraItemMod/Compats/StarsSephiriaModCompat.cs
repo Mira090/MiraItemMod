@@ -10,8 +10,9 @@ namespace MiraItemMod.Compats
     public class StarsSephiriaModCompat : ModCompat
     {
         public override string ModName => "Star's SephiriaMod Mod";
+        public override string ModId => "stars-sephiriamod";
 
-        public override void OnModLoaded()
+        public override void OnCompatLoaded()
         {
             HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
         }
@@ -79,7 +80,7 @@ namespace MiraItemMod.Compats
                 }
             }
         }
-        public override void OnModUnloaded()
+        public override void OnCompatUnloaded()
         {
             HorayModAPI.OnAllDatabasesReady -= OnAllDatabasesReady;
         }
