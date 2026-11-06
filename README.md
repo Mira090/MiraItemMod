@@ -9,21 +9,9 @@ Some artifacts can be unlocked using Destiny Inscription.
 Please note that the images of some artifacts are placeholders.
 
 ## 📥 Installation
-1. Download the latest `MiraItemMod-1.X.X.zip` from the Releases section and unzip it.
-2. Create an `AddOns` folder inside the `Program Files (x86)\Steam\steamapps\common\Sephiria` folder.
-3. Copy the `MiraItemMod` folder into the `Program Files (x86)\Steam\steamapps\common\Sephiria\AddOns` folder.
-
-Example:
-```
-Sephiria/
-└── AddOns/
-    └── MiraItemMod/
-        ├── Assets/
-        ├── Libs/
-        ├── metadata.json
-        ├── MiraItemMod.dll
-        └── MiraModBase.dll
-```
+1. Switch to the beta version of Sephiria's workshop
+2. Subscribe to the mod at https://steamcommunity.com/sharedfiles/filedetails/?id=3829945009
+3. Enable the mod on the Sephiria title screen.
 
 ## 📝 Notes
 - This repository and its contributors are in no way affiliated with Sephiria, TEAM HORAY, or any related organizations.
@@ -33,6 +21,7 @@ Sephiria/
 
 ## Special Thanks
 - My friend (Illustrations of Exciting Custard Croissant, Wristband of Friendship, and Fiery Atomic Clock, etc.)
-- Blue Marl!n (Illustrations of Fiery Phoenix, Singeing Claw, and Solis Frost, etc.)
+- Blue Marl!n (Illustrations of Meteorite Ring, Hero Discount Coupon, and Solis Frost, etc.)
 - UwU (Illustrations of Three-Body Model, Enchanted Celestial Globe, and Raw Ruby, etc.)
 - 韓狼 (ko-KR.json)
+- Hygee-2778 (zh-CN.json)
