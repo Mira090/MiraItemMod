@@ -11,9 +11,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(420);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(420)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var simple))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponSimple_Katana>");
                 return null;
+            }
             return simple.enhancedDashAttackFireData_Ice;
         }
     }

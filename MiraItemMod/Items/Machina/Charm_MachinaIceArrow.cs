@@ -16,9 +16,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(114);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(114)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Crossbow>(out var simple))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponSimple_Crossbow>");
                 return null;
+            }
             return simple.iceArrow;
         }
         protected override void OnEnabledEffect()

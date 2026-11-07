@@ -19,7 +19,8 @@ namespace MiraItemMod.Utilities
             get
             {
                 if (_wound == null)
-                    _wound = WeaponDatabase.FindWeaponById(1107).mainWeaponPrefab.GetComponent<WeaponAddonCommon_DebuffAttack>().debuffPrefab;
+                    _wound = UnitDatabase.GetDebuff("WOUND");
+                    //_wound = WeaponDatabase.FindWeaponById(1107).mainWeaponPrefab.GetComponent<WeaponAddonCommon_DebuffAttack>().debuffPrefab;
                 return _wound;
             }
         }
@@ -29,7 +30,8 @@ namespace MiraItemMod.Utilities
             get
             {
                 if (_poison == null)
-                    _poison = WeaponDatabase.FindWeaponById(119).mainWeaponPrefab.GetComponent<WeaponAddonCommon_DebuffAttack>().debuffPrefab;
+                    _poison = UnitDatabase.GetDebuff("POISON");
+                    //_poison = WeaponDatabase.FindWeaponById(119).mainWeaponPrefab.GetComponent<WeaponAddonCommon_DebuffAttack>().debuffPrefab;
                 return _poison;
             }
         }
@@ -54,6 +56,10 @@ namespace MiraItemMod.Utilities
                     if(combo != null && combo.comboEffectPrefab.TryGetComponent<ComboEffect_Debuff>(out var effect))
                     {
                         _windErosion = effect.debuffPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference WindErosion");
                     }
                 }
                 return _windErosion;
@@ -80,7 +86,15 @@ namespace MiraItemMod.Utilities
             {
                 if (_meteorBullet == null)
                 {
-                    _meteorBullet = ItemDatabase.FindItemById(1032).resourcePrefab.GetComponent<Charm_FlameGround_Meteor>().bulletPrefab;
+                    var entity = ItemDatabase.FindItemById(1032);
+                    if(entity.resourcePrefab.TryGetComponent<Charm_FlameGround_Meteor>(out var charm))
+                    {
+                        _meteorBullet = charm.bulletPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference MeteorBullet");
+                    }
                 }
                 return _meteorBullet;
             }
@@ -90,9 +104,16 @@ namespace MiraItemMod.Utilities
         {
             get
             {
-                if (_explosionFx == null && MeteorBullet.TryGetComponent<BulletDestroyModule_Explode>(out var module) && module.destroyFxPrefab)
+                if(_explosionFx == null)
                 {
-                    _explosionFx = module.destroyFxPrefab;
+                    if (MeteorBullet.TryGetComponent<BulletDestroyModule_Explode>(out var module) && module.destroyFxPrefab)
+                    {
+                        _explosionFx = module.destroyFxPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference ExplosionFx");
+                    }
                 }
                 return _explosionFx;
             }
@@ -104,7 +125,15 @@ namespace MiraItemMod.Utilities
             {
                 if (_pallasBigBullets == null)
                 {
-                    _pallasBigBullets = ItemDatabase.FindItemById(1172).resourcePrefab.GetComponent<Charm_PallasCard>().bulletBigPrefab;
+                    var entity = ItemDatabase.FindItemById(1172);
+                    if (entity.resourcePrefab.TryGetComponent<Charm_PallasCard>(out var charm))
+                    {
+                        _pallasBigBullets = charm.bulletBigPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference PallasBigBullets");
+                    }
                 }
                 return _pallasBigBullets;
             }
@@ -116,7 +145,15 @@ namespace MiraItemMod.Utilities
             {
                 if (_pallasSmallBullets == null)
                 {
-                    _pallasSmallBullets = ItemDatabase.FindItemById(1172).resourcePrefab.GetComponent<Charm_PallasCard>().bulletSmallPrefab;
+                    var entity = ItemDatabase.FindItemById(1172);
+                    if (entity.resourcePrefab.TryGetComponent<Charm_PallasCard>(out var charm))
+                    {
+                        _pallasSmallBullets = charm.bulletSmallPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference PallasSmallBullets");
+                    }
                 }
                 return _pallasSmallBullets;
             }
@@ -128,7 +165,15 @@ namespace MiraItemMod.Utilities
             {
                 if (_freezeNormalSlash == null)
                 {
-                    _freezeNormalSlash = ItemDatabase.FindItemById(1268).resourcePrefab.GetComponent<Charm_FreezeNormalSlash>().slashFxPrefab;//永遠の冬
+                    var entity = ItemDatabase.FindItemById(1268);//永遠の冬
+                    if (entity.resourcePrefab.TryGetComponent<Charm_FreezeNormalSlash>(out var charm))
+                    {
+                        _freezeNormalSlash = charm.slashFxPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference PallasSmallBullets");
+                    }
                 }
                 return _freezeNormalSlash;
             }
@@ -142,6 +187,10 @@ namespace MiraItemMod.Utilities
                 if (_money == null)
                 {
                     _money = Resources.Load<GameObject>("Money");
+                    if(_money == null)
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference Money");
+                    }
                 }
                 return _money;
             }
@@ -154,6 +203,10 @@ namespace MiraItemMod.Utilities
                 if (_moneyBig == null)
                 {
                     _moneyBig = Resources.Load<GameObject>("MoneyBig");
+                    if (_moneyBig == null)
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference MoneyBig");
+                    }
                 }
                 return _moneyBig;
             }
@@ -166,6 +219,10 @@ namespace MiraItemMod.Utilities
                 if (_moneyHuge == null)
                 {
                     _moneyHuge = Resources.Load<GameObject>("MoneyHuge");
+                    if (_moneyHuge == null)
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference MoneyHuge");
+                    }
                 }
                 return _moneyHuge;
             }
@@ -203,6 +260,10 @@ namespace MiraItemMod.Utilities
                 if (_sephiriteLvUp == null)
                 {
                     _sephiriteLvUp = Resources.Load<GameObject>("Sephirite/Sephirite_LVUP");
+                    if (_sephiriteLvUp == null)
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference SephiriteLvUp");
+                    }
                 }
                 return _sephiriteLvUp;
             }
@@ -214,7 +275,15 @@ namespace MiraItemMod.Utilities
             {
                 if (_cheerFlag == null)
                 {
-                    _cheerFlag = ItemDatabase.FindItemById(1140).resourcePrefab.GetComponent<Charm_TheFlagOfCheer>().flagPrefab;
+                    var entity = ItemDatabase.FindItemById(1140);
+                    if (entity.resourcePrefab.TryGetComponent<Charm_TheFlagOfCheer>(out var charm))
+                    {
+                        _cheerFlag = charm.flagPrefab;
+                    }
+                    else
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference CheerFlag");
+                    }
                 }
                 return _cheerFlag;
             }
@@ -227,6 +296,10 @@ namespace MiraItemMod.Utilities
                 if (_dice == null)
                 {
                     _dice = Resources.Load<GameObject>("Dice");
+                    if (_dice == null)
+                    {
+                        Core.LoggerError("[SephiriaPrefabs] Failed to reference Dice");
+                    }
                 }
                 return _dice;
             }

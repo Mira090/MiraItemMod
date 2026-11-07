@@ -12,9 +12,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(422);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(422)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var simple))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponSimple_Katana>");
                 return null;
+            }
             return simple.eclipseBasicAttackFireDatas.LastOrDefault();
         }
         public override EDamageElementalType? GetDamageElementalType(NewWeaponFireData fireData)

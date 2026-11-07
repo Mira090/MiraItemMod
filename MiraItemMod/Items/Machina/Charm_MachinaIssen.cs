@@ -18,9 +18,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(405);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(405)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_Katana>(out var simple))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponSimple_Katana>");
                 return null;
+            }
             return simple.electricChargeIssenFireData;
         }
         protected override void OnEnabledEffect()

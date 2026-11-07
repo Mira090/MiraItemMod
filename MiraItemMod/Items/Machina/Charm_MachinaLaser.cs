@@ -39,9 +39,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(17);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(17)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponSimple_GreatSword>(out var simple))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponSimple_GreatSword>");
                 return null;
+            }
             return simple.basicComboAttacks.FirstOrDefault();
         }
         public override float AttackDashScale => 0f;

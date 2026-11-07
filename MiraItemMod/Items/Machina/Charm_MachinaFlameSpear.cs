@@ -19,9 +19,15 @@ namespace MiraItemMod.Items.Machina
         {
             var weapon = WeaponDatabase.FindWeaponById(519);
             if (weapon == null)
+            {
+                Core.LoggerError("[Machina] Faild FindWeaponById(519)");
                 return null;
+            }
             if (!weapon.mainWeaponPrefab.TryGetComponent<WeaponAddonCommon_ChangeWeaponAction>(out var addon))
+            {
+                Core.LoggerError("[Machina] Faild TryGetComponent<WeaponAddonCommon_ChangeWeaponAction>");
                 return null;
+            }
             return addon.fireData;
         }
         protected override float ModifyDamage(float damage)
