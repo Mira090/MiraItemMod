@@ -935,6 +935,8 @@ namespace MiraItemMod
         public static int DefaultReplenishmentCharm = 0;
         public static int DefaultReplenishmentTablet = 0;
 
+        public static readonly bool SaleTrial = false;
+
         [HarmonyPatch(typeof(UnitAI_NewBasic), nameof(UnitAI_NewBasic.SetSocialID))]
         public static class SetSocialIDPatch
         {
@@ -1124,6 +1126,8 @@ namespace MiraItemMod
             }
             static void OnTrialMerchant(UnitAI_NewBasic __instance, System.Random random, int phase = -1)
             {
+                if (!SaleTrial)
+                    return;
                 var list = new List<ItemMetadata>();
 
                 //list.Add(new ItemMetadata(ItemDatabase.GenerateInstanceID(random), ItemDatabase.FindItemById(Data.AddInventory.Id), 1));
@@ -1245,7 +1249,8 @@ namespace MiraItemMod
         #endregion
 
         #region MaxMiracleCount
-        [HarmonyPatch(typeof(UI_MiracleElement), nameof(UI_MiracleElement.HandleClick))]
+        //[HarmonyPatch(typeof(UI_MiracleElement), nameof(UI_MiracleElement.HandleClick))]
+        [Obsolete]
         public static class MiracleElementPatch
         {
             static bool Prefix(UI_MiracleElement __instance)
@@ -1363,6 +1368,29 @@ namespace MiraItemMod
                         }, null);
                     }
                 }, null);
+                return false;
+            }
+        }
+        //[HarmonyPatch(typeof(UI_MiracleElement), "Acquire")]
+        public static class MiracleElementAcquirePatch
+        {
+            static bool Prefix(UI_MiracleElement __instance, Miracle prefab, ItemMetadata[] items)
+            {
+                var actor = __instance.GetActor();
+                var entity = __instance.GetEntity();
+                if (!actor.CanAddMiracle())
+                {
+                    actor.RemoveMiracle(0);
+                }
+
+                actor.AddMiracle(prefab.id);
+                actor.CloseMiraclePanel();
+                if (items != null)
+                {
+                    actor.UnitAvatar.Inventory.AddItemsWithGenerateInstanceID(entity.instanceID, items);
+                }
+
+                __instance.GetMiracleSelector().HandleMiracleAcquired(actor);
                 return false;
             }
         }
@@ -1735,6 +1763,7 @@ namespace MiraItemMod
         }
         #endregion
 
+        #region ポーションを飲む速度
         [HarmonyPatch(typeof(ItemController), "Awake")]
         public static class ItemControllerPatch
         {
@@ -1754,5 +1783,6 @@ namespace MiraItemMod
                 }
             }
         }
+        #endregion
     }
 }
