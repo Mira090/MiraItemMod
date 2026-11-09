@@ -134,8 +134,9 @@ namespace MiraItemMod.Registries
             }
 
             SpriteAsset.UpdateLookupTables();
+            SpriteAsset.fallbackSpriteAssets ??= new List<TMP_SpriteAsset>();
 
-            if(TMP_Settings.defaultSpriteAsset != null)
+            if (TMP_Settings.defaultSpriteAsset != null)
             {
                 TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets ??= new List<TMP_SpriteAsset>();
                 TMP_Settings.defaultSpriteAsset.fallbackSpriteAssets.Add(SpriteAsset);
