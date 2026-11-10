@@ -16,6 +16,7 @@ namespace MiraItemMod
         public bool F3 { get; private set; }
         private void LateUpdate()
         {
+            return;
             if (Keyboard.current.f2Key.isPressed)
             {
                 if (F2)
