@@ -955,6 +955,11 @@ namespace MiraItemMod.Registries
             fire.damageMultiplier = damageMultiplier;
             return fire;
         }
+        public static T AmplifyDamageMultiplier<T>(this T fire, float damageMultiplier) where T : NewWeaponFireData
+        {
+            fire.damageMultiplier *= damageMultiplier;
+            return fire;
+        }
         public static T SetSwingSoundEvent<T>(this T fire, string swingSoundEvent) where T : NewWeaponFireData
             => SetSwingSoundEvent(fire, RuntimeManager.PathToEventReference(swingSoundEvent));
         public static T SetSwingSoundEvent<T>(this T fire, EventReference swingSoundEvent) where T : NewWeaponFireData

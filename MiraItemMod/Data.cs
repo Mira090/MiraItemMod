@@ -2553,8 +2553,29 @@ namespace MiraItemMod
         /// <tag=WeaponAction_Parry>に成功すると<tag=WeaponAction_Trance>ではなく<tag=WeaponAction_IceTrance>を獲得します。\n<tag=WeaponAction_IceTrance>状態で<tag=WeaponAction_Parry>に成功すると、すべての<tag=FrostRelic>のチャージが加速します。
         public static ModWeapon DaggerIceFrost { get; } = ModWeapon.CreateWeapon("Dagger_Ice_T3_Frost", 1203, config => config.AddObsoletedWeapon ? -1 : 1215).SetMainPrefabModifier(main =>
         {
+            if(ConfigManager.Config == null || !ConfigManager.Config.AddObsoletedWeapon)
+            {
             if (main.gameObject.TryGetComponent<WeaponAddonCommon_AdditionalElementalDamage>(out var status))
             {
+                    UnityEngine.Object.DestroyImmediate(status);
+                }
+                var elemental = main.gameObject.AddComponent<WeaponAddonCommon_ElementalBased>();
+                elemental.decreasedDamagePercent = 20;
+                elemental.elementalType = EDamageElementalType.Ice;
+                elemental.parent = main;
+                elemental.effectText = new LocalizedString("WeaponAddonCrossbow_Fire_Effect");
+
+                var @unsafe = main.gameObject.AddComponent<WeaponAddonDagger_IceTrance>();
+
+                @unsafe.effectText = new LocalizedString("WeaponAddon_Dagger_Ice_T3_Frost_Effect");
+                @unsafe.parent = main;
+
+                main.addons = new WeaponAddon[] { elemental, @unsafe };
+            }
+            else
+            {
+                if (main.gameObject.TryGetComponent<WeaponAddonCommon_AdditionalElementalDamage>(out var status))
+                {
                 status.elementalType = EDamageElementalType.Ice;
                 status.additionalDamagePercent = 20;
                 status.statId = ECustomStat.IceDamage;
@@ -2569,10 +2590,19 @@ namespace MiraItemMod
 
                 main.addons = new WeaponAddon[] { status, @unsafe };
             }
+            }
         }).SetBladeSprite(Vector3.zero)
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Basic, 20, () => new ModSpriteFx[] { DaggerIceAttack1Fx, DaggerIceAttack2Fx, DaggerIceAttack3Fx, DaggerIceAttack4Fx, DaggerIceAttack5Fx })
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Dash, 20, () => new ModSpriteFx[] { DaggerIceDashFx })
-            .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Special, 20, () => new ModSpriteFx[] { DaggerIceFuryFx, DaggerIceParryFx });
+            .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Special, 20, () => new ModSpriteFx[] { DaggerIceFuryFx, DaggerIceParryFx })
+            .AddFireDataModifiers(x =>
+            {
+                if (ConfigManager.Config == null || !ConfigManager.Config.AddObsoletedWeapon)
+                {
+                    x.SetDamageElemental(EDamageElementalType.Ice);
+                    x.AmplifyDamageMultiplier(0.8f);
+                }
+            });
         /// <summary>
         /// Weapon_Dagger_Ice_T3_Magic_Name
         /// 凍てつく剣先
