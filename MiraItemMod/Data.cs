@@ -1317,6 +1317,7 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm MouseSlash { get; } = ModCharmStatus.Create<Charm_MouseSlash>("MouseSlash", 0)
             .SetCategory(ItemCategories.Recollection).SetSimpleEffects(0).SetRarity(EItemRarity.Uncommon).SetIsUniqueEffect().SetConfig(config => config.AddItem && ModUtil.IsTestMode());
+        /*
         /// <summary>
         /// Item_FrogGirl_Name
         /// カエルちゃん
@@ -1338,7 +1339,7 @@ namespace MiraItemMod
         /// </summary>
         public static ModCharm Mole { get; } = ModCharmCompanion.Create("Mole", 3, () => MoleUnit).SetHp(80, 120, 240, 320).SetDamage(90, 140, 180, 230)
             .SetCategory(ItemCategories.Companion).SetRarity(EItemRarity.Rare).SetConfig(config => config.AddItem && config.AddCompanion && ModUtil.IsTestMode());
-        public static ModUnit MoleUnit { get; } = ModUnit.Create("Mole", () => ModUnit.GetOriginalBySummonCharm(1029));
+        public static ModUnit MoleUnit { get; } = ModUnit.Create("Mole", () => ModUnit.GetOriginalBySummonCharm(1029));*/
 
         #region Jewelries
         /// <summary>
