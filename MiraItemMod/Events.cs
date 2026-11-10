@@ -297,7 +297,7 @@ namespace MiraItemMod
         /// <summary>
         /// ステータス表示
         /// </summary>
-        [HarmonyPatch(typeof(UI_StatsPanel), nameof(UI_StatsPanel.Connect))]
+        //[HarmonyPatch(typeof(UI_StatsPanel), nameof(UI_StatsPanel.Connect))]
         public static class UIStatsPanelPatch
         {
             public static bool Patched { get; internal set; }
@@ -351,7 +351,7 @@ namespace MiraItemMod
         /// <summary>
         /// ステータス表示
         /// </summary>
-        [HarmonyPatch(typeof(AvatarStatsHooker), nameof(AvatarStatsHooker.HookStat))]
+        //[HarmonyPatch(typeof(AvatarStatsHooker), nameof(AvatarStatsHooker.HookStat))]
         public static class AvatarStatsHookerPatch
         {
             static void Postfix(AvatarStatsHooker __instance, ref string __result, string id, ref EStatValueSign sign)
