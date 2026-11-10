@@ -105,7 +105,7 @@ namespace MiraItemMod
             {
                 UnityEngine.Object.Destroy(ModSingletonObject);
             }
-            if (ScreenFader.Instance.IsTestMode)
+            if (ModUtil.IsTestMode())
             {
                 ModSingletonObject = new GameObject();
                 ModSingletonObject.AddComponent<ModSingletonBehavior>();
