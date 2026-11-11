@@ -95,6 +95,7 @@ namespace MiraItemMod
                 HorayModAPI.OnLoadKeywordDatabase += OnLoadKeywordDatabase;
                 HorayModAPI.OnAllDatabasesReady += OnAllDatabasesReady;
                 HorayModAPI.OnLocalizationReady += OnLocalizationReady;
+                HorayModAPI.OnLoadSpecialStatDatabase += OnLoadSpecialStatDatabase;
 
                 HorayModAPI.OnLoadWeaponDatabase += OnLoadWeaponDatabase;
 
@@ -129,6 +130,7 @@ namespace MiraItemMod
             HorayModAPI.OnLoadKeywordDatabase -= OnLoadKeywordDatabase;
             HorayModAPI.OnAllDatabasesReady -= OnAllDatabasesReady;
             HorayModAPI.OnLocalizationReady -= OnLocalizationReady;
+            HorayModAPI.OnLoadSpecialStatDatabase -= OnLoadSpecialStatDatabase;
 
             HorayModAPI.OnLoadWeaponDatabase -= OnLoadWeaponDatabase;
 
@@ -287,6 +289,7 @@ namespace MiraItemMod
             {
                 status.divideForDisplay = 1;
             });
+            Data.RegisterStatuses();
         }
         private void OnLoadKeywordDatabase()
         {
@@ -299,6 +302,13 @@ namespace MiraItemMod
         {
             Data.LoadMiracleManuallyGivenItems();
             Data.LoadTreeShopItems();
+        }
+
+        private void OnLoadSpecialStatDatabase()
+        {
+            //OnLoadStatusDatabaseの後に呼ばれる
+            //Data.RegisterSpecialStats();
+            
         }
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
@@ -547,7 +557,7 @@ namespace MiraItemMod
                     //複数回
                     var list = __result.ToList();
 
-                    Data.RegisterStatuses(list);
+                    //Data.RegisterStatuses(list);
 
                     //Core.Logger(list.ToAllString());
 

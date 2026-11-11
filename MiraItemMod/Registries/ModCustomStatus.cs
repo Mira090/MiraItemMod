@@ -54,6 +54,7 @@ namespace MiraItemMod.Registries
         public bool UseLocalizedSymbol { get; internal set; }
         public string Symbol { get; internal set; } = "";
         public string StatKeyword { get; internal set; }
+        public Func<StatusEntity, SpecialStatDisplaySettings> SpecialStat { get; internal set; }
         public StatusEntity StatusEntity { get; internal set; }
         public ModKeyword Keyword { get; internal set; }
         public KeywordEntity KeywordEntity => Keyword?.KeywordEntity;
@@ -79,6 +80,12 @@ namespace MiraItemMod.Registries
             entity.symbol = Symbol;
             entity.statKeyword = StatKeyword;
             return entity;
+        }
+        public void OnRegister()
+        {
+            if (StatusEntity == null)
+                return;
+            StatusEntity.specialStat = SpecialStat?.Invoke(StatusEntity) ?? StatusEntity.specialStat;
         }
         public void Dispose()
         {

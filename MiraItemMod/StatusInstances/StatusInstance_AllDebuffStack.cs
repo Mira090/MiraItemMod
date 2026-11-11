@@ -13,10 +13,7 @@ namespace MiraItemMod.StatusInstances
             base.ApplyStatusInner(runtime);
             if (CurrentTarget == null)
                 return;
-            CurrentTarget.AddCustomStatUnsafe("BURNSTACK", Value);
-            CurrentTarget.AddCustomStatUnsafe("ELECTRICSTACK", Value);
-            CurrentTarget.AddCustomStatUnsafe("POISONSTACK", Value);
-            CurrentTarget.AddCustomStatUnsafe("WOUNDSTACK", Value);
+            CurrentTarget.AddAllDebuffStack(Value);
         }
 
         protected override void RemoveStatusInner()
@@ -24,10 +21,7 @@ namespace MiraItemMod.StatusInstances
             base.RemoveStatusInner();
             if (CurrentTarget == null)
                 return;
-            CurrentTarget.AddCustomStatUnsafe("BURNSTACK", -Value);
-            CurrentTarget.AddCustomStatUnsafe("ELECTRICSTACK", -Value);
-            CurrentTarget.AddCustomStatUnsafe("POISONSTACK", -Value);
-            CurrentTarget.AddCustomStatUnsafe("WOUNDSTACK", -Value);
+            CurrentTarget.AddAllDebuffStack(-Value);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using FMOD.Studio;
 using FMODUnity;
+using MiraItemMod.Compats;
 using MiraItemMod.Entities;
 using MiraItemMod.Items;
 using MiraItemMod.Registries;
@@ -520,6 +521,19 @@ namespace MiraItemMod.Utilities
         public static ItemEntity[] AddRange<T>(this ItemEntity[] sequence, params T[] items) where T : ModItem
         {
             return HarmonyLib.CollectionExtensions.AddRangeToArray<ItemEntity>(sequence, items.Select(x => x.ItemEntity).ToArray());
+        }
+
+        public static void AddAllDebuffStack(this UnitAvatar avatar, int value)
+        {
+            avatar.AddCustomStatUnsafe("ALLDEBUFFSTACK", value);
+            avatar.AddCustomStatUnsafe("BURNSTACK", value);
+            avatar.AddCustomStatUnsafe("ELECTRICSTACK", value);
+            avatar.AddCustomStatUnsafe("POISONSTACK", value);
+            avatar.AddCustomStatUnsafe("WOUNDSTACK", value);
+            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
+            {
+                //avatar.AddCustomStatUnsafe("WINDSTACK", value);
+            }
         }
     }
 }

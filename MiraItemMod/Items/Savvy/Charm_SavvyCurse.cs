@@ -1,5 +1,6 @@
 ﻿using MiraItemMod.Compats;
 using MiraItemMod.Registries;
+using MiraItemMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -114,14 +115,7 @@ namespace MiraItemMod.Items.Savvy
         public void Remove(int idx)
         {
             var crime = -applied;
-            NetworkAvatar.AddCustomStatUnsafe("BURNSTACK", crime * stack.SafeRandomAccess(idx));
-            NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(idx));
-            NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(idx));
-            NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(idx));
-            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
-            {
-                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(idx));
-            }
+            NetworkAvatar.AddAllDebuffStack(crime * stack.SafeRandomAccess(idx));
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(idx));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(idx));
@@ -130,14 +124,7 @@ namespace MiraItemMod.Items.Savvy
         public void Apply()
         {
             var crime = GetCrimeCount();
-            NetworkAvatar.AddCustomStatUnsafe("BURNSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
-            {
-                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            }
+            NetworkAvatar.AddAllDebuffStack(crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(CurrentLevelToIdx()));
@@ -147,14 +134,7 @@ namespace MiraItemMod.Items.Savvy
         public void Apply(CharacterBuff buff)
         {
             var crime = GetCrimeCount(buff);
-            NetworkAvatar.AddCustomStatUnsafe("BURNSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("ELECTRICSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("POISONSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            if (ModCompat.GetHasLoaded<StarsSephiriaModCompat>())
-            {
-                //NetworkAvatar.AddCustomStatUnsafe("WOUNDSTACK", crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
-            }
+            NetworkAvatar.AddAllDebuffStack(crime * stack.SafeRandomAccess(CurrentLevelToIdx()));
 
             NetworkAvatar.AddCustomStatUnsafe("DEBUFFDAMAGE", crime * damage.SafeRandomAccess(CurrentLevelToIdx()));
             NetworkAvatar.AddCustomStat(ECustomStat.DebuffDuration, crime * duration.SafeRandomAccess(CurrentLevelToIdx()));

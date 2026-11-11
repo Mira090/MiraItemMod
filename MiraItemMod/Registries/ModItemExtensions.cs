@@ -384,6 +384,11 @@ namespace MiraItemMod.Registries
             action?.Invoke(item.Keyword);
             return item;
         }
+        public static T SetSpecialStat<T>(this T item, Func<StatusEntity, SpecialStatDisplaySettings> specialStat) where T : ModCustomStatus
+        {
+            item.SpecialStat = specialStat;
+            return item;
+        }
         public static T SetHasStackText<T>(this T item, bool hasStackText = false) where T : ModEffectHUD
         {
             item.HasStackText = hasStackText;
@@ -1106,6 +1111,42 @@ namespace MiraItemMod.Registries
         public static Miracle_StatusInstance.StatInfo CreateNeutralStat(string status)
         {
             return new Miracle_StatusInstance.StatInfo() { type = EEffectType.Neutral, status = status };
+        }
+
+        public static SpecialStatDisplaySettings CreateSpecialStat(this StatusEntity entity, string category, float offset = 0, bool sign = false)
+        {
+            var categoryEntity = SpecialStatDatabase.FindCategory(category);
+            if(categoryEntity == null)
+            {
+                Core.LoggerError($"StatusEntity {entity.name}: SpecialStatCategoryEntity is null");
+                return entity.specialStat;
+            }
+            return new SpecialStatDisplaySettings()
+            { 
+                enabled = true,
+                valueId = entity.statKeyword,
+                valueSource = SpecialStatValueSource.CustomStat,
+                includeSign = sign,
+                category = categoryEntity,
+                displayOffset = offset,
+            };
+        }
+        public static SpecialStatDisplaySettings CreateSpecialStat(this StatusEntity entity, ModSpecialStatCategory category, float offset = 0, bool sign = false)
+        {
+            if (category == null || category.Entity == null)
+            {
+                Core.LoggerError($"StatusEntity {entity.name}: SpecialStatCategoryEntity is null");
+                return entity.specialStat;
+            }
+            return new SpecialStatDisplaySettings()
+            {
+                enabled = true,
+                valueId = entity.statKeyword,
+                valueSource = SpecialStatValueSource.CustomStat,
+                includeSign = sign,
+                category = category.Entity,
+                displayOffset = offset,
+            };
         }
     }
 }

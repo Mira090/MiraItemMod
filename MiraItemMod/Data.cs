@@ -46,6 +46,7 @@ namespace MiraItemMod
         public static List<ModSephirite> Sephirites { get; private set; } = new List<ModSephirite>();
         public static List<ModTreeShopItem> TreeShops { get; private set; } = new List<ModTreeShopItem>();
         public static List<ModUnit> Units { get; private set; } = new List<ModUnit>();
+        public static List<ModSpecialStatCategory> SpecialStats { get; private set; } = new List<ModSpecialStatCategory>();
         public static List<string> AllResourcePrefabNames { get; private set; }
         public static Dictionary<string, List<ModCharm>> Jewelries { get; private set; } = new Dictionary<string, List<ModCharm>>();
         /// <summary>
@@ -1817,6 +1818,14 @@ namespace MiraItemMod
         public static ModEffectHUD EffectSacrificeDamage { get; } = ModEffectHUD.CreateBuffEffectHUD("SacrificeDamage");
         #endregion
 
+        #region SpecialStats
+        /// <summary>
+        /// ItemType_Charm
+        /// アーティファクト
+        /// </summary>
+        public static ModSpecialStatCategory SpecialStatCharm { get; } = ModSpecialStatCategory.CreateCategory("Charm", "ItemType_Charm", 80, new Color(1, 0.9104f, 0.9104f));
+        #endregion
+
         #region Keywords and Stats
         /// <summary>
         /// Status_StargazeLevel_Name
@@ -1897,14 +1906,16 @@ namespace MiraItemMod
         /// Status_AllDebuffStack_Description
         /// すべての<tag=Debuff>スタック数が増加します
         /// </summary>
-        public static ModCustomStatus AllDebuffStack { get; } = ModCustomStatus.CreateStatus<StatusInstance_AllDebuffStack>("AllDebuffStack").DoKeyword(keyword => keyword.SetNotDisplayDetails());
+        public static ModCustomStatus AllDebuffStack { get; } = ModCustomStatus.CreateStatus<StatusInstance_AllDebuffStack>("AllDebuffStack")
+            .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.AllDebuffStack)).SetSpecialStat(entity => entity.CreateSpecialStat(SpecialStatCategories.Debuff, 0, true));
         /// <summary>
         /// Status_JewelryCount_Name
         /// <tag=ItemRarity_Jewelry>アーティファクトの獲得回数
         /// Status_JewelryCount_Description
         /// <tag=ItemRarity_Jewelry>アーティファクトを入手した回数です
         /// </summary>
-        public static ModCustomStatus JewelryCount { get; } = ModCustomStatus.CreateStatus("JewelryCount").DoKeyword(keyword => keyword.SetNotDisplayDetails());
+        public static ModCustomStatus JewelryCount { get; } = ModCustomStatus.CreateStatus("JewelryCount").DoKeyword(keyword => keyword.SetNotDisplayDetails())
+            .SetSpecialStat(entity => entity.CreateSpecialStat(SpecialStatCharm));
         /// <summary>
         /// Status_ExcavationDamage_Name
         /// 発掘ダメージ
@@ -1968,7 +1979,9 @@ namespace MiraItemMod
         /// Status_PotionDrinkSpeed_Description
         /// ポーションを飲む速度が増加します
         /// </summary>
-        public static ModCustomStatus PotionDrinkSpeed { get; } = ModCustomStatus.CreateStatus("PotionDrinkSpeed").SetSymbol("%").DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.PotionDrinkSpeed));
+        public static ModCustomStatus PotionDrinkSpeed { get; } = ModCustomStatus.CreateStatus("PotionDrinkSpeed").SetSymbol("%")
+            .DoKeyword(keyword => keyword.SetNotDisplayDetails().SetKeywordImage(() => CustomSpriteAsset.PotionDrinkSpeed))
+            .SetSpecialStat(entity => entity.CreateSpecialStat(SpecialStatCharm, 100));
         /// <summary>
         /// Status_MagicExecution_Name
         /// 天罰
@@ -2555,8 +2568,8 @@ namespace MiraItemMod
         {
             if(ConfigManager.Config == null || !ConfigManager.Config.AddObsoletedWeapon)
             {
-            if (main.gameObject.TryGetComponent<WeaponAddonCommon_AdditionalElementalDamage>(out var status))
-            {
+                if (main.gameObject.TryGetComponent<WeaponAddonCommon_AdditionalElementalDamage>(out var status))
+                {
                     UnityEngine.Object.DestroyImmediate(status);
                 }
                 var elemental = main.gameObject.AddComponent<WeaponAddonCommon_ElementalBased>();
@@ -2576,20 +2589,20 @@ namespace MiraItemMod
             {
                 if (main.gameObject.TryGetComponent<WeaponAddonCommon_AdditionalElementalDamage>(out var status))
                 {
-                status.elementalType = EDamageElementalType.Ice;
-                status.additionalDamagePercent = 20;
-                status.statId = ECustomStat.IceDamage;
-                status.damageId = "Weapon_AdditionalElementalDamage_Ice";
-                status.effectText = new LocalizedString("WeaponAddon_Dagger_Ice_T2_Effect");
+                    status.elementalType = EDamageElementalType.Ice;
+                    status.additionalDamagePercent = 20;
+                    status.statId = ECustomStat.IceDamage;
+                    status.damageId = "Weapon_AdditionalElementalDamage_Ice";
+                    status.effectText = new LocalizedString("WeaponAddon_Dagger_Ice_T2_Effect");
 
-                var @unsafe = main.gameObject.AddComponent<WeaponAddonDagger_IceTrance>();
+                    var @unsafe = main.gameObject.AddComponent<WeaponAddonDagger_IceTrance>();
 
 
-                @unsafe.effectText = new LocalizedString("WeaponAddon_Dagger_Ice_T3_Frost_Effect");
-                @unsafe.parent = status.parent;
+                    @unsafe.effectText = new LocalizedString("WeaponAddon_Dagger_Ice_T3_Frost_Effect");
+                    @unsafe.parent = status.parent;
 
-                main.addons = new WeaponAddon[] { status, @unsafe };
-            }
+                    main.addons = new WeaponAddon[] { status, @unsafe };
+                }
             }
         }).SetBladeSprite(Vector3.zero)
             .SetFireDataChangeSpriteFx(ModWeapon.EAttackType.Basic, 20, () => new ModSpriteFx[] { DaggerIceAttack1Fx, DaggerIceAttack2Fx, DaggerIceAttack3Fx, DaggerIceAttack4Fx, DaggerIceAttack5Fx })
@@ -3142,6 +3155,14 @@ namespace MiraItemMod
                 assetId = GetNextAssetId(assetId);
                 Miracles.Add(moditem);
             }
+            var pros5pre = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType == typeof(ModSpecialStatCategory) || p.PropertyType.IsSubclassOf(typeof(ModSpecialStatCategory)));
+            foreach (var pro in pros5pre)
+            {
+                var moditem = pro.GetValue(type) as ModSpecialStatCategory;
+                Core.LoggerFew("New SpecialStatCategory: " + pro.Name);
+                moditem.Init();
+                SpecialStats.Add(moditem);
+            }
             var pros5 = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType == typeof(ModCustomStatus) || p.PropertyType.IsSubclassOf(typeof(ModCustomStatus)));
             foreach (var pro in pros5)
             {
@@ -3445,6 +3466,7 @@ namespace MiraItemMod
             //Core.LoggerMany(stats.ToAllString());
             foreach (var moditem in Statuses)
             {
+                moditem.OnRegister();
                 if(moditem.StatusEntity != null && !stats.Contains(moditem.StatusEntity.id))
                 {
                     list.Add(moditem.StatusEntity);
@@ -3455,6 +3477,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in Statuses)
             {
+                moditem.OnRegister();
                 StatusDatabase.Register(moditem.StatusEntity);
             }
         }
@@ -3536,6 +3559,24 @@ namespace MiraItemMod
                 }
                 if (moditem.WeaponEntity != null)
                     moditem.WeaponEntity.standardEnhancements = enhances.Select(x => new EnhancementMetadata() { enabled = true, enhanced = x }).ToList();
+            }
+        }
+        public static void RegisterSpecialStats()
+        {
+            //StatusDatabase.Registerで登録されるため不要
+            //Core.Logger("RegisterSpecialStats");
+            foreach (var moditem in Statuses)
+            {
+                if (moditem.StatusEntity == null || moditem.StatusEntity.specialStat == null)
+                    continue;
+                if (moditem.StatusEntity.specialStat.enabled)
+                {
+                    //Core.Logger("RegisterSpecialStats: " + moditem.Name);
+                    if (!SpecialStatDatabase.RegisterStatus(moditem.StatusEntity))
+                    {
+                        Core.LoggerError($"Faild register specialstat {moditem.Name}");
+                    }
+                }
             }
         }
         public static void RegisterWeapons()
@@ -3635,20 +3676,6 @@ namespace MiraItemMod
                         //Core.LoggerFew(moditem.WeaponEntity.name + ": " + moditem.WeaponEntity.standardEnhancements[^1].enhanced.name + "(" + moditem.WeaponEntity.standardEnhancements[^1].enabled + ")");
                 }
             }
-        }
-        [Obsolete]
-        public static void RegisterCostume(List<UnityEngine.Object> list)
-        {
-            if (list[0] is CostumeEntity entity && entity.costumePrefab.TryGetComponent<PlayerAvatarCostume>(out var costume))
-            {
-                CustomCostumeDatabase.InitializeGameObject(costume);
-                list.AddRange(CustomCostumeDatabase.CreateAll());
-            }
-        }
-        [Obsolete]
-        public static void RegisterCostumeSkin(List<UnityEngine.Object> list)
-        {
-            list.AddRange(CustomCostumeDatabase.CreateAllSkin());
         }
         public static void RegisterKeywords(List<UnityEngine.Object> list)
         {
