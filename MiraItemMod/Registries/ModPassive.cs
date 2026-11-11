@@ -75,6 +75,15 @@ namespace MiraItemMod.Registries
             entity.lv20PerkPrefab = Lv20Perk?.PerkPrefab;
             return entity;
         }
+        public virtual void OnRegister()
+        {
+            if (Lv5Perk != null)
+                Lv5Perk.OnRegister();
+            if (Lv10Perk != null)
+                Lv10Perk.OnRegister();
+            if (Lv20Perk != null)
+                Lv20Perk.OnRegister();
+        }
         public void Dispose()
         {
             if (PassiveEntity != null)

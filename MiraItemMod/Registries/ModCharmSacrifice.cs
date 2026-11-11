@@ -29,7 +29,6 @@ namespace MiraItemMod.Registries
             var charm = o.AddComponent(CharmType) as Charm_Sacrifice;
             //Core.Logger($"CreateCharm");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             charm.maxLevel = MaxLevel;
             charm.effectsString = Effects;
@@ -38,7 +37,7 @@ namespace MiraItemMod.Registries
             charm.isWeaponRelatedCharm = IsWeaponRelatedCharm;
             charm.relatedWeapon = RelatedWeapon;
             //dcharm.rewardEntity = RewardEntity();
-            charm.enabled = false;
+            //charm.enabled = false;
             return o;
         }
         public override void LateInit()

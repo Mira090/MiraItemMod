@@ -98,12 +98,17 @@ namespace MiraItemMod.Registries
             var combo = o.AddComponent(ComboEffectType) as ComboEffectBase;
             //Core.Logger($"CreateComboEffect");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             combo.addStatByCombo = Stats;
             combo.defaultEffect = DefaultEffect;
-            combo.enabled = false;
+            //combo.enabled = false;
             return o;
+        }
+        public virtual void OnRegister()
+        {
+            if (_resourcePrefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(_resourcePrefab, $"{Core.ModId}:{Name}");
         }
         public void Dispose()
         {

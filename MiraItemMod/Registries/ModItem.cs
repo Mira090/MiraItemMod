@@ -74,6 +74,12 @@ namespace MiraItemMod.Registries
         {
 
         }
+        public virtual void OnRegister()
+        {
+            if (ResourcePrefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(ResourcePrefab, Core.ModId + ":" + Name);
+        }
         protected virtual ItemEntity CreateInstance()
         {
             if (IsJewelry)

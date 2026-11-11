@@ -44,7 +44,6 @@ namespace MiraItemMod.Registries
         {
             var original = UnityEngine.Object.Instantiate(SephiriaPrefabs.SephiriteLvUp, new Vector3(-1000f, -1000f), Quaternion.identity);
             original.name = "Sephirite_" + Name;
-            original.hideFlags = HideFlags.HideAndDontSave;
             original.SetAssetId(AssetId);
             if (!original.TryGetComponent<Sephirite>(out var sephi))
                 return null;
@@ -60,6 +59,12 @@ namespace MiraItemMod.Registries
             UnityEngine.Object.Destroy(sephi);
             //sephirite.enabled = false;
             return sephirite.gameObject;
+        }
+        public virtual void OnRegister()
+        {
+            if (Prefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(Prefab, $"{Core.ModId}:{Name}");
         }
         public void Dispose()
         {

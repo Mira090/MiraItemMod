@@ -41,6 +41,12 @@ namespace MiraItemMod.Registries
             if (DamageId != null)
                 DamageIdEntity = DamageId.CreateEntity();
         }
+        public virtual void OnRegister()
+        {
+            if (PerkPrefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(PerkPrefab, $"{Core.ModId}:{PerkLv.ToUpperString()}_{Name}");
+        }
         public GameObject CreateResourcePrefab()
         {
             var o = new GameObject($"{Parent.Id}_{PerkLv.ToUpperString()}_{Name}");
@@ -49,12 +55,12 @@ namespace MiraItemMod.Registries
             meta.icon = AssetLoader.LoadSprite(IconPath);
             o.AddComponent<LogComponent>();
             //Core.Logger($"CreatePassivePerk");
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             if (PerkSupplier != null)
             {
                 var effect = PerkSupplier.Invoke(o);
-                effect.enabled = false;
+                //パーク効果に対する共通処理があるならここで
+                //effect.enabled = false;
             }
             else
             {

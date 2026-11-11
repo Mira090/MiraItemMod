@@ -50,5 +50,13 @@ namespace MiraItemMod.Registries
                 summon.unitPrefab = unit.Prefab;
             }
         }
+        public override void OnRegister()
+        {
+            base.OnRegister();
+            var unit = GetUnit?.Invoke();
+            if (unit == null)
+                return;
+            unit.OnRegister();
+        }
     }
 }

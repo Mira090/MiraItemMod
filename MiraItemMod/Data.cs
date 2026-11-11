@@ -2995,9 +2995,9 @@ namespace MiraItemMod
         #endregion
 
         public static ModSephirite SephiriteJewelry { get; } = ModSephirite.Create<Sephirite_Jewelry>("Jewelry").SetAppearLimit(2);
-        public static ModSephirite SephiriteMachina { get; } = ModSephirite.Create<Sephirite_Machina>("Machina").SetAppearLimit(3);
-        public static ModSephirite SephiriteBond { get; } = ModSephirite.Create<Sephirite_Bond>("Bond").SetAppearLimit(3);
-        public static ModSephirite SephiriteWitchHat { get; } = ModSephirite.Create<Sephirite_WitchHat>("Bond").SetAppearLimit(3);
+        //public static ModSephirite SephiriteMachina { get; } = ModSephirite.Create<Sephirite_Machina>("Machina").SetAppearLimit(3);
+        //public static ModSephirite SephiriteBond { get; } = ModSephirite.Create<Sephirite_Bond>("Bond").SetAppearLimit(3);
+        //public static ModSephirite SephiriteWitchHat { get; } = ModSephirite.Create<Sephirite_WitchHat>("WitchHat").SetAppearLimit(3);
 
         public static ModTreeShopItem NewCharmBond2 { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Bond2", string.Empty,
             TreeShopItems.NewCharmBond2, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Right, 8);
@@ -3255,6 +3255,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in All)
             {
+                moditem.OnRegister();
                 list.Add(moditem.ItemEntity);
             }
         }
@@ -3262,6 +3263,7 @@ namespace MiraItemMod
         {
             foreach(var moditem in All)
             {
+                moditem.OnRegister();
                 moditem.SetActive();
                 ItemDatabase.Register(moditem.ItemEntity);
             }
@@ -3314,6 +3316,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in Combos)
             {
+                moditem.OnRegister();
                 list.Add(moditem.ItemCategoryEntity);
             }
         }
@@ -3372,6 +3375,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in Miracles)
             {
+                moditem.OnRegister();
                 moditem.SetActive();
                 if (moditem.IsActive)
                     list.Add(moditem.Prefab);
@@ -3381,6 +3385,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in Miracles)
             {
+                moditem.OnRegister();
                 moditem.SetActive();
                 if (moditem.IsActive)
                     MiracleDatabase.Register(moditem.Prefab);
@@ -3522,6 +3527,7 @@ namespace MiraItemMod
                     moditem.InitPrefab(copy);
                     moditem.WeaponEntity.mainWeaponPrefab = moditem.MainWeaponPrefab;
                 }
+                moditem.OnRegister();
                 list.Add(moditem.WeaponEntity);
             }
 
@@ -3625,6 +3631,7 @@ namespace MiraItemMod
                     moditem.InitPrefab(copy);
                     moditem.WeaponEntity.mainWeaponPrefab = moditem.MainWeaponPrefab;
                 }
+                moditem.OnRegister();
                 WeaponDatabase.Register(moditem.WeaponEntity);
                 weapons.Add(moditem.WeaponEntity);
             }
@@ -3716,6 +3723,7 @@ namespace MiraItemMod
         {
             foreach (var moditem in Passives)
             {
+                moditem.OnRegister();
                 moditem.SetActive();
                 list.Add(moditem.PassiveEntity);
             }
@@ -3725,6 +3733,7 @@ namespace MiraItemMod
         {
             foreach(var moditem in Buffs)
             {
+                moditem.OnRegister();
                 list.Add(moditem);
             }
         }
@@ -3765,6 +3774,14 @@ namespace MiraItemMod
                         }
                     }
                 }
+            }
+        }
+
+        public static void RegisterSephirites()
+        {
+            foreach(var moditem in Sephirites)
+            {
+                moditem.OnRegister();
             }
         }
 
@@ -3858,7 +3875,7 @@ namespace MiraItemMod
             var buff = ob.AddComponent<T>();
             buff.id = name.ToFileNameUpper();
             buff.HUD_ID = hud.ToSephiriaUpperId();
-            buff.enabled = false;
+            //buff.enabled = false;
             return buff;
         }
         public static T CreateBuff<T>(string name, string hud, int stack, params BuffStatus[] status) where T : CharacterBuffMod_StatusInstance
@@ -3870,7 +3887,7 @@ namespace MiraItemMod
             buff.HUD_ID = hud.ToSephiriaUpperId();
             buff.maxStackCount = stack;
             buff.add = status;
-            buff.enabled = false;
+            //buff.enabled = false;
             return buff;
         }
         public static CharacterBuffMod_StatusInstance CreateBuff(string name, string hud, int stack, params BuffStatus[] status)
@@ -3883,7 +3900,7 @@ namespace MiraItemMod
             buff.HUD_ID = hud.ToSephiriaUpperId();
             buff.maxStackCount = stack;
             buff.add = status;
-            buff.enabled = false;
+            //buff.enabled = false;
             return buff;
         }
         public static BuffStatus CreateBuffStatus(string id, int value)

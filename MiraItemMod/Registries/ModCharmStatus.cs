@@ -28,7 +28,6 @@ namespace MiraItemMod.Registries
             var charm = o.AddComponent(CharmType) as Charm_StatusInstance;
             //Core.Logger($"CreateCharm");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             charm.maxLevel = MaxLevel;
             charm.effectsString = Effects;
@@ -44,7 +43,7 @@ namespace MiraItemMod.Registries
             {
                 variable2.originalMaxLevel = MaxLevel;
             }
-            charm.enabled = false;
+            //charm.enabled = false;
             return o;
         }
         public virtual void ChangeStats(params Charm_StatusInstance.StatusGroup[] stats)

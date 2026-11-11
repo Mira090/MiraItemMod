@@ -164,7 +164,7 @@ namespace MiraItemMod.Registries
                     shield.weaponStencilRenderer.sprite = sprite;
                 }
                 MainPrefabModifier?.Invoke(simple);
-                simple.enabled = false;
+                //simple.enabled = false;
             }
 
             MainWeaponPrefab = main;
@@ -181,6 +181,12 @@ namespace MiraItemMod.Registries
             if(EnhanceFromId.HasValue)
                 entity.enhanceFromId = EnhanceFromId.Value;
             return entity;
+        }
+        public virtual void OnRegister()
+        {
+            if (MainWeaponPrefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(MainWeaponPrefab, $"{Core.ModId}:{Name}");
         }
         public Action<NewWeaponFireData[]> BasicAttacksModifier { get; internal set; }
         public List<NewWeaponFireData> NewBasicAttacks { get; internal set; } = new List<NewWeaponFireData>();

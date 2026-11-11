@@ -28,7 +28,6 @@ namespace MiraItemMod.Registries
             var charm = o.AddComponent(CharmType) as Charm_AddOrphanedStatusInstance;
             //Core.Logger($"CreateCharm");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             charm.maxLevel = MaxLevel;
             charm.effectsString = Effects;
@@ -36,7 +35,7 @@ namespace MiraItemMod.Registries
             charm.stats = Stats;
             charm.isWeaponRelatedCharm = IsWeaponRelatedCharm;
             charm.relatedWeapon = RelatedWeapon;
-            charm.enabled = false;
+            //charm.enabled = false;
             return o;
         }
     }

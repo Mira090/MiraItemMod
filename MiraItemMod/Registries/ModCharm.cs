@@ -36,14 +36,13 @@ namespace MiraItemMod.Registries
             var charm = o.AddComponent(CharmType) as Charm_Basic;
             //Core.Logger($"CreateCharm");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             charm.maxLevel = MaxLevel;
             charm.effectsString = Effects;
             charm.isUniqueEffect = IsUniqueEffect;
             charm.isWeaponRelatedCharm = IsWeaponRelatedCharm;
             charm.relatedWeapon = RelatedWeapon;
-            charm.enabled = false;
+            //charm.enabled = false;
             if (charm is Charm_VariableMaxLevel variable)
             {
                 variable.originalMaxLevel = MaxLevel;

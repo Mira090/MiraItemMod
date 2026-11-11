@@ -7,9 +7,11 @@ namespace MiraItemMod.Utilities
 {
     public class LogComponent : MonoBehaviour
     {
+        public static bool Log = false;
         private void Awake()
         {
-            Core.LoggerFew("Awake: " + name);
+            if (Log)
+                Core.LoggerFew("Awake: " + name);
         }
         private void Start()
         {
@@ -17,7 +19,8 @@ namespace MiraItemMod.Utilities
         }
         private void OnDestroy()
         {
-            Core.LoggerFew("OnDestroy: " + name);
+            if (Log)
+                Core.LoggerFew("OnDestroy: " + name);
             //Core.LoggerMany($"[OnDestroy] {gameObject.name} destroyed!\n{Environment.StackTrace}");
         }
     }

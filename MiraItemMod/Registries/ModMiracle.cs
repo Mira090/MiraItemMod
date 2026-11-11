@@ -56,7 +56,6 @@ namespace MiraItemMod.Registries
             var miracle = o.AddComponent(MiracleType) as Miracle;
             //Core.Logger($"CreateMiracle");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             miracle.id = Id;
             miracle.aName = LocalizedName;
@@ -67,6 +66,12 @@ namespace MiraItemMod.Registries
             miracle.effects = Effects;
             //miracle.enabled = false;
             return o;
+        }
+        public virtual void OnRegister()
+        {
+            if (Prefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(Prefab, $"{Core.ModId}:{Name}");
         }
         public virtual void LoadManuallyGivenItems()
         {

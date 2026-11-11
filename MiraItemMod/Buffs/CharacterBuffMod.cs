@@ -1,9 +1,10 @@
-﻿using Mirror;
+﻿using MiraItemMod.Registries;
 using MiraItemMod.Utilities;
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MiraItemMod.Registries;
+using System.Xml.Linq;
 
 namespace MiraItemMod.Buffs
 {
@@ -14,7 +15,7 @@ namespace MiraItemMod.Buffs
         protected override void InitializeInner(UnitAvatar target, float amplified)
         {
             base.InitializeInner(target, amplified);
-            enabled = true;
+            //enabled = true;
         }
         public void Init(uint assetId)
         {
@@ -31,6 +32,10 @@ namespace MiraItemMod.Buffs
             {
                 RequestEnd();
             }
+        }
+        public virtual void OnRegister()
+        {
+            HorayModAPI.RegisterNetworkPrefab(gameObject, $"{Core.ModId}:{ID}");
         }
     }
 }

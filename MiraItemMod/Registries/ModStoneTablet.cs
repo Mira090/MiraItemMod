@@ -38,9 +38,8 @@ namespace MiraItemMod.Registries
             tablet.isRotatable = IsRotatable;
             //Core.Logger($"CreateStoneTablet");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
-            tablet.enabled = false;
+            //tablet.enabled = false;
             return o;
         }
         public override Func<ModConfig, bool> ActivePredicate { get; set; } = config => config.AddItem && config.AddStoneTablet;

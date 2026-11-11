@@ -66,11 +66,11 @@ namespace MiraItemMod.Registries
                 var face = AssetLoader.LoadSprite(ModUtil.UnitPath + Name + "\\FaceChip");
                 avatar.faceChipSprite = face;
                 avatar.miniFaceChipSprite = face;
-                avatar.enabled = false;
+                //avatar.enabled = false;
             }
             if(Prefab.TryGetComponent<UnitAI_NewBasic>(out var ai))
             {
-                ai.enabled = false;
+                //ai.enabled = false;
 
                 if (Prefab.transform.Find("Hitbox") is Transform hitbox)
                 {
@@ -86,6 +86,12 @@ namespace MiraItemMod.Registries
             {
                 AnimationSet = AnimationMetadata.CreateAnimationSet(Name);
             }
+        }
+        public virtual void OnRegister()
+        {
+            if (Prefab == null)
+                return;
+            HorayModAPI.RegisterNetworkPrefab(Prefab, $"{Core.ModId}:{Name}");
         }
 
 

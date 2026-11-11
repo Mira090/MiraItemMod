@@ -29,7 +29,6 @@ namespace MiraItemMod.Registries
             var miracle = o.AddComponent(MiracleType) as Miracle_StatusInstance;
             //Core.Logger($"CreateMiracleStatus");
             o.AddComponent<LogComponent>();
-            o.hideFlags = HideFlags.HideAndDontSave;
             o.SetAssetId(AssetId);
             miracle.id = Id;
             miracle.aName = LocalizedName;
