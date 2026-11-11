@@ -3561,6 +3561,7 @@ namespace MiraItemMod
                     moditem.WeaponEntity.standardEnhancements = enhances.Select(x => new EnhancementMetadata() { enabled = true, enhanced = x }).ToList();
             }
         }
+        [Obsolete]
         public static void RegisterSpecialStats()
         {
             //StatusDatabase.Registerで登録されるため不要
