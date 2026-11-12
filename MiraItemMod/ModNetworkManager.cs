@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using static UnityEngine.UI.Image;
 
-namespace MiraItemMod.Registries
+namespace MiraItemMod
 {
     public static class ModNetworkManager
     {
