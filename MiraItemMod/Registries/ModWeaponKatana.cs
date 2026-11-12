@@ -16,8 +16,8 @@ namespace MiraItemMod.Registries
         internal ModWeaponKatana SetKatana(string name, int copy, int dependency)
         {
             SetWeapon(name, copy, dependency);
-            ScabbardSpriteFileName = ModUtil.WeaponPath + name + "_Scabbard";
-            SheathSpriteFileName = ModUtil.WeaponPath + name + "_Sheath";
+            ScabbardSpriteFileName = EAssetType.Weapon.ToPath(name + "_Scabbard");
+            SheathSpriteFileName = EAssetType.Weapon.ToPath(name + "_Sheath");
             return this;
         }
         public string ScabbardSpriteFileName { get; internal set; }

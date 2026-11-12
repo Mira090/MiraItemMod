@@ -23,7 +23,7 @@ namespace MiraItemMod.Registries
         public string Name { get; internal set; } = "DaggerDashFx_Ice";
         public string OriginalName { get; internal set; }
         public int TimelineCount { get; internal set; }
-        public string SpritePath { get; internal set; } = ModUtil.WeaponPath + "Dagger_Ice\\Weapon_Dagger_DashAttack_";
+        public string SpritePath { get; internal set; } = EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_DashAttack_");
         public bool CopyPivot { get; internal set; } = false;
         public int? Fps { get; internal set; }
 

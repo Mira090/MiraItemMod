@@ -183,7 +183,7 @@ namespace MiraItemMod.Registries
                 {
                     var timeline = new SpriteKeyFrame();
                     timeline.frameIdx = time.frameIdx;
-                    timeline.sprite = AssetLoader.LoadSpriteForCostume(Path.Combine(dir, time.sprite));
+                    timeline.sprite = AssetLoader.LoadSprite(Path.Combine(dir, time.sprite), new Vector2(0.5f, 0.2f));
                     info.timeline.Add(timeline);
                 }
 

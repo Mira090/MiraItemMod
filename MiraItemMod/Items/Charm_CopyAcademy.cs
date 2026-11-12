@@ -29,7 +29,7 @@ namespace MiraItemMod.Items
         }
         public void Start()
         {
-            magicCharmIconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Academy_Charm");
+            magicCharmIconSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("Academy_Charm"));
             Events.OnValueRecieved += OnValueRecieved;
         }
         protected override void OnDestroy()

@@ -17,7 +17,7 @@ namespace MiraItemMod.Registries
             Parent = parent;
             Name = name;
             EffectString = new LocalizedString($"Passive_{parent.Name}_Effect_{lv.ToUpperString()}");
-            IconPath = ModUtil.PassivePath + parent.Name + "_Perk_" + lv.ToUpperString();
+            IconPath = EAssetType.Passive.ToPath(parent.Name + "_Perk_" + lv.ToUpperString());
             return this;
         }
         public ModPassive Parent { get; private set; }

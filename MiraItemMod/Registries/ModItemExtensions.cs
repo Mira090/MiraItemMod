@@ -71,7 +71,7 @@ namespace MiraItemMod.Registries
             item.CannotThrow = true;
             if(item is ModCharm charm)
                 charm.IsUniqueEffect = true;
-            item.IconFileName = ModUtil.ItemPath + "Sacrifice";
+            item.IconFileName = EAssetType.Item.ToPath("Sacrifice");
             return item;
         }
         public static T SetCategory<T>(this T item, params string[] categories) where T : ModItem

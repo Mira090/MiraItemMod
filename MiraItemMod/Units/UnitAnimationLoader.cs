@@ -14,7 +14,7 @@ namespace MiraItemMod.Units
     {
         public static UnitAnimationMetadata LoadMetadata(ModUnit mod)
         {
-            return LoadMetadata(AssetLoader.GetAssetsFolder(ModUtil.UnitPath + mod.Name + "\\Metadata.json"));
+            return LoadMetadata(Core.Instance.GetAssetsPath(EAssetType.Unit.ToPath(mod.Name, "Metadata"), ".json"));
         }
         public static UnitAnimationMetadata LoadMetadata(string path)
         {
@@ -25,6 +25,11 @@ namespace MiraItemMod.Units
             fileStream.Close();
             return metadata;
         }
+        /// <summary>
+        /// UnityExplorerなどを使用して呼び出す
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static string SaveMetadata(int id)
         {
             var item = ItemDatabase.FindItemById(id);

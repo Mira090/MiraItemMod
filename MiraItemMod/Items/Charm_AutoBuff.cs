@@ -146,7 +146,7 @@ namespace MiraItemMod.Items
         private void Start()
         {
             TopdownActor = NetworkAvatar.GetComponent<TopdownActorRenderingMetadata>();
-            magicCharmIconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "MagicBookEmpty");
+            magicCharmIconSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("MagicBookEmpty"));
         }
         protected override void Update()
         {

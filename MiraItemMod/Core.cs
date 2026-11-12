@@ -86,6 +86,7 @@ namespace MiraItemMod
 
                 ConfigManager.Init(this);
                 CustomSpriteAsset.InitSprites();
+                DefaultAssets.Initialize();
                 Data.Init();
 
                 CustomSpriteAsset.InitSpriteAsset();
@@ -119,6 +120,7 @@ namespace MiraItemMod
             IsInitialized = false;
 
             ModCompat.Destroy();
+            DefaultAssets.Destroy();
 
             if (ModSingletonObject != null)
             {
@@ -314,8 +316,6 @@ namespace MiraItemMod
         }
         private void OnLocalizationReady(HorayModLocalizationContext context)
         {
-            AssetLoader.LoadLocalization(context);
-
             foreach (var moditem in Data.Weapons)
             {
                 moditem.OnSpriteFxRegistered();

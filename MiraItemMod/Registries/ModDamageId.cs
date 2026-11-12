@@ -12,15 +12,14 @@ namespace MiraItemMod.Registries
         public LocalizedString Name { get; internal set; }
         public DamageIdEntity.ECategory Category { get; internal set; }
         public Sprite Icon { get; internal set; }
-        public string IconFileName { get; internal set; }
+        public string IconFileName { get; internal set; } = string.Empty;
         public static ModDamageId CreateCharm(string id)
         {
             var damageId = new ModDamageId
             {
                 Name = new LocalizedString("Item_" + id + "_Name"),
                 Id = "Charm_" + id.Replace("_", ""),
-                Category = DamageIdEntity.ECategory.Charm,
-                IconFileName = ModUtil.MiscPath + "DealUIArtifact"
+                Category = DamageIdEntity.ECategory.Charm
             };
             return damageId;
         }
@@ -30,8 +29,7 @@ namespace MiraItemMod.Registries
             {
                 Name = new LocalizedString("Ability_" + id + "_Name"),
                 Id = "Ability_" + id.Replace("_", ""),
-                Category = DamageIdEntity.ECategory.Ability,
-                IconFileName = ModUtil.MiscPath + "DealUIAbility"
+                Category = DamageIdEntity.ECategory.Ability
             };
             return damageId;
         }
@@ -41,8 +39,7 @@ namespace MiraItemMod.Registries
             {
                 Name = new LocalizedString("Debuff_" + id + "_Name"),
                 Id = "Debuff_" + id.Replace("_", ""),
-                Category = DamageIdEntity.ECategory.Ability,
-                IconFileName = ModUtil.MiscPath + "DealUIAbility"
+                Category = DamageIdEntity.ECategory.Ability
             };
             return damageId;
         }
@@ -52,8 +49,7 @@ namespace MiraItemMod.Registries
             {
                 Name = new LocalizedString(key),
                 Id = "Debuff_" + id.Replace("_", ""),
-                Category = DamageIdEntity.ECategory.Ability,
-                IconFileName = ModUtil.MiscPath + "DealUIAbility"
+                Category = DamageIdEntity.ECategory.Ability
             };
             return damageId;
         }
@@ -63,8 +59,7 @@ namespace MiraItemMod.Registries
             {
                 Name = new LocalizedString("Perk_" + id + "_Name"),
                 Id = "Perk_" + id.Replace("_", ""),
-                Category = DamageIdEntity.ECategory.Ability,
-                IconFileName = ModUtil.MiscPath + "DealUIAbility"
+                Category = DamageIdEntity.ECategory.Ability
             };
             return damageId;
         }
@@ -73,10 +68,22 @@ namespace MiraItemMod.Registries
             var entity = ScriptableObject.CreateInstance<DamageIdEntity>();
             entity.aName = Name;
             entity.category = Category;
-            entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
+            entity.icon = GetIcon();
             entity.name = Id;
             entity.id = Id;
             return entity;
+        }
+        protected Sprite GetIcon()
+        {
+            if (Icon)
+                return Icon;
+            if (!string.IsNullOrEmpty(IconFileName))
+            {
+                var icon = AssetLoader.LoadSprite(IconFileName);
+                if (icon)
+                    return icon;
+            }
+            return DefaultAssets.GetDealUI(Category);
         }
     }
 }

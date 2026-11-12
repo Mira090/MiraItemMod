@@ -63,7 +63,7 @@ namespace MiraItemMod.Registries
             }
             if(Prefab.TryGetComponent<UnitAvatar>(out var avatar))
             {
-                var face = AssetLoader.LoadSprite(ModUtil.UnitPath + Name + "\\FaceChip");
+                var face = AssetLoader.LoadSprite(EAssetType.Unit.ToPath(Name, "FaceChip"));
                 avatar.faceChipSprite = face;
                 avatar.miniFaceChipSprite = face;
                 //avatar.enabled = false;

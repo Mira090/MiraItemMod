@@ -7,8 +7,39 @@ using UnityEngine;
 
 namespace MiraItemMod.Utilities
 {
-    public class AssetLoader
+    public static class AssetLoader
     {
+        private static WorkshopModBase Mod => Core.Instance;
+        public static string GetAssetsPath(this WorkshopModBase mod, string name, string ext = ".png")
+        {
+            try
+            {
+                if (name.EndsWith(ext))
+                    return mod.Context.ResolvePath("Assets/" + name);
+                else
+                    return mod.Context.ResolvePath("Assets/" + name + ext);
+            }
+            catch (Exception e)
+            {
+                Core.LoggerWarning(e);
+                return string.Empty;
+            }
+        }
+        public static string GetAssetsPath(this WorkshopModBase mod, EAssetType type, string name, string ext = ".png")
+        {
+            try
+            {
+                if (name.EndsWith(ext))
+                    return mod.Context.ResolvePath("Assets/" + type.ToPath(name));
+                else
+                    return mod.Context.ResolvePath("Assets/" + type.ToPath(name) + ext);
+            }
+            catch (Exception e)
+            {
+                Core.LoggerWarning(e);
+                return string.Empty;
+            }
+        }
         public static string GetAssetsPath(string name)
         {
             string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -27,7 +58,9 @@ namespace MiraItemMod.Utilities
         }
         public static Sprite LoadSprite(string name)
         {
-            var path = GetAssetsPath(name);
+            var path = Mod.GetAssetsPath(name);
+            if (string.IsNullOrEmpty(path))
+                return null;
             if (!File.Exists(path))
             {
                 Core.LoggerWarning(path + " is not exist!");
@@ -50,7 +83,9 @@ namespace MiraItemMod.Utilities
         }
         public static Sprite LoadSpriteForUnit(string name)
         {
-            var path = GetAssetsFolder(name);
+            var path = Mod.GetAssetsPath(name);
+            if (string.IsNullOrEmpty(path))
+                return null;
             if (!File.Exists(path))
             {
                 Core.LoggerWarning(path + " is not exist!");
@@ -73,7 +108,9 @@ namespace MiraItemMod.Utilities
         }
         public static Sprite LoadSprite(string name, Vector2 pivot)
         {
-            var path = GetAssetsPath(name);
+            var path = Mod.GetAssetsPath(name);
+            if (string.IsNullOrEmpty(path))
+                return null;
             if (!File.Exists(path))
             {
                 Core.LoggerWarning(path + " is not exist!");
@@ -96,7 +133,9 @@ namespace MiraItemMod.Utilities
         }
         public static Sprite LoadSpriteWithBorder(string name, Vector4 border)
         {
-            var path = GetAssetsPath(name);
+            var path = Mod.GetAssetsPath(name);
+            if (string.IsNullOrEmpty(path))
+                return null;
             if (!File.Exists(path))
             {
                 Core.LoggerWarning(path + " is not exist!");
@@ -119,7 +158,9 @@ namespace MiraItemMod.Utilities
         }
         public static Sprite LoadSprite(string name, Rect rect)
         {
-            var path = GetAssetsPath(name);
+            var path = Mod.GetAssetsPath(name);
+            if (string.IsNullOrEmpty(path))
+                return null;
             if (!File.Exists(path))
             {
                 Core.LoggerWarning(path + " is not exist!");
@@ -152,72 +193,8 @@ namespace MiraItemMod.Utilities
             //sprite.bounds.extents = new Vector3(sprite.bounds.extents.x * 6, sprite.bounds.extents.y * 6, sprite.bounds.extents.z);
             return sprite;
         }
-        /// <summary>
-        /// ピボットがLoadSprite()と違う
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static Sprite LoadSpriteForCostume(string path)
-        {
-            if (!File.Exists(path))
-            {
-                Core.LoggerWarning(path + " is not exist!");
-                return null;
-            }
 
-            byte[] fileData = File.ReadAllBytes(path);
-            Texture2D tex = new Texture2D(2, 2, TextureFormat.ARGB32, false);
-            tex.LoadImage(fileData);
-
-            var sprite = Sprite.Create(
-                tex,
-                new Rect(0, 0, tex.width, tex.height),
-                new Vector2(0.5f, 0.2f), 16
-            );
-            sprite.name = Path.GetFileNameWithoutExtension(path);
-            sprite.texture.filterMode = FilterMode.Point;
-            //sprite.bounds.extents = new Vector3(sprite.bounds.extents.x * 6, sprite.bounds.extents.y * 6, sprite.bounds.extents.z);
-            return sprite;
-        }
-        public static void LoadLocalization(HorayModLocalizationContext context)
-        {
-            if (!Directory.Exists(AssetLoader.GetAssetsFolder(ModUtil.LocalizationPath)))
-                return;
-            foreach (string item in Directory.EnumerateFiles(Path.Combine(AssetLoader.GetAssetsFolder(ModUtil.LocalizationPath)), "*.json"))
-            {
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(item);
-                if (fileNameWithoutExtension.StartsWith("._") || ShouldSkipNonLocaleJsonFile(fileNameWithoutExtension))
-                {
-                    continue;
-                }
-
-                SortedDictionary<string, string> sortedDictionary = new SortedDictionary<string, string>();
-                try
-                {
-                    using FileStream stream = new FileStream(item, FileMode.Open, FileAccess.Read);
-                    using StreamReader streamReader = new StreamReader(stream);
-                    sortedDictionary = JsonConvert.DeserializeObject<SortedDictionary<string, string>>(streamReader.ReadToEnd());
-                }
-                catch (Exception exception)
-                {
-                    Debug.LogException(exception);
-                    sortedDictionary = null;
-                }
-
-                if (sortedDictionary != null)
-                {
-                    foreach (var pair in sortedDictionary)
-                    {
-                        context.AddText(fileNameWithoutExtension, pair.Key, pair.Value);
-                    }
-                }
-            }
-        }
-        private static bool ShouldSkipNonLocaleJsonFile(string fileNameWithoutExtension)
-        {
-            return string.Equals(fileNameWithoutExtension, "glossary", StringComparison.OrdinalIgnoreCase);
-        }
-
+        [Obsolete]
         public static void SaveSprite(Sprite sprite, string name)
         {
             if (sprite == null)

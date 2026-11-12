@@ -43,15 +43,15 @@ namespace MiraItemMod.Registries
         public static Sprite TreeIconArtifactSacrifice;
         public static void InitSprites()
         {
-            NoneCategoryIcon = AssetLoader.LoadSprite(ModUtil.ItemCategoryPath + "None");
-            TreeIconArtifact = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_Artifact");
-            TreeIconArtifactBond = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_DuoArtifact");
-            TreeIconArtifactSacrifice = AssetLoader.LoadSprite(ModUtil.UIPath + "TreeIcon_SacrificeArtifact");
+            NoneCategoryIcon = AssetLoader.LoadSprite(EAssetType.ItemCategory.ToPath("None"));
+            TreeIconArtifact = AssetLoader.LoadSprite(EAssetType.UI.ToPath("TreeIcon_Artifact"));
+            TreeIconArtifactBond = AssetLoader.LoadSprite(EAssetType.UI.ToPath("TreeIcon_DuoArtifact"));
+            TreeIconArtifactSacrifice = AssetLoader.LoadSprite(EAssetType.UI.ToPath("TreeIcon_SacrificeArtifact"));
 
-            NewKeywordSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "Keyword");
+            NewKeywordSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Keyword"));
             if(NewKeywordSprite == null)
             {
-                Core.LoggerWarning("Failed to load Keyword sprite sheet!\nPlease place the keyword image in path " + AssetLoader.GetAssetsPath(ModUtil.UIPath + "Keyword"));
+                Core.LoggerError("Failed to load Keyword sprite sheet!");
                 return;
             }
             NewKeywordSprite.texture.wrapMode = TextureWrapMode.Clamp;

@@ -102,7 +102,7 @@ namespace MiraItemMod
             {
                 if(SacrificeBGSprite == null)
                 {
-                    SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
+                    SacrificeBGSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot_New1_1Sacrifice"));
                 }
 
                 ItemEntity itemEntity = ItemDatabase.FindItemById(__instance.Item.entityID);
@@ -123,7 +123,7 @@ namespace MiraItemMod
             {
                 if (UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite == null)
                 {
-                    UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot_New1_1Sacrifice");
+                    UI_ItemIconUpdateRarityBGPatch.SacrificeBGSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot_New1_1Sacrifice"));
                 }
 
                 NewItemOwnInstance newItemOwnInstance = __instance.Inventory.FindItem(__instance.X, __instance.Y);
@@ -151,11 +151,11 @@ namespace MiraItemMod
             {
                 if (SacrificeBGSprite == null)
                 {
-                    SacrificeBGSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0_Sacrifice");
+                    SacrificeBGSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot0_Sacrifice"));
                 }
                 if (SacrificeBGSpriteSelected == null)
                 {
-                    SacrificeBGSpriteSelected = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot1_Sacrifice");
+                    SacrificeBGSpriteSelected = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot1_Sacrifice"));
                 }
                 if (DefaultBGSprite == null && __instance.bgImage != SacrificeBGSprite)
                 {

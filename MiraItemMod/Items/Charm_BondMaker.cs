@@ -15,7 +15,7 @@ namespace MiraItemMod.Items
         private Sprite charmSprite;
         private void Start()
         {
-            charmSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "DealUIArtifact");
+            charmSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("DealUIArtifact"));
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

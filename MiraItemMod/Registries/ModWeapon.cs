@@ -39,11 +39,11 @@ namespace MiraItemMod.Registries
         {
             Name = name;
             LocalizedName = new LocalizedString("Weapon_" + name + "_Name");
-            IconFileName = ModUtil.WeaponPath + name;
-            MainSpriteFileName = ModUtil.WeaponPath + name + "_Main";
-            BladeSpriteFileName = ModUtil.WeaponPath + name + "_Blade";
-            SubSpriteFileName = ModUtil.WeaponPath + name + "_Sub";
-            HeadSpriteFileName = ModUtil.WeaponPath + name + "_Head";
+            IconFileName = EAssetType.Weapon.ToPath(name);
+            MainSpriteFileName = EAssetType.Weapon.ToPath(name + "_Main");
+            BladeSpriteFileName = EAssetType.Weapon.ToPath(name + "_Blade");
+            SubSpriteFileName = EAssetType.Weapon.ToPath(name + "_Sub");
+            HeadSpriteFileName = EAssetType.Weapon.ToPath(name + "_Head");
             return this;
         }
         public string Name { get; internal set; }

@@ -20,19 +20,6 @@ namespace MiraItemMod.Utilities
     {
         public static readonly List<string> PlanetDamageIds = new List<string> { "Charm_Planet_Black", "Charm_Planet_Yellow", "Charm_Planet_White", "Charm_Planet_Red", "Charm_Planet_Blue", "Charm_Planet_Sky", "Charm_Planet_Gray" };
 
-        public static readonly string ItemPath = "Item\\";
-        public static readonly string ItemCategoryPath = "ItemCategory\\";
-        public static readonly string MiraclePath = "Miracle\\";
-        public static readonly string EffectHUDPath = "EffectHUD\\";
-        public static readonly string MiscPath = "Misc\\";
-        public static readonly string ProjectilePath = "Projectile\\";
-        public static readonly string UIPath = "UI\\";
-        public static readonly string WeaponPath = "Weapon\\";
-        public static readonly string PassivePath = "Passive\\";
-        public static readonly string KeywordPath = "Keyword\\";
-        public static readonly string LocalizationPath = "Localization\\";
-        public static readonly string UnitPath = "Unit\\";
-
         /// <summary>
         /// 「ToFileName」を「to_file_name」に変換する
         /// </summary>

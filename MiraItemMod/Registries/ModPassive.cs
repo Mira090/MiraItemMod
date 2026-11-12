@@ -18,11 +18,11 @@ namespace MiraItemMod.Registries
             Name = name;
             aName = new LocalizedString($"Passive_{name}_Name");
             aDescription = new LocalizedString($"Passive_{name}_Description");
-            IconImagePath = ModUtil.PassivePath + name;
-            Add1ButtonImagePath = ModUtil.PassivePath + name + "_1";
-            Add5ButtonImagePath = ModUtil.PassivePath + name + "_5";
-            AddMinus1ButtonImagePath = ModUtil.PassivePath + name + "_1M";
-            AddMinus5ButtonImagePath = ModUtil.PassivePath + name + "_5M";
+            IconImagePath = EAssetType.Passive.ToPath(name);
+            Add1ButtonImagePath = EAssetType.Passive.ToPath(name + "_1");
+            Add5ButtonImagePath = EAssetType.Passive.ToPath(name + "_5");
+            AddMinus1ButtonImagePath = EAssetType.Passive.ToPath(name + "_1M");
+            AddMinus5ButtonImagePath = EAssetType.Passive.ToPath(name + "_5M");
             MainColor = mainColor;
             AddStats = stats;
             return this;

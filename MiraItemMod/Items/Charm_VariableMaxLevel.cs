@@ -99,26 +99,26 @@ namespace MiraItemMod.Items
             public static void Init()
             {
                 if (StargazeTier == null)
-                    StargazeTier = AssetLoader.LoadSprite(ModUtil.UIPath + "Tier");
+                    StargazeTier = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Tier"));
                 if (StargazeTierDisable == null)
-                    StargazeTierDisable = AssetLoader.LoadSprite(ModUtil.UIPath + "Tier_disable");
+                    StargazeTierDisable = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Tier_disable"));
                 if (StargazeTierVirtual == null)
-                    StargazeTierVirtual = AssetLoader.LoadSprite(ModUtil.UIPath + "Tier_virtual");
+                    StargazeTierVirtual = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Tier_virtual"));
                 if (StargazeTierEnchant == null)
-                    StargazeTierEnchant = AssetLoader.LoadSprite(ModUtil.UIPath + "Tier_Enchant");
+                    StargazeTierEnchant = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Tier_Enchant"));
                 if (StargazeTierEnchantVirtual == null)
-                    StargazeTierEnchantVirtual = AssetLoader.LoadSprite(ModUtil.UIPath + "Tier_EnchantVirtual");
+                    StargazeTierEnchantVirtual = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Tier_EnchantVirtual"));
 
                 if (JewelryTier == null)
-                    JewelryTier = AssetLoader.LoadSprite(ModUtil.UIPath + "JewelryTier");
+                    JewelryTier = AssetLoader.LoadSprite(EAssetType.UI.ToPath("JewelryTier"));
                 if (JewelryTierDisable == null)
-                    JewelryTierDisable = AssetLoader.LoadSprite(ModUtil.UIPath + "JewelryTier_disable");
+                    JewelryTierDisable = AssetLoader.LoadSprite(EAssetType.UI.ToPath("JewelryTier_disable"));
                 if (JewelryTierVirtual == null)
-                    JewelryTierVirtual = AssetLoader.LoadSprite(ModUtil.UIPath + "JewelryTier_virtual");
+                    JewelryTierVirtual = AssetLoader.LoadSprite(EAssetType.UI.ToPath("JewelryTier_virtual"));
                 if (JewelryTierEnchant == null)
-                    JewelryTierEnchant = AssetLoader.LoadSprite(ModUtil.UIPath + "JewelryTier_Enchant");
+                    JewelryTierEnchant = AssetLoader.LoadSprite(EAssetType.UI.ToPath("JewelryTier_Enchant"));
                 if (JewelryTierEnchantVirtual == null)
-                    JewelryTierEnchantVirtual = AssetLoader.LoadSprite(ModUtil.UIPath + "JewelryTier_EnchantVirtual");
+                    JewelryTierEnchantVirtual = AssetLoader.LoadSprite(EAssetType.UI.ToPath("JewelryTier_EnchantVirtual"));
             }
             static void Postfix(int maxTier, int currentTier, int virtualTierOffset, int enchant, UI_CharmTierDisplay __instance)
             {

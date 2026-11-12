@@ -64,7 +64,7 @@ namespace MiraItemMod.Units
                 {
                     var timeline = new AnimationSet.StateInfo.SpriteKeyFrame();
                     timeline.frameIdx = time.frameIdx;
-                    timeline.sprite = AssetLoader.LoadSpriteForUnit(Path.Combine(ModUtil.UnitPath, name, time.sprite));
+                    timeline.sprite = AssetLoader.LoadSpriteForUnit(EAssetType.Unit.ToPath(name, time.sprite));
                     info.timeline.Add(timeline);
                 }
 

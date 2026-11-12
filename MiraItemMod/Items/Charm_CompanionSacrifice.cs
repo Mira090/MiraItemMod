@@ -22,7 +22,7 @@ namespace MiraItemMod.Items
         }
         public void Start()
         {
-            iconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Companion_Charm");
+            iconSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("Companion_Charm"));
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

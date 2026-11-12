@@ -25,7 +25,7 @@ namespace MiraItemMod.Registries
         {
             Name = name;
             LocalizedName = new LocalizedString("Miracle_" + name + "_Name");
-            MiracleImageFileName = ModUtil.MiraclePath + name;
+            MiracleImageFileName = EAssetType.Miracle.ToPath(name);
             Id = name;
             Tier = Miracle.ETier.Tier1;
             GiveItem = Miracle.EItemGiveType.GiveItem;

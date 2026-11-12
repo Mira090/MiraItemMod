@@ -28,7 +28,7 @@ namespace MiraItemMod.Items
         public Sprite bulletSprite;
         private void Start()
         {
-            bulletSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "GrimoireBullet");
+            bulletSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("GrimoireBullet"));
         }
 
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)

@@ -2967,28 +2967,28 @@ namespace MiraItemMod
         #endregion
 
         #region SpriteFxs
-        public static ModSpriteFx DaggerIceAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing1Fx_Ice", "DaggerSwing1Fx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Attack1_", 3);
-        public static ModSpriteFx DaggerIceAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing2Fx_Ice", "DaggerSwing2Fx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Attack2_", 3);
-        public static ModSpriteFx DaggerIceAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing3Fx_Ice", "DaggerSwing3Fx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Attack3_", 3);
-        public static ModSpriteFx DaggerIceAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing4Fx_Ice", "DaggerSwing4Fx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Attack4_", 3);
-        public static ModSpriteFx DaggerIceAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing5Fx_Ice", "DaggerSwing5Fx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Attack5_", 4);
-        public static ModSpriteFx DaggerIceDashFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerDashFx_Ice", "DaggerDashFx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_DashAttack_", 2);
-        public static ModSpriteFx DaggerIceParryFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerParryFx_Ice", "DaggerParryFx", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_ParryAttack_", 6).SetCopyPivot();
-        public static ModSpriteFx DaggerIceFuryFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerFuryFx_Ice", "DaggerFuryFx_Stack", $"{ModUtil.WeaponPath}Dagger_Ice\\Weapon_Dagger_Fury0_", 6);
-        public static ModSpriteFx StaffSickleAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx1_Sickle", "StaffSwingFx_Attack1", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack1_", 8).SetFps(20);
-        public static ModSpriteFx StaffSickleAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx2_Sickle", "StaffSwingFx_Attack2", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack2_", 7).SetFps(20);
-        public static ModSpriteFx StaffSickleAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx3_Sickle", "StaffSwingFx_Attack2", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack3_", 7).SetFps(20);
-        public static ModSpriteFx StaffSickleAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx4_Sickle", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack4_", 5).SetFps(20);
-        public static ModSpriteFx StaffSickleAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx5_Sickle", "StaffSwingFx_Attack1", $"{ModUtil.WeaponPath}Staff_Sickle\\Weapon_Staff_Attack5_", 8).SetFps(20);
-        public static ModSpriteFx StaffFlagCannonAttackFx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx_FlagCannon", "StaffSwingFx_Attack3", $"{ModUtil.WeaponPath}Staff_Cannon\\Weapon_Staff_Attack4_", 7).SetFps(30);
-        public static ModSpriteFx KatanaPlasmaAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_0", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning1(M)_", 5).SetFps(20);
-        public static ModSpriteFx KatanaPlasmaAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_1", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning2(M)_", 6).SetFps(20);
-        public static ModSpriteFx KatanaPlasmaAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_2", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_Attack_Lightning3(M)_", 8).SetFps(20);
-        //public static ModSpriteFx KatanaFireSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Fire", "KatanaSwingSheathAttackFx_Fire0", $"{ModUtil.WeaponPath}Katana_Plasma\\Weapon_Katana_SheathAttack_Fire0_", 10).SetFps(20);
-        public static ModSpriteFx KatanaCooldownAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_0", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning1(M)_", 5).SetFps(20);
-        public static ModSpriteFx KatanaCooldownAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_1", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning2(M)_", 6).SetFps(20);
-        public static ModSpriteFx KatanaCooldownAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_2", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_Attack_Lightning3(M)_", 8).SetFps(20);
-        public static ModSpriteFx KatanaIceSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Ice", "KatanaSwingSheathAttackFx_Fire0", $"{ModUtil.WeaponPath}Katana_Cooldown\\Weapon_Katana_SheathAttack_Fire0_", 8).SetFps(20);
+        public static ModSpriteFx DaggerIceAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing1Fx_Ice", "DaggerSwing1Fx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Attack1_"), 3);
+        public static ModSpriteFx DaggerIceAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing2Fx_Ice", "DaggerSwing2Fx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Attack2_"), 3);
+        public static ModSpriteFx DaggerIceAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing3Fx_Ice", "DaggerSwing3Fx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Attack3_"), 3);
+        public static ModSpriteFx DaggerIceAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing4Fx_Ice", "DaggerSwing4Fx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Attack4_"), 3);
+        public static ModSpriteFx DaggerIceAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("DaggerSwing5Fx_Ice", "DaggerSwing5Fx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Attack5_"), 4);
+        public static ModSpriteFx DaggerIceDashFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerDashFx_Ice", "DaggerDashFx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_DashAttack_"), 2);
+        public static ModSpriteFx DaggerIceParryFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerParryFx_Ice", "DaggerParryFx", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_ParryAttack_"), 6).SetCopyPivot();
+        public static ModSpriteFx DaggerIceFuryFx { get; } = ModSpriteFx.CreateSpriteFx("DaggerFuryFx_Ice", "DaggerFuryFx_Stack", EAssetType.Weapon.ToPath("Dagger_Ice", "Weapon_Dagger_Fury0_"), 6);
+        public static ModSpriteFx StaffSickleAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx1_Sickle", "StaffSwingFx_Attack1", EAssetType.Weapon.ToPath("Staff_Sickle", "Weapon_Staff_Attack1_"), 8).SetFps(20);
+        public static ModSpriteFx StaffSickleAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx2_Sickle", "StaffSwingFx_Attack2", EAssetType.Weapon.ToPath("Staff_Sickle", "Weapon_Staff_Attack2_"), 7).SetFps(20);
+        public static ModSpriteFx StaffSickleAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx3_Sickle", "StaffSwingFx_Attack2", EAssetType.Weapon.ToPath("Staff_Sickle", "Weapon_Staff_Attack3_"), 7).SetFps(20);
+        public static ModSpriteFx StaffSickleAttack4Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx4_Sickle", "StaffSwingFx_Attack3", EAssetType.Weapon.ToPath("Staff_Sickle", "Weapon_Staff_Attack4_"), 5).SetFps(20);
+        public static ModSpriteFx StaffSickleAttack5Fx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx5_Sickle", "StaffSwingFx_Attack1", EAssetType.Weapon.ToPath("Staff_Sickle", "Weapon_Staff_Attack5_"), 8).SetFps(20);
+        public static ModSpriteFx StaffFlagCannonAttackFx { get; } = ModSpriteFx.CreateSpriteFx("StaffSwing123Fx_FlagCannon", "StaffSwingFx_Attack3", EAssetType.Weapon.ToPath("Staff_Cannon", "Weapon_Staff_Attack4_"), 7).SetFps(30);
+        public static ModSpriteFx KatanaPlasmaAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_0", EAssetType.Weapon.ToPath("Katana_Plasma", "Weapon_Katana_Attack_Lightning1(M)_"), 5).SetFps(20);
+        public static ModSpriteFx KatanaPlasmaAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_1", EAssetType.Weapon.ToPath("Katana_Plasma", "Weapon_Katana_Attack_Lightning2(M)_"), 6).SetFps(20);
+        public static ModSpriteFx KatanaPlasmaAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Plasma", "KatanaSwingBasicAttackFx_Lightning_2", EAssetType.Weapon.ToPath("Katana_Plasma", "Weapon_Katana_Attack_Lightning3(M)_"), 8).SetFps(20);
+        //public static ModSpriteFx KatanaFireSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Fire", "KatanaSwingSheathAttackFx_Fire0", EAssetType.Weapon.ToPath("Katana_Plasma", "Weapon_Katana_SheathAttack_Fire0_", 10).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack1Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing1Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_0", EAssetType.Weapon.ToPath("Katana_Cooldown", "Weapon_Katana_Attack_Lightning1(M)_"), 5).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack2Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing2Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_1", EAssetType.Weapon.ToPath("Katana_Cooldown", "Weapon_Katana_Attack_Lightning2(M)_"), 6).SetFps(20);
+        public static ModSpriteFx KatanaCooldownAttack3Fx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwing3Fx_Cooldown", "KatanaSwingBasicAttackFx_Lightning_2", EAssetType.Weapon.ToPath("Katana_Cooldown", "Weapon_Katana_Attack_Lightning3(M)_"), 8).SetFps(20);
+        public static ModSpriteFx KatanaIceSpecialAttackFx { get; } = ModSpriteFx.CreateSpriteFx("KatanaSwingSpecialFx_Ice", "KatanaSwingSheathAttackFx_Fire0", EAssetType.Weapon.ToPath("Katana_Cooldown", "Weapon_Katana_SheathAttack_Fire0_"), 8).SetFps(20);
 
         public static ModSpriteFx[] KatanaPlasmaAttack => new ModSpriteFx[] { KatanaPlasmaAttack1Fx, KatanaPlasmaAttack2Fx, KatanaPlasmaAttack3Fx };
         public static ModSpriteFx[] KatanaCooldownAttack => new ModSpriteFx[] { KatanaCooldownAttack1Fx, KatanaCooldownAttack2Fx, KatanaCooldownAttack3Fx };
@@ -3005,10 +3005,6 @@ namespace MiraItemMod
             TreeShopItems.NewCharmDrunk, TreeShopItems.NewCharmBond1, ModTreeShopItem.ELinePos.Center, 7).SetIcon(() => CustomSpriteAsset.TreeIconArtifact);
         public static ModTreeShopItem NewCharmSacrifice { get; } = ModTreeShopItem.CreateTreeShopItem("NewCharm_Sacrifice", "NewCharm_Sacrifice",
             TreeShopItems.NewCharmSacrifice, TreeShopItems.NewCharmMagic2, ModTreeShopItem.ELinePos.Center, 5).SetIcon(() => CustomSpriteAsset.TreeIconArtifactSacrifice);
-        
-        public static Sprite IconInWorldPotion { get; internal set; }
-        public static Sprite IconInWorldCharm { get; internal set; }
-        public static Sprite IconInWorldTablet { get; internal set; }
 
         public static EventReference DefaultEnableSound { get; internal set; }
 
@@ -3095,10 +3091,6 @@ namespace MiraItemMod
 
         public static void Init()
         {
-            IconInWorldCharm = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_Charm");
-            IconInWorldTablet = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_TabletStone");
-            IconInWorldPotion = AssetLoader.LoadSprite(ModUtil.MiscPath + "ItemInWorld_All");
-
             var type = typeof(Data);
             var pros = type.GetProperties(BindingFlags.Static | BindingFlags.Public).Where(p => p.PropertyType.IsSubclassOf(typeof(ModItem)));
             int id = GetFirstModId();

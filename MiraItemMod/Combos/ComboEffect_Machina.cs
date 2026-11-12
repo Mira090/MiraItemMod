@@ -203,11 +203,11 @@ namespace MiraItemMod.Combos
             {
                 if(Gear1Sprite == null)
                 {
-                    Gear1Sprite = AssetLoader.LoadSprite(ModUtil.UIPath + "Gear1");
+                    Gear1Sprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Gear1"));
                 }
                 if(Gear2Sprite == null)
                 {
-                    Gear2Sprite = AssetLoader.LoadSprite(ModUtil.UIPath + "Gear2");
+                    Gear2Sprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("Gear2"));
                 }
                 if (!HasGearImage(__instance))
                 {
@@ -250,9 +250,9 @@ namespace MiraItemMod.Combos
         public Sprite DemolitionSlotSprite;
         private void Awake()
         {
-            NormalSlotSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0");
-            MachinaSlotSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0_Machina");
-            DemolitionSlotSprite = AssetLoader.LoadSprite(ModUtil.UIPath + "InventorySlot0_Demolition");
+            NormalSlotSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot0"));
+            MachinaSlotSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot0_Machina"));
+            DemolitionSlotSprite = AssetLoader.LoadSprite(EAssetType.UI.ToPath("InventorySlot0_Demolition"));
         }
         public void EnableGear(UI_NewInventoryIcon icon, bool isDemolition)
         {

@@ -25,7 +25,7 @@ namespace MiraItemMod.Registries
             hud.Id = name.ToSephiriaUpperId();
             hud.LocalizedName = new LocalizedString("EffectHUD_" + name + "_Name");
             hud.FlavorText = new LocalizedString("EffectHUD_" + name + "_FlavorText");
-            hud.IconFileName = ModUtil.EffectHUDPath + name;
+            hud.IconFileName = EAssetType.EffectHUD.ToPath(name);
             hud.HasStackText = hasStackText;
             hud.FillMethod = fill;
             return hud;
@@ -45,7 +45,7 @@ namespace MiraItemMod.Registries
             hud.Id = name.ToSephiriaUpperId();
             hud.LocalizedName = new LocalizedString("EffectHUD_" + name + "_Name");
             hud.FlavorText = new LocalizedString("EffectHUD_" + name + "_FlavorText");
-            hud.IconFileName = ModUtil.EffectHUDPath + name;
+            hud.IconFileName = EAssetType.EffectHUD.ToPath(name);
             hud.HasStackText = hasStackText;
             hud.FillMethod = fill;
             return hud;
@@ -85,7 +85,7 @@ namespace MiraItemMod.Registries
             }
             var rect = prefab.transform as RectTransform;
             var icon = rect.GetChild(1).GetComponent<Image>();//Icon
-            icon.sprite = (Icon ?? AssetLoader.LoadSprite(IconFileName)) ?? AssetLoader.LoadSprite(ModUtil.EffectHUDPath + "Empty");
+            icon.sprite = (Icon ?? AssetLoader.LoadSprite(IconFileName)) ?? DefaultAssets.EmptyIcon;
             ResourcePrefab = prefab;
         }
         public EffectHUDEntity CreateEntity()

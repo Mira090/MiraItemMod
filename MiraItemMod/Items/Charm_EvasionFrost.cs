@@ -18,7 +18,7 @@ namespace MiraItemMod.Items
         public Sprite iconSprite;
         public void Start()
         {
-            iconSprite = AssetLoader.LoadSprite(ModUtil.MiscPath + "Frost_Charm");
+            iconSprite = AssetLoader.LoadSprite(EAssetType.Misc.ToPath("Frost_Charm"));
         }
         public override Loc.KeywordValue[] BuildKeywords(UnitAvatar avatar, int level, int virtualLevelOffset, bool showAllLevel, bool ignoreAvatarStatus)
         {

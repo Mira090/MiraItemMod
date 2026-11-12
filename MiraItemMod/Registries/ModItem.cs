@@ -18,7 +18,7 @@ namespace MiraItemMod.Registries
             ItemType = type;
             ItemEntityName = "_" + name;
             ResourcePrefabName = ItemTypeString + "-" + name;
-            IconFileName = ModUtil.ItemPath + name;
+            IconFileName = EAssetType.Item.ToPath(name);
             return this;
         }
         public ItemEntity ItemEntity { get; internal set; }
@@ -106,9 +106,9 @@ namespace MiraItemMod.Registries
             entity.icon = Icon ?? AssetLoader.LoadSprite(IconFileName);
             entity.iconInWorld = IconInWorld ?? ItemType switch
             {
-                EItemType.Charm => Data.IconInWorldCharm,
-                EItemType.StoneTablet => Data.IconInWorldTablet,
-                _ => Data.IconInWorldPotion,
+                EItemType.Charm => DefaultAssets.IconInWorldCharm,
+                EItemType.StoneTablet => DefaultAssets.IconInWorldTablet,
+                _ => DefaultAssets.IconInWorldPotion,
             };
             entity.cannotBeReward = CannotBeReward;
             entity.cannotThrow = CannotThrow;

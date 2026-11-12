@@ -31,11 +31,11 @@ namespace MiraItemMod.Registries
             CategoryName = new LocalizedString("ItemCategory_" + name);
             ResourcePrefabName = "ItemCategory" + "-" + name;
             FruitName = new LocalizedString("ItemCategory_" + name + "_Fruit");
-            IconFileName = ModUtil.ItemCategoryPath + name;
+            IconFileName = EAssetType.ItemCategory.ToPath(name);
             DefaultEffect = new LocalizedString();
             Id = name.ToSephiriaUpperId();
-            IconFruitFileName = ModUtil.ItemCategoryPath + name + "_Fruit";
-            IconFruitIceFileName = ModUtil.ItemCategoryPath + name + "_FruitIce";
+            IconFruitFileName = EAssetType.ItemCategory.ToPath(name + "_Fruit");
+            IconFruitIceFileName = EAssetType.ItemCategory.ToPath(name + "_FruitIce");
             return this;
         }
         public string Name { get; internal set; }
