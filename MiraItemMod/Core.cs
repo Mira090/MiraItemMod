@@ -81,7 +81,7 @@ namespace MiraItemMod
                 IsInitialized = true;
                 Instance = this;
 
-                ModPatches = new Harmony("com.Mira.MiraItemMod");
+                ModPatches = new Harmony(Context.Definition.ModId);
                 ModPatches.PatchAll();
 
                 ConfigManager.Init(this);
