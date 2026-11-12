@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace MiraItemMod.Registries
 {
+    [Obsolete]
     public class ModAssetId : MonoBehaviour
     {
         public static readonly Dictionary<uint, GameObject> CustomNetworkPrefabs = new Dictionary<uint, GameObject>();
