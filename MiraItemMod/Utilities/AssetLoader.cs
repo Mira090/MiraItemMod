@@ -40,6 +40,7 @@ namespace MiraItemMod.Utilities
                 return string.Empty;
             }
         }
+        [Obsolete]
         public static string GetAssetsPath(string name)
         {
             string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
@@ -48,6 +49,7 @@ namespace MiraItemMod.Utilities
             var path = dllDirectory + @"\Assets\" + name + ".png";
             return path;
         }
+        [Obsolete]
         public static string GetAssetsFolder(string name)
         {
             string dllPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
