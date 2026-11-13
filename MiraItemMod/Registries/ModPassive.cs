@@ -19,6 +19,7 @@ namespace MiraItemMod.Registries
             aName = new LocalizedString($"Passive_{name}_Name");
             aDescription = new LocalizedString($"Passive_{name}_Description");
             IconImagePath = EAssetType.Passive.ToPath(name);
+            SmallIconPath = EAssetType.Passive.ToPath(name + "_Icon");
             Add1ButtonImagePath = EAssetType.Passive.ToPath(name + "_1");
             Add5ButtonImagePath = EAssetType.Passive.ToPath(name + "_5");
             AddMinus1ButtonImagePath = EAssetType.Passive.ToPath(name + "_1M");
@@ -32,8 +33,9 @@ namespace MiraItemMod.Registries
         public int MaxLevel { get; internal set; } = 20;
         public LocalizedString aName { get; internal set; }
         public LocalizedString aDescription { get; internal set; }
-        public bool isDefault { get; internal set; } = true;
+        public bool IsDefault { get; internal set; } = true;
         public string IconImagePath { get; internal set; }
+        public string SmallIconPath { get; internal set; }
         public string Add1ButtonImagePath { get; internal set; }
         public string Add5ButtonImagePath { get; internal set; }
         public string AddMinus1ButtonImagePath { get; internal set; }
@@ -57,13 +59,14 @@ namespace MiraItemMod.Registries
         public PassiveEntity CreatePassiveEntity()
         {
             var entity = ScriptableObject.CreateInstance<PassiveEntity>();
-            entity.name = Name;
+            entity.name = Id + "_" + Name;
             entity.id = Id;
             entity.maxLevel = MaxLevel;
             entity.aName = aName;
             entity.aDescription = aDescription;
-            entity.isDefault = isDefault;
+            entity.isDefault = IsDefault;
             entity.iconImage = AssetLoader.LoadSprite(IconImagePath);
+            entity.smallIcon = AssetLoader.LoadSprite(SmallIconPath);
             entity.add1ButtonImage = AssetLoader.LoadSprite(Add1ButtonImagePath);
             entity.add5ButtonImage = AssetLoader.LoadSprite(Add5ButtonImagePath);
             entity.addMinus1ButtonImage = AssetLoader.LoadSprite(AddMinus1ButtonImagePath);
