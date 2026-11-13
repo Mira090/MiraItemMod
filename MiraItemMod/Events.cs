@@ -33,9 +33,9 @@ namespace MiraItemMod
         public static event Action<WeaponSimple_Katana> OnSubAttackKatana;
         public static event Action<WeaponSimple_GreatSword> OnSubAttackGreatSword;
         public static event Action<string, uint, int> OnValueRecieved;
-        public static event Action<WeaponControllerSimple, UnitAvatar> OnPreBasicAttack;
-        public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
-        public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
+        //public static event Action<WeaponControllerSimple, UnitAvatar> OnPreBasicAttack;
+        //public static event Action<WeaponControllerSimple, UnitAvatar> OnPreSpecialAttack;
+        //public static event Action<WeaponControllerSimple, UnitAvatar> OnPreDashAttack;
         public static event Action<CharacterBuff> OnAppliedBuff;
         public static event Action OnMiniBossKilled;
 
@@ -771,6 +771,7 @@ namespace MiraItemMod
                 OnSubAttackGreatSword?.Invoke(__instance);
             }
         }
+        /*
         [HarmonyPatch]
         public class WeaponControllerSimplePatch
         {
@@ -835,7 +836,7 @@ namespace MiraItemMod
                 //Core.Logger("PrefixSpecialFullyManual");
                 OnPreSpecialAttack?.Invoke(__instance.owner, __instance.owner.unitAvatar);
             }
-        }
+        }*/
         #endregion
 
         #region アイテムドロップ確率
